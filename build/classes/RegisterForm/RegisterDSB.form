@@ -39,36 +39,35 @@
       <Layout>
         <DimensionLayout dim="0">
           <Group type="103" groupAlignment="1" attributes="0">
-              <Group type="102" attributes="0">
-                  <EmptySpace min="-2" pref="224" max="-2" attributes="0"/>
-                  <Group type="103" groupAlignment="0" attributes="0">
-                      <Component id="login1" alignment="0" min="-2" pref="290" max="-2" attributes="0"/>
-                      <Component id="back" alignment="0" min="-2" pref="290" max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="1" attributes="0">
-                          <Group type="103" groupAlignment="0" attributes="0">
-                              <Component id="contact" alignment="0" min="-2" pref="290" max="-2" attributes="0"/>
-                              <Component id="password" alignment="0" min="-2" pref="290" max="-2" attributes="0"/>
-                              <Component id="cpass" alignment="0" min="-2" pref="290" max="-2" attributes="0"/>
-                              <Component id="jComboBox2" alignment="0" min="-2" pref="290" max="-2" attributes="0"/>
-                              <Component id="jComboBox1" alignment="0" min="-2" pref="290" max="-2" attributes="0"/>
-                          </Group>
-                          <Component id="email" min="-2" pref="290" max="-2" attributes="0"/>
-                          <Component id="username" min="-2" pref="290" max="-2" attributes="0"/>
-                      </Group>
-                  </Group>
-                  <EmptySpace min="-2" pref="243" max="-2" attributes="0"/>
-              </Group>
               <Group type="102" alignment="0" attributes="0">
                   <EmptySpace min="-2" pref="318" max="-2" attributes="0"/>
                   <Component id="jLabel2" min="-2" pref="100" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
+              </Group>
+              <Group type="102" alignment="1" attributes="0">
+                  <EmptySpace min="-2" pref="224" max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                      <Component id="login1" alignment="0" max="32767" attributes="0"/>
+                      <Component id="back" alignment="0" max="32767" attributes="0"/>
+                      <Component id="contact" alignment="0" max="32767" attributes="0"/>
+                      <Component id="password" alignment="0" max="32767" attributes="0"/>
+                      <Component id="cpass" alignment="0" max="32767" attributes="0"/>
+                      <Component id="jComboBox2" alignment="0" max="32767" attributes="0"/>
+                      <Component id="jComboBox1" alignment="0" max="32767" attributes="0"/>
+                      <Component id="email" alignment="0" max="32767" attributes="0"/>
+                      <Component id="username" alignment="0" max="32767" attributes="0"/>
+                      <Component id="jProgressBar1" alignment="0" pref="290" max="32767" attributes="0"/>
+                  </Group>
+                  <EmptySpace min="-2" pref="243" max="-2" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
         <DimensionLayout dim="1">
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" attributes="0">
-                  <EmptySpace min="-2" pref="46" max="-2" attributes="0"/>
+                  <EmptySpace min="-2" pref="12" max="-2" attributes="0"/>
+                  <Component id="jProgressBar1" min="-2" max="-2" attributes="0"/>
+                  <EmptySpace type="separate" max="-2" attributes="0"/>
                   <Component id="jLabel2" min="-2" max="-2" attributes="0"/>
                   <EmptySpace type="unrelated" max="-2" attributes="0"/>
                   <Component id="username" min="-2" pref="32" max="-2" attributes="0"/>
@@ -206,6 +205,8 @@
           <AuxValues>
             <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
           </AuxValues>
+        </Component>
+        <Component class="javax.swing.JProgressBar" name="jProgressBar1">
         </Component>
       </SubComponents>
     </Container>
