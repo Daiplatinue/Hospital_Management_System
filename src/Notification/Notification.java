@@ -89,7 +89,7 @@ public class Notification extends javax.swing.JComponent {
                     dialog.setOpacity(0f);
                     int margin = 10;
                     int y = 0;
-                    if (location == Location.TOP_CENTER) {
+                    if (location == Location.CENTER) {
                         x = fram.getX() + ((fram.getWidth() - dialog.getWidth()) / 2);
                         y = fram.getY();
                         top_to_bot = true;
