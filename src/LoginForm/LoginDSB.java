@@ -50,7 +50,6 @@ public class LoginDSB extends javax.swing.JPanel {
         username = new javax.swing.JTextField();
         password = new javax.swing.JPasswordField();
         login = new javax.swing.JButton();
-        fpass1 = new javax.swing.JLabel();
         fpass2 = new javax.swing.JLabel();
         register = new javax.swing.JButton();
         jSeparator1 = new javax.swing.JSeparator();
@@ -98,9 +97,6 @@ public class LoginDSB extends javax.swing.JPanel {
             }
         });
 
-        fpass1.setFont(new java.awt.Font("Yu Gothic", 0, 11)); // NOI18N
-        fpass1.setText("Don't Have An Account?");
-
         fpass2.setFont(new java.awt.Font("Yu Gothic", 0, 11)); // NOI18N
         fpass2.setText("FORGOT PASSWORD");
         fpass2.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -113,13 +109,18 @@ public class LoginDSB extends javax.swing.JPanel {
         });
 
         register.setFont(new java.awt.Font("Yu Gothic", 0, 11)); // NOI18N
-        register.setText("REGISTER");
+        register.setText("CREATE AN ACCOUNT");
         register.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 registerMouseEntered(evt);
             }
             public void mouseExited(java.awt.event.MouseEvent evt) {
                 registerMouseExited(evt);
+            }
+        });
+        register.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                registerActionPerformed(evt);
             }
         });
 
@@ -131,8 +132,8 @@ public class LoginDSB extends javax.swing.JPanel {
 
         icon.setFont(new java.awt.Font("Yu Gothic", 0, 11)); // NOI18N
         icon.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/g(1).png"))); // NOI18N
-        icon.setText("GOOGLE");
-        jPanel2.add(icon, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 20, -1, 30));
+        icon.setText("SIGN IN WITH GOOGLE");
+        jPanel2.add(icon, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 20, -1, 30));
 
         google.setFont(new java.awt.Font("Yu Gothic", 0, 11)); // NOI18N
         google.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -161,9 +162,6 @@ public class LoginDSB extends javax.swing.JPanel {
                             .addComponent(password, javax.swing.GroupLayout.PREFERRED_SIZE, 290, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(login, javax.swing.GroupLayout.PREFERRED_SIZE, 290, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(fpass2)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGap(90, 90, 90)
-                                .addComponent(fpass1))
                             .addComponent(register, javax.swing.GroupLayout.PREFERRED_SIZE, 290, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(70, 70, 70)
@@ -190,9 +188,7 @@ public class LoginDSB extends javax.swing.JPanel {
                 .addComponent(login, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(10, 10, 10)
                 .addComponent(fpass2)
-                .addGap(31, 31, 31)
-                .addComponent(fpass1)
-                .addGap(1, 1, 1)
+                .addGap(51, 51, 51)
                 .addComponent(register, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(26, 26, 26)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -268,6 +264,10 @@ public class LoginDSB extends javax.swing.JPanel {
         mouseExited(evt);
     }//GEN-LAST:event_googleMouseExited
 
+    private void registerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_registerActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_registerActionPerformed
+
     private boolean loginDB(String user, String pass) {
 
         if (user.isEmpty() || pass.isEmpty()) {
@@ -326,7 +326,6 @@ public class LoginDSB extends javax.swing.JPanel {
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JLabel fpass1;
     private javax.swing.JLabel fpass2;
     private javax.swing.JButton google;
     private javax.swing.JLabel icon;
