@@ -21,6 +21,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
+import java.awt.geom.RoundRectangle2D;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.scene.control.ToggleButton;
@@ -40,11 +41,15 @@ public class LoginDashboard extends javax.swing.JFrame {
     public LoginDashboard() {
         initComponents();
 
+//        setOpacity(0.7f);
+        setLocationRelativeTo(null);
+        setShape(new RoundRectangle2D.Double(0, 0, getWidth(), getHeight(), 20, 20));
+
         back.setFocusable(false);
 
         LoginDSB login = new LoginDSB();
         RegisterDSB register = new RegisterDSB();
-        slide.setAnimate(5);
+        slide.setAnimate(10);
         slide.init(login, register);
         login.addEventRegister(new ActionListener() {
             @Override
@@ -73,9 +78,9 @@ public class LoginDashboard extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBackground(new java.awt.Color(255, 255, 255));
-        setMinimumSize(new java.awt.Dimension(1200, 700));
+        setMinimumSize(new java.awt.Dimension(1300, 800));
         setUndecorated(true);
-        setPreferredSize(new java.awt.Dimension(1200, 700));
+        setPreferredSize(new java.awt.Dimension(1300, 800));
         setResizable(false);
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
@@ -88,7 +93,7 @@ public class LoginDashboard extends javax.swing.JFrame {
                 backActionPerformed(evt);
             }
         });
-        jPanel1.add(back, new org.netbeans.lib.awtextra.AbsoluteConstraints(1070, 40, 90, 30));
+        jPanel1.add(back, new org.netbeans.lib.awtextra.AbsoluteConstraints(1170, 40, 90, 30));
 
         slide.setBackground(new java.awt.Color(255, 255, 255));
         slide.setMinimumSize(new java.awt.Dimension(757, 530));
@@ -102,16 +107,16 @@ public class LoginDashboard extends javax.swing.JFrame {
         );
         slideLayout.setVerticalGroup(
             slideLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 560, Short.MAX_VALUE)
+            .addGap(0, 570, Short.MAX_VALUE)
         );
 
-        jPanel1.add(slide, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 100, 700, 560));
+        jPanel1.add(slide, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 140, 700, 570));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 1200, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 1300, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)

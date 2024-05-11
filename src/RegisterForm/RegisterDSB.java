@@ -1,17 +1,10 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package RegisterForm;
 
+import LoginForm.LoginDashboard;
 import com.formdev.flatlaf.FlatClientProperties;
+import com.formdev.flatlaf.FlatLightLaf;
 import java.awt.event.ActionListener;
 
-/**
- *
- * @author Daiplatinue
- */
 public class RegisterDSB extends javax.swing.JPanel {
 
     public RegisterDSB() {
@@ -247,7 +240,17 @@ public class RegisterDSB extends javax.swing.JPanel {
 
     private void emailMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_emailMouseClicked
     }//GEN-LAST:event_emailMouseClicked
-
+    
+      public static void main(String args[]) {
+        FlatLightLaf.registerCustomDefaultsSource("Style");
+        FlatLightLaf.setup();
+        java.awt.EventQueue.invokeLater(new Runnable() {
+            @Override
+            public void run() {
+                new RegisterDSB().setVisible(true);
+            }
+        });
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton back;
