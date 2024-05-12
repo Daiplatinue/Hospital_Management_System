@@ -43,7 +43,7 @@ public class Model_Menu {
     private MenuType type;
 
     public Icon toIcon() {
-        return new ImageIcon(getClass().getResource("/com/raven/icon/" + icon + ".png"));
+        return new ImageIcon(getClass().getResource("/Icons/" + icon + ".png"));
     }
 
     public static enum MenuType {

@@ -19,7 +19,12 @@ public class Form_2 extends javax.swing.JPanel {
 
     public Form_2() {
         initComponents();
-
+        
+        create.setFocusable(false);
+        remove.setFocusable(false);
+        type.setFocusable(false);
+        gender.setFocusable(false);
+        
         firstname.putClientProperty(FlatClientProperties.TEXT_FIELD_SHOW_CLEAR_BUTTON, true);
         lastname.putClientProperty(FlatClientProperties.TEXT_FIELD_SHOW_CLEAR_BUTTON, true);
         middlename.putClientProperty(FlatClientProperties.TEXT_FIELD_SHOW_CLEAR_BUTTON, true);
@@ -50,12 +55,12 @@ public class Form_2 extends javax.swing.JPanel {
         cpassword = new javax.swing.JTextField();
         email = new javax.swing.JTextField();
         password = new javax.swing.JTextField();
-        jComboBox2 = new javax.swing.JComboBox<>();
-        jComboBox3 = new javax.swing.JComboBox<>();
+        type = new javax.swing.JComboBox<>();
+        gender = new javax.swing.JComboBox<>();
         panel = new javax.swing.JPanel();
         picture = new javax.swing.JLabel();
         remove = new javax.swing.JButton();
-        add1 = new javax.swing.JButton();
+        create = new javax.swing.JButton();
 
         setBackground(new java.awt.Color(250, 250, 250));
         setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -96,13 +101,13 @@ public class Form_2 extends javax.swing.JPanel {
         password.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         add(password, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 330, 350, 30));
 
-        jComboBox2.setFont(new java.awt.Font("Yu Gothic", 0, 12)); // NOI18N
-        jComboBox2.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "ADMIN", "RECEPTIONIST", "PHARMACIST", "PATIENT", "DOCTER" }));
-        add(jComboBox2, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 410, 350, 30));
+        type.setFont(new java.awt.Font("Yu Gothic", 0, 12)); // NOI18N
+        type.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "ADMIN", "RECEPTIONIST", "PHARMACIST", "PATIENT", "DOCTER" }));
+        add(type, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 410, 350, 30));
 
-        jComboBox3.setFont(new java.awt.Font("Yu Gothic", 0, 12)); // NOI18N
-        jComboBox3.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "MALE", "FEMALE", "OTHERS" }));
-        add(jComboBox3, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 450, 350, 30));
+        gender.setFont(new java.awt.Font("Yu Gothic", 0, 12)); // NOI18N
+        gender.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "MALE", "FEMALE", "OTHERS" }));
+        add(gender, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 450, 350, 30));
 
         panel.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -145,14 +150,14 @@ public class Form_2 extends javax.swing.JPanel {
         });
         add(remove, new org.netbeans.lib.awtextra.AbsoluteConstraints(630, 500, 350, -1));
 
-        add1.setFont(new java.awt.Font("Yu Gothic", 0, 12)); // NOI18N
-        add1.setText("CREATE ACCOUNT");
-        add1.addActionListener(new java.awt.event.ActionListener() {
+        create.setFont(new java.awt.Font("Yu Gothic", 0, 12)); // NOI18N
+        create.setText("CREATE ACCOUNT");
+        create.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                add1ActionPerformed(evt);
+                createActionPerformed(evt);
             }
         });
-        add(add1, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 500, 350, -1));
+        add(create, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 500, 350, -1));
     }// </editor-fold>//GEN-END:initComponents
 
     private void panelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_panelMouseClicked
@@ -173,17 +178,8 @@ public class Form_2 extends javax.swing.JPanel {
         }
     }//GEN-LAST:event_pictureMouseClicked
 
-    private void add1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_add1ActionPerformed
-    }//GEN-LAST:event_add1ActionPerformed
-
-    public static void main(String args[]) {
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            @Override
-            public void run() {
-                new Form_2().setVisible(true);
-            }
-        });
-    }
+    private void createActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_createActionPerformed
+    }//GEN-LAST:event_createActionPerformed
 
     public ImageIcon ResizeImage(String imagePath) {
         ImageIcon MyImage = new ImageIcon(imagePath);
@@ -194,12 +190,11 @@ public class Form_2 extends javax.swing.JPanel {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton add1;
     private javax.swing.JTextField cpassword;
+    private javax.swing.JButton create;
     private javax.swing.JTextField email;
     private javax.swing.JTextField firstname;
-    private javax.swing.JComboBox<String> jComboBox2;
-    private javax.swing.JComboBox<String> jComboBox3;
+    private javax.swing.JComboBox<String> gender;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JTextField lastname;
@@ -208,6 +203,7 @@ public class Form_2 extends javax.swing.JPanel {
     private javax.swing.JTextField password;
     private javax.swing.JLabel picture;
     private javax.swing.JButton remove;
+    private javax.swing.JComboBox<String> type;
     private javax.swing.JTextField username;
     // End of variables declaration//GEN-END:variables
 }

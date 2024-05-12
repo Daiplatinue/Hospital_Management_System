@@ -45,7 +45,6 @@ public class LoginDSB extends javax.swing.JPanel {
         jSeparator2 = new javax.swing.JSeparator();
         google = new javax.swing.JButton();
         register = new javax.swing.JButton();
-        jLabel1 = new javax.swing.JLabel();
 
         javax.swing.GroupLayout jLayeredPane1Layout = new javax.swing.GroupLayout(jLayeredPane1);
         jLayeredPane1.setLayout(jLayeredPane1Layout);
@@ -156,11 +155,6 @@ public class LoginDSB extends javax.swing.JPanel {
             }
         });
         jPanel1.add(register, new org.netbeans.lib.awtextra.AbsoluteConstraints(206, 293, 329, 30));
-
-        jLabel1.setFont(new java.awt.Font("sansserif", 0, 24)); // NOI18N
-        jLabel1.setForeground(new java.awt.Color(59, 59, 59));
-        jLabel1.setText("SIGN IN");
-        jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 10, -1, -1));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -308,7 +302,6 @@ public class LoginDSB extends javax.swing.JPanel {
     private javax.swing.JLabel fpass2;
     private javax.swing.JButton google;
     private javax.swing.JLabel icon;
-    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLayeredPane jLayeredPane1;

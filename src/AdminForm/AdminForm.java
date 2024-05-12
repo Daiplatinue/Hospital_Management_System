@@ -3,6 +3,7 @@ package AdminForm;
 import Components.*;
 import Events.*;
 import Forms.*;
+import LoginForm.LoginDashboard;
 import Swing.*;
 import com.formdev.flatlaf.FlatLightLaf;
 import java.awt.*;
@@ -112,16 +113,23 @@ public class AdminForm extends javax.swing.JFrame {
                 } else if (index == 3) {
                     main.show(new Form_4());
                 } else if (index == 4) {
-                    main.show(new Form_5());
-                } else if (index == 5) {
                     main.show(new Form_7());
-                } else if (index == 6) {
+                } else if (index == 5) {
                     main.show(new Form_8());
-                } else if (index == 7) {
+                } else if (index == 6) {
                     main.show(new Form_9());
-                } else if (index == 8) {
-                    System.exit(0);
+                } else if (index == 7) {
+                    UIManager.put("OptionPane.background", Color.white);
+                    UIManager.put("Panel.background", Color.white);
+                    Icon customIcon = new javax.swing.ImageIcon(getClass().getResource("/Images/alert.gif"));
+                    int option = JOptionPane.showOptionDialog(null, "ARE YOU SURE YOU WANT TO LOGOUT?", "WARNING", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE, customIcon, new String[]{"Yes", "No"}, "Yes");
 
+                    if (option == JOptionPane.YES_OPTION) {
+                        new LoginDashboard().setVisible(true);
+                        dispose();
+                    } else {
+
+                    }
                 }
             }
         });

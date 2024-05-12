@@ -36,11 +36,10 @@ public class Menu extends javax.swing.JPanel {
         listMenu1.addItem(new Model_Menu("2", "Create New Account", Model_Menu.MenuType.MENU));
         listMenu1.addItem(new Model_Menu("3", "View Accounts", Model_Menu.MenuType.MENU));
         listMenu1.addItem(new Model_Menu("4", "View Logs", Model_Menu.MenuType.MENU));
-        listMenu1.addItem(new Model_Menu("5", "View Sectors", Model_Menu.MenuType.MENU));
-        listMenu1.addItem(new Model_Menu("6", "Pending Accounts", Model_Menu.MenuType.MENU));
-        listMenu1.addItem(new Model_Menu("7", "Archives", Model_Menu.MenuType.MENU));
-        listMenu1.addItem(new Model_Menu("8", "My Account", Model_Menu.MenuType.MENU));
-        listMenu1.addItem(new Model_Menu("9", "Logout", Model_Menu.MenuType.MENU));
+        listMenu1.addItem(new Model_Menu("5", "Pending Accounts", Model_Menu.MenuType.MENU));
+        listMenu1.addItem(new Model_Menu("6", "Archives", Model_Menu.MenuType.MENU));
+        listMenu1.addItem(new Model_Menu("7", "My Account", Model_Menu.MenuType.MENU));
+        listMenu1.addItem(new Model_Menu("8", "Logout", Model_Menu.MenuType.MENU));
         listMenu1.setForeground(Color.BLACK);
     }
 
