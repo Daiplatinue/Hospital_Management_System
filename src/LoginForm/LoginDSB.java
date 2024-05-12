@@ -1,20 +1,13 @@
 package LoginForm;
 
-import Notification.Notification;
-import RegisterForm.RegisterDSB;
-import com.formdev.flatlaf.FlatClientProperties;
-import com.formdev.flatlaf.FlatLightLaf;
-import java.awt.Color;
-import java.awt.Cursor;
-import java.awt.Rectangle;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.MouseEvent;
-import java.sql.SQLException;
-import javax.swing.Icon;
-import javax.swing.JFrame;
-import javax.swing.JOptionPane;
-import javax.swing.UIManager;
+import AdminForm.*;
+import Notification.*;
+import RegisterForm.*;
+import com.formdev.flatlaf.*;
+import java.awt.*;
+import java.awt.event.*;
+import java.sql.*;
+import javax.swing.*;
 
 public class LoginDSB extends javax.swing.JPanel {
 
@@ -190,12 +183,10 @@ public class LoginDSB extends javax.swing.JPanel {
     }//GEN-LAST:event_fpass2MouseEntered
 
     private void loginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_loginActionPerformed
-
-//        if (loginDB(username.getText(), password.getText())) {
-//            new AdminDSB().setVisible(true);
-//            dispose();
-//        }
-
+        if (loginDB(username.getText(), password.getText())) {
+            new AdminForm().setVisible(true);
+            dispose();
+        }
     }//GEN-LAST:event_loginActionPerformed
 
     private void loginMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_loginMouseExited
@@ -219,7 +210,6 @@ public class LoginDSB extends javax.swing.JPanel {
     }//GEN-LAST:event_usernameMouseClicked
 
     private void googleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_googleActionPerformed
-        // TODO add your handling code here:
     }//GEN-LAST:event_googleActionPerformed
 
     private void googleMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_googleMouseExited
@@ -239,7 +229,6 @@ public class LoginDSB extends javax.swing.JPanel {
     }//GEN-LAST:event_registerMouseExited
 
     private void registerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_registerActionPerformed
-        // TODO add your handling code here:
     }//GEN-LAST:event_registerActionPerformed
 
     public static void main(String args[]) {

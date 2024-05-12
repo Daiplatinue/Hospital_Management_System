@@ -1,37 +1,17 @@
 package LoginForm;
 
-import Notification.Notification;
-import RegisterForm.RegisterDSB;
-import Regulations.Rules;
-import com.formdev.flatlaf.FlatClientProperties;
-import com.formdev.flatlaf.FlatDarkLaf;
-import com.formdev.flatlaf.FlatIntelliJLaf;
-import com.formdev.flatlaf.FlatLightLaf;
-import java.awt.Button;
+import Notification.*;
+import RegisterForm.*;
+import Regulations.*;
+import com.formdev.flatlaf.*;
+import java.awt.*;
 import java.awt.Color;
-import java.awt.Cursor;
-import java.awt.Graphics;
-import java.awt.Graphics2D;
-import java.awt.Image;
-import java.awt.Label;
-import java.awt.Rectangle;
-import java.awt.RenderingHints;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.KeyAdapter;
-import java.awt.event.KeyEvent;
-import java.awt.event.MouseEvent;
-import java.awt.geom.RoundRectangle2D;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import javafx.scene.control.ToggleButton;
-import javax.swing.Icon;
-import javax.swing.ImageIcon;
-import javax.swing.JOptionPane;
-import javax.swing.JTextField;
-import javax.swing.UIManager;
-import javax.swing.UnsupportedLookAndFeelException;
-import javax.swing.plaf.ColorUIResource;
+import java.awt.event.*;
+import java.awt.geom.*;
+import java.util.logging.*;
+import javafx.scene.control.*;
+import javax.swing.*;
+import javax.swing.plaf.*;
 
 public class LoginDashboard extends javax.swing.JFrame {
 
@@ -54,7 +34,6 @@ public class LoginDashboard extends javax.swing.JFrame {
         login.addEventRegister(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent ae) {
-                //  Show register form
                 slide.show(1);
                 register.register();
             }
