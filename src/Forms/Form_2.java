@@ -174,10 +174,6 @@ public class Form_2 extends javax.swing.JPanel {
     }//GEN-LAST:event_pictureMouseClicked
 
     private void add1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_add1ActionPerformed
-        UIManager.put("OptionPane.background", Color.white);
-        UIManager.put("Panel.background", Color.white);
-        Icon customIcon = new javax.swing.ImageIcon(getClass().getResource("/Images/alert.gif"));
-        JOptionPane.showMessageDialog(null, "CREATE ACCOUNT?", "WARNING", JOptionPane.YES_NO_OPTION, customIcon);
     }//GEN-LAST:event_add1ActionPerformed
 
     public static void main(String args[]) {

@@ -114,15 +114,14 @@ public class AdminForm extends javax.swing.JFrame {
                 } else if (index == 4) {
                     main.show(new Form_5());
                 } else if (index == 5) {
-                    main.show(new Form_6());
-                } else if (index == 6) {
                     main.show(new Form_7());
-                } else if (index == 7) {
+                } else if (index == 6) {
                     main.show(new Form_8());
-                } else if (index == 8) {
+                } else if (index == 7) {
                     main.show(new Form_9());
-                } else if (index == 9) {
+                } else if (index == 8) {
                     System.exit(0);
+
                 }
             }
         });
