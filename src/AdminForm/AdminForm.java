@@ -8,6 +8,7 @@ import Swing.*;
 import com.formdev.flatlaf.FlatLightLaf;
 import java.awt.*;
 import java.awt.event.*;
+import java.awt.geom.RoundRectangle2D;
 import javax.swing.*;
 import net.miginfocom.swing.*;
 import org.jdesktop.animation.timing.*;
@@ -22,7 +23,8 @@ public class AdminForm extends javax.swing.JFrame {
 
     public AdminForm() {
         initComponents();
-
+        
+        setShape(new RoundRectangle2D.Double(0, 0, getWidth(), getHeight(), 20, 20));
         layout = new MigLayout("fill", "0[fill]0", "0[fill]0");
         main = new MainForm();
         menu = new MenuLayout();

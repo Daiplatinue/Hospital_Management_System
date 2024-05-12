@@ -53,7 +53,7 @@ public class LoginDashboard extends javax.swing.JFrame {
 
         jPanel1 = new javax.swing.JPanel();
         back = new javax.swing.JButton();
-        slide = new Designs.SlidePanel();
+        slide = new Swing.SlidePanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBackground(new java.awt.Color(255, 255, 255));
@@ -74,22 +74,18 @@ public class LoginDashboard extends javax.swing.JFrame {
         });
         jPanel1.add(back, new org.netbeans.lib.awtextra.AbsoluteConstraints(1170, 40, 90, 30));
 
-        slide.setBackground(new java.awt.Color(255, 255, 255));
-        slide.setMinimumSize(new java.awt.Dimension(757, 530));
-        slide.setPreferredSize(new java.awt.Dimension(757, 530));
-
         javax.swing.GroupLayout slideLayout = new javax.swing.GroupLayout(slide);
         slide.setLayout(slideLayout);
         slideLayout.setHorizontalGroup(
             slideLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 757, Short.MAX_VALUE)
+            .addGap(0, 720, Short.MAX_VALUE)
         );
         slideLayout.setVerticalGroup(
             slideLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 570, Short.MAX_VALUE)
+            .addGap(0, 510, Short.MAX_VALUE)
         );
 
-        jPanel1.add(slide, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 140, 700, 570));
+        jPanel1.add(slide, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 180, 720, 510));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -127,6 +123,6 @@ public class LoginDashboard extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton back;
     private javax.swing.JPanel jPanel1;
-    private Designs.SlidePanel slide;
+    private Swing.SlidePanel slide;
     // End of variables declaration//GEN-END:variables
 }
