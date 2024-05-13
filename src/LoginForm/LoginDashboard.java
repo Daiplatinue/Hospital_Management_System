@@ -82,10 +82,10 @@ public class LoginDashboard extends javax.swing.JFrame {
         );
         slideLayout.setVerticalGroup(
             slideLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 510, Short.MAX_VALUE)
+            .addGap(0, 620, Short.MAX_VALUE)
         );
 
-        jPanel1.add(slide, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 180, 720, 510));
+        jPanel1.add(slide, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 40, 720, 620));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);

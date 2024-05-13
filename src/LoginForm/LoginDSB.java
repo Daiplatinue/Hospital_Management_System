@@ -63,7 +63,7 @@ public class LoginDSB extends javax.swing.JPanel {
         icon.setFont(new java.awt.Font("Yu Gothic", 0, 11)); // NOI18N
         icon.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/google (1).png"))); // NOI18N
         icon.setText("SIGN IN WITH GOOGLE");
-        jPanel1.add(icon, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 390, -1, 30));
+        jPanel1.add(icon, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 393, -1, 30));
 
         jLabel2.setFont(new java.awt.Font("Yu Gothic", 0, 20)); // NOI18N
         jLabel2.setText("SIGN IN");
@@ -137,7 +137,7 @@ public class LoginDSB extends javax.swing.JPanel {
                 googleActionPerformed(evt);
             }
         });
-        jPanel1.add(google, new org.netbeans.lib.awtextra.AbsoluteConstraints(206, 390, 329, 30));
+        jPanel1.add(google, new org.netbeans.lib.awtextra.AbsoluteConstraints(206, 392, 329, 30));
 
         register.setFont(new java.awt.Font("Yu Gothic", 0, 11)); // NOI18N
         register.setText("CREATE AN ACCOUNT");
@@ -160,11 +160,11 @@ public class LoginDSB extends javax.swing.JPanel {
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 715, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 478, Short.MAX_VALUE)
         );
     }// </editor-fold>//GEN-END:initComponents
 
