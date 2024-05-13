@@ -1,24 +1,47 @@
 package Forms;
 
+import Database.DBConnection;
+import Database.xternal_db;
+import RegisterForm.RegisterDSB;
 import com.formdev.flatlaf.FlatClientProperties;
+import java.awt.Color;
 import java.awt.Image;
 import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.sql.Blob;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import jnafilechooser.api.JnaFileChooser;
+import net.proteanit.sql.DbUtils;
 
-public class Form_3 extends javax.swing.JPanel {
-    
-    public Form_3() {
+public final class Form_3 extends javax.swing.JPanel {
+
+    public Form_3() throws IOException {
         initComponents();
+        displayData();
+        imageDisplay();
+
+        if (icon1.getText().equals("") || name1.getText().equals("") || type1.getText().equals("") || status1.getText().equals("")) {
+
+        } else {
+            panel1.setBackground(Color.LIGHT_GRAY);
+        }
+
         scroll1.getVerticalScrollBar().setUnitIncrement(16);
         search.setFocusable(false);
         print.setFocusable(false);
         printableTable.setFocusable(false);
         changeView.setFocusable(false);
-        
+
         search.putClientProperty(FlatClientProperties.TEXT_FIELD_SHOW_CLEAR_BUTTON, true);
         search.putClientProperty(FlatClientProperties.PLACEHOLDER_TEXT, "SEARCH");
-        
+
         firstname.putClientProperty(FlatClientProperties.TEXT_FIELD_SHOW_CLEAR_BUTTON, true);
         lastname.putClientProperty(FlatClientProperties.TEXT_FIELD_SHOW_CLEAR_BUTTON, true);
         middlename.putClientProperty(FlatClientProperties.TEXT_FIELD_SHOW_CLEAR_BUTTON, true);
@@ -26,7 +49,7 @@ public class Form_3 extends javax.swing.JPanel {
         email.putClientProperty(FlatClientProperties.TEXT_FIELD_SHOW_CLEAR_BUTTON, true);
         password.putClientProperty(FlatClientProperties.TEXT_FIELD_SHOW_CLEAR_BUTTON, true);
         cpassword.putClientProperty(FlatClientProperties.TEXT_FIELD_SHOW_CLEAR_BUTTON, true);
-        
+
         firstname.putClientProperty(FlatClientProperties.PLACEHOLDER_TEXT, "FIRST NAME");
         lastname.putClientProperty(FlatClientProperties.PLACEHOLDER_TEXT, "LAST NAME");
         middlename.putClientProperty(FlatClientProperties.PLACEHOLDER_TEXT, "MIDDLE NAME");
@@ -35,7 +58,7 @@ public class Form_3 extends javax.swing.JPanel {
         password.putClientProperty(FlatClientProperties.PLACEHOLDER_TEXT, "PASSWORD");
         cpassword.putClientProperty(FlatClientProperties.PLACEHOLDER_TEXT, "CONFIRM PASSWORD");
     }
-    
+
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -44,11 +67,10 @@ public class Form_3 extends javax.swing.JPanel {
         pane = new javax.swing.JTabbedPane();
         scroll1 = new javax.swing.JScrollPane();
         scrols = new javax.swing.JPanel();
-        jPanel17 = new javax.swing.JPanel();
+        panel1 = new javax.swing.JPanel();
         icon1 = new javax.swing.JLabel();
         status1 = new javax.swing.JLabel();
         name1 = new javax.swing.JLabel();
-        gender1 = new javax.swing.JLabel();
         type1 = new javax.swing.JLabel();
         jPanel18 = new javax.swing.JPanel();
         jPanel19 = new javax.swing.JPanel();
@@ -85,8 +107,6 @@ public class Form_3 extends javax.swing.JPanel {
         add8 = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
         changeView = new javax.swing.JButton();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        table1 = new Swing.Table();
         search = new javax.swing.JTextField();
         jLabel1 = new javax.swing.JLabel();
         print = new javax.swing.JButton();
@@ -96,6 +116,8 @@ public class Form_3 extends javax.swing.JPanel {
         jLabel7 = new javax.swing.JLabel();
         jLabel9 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        ac_db = new javax.swing.JTable();
 
         jPanel11.setBackground(new java.awt.Color(255, 255, 255));
         jPanel11.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -106,37 +128,32 @@ public class Form_3 extends javax.swing.JPanel {
         scrols.setBackground(new java.awt.Color(255, 255, 255));
         scrols.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jPanel17.addMouseListener(new java.awt.event.MouseAdapter() {
+        panel1.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jPanel17MouseClicked(evt);
+                panel1MouseClicked(evt);
             }
         });
-        jPanel17.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+        panel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         icon1.setText("asd");
-        jPanel17.add(icon1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 260, 170));
+        panel1.add(icon1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 260, 170));
 
         status1.setFont(new java.awt.Font("Yu Gothic", 0, 12)); // NOI18N
         status1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         status1.setText("asd");
-        jPanel17.add(status1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 300, 260, 20));
+        panel1.add(status1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 300, 260, 20));
 
         name1.setFont(new java.awt.Font("Yu Gothic", 0, 12)); // NOI18N
         name1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         name1.setText("asd");
-        jPanel17.add(name1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 190, 260, 20));
-
-        gender1.setFont(new java.awt.Font("Yu Gothic", 0, 12)); // NOI18N
-        gender1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        gender1.setText("asd");
-        jPanel17.add(gender1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 220, 260, 20));
+        panel1.add(name1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 190, 260, 20));
 
         type1.setFont(new java.awt.Font("Yu Gothic", 0, 12)); // NOI18N
         type1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         type1.setText("asd");
-        jPanel17.add(type1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 270, 260, 20));
+        panel1.add(type1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 270, 260, 20));
 
-        scrols.add(jPanel17, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 70, 260, 330));
+        scrols.add(panel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 70, 260, 330));
 
         javax.swing.GroupLayout jPanel18Layout = new javax.swing.GroupLayout(jPanel18);
         jPanel18.setLayout(jPanel18Layout);
@@ -444,18 +461,6 @@ public class Form_3 extends javax.swing.JPanel {
         });
         jPanel2.add(changeView, new org.netbeans.lib.awtextra.AbsoluteConstraints(1090, 163, 130, 30));
 
-        table1.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-
-            },
-            new String [] {
-                "ID", "NAME", "EMAIL", "STATUS"
-            }
-        ));
-        jScrollPane1.setViewportView(table1);
-
-        jPanel2.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 200, 1150, 480));
-
         search.setFont(new java.awt.Font("Yu Gothic", 0, 12)); // NOI18N
         search.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         search.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -551,6 +556,18 @@ public class Form_3 extends javax.swing.JPanel {
         });
         jPanel2.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(750, 90, -1, -1));
 
+        ac_db.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+
+            }
+        ));
+        jScrollPane1.setViewportView(ac_db);
+
+        jPanel2.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 200, 1150, 460));
+
         pane.addTab("tab3", jPanel2);
 
         jPanel11.add(pane, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1290, 730));
@@ -585,13 +602,13 @@ public class Form_3 extends javax.swing.JPanel {
         }
     }//GEN-LAST:event_pictureMouseClicked
 
-    private void jPanel17MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel17MouseClicked
-        if (icon1.getText().equals("") || name1.getText().equals("") || gender1.getText().equals("") || type1.getText().equals("") || status1.getText().equals("")) {
+    private void panel1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_panel1MouseClicked
+        if (icon1.getText().equals("") || name1.getText().equals("") || type1.getText().equals("") || status1.getText().equals("")) {
             System.out.println("Panel Is Empty!");
         } else {
             pane.setSelectedIndex(1);
         }
-    }//GEN-LAST:event_jPanel17MouseClicked
+    }//GEN-LAST:event_panel1MouseClicked
 
     private void add2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_add2ActionPerformed
         pane.setSelectedIndex(0);
@@ -670,7 +687,7 @@ public class Form_3 extends javax.swing.JPanel {
 
     private void jLabel4MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel4MouseExited
     }//GEN-LAST:event_jLabel4MouseExited
-    
+
     public ImageIcon ResizeImage(String imagePath) {
         ImageIcon MyImage = new ImageIcon(imagePath);
         Image img = MyImage.getImage();
@@ -679,7 +696,41 @@ public class Form_3 extends javax.swing.JPanel {
         return image;
     }
 
+    private void displayData() {
+        try {
+            xternal_db xdb = xternal_db.getInstance();
+            ResultSet rs = new DBConnection().getData("select ac_id,ac_email,ac_username,ac_contact,ac_type,ac_status from ac_table where ac_status in ('active', 'inactive') and ac_id != '" + xdb.getId() + "'");
+            ac_db.setModel(DbUtils.resultSetToTableModel(rs));
+        } catch (SQLException e) {
+            System.err.println("An error occurred while fetching data: " + e.getMessage());
+        }
+    }
+
+    public void imageDisplay() {
+        try {
+            xternal_db xdb = xternal_db.getInstance();
+            Connection cn = new DBConnection().getConnection();
+            PreparedStatement pst = cn.prepareStatement("SELECT ac_image FROM ac_table WHERE ac_id != ?");
+            pst.setString(1, xdb.getId());
+            ResultSet rs = pst.executeQuery();
+
+            if (rs.next()) {
+                byte[] img = rs.getBytes("ac_image");
+                ImageIcon image = new ImageIcon(img);
+                Image im = image.getImage();
+                Image im2 = im.getScaledInstance(260, 170, Image.SCALE_SMOOTH);
+                ImageIcon newImage = new ImageIcon(im2);
+                icon1.setIcon(newImage);
+            }
+
+        } catch (SQLException ex) {
+            ex.printStackTrace(); // Print the exception for debugging purposes
+        }
+    }
+
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JTable ac_db;
     private javax.swing.JButton add2;
     private javax.swing.JButton add3;
     private javax.swing.JButton add5;
@@ -689,8 +740,7 @@ public class Form_3 extends javax.swing.JPanel {
     private javax.swing.JTextField cpassword;
     private javax.swing.JTextField email;
     private javax.swing.JTextField firstname;
-    private javax.swing.JLabel gender1;
-    private javax.swing.JLabel icon1;
+    private static javax.swing.JLabel icon1;
     private javax.swing.JComboBox<String> jComboBox2;
     private javax.swing.JComboBox<String> jComboBox3;
     private javax.swing.JLabel jLabel1;
@@ -704,7 +754,6 @@ public class Form_3 extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel11;
-    private javax.swing.JPanel jPanel17;
     private javax.swing.JPanel jPanel18;
     private javax.swing.JPanel jPanel19;
     private javax.swing.JPanel jPanel2;
@@ -723,6 +772,7 @@ public class Form_3 extends javax.swing.JPanel {
     private javax.swing.JLabel name1;
     private javax.swing.JTabbedPane pane;
     private javax.swing.JPanel panel;
+    private javax.swing.JPanel panel1;
     private javax.swing.JTextField password;
     private javax.swing.JLabel picture;
     private javax.swing.JButton print;
@@ -733,7 +783,6 @@ public class Form_3 extends javax.swing.JPanel {
     private javax.swing.JPanel scrols;
     private javax.swing.JTextField search;
     private javax.swing.JLabel status1;
-    private Swing.Table table1;
     private javax.swing.JLabel type1;
     private javax.swing.JTextField username;
     // End of variables declaration//GEN-END:variables

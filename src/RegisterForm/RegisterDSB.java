@@ -19,6 +19,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import javax.swing.BorderFactory;
+import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
@@ -27,6 +28,7 @@ import static javax.swing.JOptionPane.INFORMATION_MESSAGE;
 import javax.swing.JTextField;
 import javax.swing.SwingUtilities;
 import javax.swing.Timer;
+import javax.swing.UIManager;
 import jnafilechooser.api.JnaFileChooser;
 
 public class RegisterDSB extends javax.swing.JPanel {
@@ -283,25 +285,85 @@ public class RegisterDSB extends javax.swing.JPanel {
 
     private void createActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_createActionPerformed
         try {
-            if (duplicateChecker()) {
-            } else if (!validationChecker()) {
+            if (path2 == null || path2.isEmpty()) {
+                errorMessage("Please select a picture!");
             } else {
-                String pass = Hasher.hashPassword(password.getText());
-                new DBConnection().insertData("insert into ac_table (ac_username,ac_email,ac_password,ac_sq,ac_sa,ac_type,ac_status,ac_contact) "
-                        + "values ('" + username.getText() + "','" + email.getText() + "', '" + pass + "'"
-                        + ",'" + secret.getText() + "','" + answer.getText() + "','" + type.getSelectedItem() + "','PENDING','" + contact.getText() + "')");
 
-                JOptionPane.showMessageDialog(this, "REGISTRATION SUCCESSFULL!", "SUCCESS", INFORMATION_MESSAGE);
+                String user = username.getText();
+                String emails = this.email.getText();
+                String hashedPass = Hasher.passwordHasher(this.password.getText());
+                String secretQuestion = secret.getText();
+                String secretAnswer = answer.getText();
+                String status = "Pending";
+                String contacts = contact.getText();
+                String types = (String) type.getSelectedItem();
 
-                new LoginDashboard().setVisible(true);
-                dispose();
+                Connection cn = new DBConnection().getConnection();
+                PreparedStatement pst = cn.prepareStatement("insert into ac_table (ac_username,ac_email,ac_password,ac_sq,ac_sa,ac_type,ac_status,"
+                        + "ac_contact,ac_image) values (?,?,?,?,?,?,?,?,?)");
 
+                pst.setString(1, user);
+                pst.setString(2, emails);
+                pst.setString(3, hashedPass);
+                pst.setString(4, secretQuestion);
+                pst.setString(5, secretAnswer);
+                pst.setString(6, types);
+                pst.setString(7, status);
+                pst.setString(8, contacts);
+
+                InputStream is = new FileInputStream(new File(path2));
+                pst.setBlob(9, is);
+                pst.execute();
+
+                UIManager.put("OptionPane.background", Color.white);
+                UIManager.put("Panel.background", Color.white);
+                Icon customIcon = new javax.swing.ImageIcon(getClass().getResource("/Images/sucess.png"));
+                JOptionPane.showMessageDialog(null, "ACCOUNT CREATED SUCCESSFULLY!", "SUCCESS", JOptionPane.WARNING_MESSAGE, customIcon);
+
+                username.setText("");
+                email.setText("");
+                password.setText("");
+                cpassword.setText("");
+                secret.setText("");
+                answer.setText("");
+                contact.setText("");
+                picture.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/iring.jpg")));
+
+                username.setBorder(BorderFactory.createLineBorder(Color.LIGHT_GRAY));
+                email.setBorder(BorderFactory.createLineBorder(Color.LIGHT_GRAY));
+                password.setBorder(BorderFactory.createLineBorder(Color.LIGHT_GRAY));
+                cpassword.setBorder(BorderFactory.createLineBorder(Color.LIGHT_GRAY));
+                secret.setBorder(BorderFactory.createLineBorder(Color.LIGHT_GRAY));
+                answer.setBorder(BorderFactory.createLineBorder(Color.LIGHT_GRAY));
+                contact.setBorder(BorderFactory.createLineBorder(Color.LIGHT_GRAY));
+
+                LoginDashboard.slide.show(0);
             }
-        } catch (SQLException er) {
-            System.out.println("Eror: " + er.getMessage());
-        } catch (NoSuchAlgorithmException ex) {
-            System.out.println("Error: " + ex.getMessage());
+
+        } catch (SQLException | NoSuchAlgorithmException | FileNotFoundException ex) {
+            System.out.println(ex.getMessage());
         }
+
+//        try {
+//            if (duplicateChecker()) {
+//            } else if (!validationChecker()) {
+//            } else {
+//                String pass = Hasher.passwordHasher(password.getText());
+//                new DBConnection().insertData("insert into accounts_table (email,username,password,contact,type,status) "
+//                        + "values ('" + email.getText() + "','" + username.getText() + "', '" + pass + "'"
+//                        + ",'" + contact.getText() + "','" + type.getSelectedItem() + "','PENDING')");
+//
+//                JOptionPane.showMessageDialog(this, "REGISTRATION SUCCESSFULL!", "SUCCESS", INFORMATION_MESSAGE);
+//
+//                new LoginDashboard().setVisible(true);
+//                dispose();
+//
+//            }
+//        } catch (SQLException er) {
+//            System.out.println("Eror: " + er.getMessage());
+//        } catch (NoSuchAlgorithmException ex) {
+//            System.out.println("Error: " + ex.getMessage());
+//        }
     }//GEN-LAST:event_createActionPerformed
 
     private void backActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backActionPerformed
@@ -311,19 +373,6 @@ public class RegisterDSB extends javax.swing.JPanel {
     private void removeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_removeActionPerformed
         picture.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/iring.jpg")));
     }//GEN-LAST:event_removeActionPerformed
-
-    private void pictureMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_pictureMouseClicked
-        JnaFileChooser ch = new JnaFileChooser();
-        boolean action = ch.showOpenDialog(new NewJFrames());
-        if (action) {
-            File selectedFile = ch.getSelectedFile();
-            String path = selectedFile.getAbsolutePath();
-            picture.setIcon(ResizeImage(path));
-            path2 = path;
-        } else {
-            System.out.println("Image Already Exist or Does Not Exist!");
-        }
-    }//GEN-LAST:event_pictureMouseClicked
 
     private void panelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_panelMouseClicked
 
@@ -352,6 +401,19 @@ public class RegisterDSB extends javax.swing.JPanel {
 
     private void usernameMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_usernameMouseClicked
     }//GEN-LAST:event_usernameMouseClicked
+
+    private void pictureMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_pictureMouseClicked
+        JnaFileChooser ch = new JnaFileChooser();
+        boolean action = ch.showOpenDialog(new NewJFrames());
+        if (action) {
+            File selectedFile = ch.getSelectedFile();
+            String path = selectedFile.getAbsolutePath();
+            picture.setIcon(ResizeImage(path));
+            path2 = path;
+        } else {
+            System.out.println("Image Already Exist or Does Not Exist!");
+        }
+    }//GEN-LAST:event_pictureMouseClicked
 
     public static void main(String args[]) {
         FlatLightLaf.registerCustomDefaultsSource("Style");
@@ -541,7 +603,7 @@ public class RegisterDSB extends javax.swing.JPanel {
     public final javax.swing.JProgressBar jProgressBar1 = new javax.swing.JProgressBar();
     private javax.swing.JPanel panel;
     private javax.swing.JPasswordField password;
-    private javax.swing.JLabel picture;
+    public javax.swing.JLabel picture;
     private javax.swing.JButton remove;
     private javax.swing.JTextField secret;
     private javax.swing.JComboBox<String> type;

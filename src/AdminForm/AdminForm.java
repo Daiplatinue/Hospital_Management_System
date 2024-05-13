@@ -9,6 +9,9 @@ import com.formdev.flatlaf.FlatLightLaf;
 import java.awt.*;
 import java.awt.event.*;
 import java.awt.geom.RoundRectangle2D;
+import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.*;
 import net.miginfocom.swing.*;
 import org.jdesktop.animation.timing.*;
@@ -111,7 +114,11 @@ public class AdminForm extends javax.swing.JFrame {
                 } else if (index == 1) {
                     main.show(new Form_2());
                 } else if (index == 2) {
-                    main.show(new Form_3());
+                    try {
+                        main.show(new Form_3());
+                    } catch (IOException ex) {
+                        Logger.getLogger(AdminForm.class.getName()).log(Level.SEVERE, null, ex);
+                    }
                 } else if (index == 3) {
                     main.show(new Form_4());
                 } else if (index == 4) {

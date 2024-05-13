@@ -39,6 +39,7 @@ public class LoginDSB extends javax.swing.JPanel {
     private void initComponents() {
 
         jLayeredPane1 = new javax.swing.JLayeredPane();
+        buttonGroup1 = new javax.swing.ButtonGroup();
         jPanel1 = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
         username = new javax.swing.JTextField();
@@ -204,7 +205,7 @@ public class LoginDSB extends javax.swing.JPanel {
                 JOptionPane.showMessageDialog(null, "PLEASE FILL OUT BOTH USERNAME AND PASSWORD FIELDS!", "WARNING", JOptionPane.WARNING_MESSAGE, customIcon);
             }
 
-            String hashedPass = Hasher.hashPassword(password.getText());
+            String hashedPass = Hasher.passwordHasher(password.getText());
             if (loginDB(username.getText(), hashedPass)) {
 
                 if (xstatus.equalsIgnoreCase("pending")) {
@@ -230,6 +231,7 @@ public class LoginDSB extends javax.swing.JPanel {
                         password.putClientProperty("JComponent.outline", "success");
                         Icon customIcon = new javax.swing.ImageIcon(getClass().getResource("/Images/sucess.png"));
                         JOptionPane.showMessageDialog(null, "WELCOME TO AURORA WELLNESS PAVILION!", "SUCCESS", JOptionPane.WARNING_MESSAGE, customIcon);
+                        
                         new AdminForm().setVisible(true);
                         dispose();
                     } else {
@@ -318,16 +320,16 @@ public class LoginDSB extends javax.swing.JPanel {
         if (rs.next()) {
             xstatus = rs.getString("ac_status");
             xtype = rs.getString("ac_type");
-            xternal_db cons = xternal_db.getInstance();
-            cons.setId(rs.getString("ac_id"));
-            cons.setEmail(rs.getString("ac_email"));
-            cons.setUsername(rs.getString("ac_username"));
-            cons.setPassword(rs.getString("ac_password"));
-            cons.setContact(rs.getString("ac_contact"));
-            cons.setType(rs.getString("ac_type"));
-            cons.setStatus(rs.getString("ac_status"));
-            cons.setSq(rs.getString("ac_sq"));
-            cons.setSa(rs.getString("ac_sa"));
+            xternal_db xdb = xternal_db.getInstance();
+            xdb.setId(rs.getString("ac_id"));
+            xdb.setEmail(rs.getString("ac_email"));
+            xdb.setUsername(rs.getString("ac_username"));
+            xdb.setPassword(rs.getString("ac_password"));
+            xdb.setContact(rs.getString("ac_contact"));
+            xdb.setType(rs.getString("ac_type"));
+            xdb.setStatus(rs.getString("ac_status"));
+            xdb.setSq(rs.getString("ac_sq"));
+            xdb.setSa(rs.getString("ac_sa"));
             return true;
         } else {
             return false;
@@ -375,6 +377,7 @@ public class LoginDSB extends javax.swing.JPanel {
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.JButton exit;
     private javax.swing.JLabel fpass2;
     private javax.swing.JButton google;

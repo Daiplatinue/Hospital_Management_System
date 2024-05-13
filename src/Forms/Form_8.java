@@ -1,34 +1,41 @@
 package Forms;
 
+import Database.DBConnection;
+import Database.xternal_db;
 import com.formdev.flatlaf.FlatClientProperties;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import javax.swing.JOptionPane;
+import javax.swing.table.TableModel;
+import net.proteanit.sql.DbUtils;
 
 public class Form_8 extends javax.swing.JPanel {
-    
+
     public Form_8() {
         initComponents();
+        displayData();
+
         search.putClientProperty(FlatClientProperties.TEXT_FIELD_SHOW_CLEAR_BUTTON, true);
         search.putClientProperty(FlatClientProperties.PLACEHOLDER_TEXT, "SEARCH BAR");
-        
-        delete.setFocusable(false);
+
         recover.setFocusable(false);
     }
-    
+
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
         jLabel2 = new javax.swing.JLabel();
         search = new javax.swing.JTextField();
-        delete = new javax.swing.JButton();
         recover = new javax.swing.JButton();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        table1 = new Swing.Table();
         jLabel5 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
         jLabel9 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        ac_archive = new javax.swing.JTable();
 
         setBackground(new java.awt.Color(250, 250, 250));
         setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -50,9 +57,6 @@ public class Form_8 extends javax.swing.JPanel {
         });
         add(search, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 50, 410, 30));
 
-        delete.setText("DELETE");
-        add(delete, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 163, 130, 30));
-
         recover.setText("RECOVER");
         recover.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -60,18 +64,6 @@ public class Form_8 extends javax.swing.JPanel {
             }
         });
         add(recover, new org.netbeans.lib.awtextra.AbsoluteConstraints(1090, 163, 130, 30));
-
-        table1.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-
-            },
-            new String [] {
-                "ID", "NAME", "EMAIL", "STATUS"
-            }
-        ));
-        jScrollPane1.setViewportView(table1);
-
-        add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 200, 1150, 490));
 
         jLabel5.setFont(new java.awt.Font("Yu Gothic", 0, 12)); // NOI18N
         jLabel5.setText("ALL");
@@ -144,9 +136,22 @@ public class Form_8 extends javax.swing.JPanel {
             }
         });
         add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(750, 90, -1, -1));
+
+        ac_archive.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+
+            }
+        ));
+        jScrollPane1.setViewportView(ac_archive);
+
+        add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 200, 1150, 490));
     }// </editor-fold>//GEN-END:initComponents
 
     private void recoverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_recoverActionPerformed
+        recoverAccount();
     }//GEN-LAST:event_recoverActionPerformed
 
     private void searchMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_searchMouseEntered
@@ -193,9 +198,43 @@ public class Form_8 extends javax.swing.JPanel {
     private void jLabel4MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel4MouseExited
     }//GEN-LAST:event_jLabel4MouseExited
 
+    private void displayData() {
+        try {
+            xternal_db xdb = xternal_db.getInstance();
+            ResultSet rs = new DBConnection().getData("SELECT ac_id, ac_email, ac_username, ac_contact, ac_type, ac_status FROM ac_table WHERE ac_status = 'archive' AND ac_id != '" + xdb.getId() + "'");
+            ac_archive.setModel(DbUtils.resultSetToTableModel(rs));
+        } catch (SQLException e) {
+            System.err.println("An error occurred while fetching data: " + e.getMessage());
+        }
+    }
+
+    private void recoverAccount() {
+        int rowIndex = ac_archive.getSelectedRow();
+        if (rowIndex < 0) {
+            errorMessage("PLEASE SELECT AN INDEX!");
+        } else {
+            try {
+                TableModel tbl = ac_archive.getModel();
+                new DBConnection().updateData("UPDATE ac_table SET ac_status = 'ACTIVE' WHERE id = '" + tbl.getValueAt(rowIndex, 0).toString() + "'");
+                successMessage("ACCOUNT APPROVED SUCCESSFULLY!!");
+                displayData();
+            } catch (SQLException er) {
+                System.out.println("ERROR: " + er.getMessage());
+            }
+        }
+    }
+    
+     private void errorMessage(String message) {
+        JOptionPane.showMessageDialog(this, message, "ERROR!", JOptionPane.ERROR_MESSAGE);
+    }
+
+    private void successMessage(String message) {
+        JOptionPane.showMessageDialog(this, message, "SUCCESS!", JOptionPane.INFORMATION_MESSAGE);
+    }
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton delete;
+    private javax.swing.JTable ac_archive;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
@@ -206,6 +245,5 @@ public class Form_8 extends javax.swing.JPanel {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JButton recover;
     private javax.swing.JTextField search;
-    private Swing.Table table1;
     // End of variables declaration//GEN-END:variables
 }

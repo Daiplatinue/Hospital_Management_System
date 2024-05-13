@@ -98,6 +98,6 @@ public class LoginDashboard extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel jPanel1;
-    private Swing.SlidePanel slide;
+    public static Swing.SlidePanel slide;
     // End of variables declaration//GEN-END:variables
 }
