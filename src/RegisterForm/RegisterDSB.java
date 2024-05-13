@@ -1,43 +1,40 @@
 package RegisterForm;
 
+import Database.DBConnection;
+import Functions.Hasher;
 import LoginForm.LoginDashboard;
 import com.formdev.flatlaf.FlatClientProperties;
 import com.formdev.flatlaf.FlatLightLaf;
 import java.awt.Color;
+import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.InputStream;
+import java.security.NoSuchAlgorithmException;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import javax.swing.BorderFactory;
+import javax.swing.ImageIcon;
+import javax.swing.JFrame;
+import javax.swing.JOptionPane;
+import static javax.swing.JOptionPane.ERROR_MESSAGE;
+import static javax.swing.JOptionPane.INFORMATION_MESSAGE;
 import javax.swing.JTextField;
 import javax.swing.SwingUtilities;
 import javax.swing.Timer;
+import jnafilechooser.api.JnaFileChooser;
 
 public class RegisterDSB extends javax.swing.JPanel {
 
+    String path2 = null;
+
     public RegisterDSB() {
         initComponents();
-        
-        create.setEnabled(false);
-        
-        firstname.addFocusListener(new java.awt.event.FocusAdapter() {
-            @Override
-            public void focusLost(java.awt.event.FocusEvent evt) {
-                progress();
-            }
-        });
-
-        lastname.addFocusListener(new java.awt.event.FocusAdapter() {
-            @Override
-            public void focusLost(java.awt.event.FocusEvent evt) {
-                progress();
-            }
-        });
-
-        middlename.addFocusListener(new java.awt.event.FocusAdapter() {
-            @Override
-            public void focusLost(java.awt.event.FocusEvent evt) {
-                progress();
-            }
-        });
 
         username.addFocusListener(new java.awt.event.FocusAdapter() {
             @Override
@@ -47,13 +44,6 @@ public class RegisterDSB extends javax.swing.JPanel {
         });
 
         email.addFocusListener(new java.awt.event.FocusAdapter() {
-            @Override
-            public void focusLost(java.awt.event.FocusEvent evt) {
-                progress();
-            }
-        });
-
-        contact.addFocusListener(new java.awt.event.FocusAdapter() {
             @Override
             public void focusLost(java.awt.event.FocusEvent evt) {
                 progress();
@@ -74,7 +64,21 @@ public class RegisterDSB extends javax.swing.JPanel {
             }
         });
 
-        address.addFocusListener(new java.awt.event.FocusAdapter() {
+        secret.addFocusListener(new java.awt.event.FocusAdapter() {
+            @Override
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                progress();
+            }
+        });
+
+        answer.addFocusListener(new java.awt.event.FocusAdapter() {
+            @Override
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                progress();
+            }
+        });
+
+        contact.addFocusListener(new java.awt.event.FocusAdapter() {
             @Override
             public void focusLost(java.awt.event.FocusEvent evt) {
                 progress();
@@ -84,22 +88,18 @@ public class RegisterDSB extends javax.swing.JPanel {
         username.putClientProperty(FlatClientProperties.PLACEHOLDER_TEXT, "USERNAME");
         password.putClientProperty(FlatClientProperties.PLACEHOLDER_TEXT, "PASSWORD");
         email.putClientProperty(FlatClientProperties.PLACEHOLDER_TEXT, "EMAIL");
-        contact.putClientProperty(FlatClientProperties.PLACEHOLDER_TEXT, "CONTACT");
         cpassword.putClientProperty(FlatClientProperties.PLACEHOLDER_TEXT, "CONFIRM PASSWORD");
-        firstname.putClientProperty(FlatClientProperties.PLACEHOLDER_TEXT, "FIRST NAME");
-        lastname.putClientProperty(FlatClientProperties.PLACEHOLDER_TEXT, "LAST NAME");
-        middlename.putClientProperty(FlatClientProperties.PLACEHOLDER_TEXT, "MIDDLE NAME");
-        address.putClientProperty(FlatClientProperties.PLACEHOLDER_TEXT, "ADDRESS");
+        answer.putClientProperty(FlatClientProperties.PLACEHOLDER_TEXT, "SECRET ANSWER");
+        secret.putClientProperty(FlatClientProperties.PLACEHOLDER_TEXT, "SECRET QUESTION");
+        contact.putClientProperty(FlatClientProperties.PLACEHOLDER_TEXT, "CONTACT");
 
         username.putClientProperty(FlatClientProperties.TEXT_FIELD_SHOW_CLEAR_BUTTON, true);
-        password.putClientProperty(FlatClientProperties.TEXT_FIELD_SHOW_CLEAR_BUTTON, true);
         email.putClientProperty(FlatClientProperties.TEXT_FIELD_SHOW_CLEAR_BUTTON, true);
-        contact.putClientProperty(FlatClientProperties.TEXT_FIELD_SHOW_CLEAR_BUTTON, true);
+        password.putClientProperty(FlatClientProperties.TEXT_FIELD_SHOW_CLEAR_BUTTON, true);
         cpassword.putClientProperty(FlatClientProperties.TEXT_FIELD_SHOW_CLEAR_BUTTON, true);
-        firstname.putClientProperty(FlatClientProperties.TEXT_FIELD_SHOW_CLEAR_BUTTON, true);
-        lastname.putClientProperty(FlatClientProperties.TEXT_FIELD_SHOW_CLEAR_BUTTON, true);
-        middlename.putClientProperty(FlatClientProperties.TEXT_FIELD_SHOW_CLEAR_BUTTON, true);
-        address.putClientProperty(FlatClientProperties.TEXT_FIELD_SHOW_CLEAR_BUTTON, true);
+        answer.putClientProperty(FlatClientProperties.TEXT_FIELD_SHOW_CLEAR_BUTTON, true);
+        secret.putClientProperty(FlatClientProperties.TEXT_FIELD_SHOW_CLEAR_BUTTON, true);
+        contact.putClientProperty(FlatClientProperties.TEXT_FIELD_SHOW_CLEAR_BUTTON, true);
     }
 
     @SuppressWarnings("unchecked")
@@ -108,69 +108,30 @@ public class RegisterDSB extends javax.swing.JPanel {
 
         jPanel1 = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
-        contact = new javax.swing.JTextField();
+        email = new javax.swing.JTextField();
         create = new javax.swing.JButton();
         back = new javax.swing.JButton();
         type = new javax.swing.JComboBox<>();
-        username = new javax.swing.JTextField();
-        email = new javax.swing.JTextField();
-        gender = new javax.swing.JComboBox<>();
-        password = new javax.swing.JPasswordField();
+        remove = new javax.swing.JButton();
+        panel = new javax.swing.JPanel();
+        picture = new javax.swing.JLabel();
+        secret = new javax.swing.JTextField();
+        contact = new javax.swing.JTextField();
         cpassword = new javax.swing.JPasswordField();
-        firstname = new javax.swing.JTextField();
-        middlename = new javax.swing.JTextField();
-        lastname = new javax.swing.JTextField();
-        address = new javax.swing.JTextField();
-        age = new javax.swing.JComboBox<>();
+        answer = new javax.swing.JTextField();
+        username = new javax.swing.JTextField();
+        password = new javax.swing.JPasswordField();
+
+        setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel1.setPreferredSize(new java.awt.Dimension(1300, 800));
+        jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel2.setFont(new java.awt.Font("Yu Gothic", 0, 20)); // NOI18N
         jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel2.setText("SIGN UP");
-
-        contact.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        contact.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusGained(java.awt.event.FocusEvent evt) {
-                contactFocusGained(evt);
-            }
-        });
-        contact.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                contactMouseClicked(evt);
-            }
-        });
-
-        create.setFont(new java.awt.Font("Yu Gothic", 0, 11)); // NOI18N
-        create.setText("CREATE ACCOUNT");
-        create.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                createActionPerformed(evt);
-            }
-        });
-
-        back.setFont(new java.awt.Font("Yu Gothic", 0, 11)); // NOI18N
-        back.setText("BACK");
-        back.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                backActionPerformed(evt);
-            }
-        });
-
-        type.setFont(new java.awt.Font("Yu Gothic", 0, 12)); // NOI18N
-        type.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "PATIENT", "DOCTOR", "ADMIN", "RECEPTIONIST" }));
-
-        username.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        username.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusGained(java.awt.event.FocusEvent evt) {
-                usernameFocusGained(evt);
-            }
-        });
-        username.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                usernameMouseClicked(evt);
-            }
-        });
+        jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 150, 300, -1));
 
         email.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         email.addFocusListener(new java.awt.event.FocusAdapter() {
@@ -183,209 +144,214 @@ public class RegisterDSB extends javax.swing.JPanel {
                 emailMouseClicked(evt);
             }
         });
+        jPanel1.add(email, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 230, 302, 32));
 
-        gender.setFont(new java.awt.Font("Yu Gothic", 0, 12)); // NOI18N
-        gender.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "MALE", "FEMALE", "OTHERS" }));
-        gender.setAlignmentX(1.0F);
-        gender.setAlignmentY(1.0F);
-
-        password.setFont(new java.awt.Font("Yu Gothic", 0, 12)); // NOI18N
-        password.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-
-        cpassword.setFont(new java.awt.Font("Yu Gothic", 0, 12)); // NOI18N
-        cpassword.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-
-        firstname.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        firstname.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusGained(java.awt.event.FocusEvent evt) {
-                firstnameFocusGained(evt);
+        create.setFont(new java.awt.Font("Yu Gothic", 0, 11)); // NOI18N
+        create.setText("CREATE ACCOUNT");
+        create.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                createActionPerformed(evt);
             }
         });
-        firstname.addMouseListener(new java.awt.event.MouseAdapter() {
+        jPanel1.add(create, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 590, 302, 30));
+
+        back.setFont(new java.awt.Font("Yu Gothic", 0, 11)); // NOI18N
+        back.setText("BACK");
+        back.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                backActionPerformed(evt);
+            }
+        });
+        jPanel1.add(back, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 590, 302, 30));
+
+        type.setFont(new java.awt.Font("Yu Gothic", 0, 12)); // NOI18N
+        type.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "PATIENT", "DOCTOR", "ADMIN", "RECEPTIONIST" }));
+        jPanel1.add(type, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 402, 303, 30));
+        jPanel1.add(jProgressBar1, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 90, 799, -1));
+
+        remove.setFont(new java.awt.Font("Yu Gothic", 0, 12)); // NOI18N
+        remove.setText("REMOVE");
+        remove.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                removeActionPerformed(evt);
+            }
+        });
+        jPanel1.add(remove, new org.netbeans.lib.awtextra.AbsoluteConstraints(830, 590, 302, 30));
+
+        panel.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                firstnameMouseClicked(evt);
+                panelMouseClicked(evt);
             }
         });
 
-        middlename.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        middlename.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusGained(java.awt.event.FocusEvent evt) {
-                middlenameFocusGained(evt);
-            }
-        });
-        middlename.addMouseListener(new java.awt.event.MouseAdapter() {
+        picture.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/iring.jpg"))); // NOI18N
+        picture.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                middlenameMouseClicked(evt);
+                pictureMouseClicked(evt);
             }
         });
 
-        lastname.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        lastname.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusGained(java.awt.event.FocusEvent evt) {
-                lastnameFocusGained(evt);
-            }
-        });
-        lastname.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                lastnameMouseClicked(evt);
-            }
-        });
-
-        address.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        address.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusGained(java.awt.event.FocusEvent evt) {
-                addressFocusGained(evt);
-            }
-        });
-        address.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                addressMouseClicked(evt);
-            }
-        });
-
-        age.setFont(new java.awt.Font("Yu Gothic", 0, 12)); // NOI18N
-        age.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "UNDER 18", "OVER 18" }));
-        age.setAlignmentX(1.0F);
-        age.setAlignmentY(1.0F);
-
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(jPanel1Layout.createSequentialGroup()
-                            .addGap(318, 318, 318)
-                            .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                            .addGap(224, 224, 224)
-                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                .addComponent(create, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(back, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(contact)
-                                .addComponent(type, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(email)
-                                .addComponent(username)
-                                .addComponent(password)
-                                .addComponent(cpassword)
-                                .addComponent(address)
-                                .addGroup(jPanel1Layout.createSequentialGroup()
-                                    .addComponent(gender, javax.swing.GroupLayout.PREFERRED_SIZE, 148, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(age, javax.swing.GroupLayout.PREFERRED_SIZE, 148, javax.swing.GroupLayout.PREFERRED_SIZE)))))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(168, 168, 168)
-                        .addComponent(lastname, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(firstname, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(middlename, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(0, 66, Short.MAX_VALUE)
-                .addComponent(jProgressBar1, javax.swing.GroupLayout.PREFERRED_SIZE, 799, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(38, Short.MAX_VALUE))
+        javax.swing.GroupLayout panelLayout = new javax.swing.GroupLayout(panel);
+        panel.setLayout(panelLayout);
+        panelLayout.setHorizontalGroup(
+            panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(picture, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
         );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(12, 12, 12)
-                .addComponent(jProgressBar1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(jLabel2)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(firstname, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(middlename, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(lastname, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addComponent(username, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(email, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(contact, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(password, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(cpassword, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(address, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(16, 16, 16)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(gender, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(age, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(20, 20, 20)
-                .addComponent(type, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(33, 33, 33)
-                .addComponent(create, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(10, 10, 10)
-                .addComponent(back, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+        panelLayout.setVerticalGroup(
+            panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(picture, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
-        this.setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-        );
+        jPanel1.add(panel, new org.netbeans.lib.awtextra.AbsoluteConstraints(810, 220, 350, 350));
+
+        secret.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        secret.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                secretFocusGained(evt);
+            }
+        });
+        secret.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                secretMouseClicked(evt);
+            }
+        });
+        jPanel1.add(secret, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 350, 302, 32));
+
+        contact.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        contact.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                contactFocusGained(evt);
+            }
+        });
+        contact.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                contactMouseClicked(evt);
+            }
+        });
+        jPanel1.add(contact, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 400, 302, 32));
+
+        cpassword.setFont(new java.awt.Font("Yu Gothic", 0, 12)); // NOI18N
+        cpassword.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        jPanel1.add(cpassword, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 290, 302, 30));
+
+        answer.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        answer.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                answerFocusGained(evt);
+            }
+        });
+        answer.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                answerMouseClicked(evt);
+            }
+        });
+        jPanel1.add(answer, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 350, 302, 32));
+
+        username.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        username.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                usernameFocusGained(evt);
+            }
+        });
+        username.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                usernameMouseClicked(evt);
+            }
+        });
+        jPanel1.add(username, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 230, 302, 32));
+
+        password.setFont(new java.awt.Font("Yu Gothic", 0, 12)); // NOI18N
+        password.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        jPanel1.add(password, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 290, 302, 30));
+
+        add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, 800));
     }// </editor-fold>//GEN-END:initComponents
 
-    private void contactFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_contactFocusGained
-        contact.setFocusable(true);
-    }//GEN-LAST:event_contactFocusGained
+    private void emailFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_emailFocusGained
+        email.setFocusable(true);
+    }//GEN-LAST:event_emailFocusGained
 
-    private void contactMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_contactMouseClicked
-        contact.setFocusable(true);
-    }//GEN-LAST:event_contactMouseClicked
+    private void emailMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_emailMouseClicked
+        email.setFocusable(true);
+    }//GEN-LAST:event_emailMouseClicked
 
     private void createActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_createActionPerformed
+        try {
+            if (duplicateChecker()) {
+            } else if (!validationChecker()) {
+            } else {
+                String pass = Hasher.hashPassword(password.getText());
+                new DBConnection().insertData("insert into ac_table (ac_username,ac_email,ac_password,ac_sq,ac_sa,ac_type,ac_status,ac_contact) "
+                        + "values ('" + username.getText() + "','" + email.getText() + "', '" + pass + "'"
+                        + ",'" + secret.getText() + "','" + answer.getText() + "','" + type.getSelectedItem() + "','PENDING','" + contact.getText() + "')");
+
+                JOptionPane.showMessageDialog(this, "REGISTRATION SUCCESSFULL!", "SUCCESS", INFORMATION_MESSAGE);
+
+                new LoginDashboard().setVisible(true);
+                dispose();
+
+            }
+        } catch (SQLException er) {
+            System.out.println("Eror: " + er.getMessage());
+        } catch (NoSuchAlgorithmException ex) {
+            System.out.println("Error: " + ex.getMessage());
+        }
     }//GEN-LAST:event_createActionPerformed
 
     private void backActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backActionPerformed
 
     }//GEN-LAST:event_backActionPerformed
 
+    private void removeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_removeActionPerformed
+        picture.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/iring.jpg")));
+    }//GEN-LAST:event_removeActionPerformed
+
+    private void pictureMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_pictureMouseClicked
+        JnaFileChooser ch = new JnaFileChooser();
+        boolean action = ch.showOpenDialog(new NewJFrames());
+        if (action) {
+            File selectedFile = ch.getSelectedFile();
+            String path = selectedFile.getAbsolutePath();
+            picture.setIcon(ResizeImage(path));
+            path2 = path;
+        } else {
+            System.out.println("Image Already Exist or Does Not Exist!");
+        }
+    }//GEN-LAST:event_pictureMouseClicked
+
+    private void panelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_panelMouseClicked
+
+    }//GEN-LAST:event_panelMouseClicked
+
+    private void secretFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_secretFocusGained
+    }//GEN-LAST:event_secretFocusGained
+
+    private void secretMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_secretMouseClicked
+    }//GEN-LAST:event_secretMouseClicked
+
+    private void contactFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_contactFocusGained
+    }//GEN-LAST:event_contactFocusGained
+
+    private void contactMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_contactMouseClicked
+    }//GEN-LAST:event_contactMouseClicked
+
+    private void answerFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_answerFocusGained
+    }//GEN-LAST:event_answerFocusGained
+
+    private void answerMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_answerMouseClicked
+    }//GEN-LAST:event_answerMouseClicked
+
     private void usernameFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_usernameFocusGained
     }//GEN-LAST:event_usernameFocusGained
 
     private void usernameMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_usernameMouseClicked
     }//GEN-LAST:event_usernameMouseClicked
-
-    private void emailFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_emailFocusGained
-    }//GEN-LAST:event_emailFocusGained
-
-    private void emailMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_emailMouseClicked
-    }//GEN-LAST:event_emailMouseClicked
-
-    private void firstnameFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_firstnameFocusGained
-    }//GEN-LAST:event_firstnameFocusGained
-
-    private void firstnameMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_firstnameMouseClicked
-    }//GEN-LAST:event_firstnameMouseClicked
-
-    private void middlenameFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_middlenameFocusGained
-    }//GEN-LAST:event_middlenameFocusGained
-
-    private void middlenameMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_middlenameMouseClicked
-    }//GEN-LAST:event_middlenameMouseClicked
-
-    private void lastnameFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_lastnameFocusGained
-    }//GEN-LAST:event_lastnameFocusGained
-
-    private void lastnameMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lastnameMouseClicked
-    }//GEN-LAST:event_lastnameMouseClicked
-
-    private void addressFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_addressFocusGained
-    }//GEN-LAST:event_addressFocusGained
-
-    private void addressMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_addressMouseClicked
-    }//GEN-LAST:event_addressMouseClicked
 
     public static void main(String args[]) {
         FlatLightLaf.registerCustomDefaultsSource("Style");
@@ -398,102 +364,186 @@ public class RegisterDSB extends javax.swing.JPanel {
         });
     }
 
+    private String xemail, xusername;
+
+    private boolean duplicateChecker() throws SQLException {
+        ResultSet rs = new DBConnection().getData("select * from ac_table where ac_email = '" + email.getText() + "' or ac_username = '" + username.getText() + "'");
+
+        if (rs.next()) {
+            xemail = rs.getString("ac_email");
+            if (xemail.equals(email.getText())) {
+                JOptionPane.showMessageDialog(this, "EMAIL HAS BEEN USED!", "OH NO!", ERROR_MESSAGE);
+            }
+
+            xusername = rs.getString("ac_username");
+            if (xusername.equals(username.getText())) {
+                JOptionPane.showMessageDialog(this, "USERNAME HAS BEEN USED!", "OH NO!", ERROR_MESSAGE);
+            }
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    private boolean validationChecker() {
+        if (username.getText().isEmpty() || password.getText().isEmpty()
+                || cpassword.getText().isEmpty() || email.getText().isEmpty() || contact.getText().isEmpty()) {
+            errorMessage("FILL ALL THE REQUIREMENTS!");
+            return false;
+        } else if (password.getText().length() < 8) {
+            errorMessage("PASSWORD MUST BE AT LEAST 8 CHARACTERS!");
+            return false;
+        } else if (!password.getText().equals(cpassword.getText())) {
+            errorMessage("PASSWORDS DO NOT MATCH!");
+            return false;
+        } else if (!contact.getText().matches("\\d+")) {
+            errorMessage("CONTACT MUST CONTAIN ONLY DIGITS!");
+            return false;
+        } else {
+            return true;
+        }
+    }
+
+    private void errorMessage(String message) {
+        JOptionPane.showMessageDialog(this, message, "ERROR!", JOptionPane.ERROR_MESSAGE);
+    }
+
+    private void successMessage(String message) {
+        JOptionPane.showMessageDialog(this, message, "SUCCESS!", JOptionPane.INFORMATION_MESSAGE);
+    }
+
     public void register() {
-        contact.grabFocus();
+        email.grabFocus();
     }
 
     public void addEventBackLogin(ActionListener event) {
         back.addActionListener(event);
     }
 
-    public int progress() {
-        final int[] currentProgress = {jProgressBar1.getValue()};
-        final int targetProgress = calculateProgress();
+    public void progress() {
+        Timer timer = new Timer(20, new ActionListener() {
+            int currentProgress = jProgressBar1.getValue();
+            int targetProgress = calculateProgress();
+            int step = (targetProgress > currentProgress) ? 1 : -1;
 
-        Timer timer = new Timer(20, (ActionEvent e) -> {
-            SwingUtilities.invokeLater(() -> {
-                int increment = currentProgress[0] < targetProgress ? 1 : -1;
-                currentProgress[0] += increment;
-                jProgressBar1.setValue(currentProgress[0]);
-
-                double percentage = (double) currentProgress[0] / jProgressBar1.getMaximum() * 100;
-
-                Color color = getColorForPercentage(percentage);
-                jProgressBar1.setForeground(color);
-
-                if ((increment > 0 && currentProgress[0] >= targetProgress)
-                        || (increment < 0 && currentProgress[0] <= targetProgress)) {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if (currentProgress != targetProgress) {
+                    currentProgress += step;
+                    jProgressBar1.setValue(currentProgress);
+                } else {
                     ((Timer) e.getSource()).stop();
                 }
-            });
+            }
         });
-
         timer.start();
-
-        return targetProgress;
     }
 
-    private Color getColorForPercentage(double percentage) {
-        if (percentage < 50) {
-            return Color.RED;
-        } else if (percentage < 80) {
-            return Color.YELLOW;
-        } else {
-            return Color.GREEN;
-        }
-    }
+    public int calculateProgress() {
 
-    private int calculateProgress() {
         int progress = 0;
-        progress += updateFieldProgress(firstname, 3);
-        progress += updateFieldProgress(lastname, 3);
-        progress += updateFieldProgress(middlename, 3);
-        progress += updateFieldProgress(username, 3);
-        progress += updateFieldProgress(email, 3);
-        progress += updateFieldProgress(contact, 3);
-        progress += updateFieldProgress(password, 5);
-        progress += updateFieldProgress(cpassword, 5);
-        progress += updateFieldProgress(address, 3);
 
-        if (gender.getSelectedIndex() != -1) {
-            progress += 20;
+        if (!username.getText().equals("")) {
+            progress += 5;
+            username.setBorder(BorderFactory.createLineBorder(Color.GREEN));
+        } else if (username.getText().equals("")) {
+            progress -= 5;
+            username.setBorder(BorderFactory.createLineBorder(Color.RED));
         }
 
-        if (age.getSelectedIndex() != -1) {
-            progress += 20;
+        if (!email.getText().equals("")) {
+            progress += 5;
+            email.setBorder(BorderFactory.createLineBorder(Color.GREEN));
+        } else if (email.getText().equals("")) {
+            progress -= 5;
+            email.setBorder(BorderFactory.createLineBorder(Color.RED));
+        }
+
+        if (!password.getText().equals("")) {
+            progress += 10;
+            password.setBorder(BorderFactory.createLineBorder(Color.GREEN));
+        } else if (password.getText().equals("")) {
+            progress -= 10;
+            password.setBorder(BorderFactory.createLineBorder(Color.RED));
+        }
+
+        if (!cpassword.getText().equals("")) {
+            progress += 5;
+            cpassword.setBorder(BorderFactory.createLineBorder(Color.GREEN));
+        } else if (cpassword.getText().equals("")) {
+            progress -= 5;
+            cpassword.setBorder(BorderFactory.createLineBorder(Color.RED));
+        }
+
+        if (!secret.getText().equals("")) {
+            progress += 7;
+            secret.setBorder(BorderFactory.createLineBorder(Color.GREEN));
+        } else if (secret.getText().equals("")) {
+            progress -= 7;
+            secret.setBorder(BorderFactory.createLineBorder(Color.RED));
+        }
+
+        if (!answer.getText().equals("")) {
+            progress += 7;
+            answer.setBorder(BorderFactory.createLineBorder(Color.GREEN));
+        } else if (answer.getText().equals("")) {
+            progress -= 7;
+            answer.setBorder(BorderFactory.createLineBorder(Color.RED));
+        }
+
+        if (!contact.getText().equals("")) {
+            progress += 5;
+            contact.setBorder(BorderFactory.createLineBorder(Color.GREEN));
+        } else if (contact.getText().equals("")) {
+            progress -= 5;
+            contact.setBorder(BorderFactory.createLineBorder(Color.RED));
         }
 
         if (type.getSelectedIndex() != -1) {
-            progress += 20;
+            progress += 60;
         }
 
         jProgressBar1.setValue(progress);
+
+        if (progress >= 80) {
+            jProgressBar1.setForeground(Color.GREEN);
+        } else if (progress >= 50) {
+            jProgressBar1.setForeground(Color.YELLOW);
+        } else {
+            jProgressBar1.setForeground(Color.RED);
+        }
+
         return progress;
     }
 
-    private int updateFieldProgress(JTextField field, int increment) {
-        int progressChange = field.getText().isEmpty() ? -increment : increment;
-        field.setBorder(BorderFactory.createLineBorder(field.getText().isEmpty() ? Color.RED : Color.GREEN));
-        return progressChange;
+    public void dispose() {
+        JFrame parent = (JFrame) this.getTopLevelAncestor();
+        parent.dispose();
     }
 
+    public ImageIcon ResizeImage(String imagePath) {
+        ImageIcon MyImage = new ImageIcon(imagePath);
+        Image img = MyImage.getImage();
+        Image newImg = img.getScaledInstance(picture.getHeight(), picture.getHeight(), Image.SCALE_SMOOTH);
+        ImageIcon image = new ImageIcon(newImg);
+        return image;
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JTextField address;
-    private javax.swing.JComboBox<String> age;
+    private javax.swing.JTextField answer;
     private javax.swing.JButton back;
     private javax.swing.JTextField contact;
     private javax.swing.JPasswordField cpassword;
     private javax.swing.JButton create;
     private javax.swing.JTextField email;
-    private javax.swing.JTextField firstname;
-    private javax.swing.JComboBox<String> gender;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;
     public final javax.swing.JProgressBar jProgressBar1 = new javax.swing.JProgressBar();
-    private javax.swing.JTextField lastname;
-    private javax.swing.JTextField middlename;
+    private javax.swing.JPanel panel;
     private javax.swing.JPasswordField password;
+    private javax.swing.JLabel picture;
+    private javax.swing.JButton remove;
+    private javax.swing.JTextField secret;
     private javax.swing.JComboBox<String> type;
     private javax.swing.JTextField username;
     // End of variables declaration//GEN-END:variables

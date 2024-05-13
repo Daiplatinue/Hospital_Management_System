@@ -1,11 +1,15 @@
 package LoginForm;
 
 import AdminForm.*;
+import Database.DBConnection;
+import Database.xternal_db;
+import Functions.Hasher;
 import Notification.*;
 import RegisterForm.*;
 import com.formdev.flatlaf.*;
 import java.awt.*;
 import java.awt.event.*;
+import java.security.NoSuchAlgorithmException;
 import java.sql.*;
 import javax.swing.*;
 
@@ -13,6 +17,8 @@ public class LoginDSB extends javax.swing.JPanel {
 
     public LoginDSB() {
         initComponents();
+        exit.setFocusable(false);
+        remember.setFocusable(false);
 
         password.setFocusable(false);
         login.setFocusable(false);
@@ -34,7 +40,6 @@ public class LoginDSB extends javax.swing.JPanel {
 
         jLayeredPane1 = new javax.swing.JLayeredPane();
         jPanel1 = new javax.swing.JPanel();
-        icon = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         username = new javax.swing.JTextField();
         password = new javax.swing.JPasswordField();
@@ -45,6 +50,8 @@ public class LoginDSB extends javax.swing.JPanel {
         jSeparator2 = new javax.swing.JSeparator();
         google = new javax.swing.JButton();
         register = new javax.swing.JButton();
+        exit = new javax.swing.JButton();
+        remember = new javax.swing.JCheckBox();
 
         javax.swing.GroupLayout jLayeredPane1Layout = new javax.swing.GroupLayout(jLayeredPane1);
         jLayeredPane1.setLayout(jLayeredPane1Layout);
@@ -60,14 +67,9 @@ public class LoginDSB extends javax.swing.JPanel {
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        icon.setFont(new java.awt.Font("Yu Gothic", 0, 11)); // NOI18N
-        icon.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/google (1).png"))); // NOI18N
-        icon.setText("SIGN IN WITH GOOGLE");
-        jPanel1.add(icon, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 393, -1, 30));
-
         jLabel2.setFont(new java.awt.Font("Yu Gothic", 0, 20)); // NOI18N
         jLabel2.setText("SIGN IN");
-        jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(334, 49, -1, -1));
+        jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(570, 180, -1, -1));
 
         username.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         username.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -78,7 +80,7 @@ public class LoginDSB extends javax.swing.JPanel {
                 usernameMouseEntered(evt);
             }
         });
-        jPanel1.add(username, new org.netbeans.lib.awtextra.AbsoluteConstraints(206, 93, 329, 32));
+        jPanel1.add(username, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 230, 329, 32));
 
         password.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         password.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -86,7 +88,7 @@ public class LoginDSB extends javax.swing.JPanel {
                 passwordMouseEntered(evt);
             }
         });
-        jPanel1.add(password, new org.netbeans.lib.awtextra.AbsoluteConstraints(206, 143, 329, 30));
+        jPanel1.add(password, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 280, 329, 30));
 
         login.setFont(new java.awt.Font("Yu Gothic", 0, 11)); // NOI18N
         login.setText("LOGIN");
@@ -103,7 +105,7 @@ public class LoginDSB extends javax.swing.JPanel {
                 loginActionPerformed(evt);
             }
         });
-        jPanel1.add(login, new org.netbeans.lib.awtextra.AbsoluteConstraints(206, 183, 329, 30));
+        jPanel1.add(login, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 320, 329, 30));
 
         fpass2.setFont(new java.awt.Font("Yu Gothic", 0, 11)); // NOI18N
         fpass2.setText("FORGOT PASSWORD");
@@ -115,15 +117,16 @@ public class LoginDSB extends javax.swing.JPanel {
                 fpass2MouseExited(evt);
             }
         });
-        jPanel1.add(fpass2, new org.netbeans.lib.awtextra.AbsoluteConstraints(206, 224, -1, -1));
-        jPanel1.add(jSeparator1, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 359, 270, 20));
+        jPanel1.add(fpass2, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 360, -1, -1));
+        jPanel1.add(jSeparator1, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 490, 270, 20));
 
         jLabel5.setFont(new java.awt.Font("Yu Gothic", 0, 11)); // NOI18N
         jLabel5.setText("OR");
-        jPanel1.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 349, -1, -1));
-        jPanel1.add(jSeparator2, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 359, 270, 20));
+        jPanel1.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(600, 480, -1, -1));
+        jPanel1.add(jSeparator2, new org.netbeans.lib.awtextra.AbsoluteConstraints(640, 490, 270, 20));
 
         google.setFont(new java.awt.Font("Yu Gothic", 0, 11)); // NOI18N
+        google.setText("SIGN IN WITH CONTACT NUMBER");
         google.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 googleMouseEntered(evt);
@@ -137,7 +140,7 @@ public class LoginDSB extends javax.swing.JPanel {
                 googleActionPerformed(evt);
             }
         });
-        jPanel1.add(google, new org.netbeans.lib.awtextra.AbsoluteConstraints(206, 392, 329, 30));
+        jPanel1.add(google, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 530, 329, 30));
 
         register.setFont(new java.awt.Font("Yu Gothic", 0, 11)); // NOI18N
         register.setText("CREATE AN ACCOUNT");
@@ -154,17 +157,30 @@ public class LoginDSB extends javax.swing.JPanel {
                 registerActionPerformed(evt);
             }
         });
-        jPanel1.add(register, new org.netbeans.lib.awtextra.AbsoluteConstraints(206, 293, 329, 30));
+        jPanel1.add(register, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 430, 329, 30));
+
+        exit.setText("EXIT");
+        exit.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                exitActionPerformed(evt);
+            }
+        });
+        jPanel1.add(exit, new org.netbeans.lib.awtextra.AbsoluteConstraints(1130, 40, 120, 30));
+
+        remember.setBackground(new java.awt.Color(255, 255, 255));
+        remember.setFont(new java.awt.Font("Yu Gothic", 0, 11)); // NOI18N
+        remember.setText("REMEMBER ME");
+        jPanel1.add(remember, new org.netbeans.lib.awtextra.AbsoluteConstraints(665, 358, -1, -1));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 715, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 1300, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 478, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 800, Short.MAX_VALUE)
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -177,9 +193,64 @@ public class LoginDSB extends javax.swing.JPanel {
     }//GEN-LAST:event_fpass2MouseEntered
 
     private void loginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_loginActionPerformed
-        if (loginDB(username.getText(), password.getText())) {
-            new AdminForm().setVisible(true);
-            dispose();
+        try {
+
+            if (username.getText().isEmpty() && password.getText().isEmpty()) {
+                UIManager.put("OptionPane.background", Color.white);
+                UIManager.put("Panel.background", Color.white);
+                username.putClientProperty("JComponent.outline", "warning");
+                password.putClientProperty("JComponent.outline", "warning");
+                Icon customIcon = new javax.swing.ImageIcon(getClass().getResource("/Images/alert.gif"));
+                JOptionPane.showMessageDialog(null, "PLEASE FILL OUT BOTH USERNAME AND PASSWORD FIELDS!", "WARNING", JOptionPane.WARNING_MESSAGE, customIcon);
+            }
+
+            String hashedPass = Hasher.hashPassword(password.getText());
+            if (loginDB(username.getText(), hashedPass)) {
+
+                if (xstatus.equalsIgnoreCase("pending")) {
+                    errorMessage("WAIT FOR ADMIN APPROVAL!");
+                } else if (xstatus.equalsIgnoreCase("declined")) {
+                    errorMessage("YOUR ACCOUNT HAS BEEN DECLINED!");
+                } else if (xstatus.equalsIgnoreCase("inactive")) {
+                    errorMessage("YOUR ACCOUNT IS IN-ACTIVE!");
+                } else if (!xstatus.equalsIgnoreCase("active")) {
+                    errorMessage("INVALID TYPE!");
+                } else {
+                    if (xtype.equalsIgnoreCase("user")) {
+                        UIManager.put("OptionPane.background", Color.white);
+                        UIManager.put("Panel.background", Color.white);
+                        username.putClientProperty("JComponent.outline", "success");
+                        password.putClientProperty("JComponent.outline", "success");
+                        Icon customIcon = new javax.swing.ImageIcon(getClass().getResource("/Images/sucess.png"));
+                        JOptionPane.showMessageDialog(null, "WELCOME TO AURORA WELLNESS PAVILION!", "SUCCESS", JOptionPane.WARNING_MESSAGE, customIcon);
+                    } else if (xtype.equalsIgnoreCase("admin")) {
+                        UIManager.put("OptionPane.background", Color.white);
+                        UIManager.put("Panel.background", Color.white);
+                        username.putClientProperty("JComponent.outline", "success");
+                        password.putClientProperty("JComponent.outline", "success");
+                        Icon customIcon = new javax.swing.ImageIcon(getClass().getResource("/Images/sucess.png"));
+                        JOptionPane.showMessageDialog(null, "WELCOME TO AURORA WELLNESS PAVILION!", "SUCCESS", JOptionPane.WARNING_MESSAGE, customIcon);
+                        new AdminForm().setVisible(true);
+                        dispose();
+                    } else {
+                        UIManager.put("OptionPane.background", Color.white);
+                        UIManager.put("Panel.background", Color.white);
+                        username.putClientProperty("JComponent.outline", "error");
+                        password.putClientProperty("JComponent.outline", "error");
+                        Icon customIcon = new javax.swing.ImageIcon(getClass().getResource("/Images/alert.gif"));
+                        JOptionPane.showMessageDialog(null, "USERNAME OR PASSWORD IS INCORRECT!", "WARNING", JOptionPane.WARNING_MESSAGE, customIcon);
+                    }
+                }
+            } else {
+                UIManager.put("OptionPane.background", Color.white);
+                UIManager.put("Panel.background", Color.white);
+                username.putClientProperty("JComponent.outline", "error");
+                password.putClientProperty("JComponent.outline", "error");
+                Icon customIcon = new javax.swing.ImageIcon(getClass().getResource("/Images/alert.gif"));
+                JOptionPane.showMessageDialog(null, "ACCOUNT NOT FOUND!", "WARNING", JOptionPane.WARNING_MESSAGE, customIcon);
+            }
+        } catch (SQLException | NoSuchAlgorithmException er) {
+            System.out.println("ERROR: " + er.getMessage());
         }
     }//GEN-LAST:event_loginActionPerformed
 
@@ -225,6 +296,10 @@ public class LoginDSB extends javax.swing.JPanel {
     private void registerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_registerActionPerformed
     }//GEN-LAST:event_registerActionPerformed
 
+    private void exitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_exitActionPerformed
+        System.exit(0);
+    }//GEN-LAST:event_exitActionPerformed
+
     public static void main(String args[]) {
         FlatLightLaf.registerCustomDefaultsSource("Style");
         FlatLightLaf.setup();
@@ -236,39 +311,40 @@ public class LoginDSB extends javax.swing.JPanel {
         });
     }
 
+    private static String xstatus, xtype;
+
+    private boolean loginDB(String username, String pass) throws SQLException {
+        ResultSet rs = new DBConnection().getData("select * from ac_table where ac_username = '" + username + "' and ac_password = '" + pass + "'");
+        if (rs.next()) {
+            xstatus = rs.getString("ac_status");
+            xtype = rs.getString("ac_type");
+            xternal_db cons = xternal_db.getInstance();
+            cons.setId(rs.getString("ac_id"));
+            cons.setEmail(rs.getString("ac_email"));
+            cons.setUsername(rs.getString("ac_username"));
+            cons.setPassword(rs.getString("ac_password"));
+            cons.setContact(rs.getString("ac_contact"));
+            cons.setType(rs.getString("ac_type"));
+            cons.setStatus(rs.getString("ac_status"));
+            cons.setSq(rs.getString("ac_sq"));
+            cons.setSa(rs.getString("ac_sa"));
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    private void errorMessage(String message) {
+        JOptionPane.showMessageDialog(this, message, "ERROR!", JOptionPane.ERROR_MESSAGE);
+    }
+
+    private void successMessage(String message) {
+        JOptionPane.showMessageDialog(this, message, "SUCCESS!", JOptionPane.INFORMATION_MESSAGE);
+    }
+
     public void dispose() {
         JFrame parent = (JFrame) this.getTopLevelAncestor();
         parent.dispose();
-    }
-
-    private boolean loginDB(String user, String pass) {
-
-        if (user.isEmpty() || pass.isEmpty()) {
-            UIManager.put("OptionPane.background", Color.white);
-            UIManager.put("Panel.background", Color.white);
-            username.putClientProperty("JComponent.outline", "warning");
-            password.putClientProperty("JComponent.outline", "warning");
-            Icon customIcon = new javax.swing.ImageIcon(getClass().getResource("/Images/alert.gif"));
-            JOptionPane.showMessageDialog(null, "PLEASE FILL OUT BOTH USERNAME AND PASSWORD FIELDS!", "WARNING", JOptionPane.WARNING_MESSAGE, customIcon);
-            return false;
-        } else if (!user.equals("admin") || !pass.equals("admin")) {
-            UIManager.put("OptionPane.background", Color.white);
-            UIManager.put("Panel.background", Color.white);
-            username.putClientProperty("JComponent.outline", "error");
-            password.putClientProperty("JComponent.outline", "error");
-            Icon customIcon = new javax.swing.ImageIcon(getClass().getResource("/Images/alert.gif"));
-            JOptionPane.showMessageDialog(null, "USERNAME OR PASSWORD IS INCORRECT!", "WARNING", JOptionPane.WARNING_MESSAGE, customIcon);
-            return false;
-        } else {
-            UIManager.put("OptionPane.background", Color.white);
-            UIManager.put("Panel.background", Color.white);
-            username.putClientProperty("JComponent.outline", "success");
-            password.putClientProperty("JComponent.outline", "success");
-            Icon customIcon = new javax.swing.ImageIcon(getClass().getResource("/Images/sucess.png"));
-            JOptionPane.showMessageDialog(null, "WELCOME TO AURORA WELLNESS PAVILION!", "SUCCESS", JOptionPane.WARNING_MESSAGE, customIcon);
-            return true;
-        }
-
     }
 
     public void mouseEntered(MouseEvent me) {
@@ -299,9 +375,9 @@ public class LoginDSB extends javax.swing.JPanel {
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton exit;
     private javax.swing.JLabel fpass2;
     private javax.swing.JButton google;
-    private javax.swing.JLabel icon;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLayeredPane jLayeredPane1;
@@ -311,6 +387,7 @@ public class LoginDSB extends javax.swing.JPanel {
     private javax.swing.JButton login;
     private javax.swing.JPasswordField password;
     private javax.swing.JButton register;
+    private javax.swing.JCheckBox remember;
     private javax.swing.JTextField username;
     // End of variables declaration//GEN-END:variables
 }
