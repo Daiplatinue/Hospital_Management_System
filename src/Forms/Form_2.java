@@ -36,7 +36,7 @@ public class Form_2 extends javax.swing.JPanel {
         create.setFocusable(false);
         remove.setFocusable(false);
         type.setFocusable(false);
-        
+
         username.addFocusListener(new java.awt.event.FocusAdapter() {
             @Override
             public void focusLost(java.awt.event.FocusEvent evt) {
@@ -314,25 +314,27 @@ public class Form_2 extends javax.swing.JPanel {
 
     private void createActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_createActionPerformed
         try {
-            if (path2 == null || path2.isEmpty()) {
+            String user = username.getText().trim();
+            String emails = email.getText().trim();
+            String passwordText = password.getText().trim();
+            String secretQuestion = secret.getText().trim();
+            String secretAnswer = answer.getText().trim();
+            String contacts = contact.getText().trim();
+            String types = (String) type.getSelectedItem();
+            Icon photo = picture.getIcon();
+
+            if (user.isEmpty() || emails.isEmpty() || passwordText.isEmpty() || secretQuestion.isEmpty() || secretAnswer.isEmpty() || contacts.isEmpty() || path2 == null || path2.isEmpty() || photo == null) {
                 UIManager.put("OptionPane.background", Color.white);
                 UIManager.put("Panel.background", Color.white);
                 Icon customIcon = new javax.swing.ImageIcon(getClass().getResource("/Images/alert.gif"));
-                JOptionPane.showMessageDialog(null, "PLEASE INSERT AN IMAGE FIRST!", "WARNING", JOptionPane.WARNING_MESSAGE, customIcon);
-            } else {
+                JOptionPane.showMessageDialog(null, "PLEASE FILL ALL FIELDS AND INSERT AN IMAGE!", "WARNING", JOptionPane.WARNING_MESSAGE, customIcon);
 
-                String user = username.getText();
-                String emails = this.email.getText();
-                String hashedPass = Hasher.passwordHasher(this.password.getText());
-                String secretQuestion = secret.getText();
-                String secretAnswer = answer.getText();
+            } else {
+                String hashedPass = Hasher.passwordHasher(passwordText);
                 String status = "Pending";
-                String contacts = contact.getText();
-                String types = (String) type.getSelectedItem();
 
                 Connection cn = new DBConnection().getConnection();
-                PreparedStatement pst = cn.prepareStatement("insert into ac_table (ac_username,ac_email,ac_password,ac_sq,ac_sa,ac_type,ac_status,"
-                        + "ac_contact,ac_image) values (?,?,?,?,?,?,?,?,?)");
+                PreparedStatement pst = cn.prepareStatement("INSERT INTO ac_table (ac_username, ac_email, ac_password, ac_sq, ac_sa, ac_type, ac_status, ac_contact, ac_image) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)");
 
                 pst.setString(1, user);
                 pst.setString(2, emails);
@@ -359,7 +361,7 @@ public class Form_2 extends javax.swing.JPanel {
                 secret.setText("");
                 answer.setText("");
                 contact.setText("");
-                picture.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/iring.jpg")));
+                picture.setIcon(null);
                 jProgressBar1.setValue(0);
                 username.setBorder(BorderFactory.createLineBorder(Color.LIGHT_GRAY));
                 email.setBorder(BorderFactory.createLineBorder(Color.LIGHT_GRAY));
@@ -369,9 +371,7 @@ public class Form_2 extends javax.swing.JPanel {
                 answer.setBorder(BorderFactory.createLineBorder(Color.LIGHT_GRAY));
                 contact.setBorder(BorderFactory.createLineBorder(Color.LIGHT_GRAY));
 
-                LoginDashboard.slide.show(0);
             }
-
         } catch (SQLException | NoSuchAlgorithmException | FileNotFoundException ex) {
             System.out.println(ex.getMessage());
         }

@@ -8,6 +8,7 @@ import java.awt.Image;
 import java.awt.Rectangle;
 import java.awt.event.MouseEvent;
 import java.io.File;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import javax.swing.ImageIcon;
@@ -58,13 +59,12 @@ public class Form_7 extends javax.swing.JPanel {
         status = new javax.swing.JTextField();
         contact = new javax.swing.JTextField();
         id = new javax.swing.JTextField();
-        remove = new javax.swing.JButton();
         panel = new javax.swing.JPanel();
         picture1 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
         add3 = new javax.swing.JButton();
-        secret1 = new javax.swing.JTextField();
+        secret = new javax.swing.JTextField();
         type = new javax.swing.JTextField();
 
         setBackground(new java.awt.Color(250, 250, 250));
@@ -158,7 +158,7 @@ public class Form_7 extends javax.swing.JPanel {
                 answerMouseClicked(evt);
             }
         });
-        jPanel2.add(answer, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 290, 302, 32));
+        jPanel2.add(answer, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 350, 302, 32));
 
         password.setFont(new java.awt.Font("Yu Gothic", 0, 12)); // NOI18N
         password.setHorizontalAlignment(javax.swing.JTextField.CENTER);
@@ -214,7 +214,7 @@ public class Form_7 extends javax.swing.JPanel {
                 contactMouseClicked(evt);
             }
         });
-        jPanel2.add(contact, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 350, 302, 32));
+        jPanel2.add(contact, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 290, 302, 32));
 
         id.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         id.addFocusListener(new java.awt.event.FocusAdapter() {
@@ -228,15 +228,6 @@ public class Form_7 extends javax.swing.JPanel {
             }
         });
         jPanel2.add(id, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 400, 302, 32));
-
-        remove.setFont(new java.awt.Font("Yu Gothic", 0, 12)); // NOI18N
-        remove.setText("REMOVE");
-        remove.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                removeActionPerformed(evt);
-            }
-        });
-        jPanel2.add(remove, new org.netbeans.lib.awtextra.AbsoluteConstraints(810, 590, 352, 30));
 
         panel.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -288,18 +279,18 @@ public class Form_7 extends javax.swing.JPanel {
         });
         jPanel2.add(add3, new org.netbeans.lib.awtextra.AbsoluteConstraints(1100, 50, 100, -1));
 
-        secret1.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        secret1.addFocusListener(new java.awt.event.FocusAdapter() {
+        secret.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        secret.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
-                secret1FocusGained(evt);
+                secretFocusGained(evt);
             }
         });
-        secret1.addMouseListener(new java.awt.event.MouseAdapter() {
+        secret.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                secret1MouseClicked(evt);
+                secretMouseClicked(evt);
             }
         });
-        jPanel2.add(secret1, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 350, 302, 32));
+        jPanel2.add(secret, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 350, 302, 32));
 
         type.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         type.addFocusListener(new java.awt.event.FocusAdapter() {
@@ -367,10 +358,6 @@ public class Form_7 extends javax.swing.JPanel {
 
     }//GEN-LAST:event_idMouseClicked
 
-    private void removeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_removeActionPerformed
-        picture1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/iring.jpg")));
-    }//GEN-LAST:event_removeActionPerformed
-
     private void picture1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_picture1MouseClicked
         JnaFileChooser ch = new JnaFileChooser();
         boolean action = ch.showOpenDialog(new NewJFrame());
@@ -392,13 +379,13 @@ public class Form_7 extends javax.swing.JPanel {
         jTabbedPane1.setSelectedIndex(0);
     }//GEN-LAST:event_add3ActionPerformed
 
-    private void secret1FocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_secret1FocusGained
+    private void secretFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_secretFocusGained
         // TODO add your handling code here:
-    }//GEN-LAST:event_secret1FocusGained
+    }//GEN-LAST:event_secretFocusGained
 
-    private void secret1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_secret1MouseClicked
+    private void secretMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_secretMouseClicked
         // TODO add your handling code here:
-    }//GEN-LAST:event_secret1MouseClicked
+    }//GEN-LAST:event_secretMouseClicked
 
     private void typeFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_typeFocusGained
         // TODO add your handling code here:
@@ -409,7 +396,37 @@ public class Form_7 extends javax.swing.JPanel {
     }//GEN-LAST:event_typeMouseClicked
 
     private void dpActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_dpActionPerformed
-        // TODO add your handling code here:
+        if (jTabbedPane1.getComponentCount() == 0) {
+            System.out.println("Panel Is Empty!");
+        } else {
+            jTabbedPane1.setSelectedIndex(1);
+            try {
+                TableModel tbl = ac_pending.getModel();
+                int rowIndex = ac_pending.getSelectedRow();
+                ResultSet rs = new DBConnection().getData("select * from ac_table where ac_id = '" + tbl.getValueAt(rowIndex, 0) + "'");
+                if (rs.next()) {
+                    id.setText("" + String.valueOf(rs.getInt("ac_id")));
+                    email.setText("" + rs.getString("ac_email"));
+                    username.setText("" + rs.getString("ac_username"));
+                    password.setText("" + rs.getString("ac_password"));
+                    secret.setText("" + rs.getString("ac_sq"));
+                    answer.setText("" + rs.getString("ac_sa"));
+                    contact.setText("" + rs.getString("ac_contact"));
+                    type.setText("" + rs.getString("ac_type"));
+                    status.setText("" + rs.getString("ac_status"));
+
+                    byte[] img = rs.getBytes("ac_image");
+                    ImageIcon image = new ImageIcon(img);
+                    Image im = image.getImage();
+                    Image im2 = im.getScaledInstance(picture1.getWidth(), picture1.getHeight(), Image.SCALE_SMOOTH);
+                    ImageIcon newImage = new ImageIcon(im2);
+                    picture1.setIcon(newImage);
+
+                }
+            } catch (SQLException er) {
+                System.out.println("ERROR: " + er.getMessage());
+            }
+        }
     }//GEN-LAST:event_dpActionPerformed
 
     private void approveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_approveActionPerformed
@@ -454,7 +471,13 @@ public class Form_7 extends javax.swing.JPanel {
         } else {
             try {
                 TableModel tbl = ac_pending.getModel();
-                new DBConnection().updateData("UPDATE ac_table SET ac_status = 'ACTIVE' WHERE ac_id = '" + tbl.getValueAt(rowIndex, 0).toString() + "'");
+                String accountId = tbl.getValueAt(rowIndex, 0).toString();
+                String query = "UPDATE ac_table SET ac_status = 'ACTIVE' WHERE ac_id = ?";
+
+                PreparedStatement ps = new DBConnection().getConnection().prepareStatement(query);
+                ps.setString(1, accountId);
+                ps.executeUpdate();
+
                 successMessage("ACCOUNT APPROVED SUCCESSFULLY!!");
                 displayData();
             } catch (SQLException er) {
@@ -470,8 +493,14 @@ public class Form_7 extends javax.swing.JPanel {
         } else {
             try {
                 TableModel tbl = ac_pending.getModel();
-                new DBConnection().updateData("UPDATE ac_table SET ac_status = 'DECLINED' WHERE ac_id = '" + tbl.getValueAt(rowIndex, 0).toString() + "'");
-                successMessage("ACCOUNT HAS BEEN DISAPPROVED!");
+                String accountId = tbl.getValueAt(rowIndex, 0).toString();
+                String query = "UPDATE ac_table SET ac_status = 'DECLINED' WHERE ac_id = ?";
+
+                PreparedStatement ps = new DBConnection().getConnection().prepareStatement(query);
+                ps.setString(1, accountId);
+                ps.executeUpdate();
+
+                successMessage("ACCOUNT APPROVED SUCCESSFULLY!!");
                 displayData();
             } catch (SQLException er) {
                 System.out.println("ERROR: " + er.getMessage());
@@ -521,9 +550,8 @@ public class Form_7 extends javax.swing.JPanel {
     private javax.swing.JPanel panel;
     private javax.swing.JPasswordField password;
     public javax.swing.JLabel picture1;
-    private javax.swing.JButton remove;
     private javax.swing.JTextField search;
-    private javax.swing.JTextField secret1;
+    private javax.swing.JTextField secret;
     private javax.swing.JTextField status;
     private javax.swing.JTextField type;
     private javax.swing.JTextField username;

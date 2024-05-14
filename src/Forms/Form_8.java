@@ -3,6 +3,7 @@ package Forms;
 import Database.DBConnection;
 import Database.xternal_db;
 import com.formdev.flatlaf.FlatClientProperties;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import javax.swing.JOptionPane;
@@ -201,7 +202,7 @@ public class Form_8 extends javax.swing.JPanel {
     private void displayData() {
         try {
             xternal_db xdb = xternal_db.getInstance();
-            ResultSet rs = new DBConnection().getData("SELECT ac_id, ac_email, ac_username, ac_contact, ac_type, ac_status FROM ac_table WHERE ac_status = 'archive' AND ac_id != '" + xdb.getId() + "'");
+            ResultSet rs = new DBConnection().getData("SELECT ac_id, ac_email, ac_username, ac_contact, ac_type, ac_status FROM ac_table WHERE ac_status = 'DELETED' AND ac_id != '" + xdb.getId() + "'");
             ac_archive.setModel(DbUtils.resultSetToTableModel(rs));
         } catch (SQLException e) {
             System.err.println("An error occurred while fetching data: " + e.getMessage());
@@ -215,7 +216,13 @@ public class Form_8 extends javax.swing.JPanel {
         } else {
             try {
                 TableModel tbl = ac_archive.getModel();
-                new DBConnection().updateData("UPDATE ac_table SET ac_status = 'ACTIVE' WHERE id = '" + tbl.getValueAt(rowIndex, 0).toString() + "'");
+                String accountId = tbl.getValueAt(rowIndex, 0).toString();
+                String query = "UPDATE ac_table SET ac_status = 'ACTIVE' WHERE ac_id = ?";
+
+                PreparedStatement ps = new DBConnection().getConnection().prepareStatement(query);
+                ps.setString(1, accountId);
+                ps.executeUpdate();
+
                 successMessage("ACCOUNT APPROVED SUCCESSFULLY!!");
                 displayData();
             } catch (SQLException er) {
@@ -223,8 +230,8 @@ public class Form_8 extends javax.swing.JPanel {
             }
         }
     }
-    
-     private void errorMessage(String message) {
+
+    private void errorMessage(String message) {
         JOptionPane.showMessageDialog(this, message, "ERROR!", JOptionPane.ERROR_MESSAGE);
     }
 
