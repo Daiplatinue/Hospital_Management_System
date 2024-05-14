@@ -123,6 +123,7 @@ public class RegisterDSB extends javax.swing.JPanel {
         answer = new javax.swing.JTextField();
         username = new javax.swing.JTextField();
         password = new javax.swing.JPasswordField();
+        clear = new javax.swing.JButton();
 
         setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
@@ -272,6 +273,15 @@ public class RegisterDSB extends javax.swing.JPanel {
         password.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         jPanel1.add(password, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 290, 302, 30));
 
+        clear.setFont(new java.awt.Font("Yu Gothic", 0, 11)); // NOI18N
+        clear.setText("CLEAR ALL FIELDS");
+        clear.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                clearActionPerformed(evt);
+            }
+        });
+        jPanel1.add(clear, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 550, 302, 30));
+
         add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, 800));
     }// </editor-fold>//GEN-END:initComponents
 
@@ -286,7 +296,10 @@ public class RegisterDSB extends javax.swing.JPanel {
     private void createActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_createActionPerformed
         try {
             if (path2 == null || path2.isEmpty()) {
-                errorMessage("Please select a picture!");
+                UIManager.put("OptionPane.background", Color.white);
+                UIManager.put("Panel.background", Color.white);
+                Icon customIcon = new javax.swing.ImageIcon(getClass().getResource("/Images/alert.gif"));
+                JOptionPane.showMessageDialog(null, "PLEASE INSERT AN IMAGE FIRST!", "WARNING", JOptionPane.WARNING_MESSAGE, customIcon);
             } else {
 
                 String user = username.getText();
@@ -343,27 +356,6 @@ public class RegisterDSB extends javax.swing.JPanel {
         } catch (SQLException | NoSuchAlgorithmException | FileNotFoundException ex) {
             System.out.println(ex.getMessage());
         }
-
-//        try {
-//            if (duplicateChecker()) {
-//            } else if (!validationChecker()) {
-//            } else {
-//                String pass = Hasher.passwordHasher(password.getText());
-//                new DBConnection().insertData("insert into accounts_table (email,username,password,contact,type,status) "
-//                        + "values ('" + email.getText() + "','" + username.getText() + "', '" + pass + "'"
-//                        + ",'" + contact.getText() + "','" + type.getSelectedItem() + "','PENDING')");
-//
-//                JOptionPane.showMessageDialog(this, "REGISTRATION SUCCESSFULL!", "SUCCESS", INFORMATION_MESSAGE);
-//
-//                new LoginDashboard().setVisible(true);
-//                dispose();
-//
-//            }
-//        } catch (SQLException er) {
-//            System.out.println("Eror: " + er.getMessage());
-//        } catch (NoSuchAlgorithmException ex) {
-//            System.out.println("Error: " + ex.getMessage());
-//        }
     }//GEN-LAST:event_createActionPerformed
 
     private void backActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backActionPerformed
@@ -414,6 +406,25 @@ public class RegisterDSB extends javax.swing.JPanel {
             System.out.println("Image Already Exist or Does Not Exist!");
         }
     }//GEN-LAST:event_pictureMouseClicked
+
+    private void clearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_clearActionPerformed
+        username.setText("");
+        email.setText("");
+        password.setText("");
+        cpassword.setText("");
+        secret.setText("");
+        answer.setText("");
+        contact.setText("");
+        picture.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/iring.jpg")));
+        jProgressBar1.setValue(0);
+        username.setBorder(BorderFactory.createLineBorder(Color.LIGHT_GRAY));
+        email.setBorder(BorderFactory.createLineBorder(Color.LIGHT_GRAY));
+        password.setBorder(BorderFactory.createLineBorder(Color.LIGHT_GRAY));
+        cpassword.setBorder(BorderFactory.createLineBorder(Color.LIGHT_GRAY));
+        secret.setBorder(BorderFactory.createLineBorder(Color.LIGHT_GRAY));
+        answer.setBorder(BorderFactory.createLineBorder(Color.LIGHT_GRAY));
+        contact.setBorder(BorderFactory.createLineBorder(Color.LIGHT_GRAY));
+    }//GEN-LAST:event_clearActionPerformed
 
     public static void main(String args[]) {
         FlatLightLaf.registerCustomDefaultsSource("Style");
@@ -594,6 +605,7 @@ public class RegisterDSB extends javax.swing.JPanel {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTextField answer;
     private javax.swing.JButton back;
+    private javax.swing.JButton clear;
     private javax.swing.JTextField contact;
     private javax.swing.JPasswordField cpassword;
     private javax.swing.JButton create;
