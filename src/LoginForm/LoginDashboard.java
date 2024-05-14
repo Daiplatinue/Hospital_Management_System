@@ -25,6 +25,7 @@ public class LoginDashboard extends javax.swing.JFrame {
         LoginDSB login = new LoginDSB();
         RegisterDSB register = new RegisterDSB();
         slide.setAnimate(20);
+            
         slide.init(login, register);
         login.addEventRegister(new ActionListener() {
             @Override
