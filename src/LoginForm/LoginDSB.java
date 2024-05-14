@@ -31,7 +31,22 @@ public class LoginDSB extends javax.swing.JPanel {
         username.putClientProperty(FlatClientProperties.TEXT_FIELD_SHOW_CLEAR_BUTTON, true);
         password.putClientProperty(FlatClientProperties.TEXT_FIELD_SHOW_CLEAR_BUTTON, true);
 
-        password.putClientProperty(FlatClientProperties.TEXT_FIELD_LEADING_ICON, "/images/info.png");
+        login.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke(KeyEvent.VK_ENTER, 0), "login");
+        login.getActionMap().put("login", new AbstractAction() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                loginActionPerformed(e);
+            }
+        });
+
+        exit.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke(KeyEvent.VK_ESCAPE, 0), "exit");
+        exit.getActionMap().put("exit", new AbstractAction() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                exitActionPerformed(e);
+            }
+        });
+
     }
 
     @SuppressWarnings("unchecked")
@@ -231,7 +246,7 @@ public class LoginDSB extends javax.swing.JPanel {
                         password.putClientProperty("JComponent.outline", "success");
                         Icon customIcon = new javax.swing.ImageIcon(getClass().getResource("/Images/sucess.png"));
                         JOptionPane.showMessageDialog(null, "WELCOME TO AURORA WELLNESS PAVILION!", "SUCCESS", JOptionPane.WARNING_MESSAGE, customIcon);
-                        
+
                         new AdminForm().setVisible(true);
                         dispose();
                     } else {

@@ -336,13 +336,6 @@ public class RegisterDSB extends javax.swing.JPanel {
                 UIManager.put("Panel.background", Color.white);
                 Icon customIcon = new javax.swing.ImageIcon(getClass().getResource("/Images/sucess.png"));
                 JOptionPane.showMessageDialog(null, "ACCOUNT CREATED SUCCESSFULLY!", "SUCCESS", JOptionPane.WARNING_MESSAGE, customIcon);
-                
-                Form_3 fm3 = new Form_3();
-                
-                ResultSet rs = new DBConnection().getData("select * from ac_table where ac_id = ?");
-                if (rs.next()) {
-                    fm3.id1.setText(String.valueOf(rs.getInt("ac_id")));
-                }
 
                 username.setText("");
                 email.setText("");

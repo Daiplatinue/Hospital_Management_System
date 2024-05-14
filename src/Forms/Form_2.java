@@ -118,10 +118,10 @@ public class Form_2 extends javax.swing.JPanel {
         type = new javax.swing.JComboBox<>();
         contact = new javax.swing.JTextField();
         create = new javax.swing.JButton();
-        remove = new javax.swing.JButton();
         panel = new javax.swing.JPanel();
         picture = new javax.swing.JLabel();
         clear = new javax.swing.JButton();
+        remove = new javax.swing.JButton();
 
         setBackground(new java.awt.Color(250, 250, 250));
         setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -221,15 +221,6 @@ public class Form_2 extends javax.swing.JPanel {
         });
         add(create, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 450, 302, 30));
 
-        remove.setFont(new java.awt.Font("Yu Gothic", 0, 12)); // NOI18N
-        remove.setText("REMOVE");
-        remove.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                removeActionPerformed(evt);
-            }
-        });
-        add(remove, new org.netbeans.lib.awtextra.AbsoluteConstraints(830, 590, 302, 30));
-
         panel.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 panelMouseClicked(evt);
@@ -263,13 +254,22 @@ public class Form_2 extends javax.swing.JPanel {
         add(panel, new org.netbeans.lib.awtextra.AbsoluteConstraints(810, 220, 350, 350));
 
         clear.setFont(new java.awt.Font("Yu Gothic", 0, 11)); // NOI18N
-        clear.setText("CLEAR");
+        clear.setText("CLEAR ALL FIELDS");
         clear.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 clearActionPerformed(evt);
             }
         });
         add(clear, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 450, 302, 30));
+
+        remove.setFont(new java.awt.Font("Yu Gothic", 0, 12)); // NOI18N
+        remove.setText("REMOVE");
+        remove.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                removeActionPerformed(evt);
+            }
+        });
+        add(remove, new org.netbeans.lib.awtextra.AbsoluteConstraints(810, 590, 352, 30));
     }// </editor-fold>//GEN-END:initComponents
 
     private void usernameFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_usernameFocusGained
@@ -377,10 +377,6 @@ public class Form_2 extends javax.swing.JPanel {
         }
     }//GEN-LAST:event_createActionPerformed
 
-    private void removeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_removeActionPerformed
-        picture.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/iring.jpg")));
-    }//GEN-LAST:event_removeActionPerformed
-
     private void pictureMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_pictureMouseClicked
         JnaFileChooser ch = new JnaFileChooser();
         boolean action = ch.showOpenDialog(new NewJFrame());
@@ -416,6 +412,10 @@ public class Form_2 extends javax.swing.JPanel {
         answer.setBorder(BorderFactory.createLineBorder(Color.LIGHT_GRAY));
         contact.setBorder(BorderFactory.createLineBorder(Color.LIGHT_GRAY));
     }//GEN-LAST:event_clearActionPerformed
+
+    private void removeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_removeActionPerformed
+        picture.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/iring.jpg")));
+    }//GEN-LAST:event_removeActionPerformed
 
     public ImageIcon ResizeImage(String imagePath) {
         ImageIcon MyImage = new ImageIcon(imagePath);

@@ -23,7 +23,9 @@ import javax.swing.BorderFactory;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
+import javax.swing.SwingUtilities;
 import javax.swing.UIManager;
+import javax.swing.border.LineBorder;
 import javax.swing.table.TableModel;
 import jnafilechooser.api.JnaFileChooser;
 import net.proteanit.sql.DbUtils;
@@ -31,12 +33,13 @@ import net.proteanit.sql.DbUtils;
 public final class Form_3 extends javax.swing.JPanel {
 
     String path2 = null;
+    private int lastDisplayedIndex = 0;
 
     public Form_3() throws IOException {
         initComponents();
         displayData();
-        imageDisplay();
-        fetch();
+        fetch1();
+        fetch2();
 
         scroll1.getVerticalScrollBar().setUnitIncrement(16);
         search.setFocusable(false);
@@ -119,7 +122,12 @@ public final class Form_3 extends javax.swing.JPanel {
         type1 = new javax.swing.JLabel();
         id1 = new javax.swing.JLabel();
         jPanel18 = new javax.swing.JPanel();
-        jPanel19 = new javax.swing.JPanel();
+        panel2 = new javax.swing.JPanel();
+        icon2 = new javax.swing.JLabel();
+        id2 = new javax.swing.JLabel();
+        type2 = new javax.swing.JLabel();
+        name2 = new javax.swing.JLabel();
+        status2 = new javax.swing.JLabel();
         jPanel20 = new javax.swing.JPanel();
         jPanel21 = new javax.swing.JPanel();
         jPanel22 = new javax.swing.JPanel();
@@ -146,10 +154,10 @@ public final class Form_3 extends javax.swing.JPanel {
         create = new javax.swing.JButton();
         panel = new javax.swing.JPanel();
         picture1 = new javax.swing.JLabel();
-        remove = new javax.swing.JButton();
         clear1 = new javax.swing.JButton();
         type = new javax.swing.JComboBox<>();
         id = new javax.swing.JTextField();
+        remove = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
         changeView = new javax.swing.JButton();
         search = new javax.swing.JTextField();
@@ -199,95 +207,48 @@ public final class Form_3 extends javax.swing.JPanel {
 
         scrols.add(panel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 70, 260, 330));
 
-        javax.swing.GroupLayout jPanel18Layout = new javax.swing.GroupLayout(jPanel18);
-        jPanel18.setLayout(jPanel18Layout);
-        jPanel18Layout.setHorizontalGroup(
-            jPanel18Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 260, Short.MAX_VALUE)
-        );
-        jPanel18Layout.setVerticalGroup(
-            jPanel18Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 330, Short.MAX_VALUE)
-        );
-
+        jPanel18.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
         scrols.add(jPanel18, new org.netbeans.lib.awtextra.AbsoluteConstraints(960, 70, 260, 330));
 
-        javax.swing.GroupLayout jPanel19Layout = new javax.swing.GroupLayout(jPanel19);
-        jPanel19.setLayout(jPanel19Layout);
-        jPanel19Layout.setHorizontalGroup(
-            jPanel19Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 260, Short.MAX_VALUE)
-        );
-        jPanel19Layout.setVerticalGroup(
-            jPanel19Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 330, Short.MAX_VALUE)
-        );
+        panel2.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                panel2MouseClicked(evt);
+            }
+        });
+        panel2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+        panel2.add(icon2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 260, 170));
 
-        scrols.add(jPanel19, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 70, 260, 330));
+        id2.setFont(new java.awt.Font("Yu Gothic", 0, 12)); // NOI18N
+        id2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        panel2.add(id2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 190, 260, 20));
 
-        javax.swing.GroupLayout jPanel20Layout = new javax.swing.GroupLayout(jPanel20);
-        jPanel20.setLayout(jPanel20Layout);
-        jPanel20Layout.setHorizontalGroup(
-            jPanel20Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 260, Short.MAX_VALUE)
-        );
-        jPanel20Layout.setVerticalGroup(
-            jPanel20Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 330, Short.MAX_VALUE)
-        );
+        type2.setFont(new java.awt.Font("Yu Gothic", 0, 12)); // NOI18N
+        type2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        panel2.add(type2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 270, 260, 20));
 
+        name2.setFont(new java.awt.Font("Yu Gothic", 0, 12)); // NOI18N
+        name2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        panel2.add(name2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 210, 260, 20));
+
+        status2.setFont(new java.awt.Font("Yu Gothic", 0, 12)); // NOI18N
+        status2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        panel2.add(status2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 300, 260, 20));
+
+        scrols.add(panel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 70, 260, 330));
+
+        jPanel20.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
         scrols.add(jPanel20, new org.netbeans.lib.awtextra.AbsoluteConstraints(660, 70, 260, 330));
 
-        javax.swing.GroupLayout jPanel21Layout = new javax.swing.GroupLayout(jPanel21);
-        jPanel21.setLayout(jPanel21Layout);
-        jPanel21Layout.setHorizontalGroup(
-            jPanel21Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 260, Short.MAX_VALUE)
-        );
-        jPanel21Layout.setVerticalGroup(
-            jPanel21Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 330, Short.MAX_VALUE)
-        );
-
+        jPanel21.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
         scrols.add(jPanel21, new org.netbeans.lib.awtextra.AbsoluteConstraints(660, 430, 260, 330));
 
-        javax.swing.GroupLayout jPanel22Layout = new javax.swing.GroupLayout(jPanel22);
-        jPanel22.setLayout(jPanel22Layout);
-        jPanel22Layout.setHorizontalGroup(
-            jPanel22Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 260, Short.MAX_VALUE)
-        );
-        jPanel22Layout.setVerticalGroup(
-            jPanel22Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 330, Short.MAX_VALUE)
-        );
-
+        jPanel22.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
         scrols.add(jPanel22, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 430, 260, 330));
 
-        javax.swing.GroupLayout jPanel23Layout = new javax.swing.GroupLayout(jPanel23);
-        jPanel23.setLayout(jPanel23Layout);
-        jPanel23Layout.setHorizontalGroup(
-            jPanel23Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 260, Short.MAX_VALUE)
-        );
-        jPanel23Layout.setVerticalGroup(
-            jPanel23Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 330, Short.MAX_VALUE)
-        );
-
+        jPanel23.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
         scrols.add(jPanel23, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 430, 260, 330));
 
-        javax.swing.GroupLayout jPanel24Layout = new javax.swing.GroupLayout(jPanel24);
-        jPanel24.setLayout(jPanel24Layout);
-        jPanel24Layout.setHorizontalGroup(
-            jPanel24Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 260, Short.MAX_VALUE)
-        );
-        jPanel24Layout.setVerticalGroup(
-            jPanel24Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 330, Short.MAX_VALUE)
-        );
-
+        jPanel24.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
         scrols.add(jPanel24, new org.netbeans.lib.awtextra.AbsoluteConstraints(960, 430, 260, 330));
 
         javax.swing.GroupLayout jPanel25Layout = new javax.swing.GroupLayout(jPanel25);
@@ -500,15 +461,6 @@ public final class Form_3 extends javax.swing.JPanel {
 
         jPanel1.add(panel, new org.netbeans.lib.awtextra.AbsoluteConstraints(810, 220, 350, 350));
 
-        remove.setFont(new java.awt.Font("Yu Gothic", 0, 12)); // NOI18N
-        remove.setText("REMOVE");
-        remove.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                removeActionPerformed(evt);
-            }
-        });
-        jPanel1.add(remove, new org.netbeans.lib.awtextra.AbsoluteConstraints(830, 590, 302, 30));
-
         clear1.setFont(new java.awt.Font("Yu Gothic", 0, 11)); // NOI18N
         clear1.setText("DELETE");
         clear1.addActionListener(new java.awt.event.ActionListener() {
@@ -534,6 +486,15 @@ public final class Form_3 extends javax.swing.JPanel {
             }
         });
         jPanel1.add(id, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 400, 302, 32));
+
+        remove.setFont(new java.awt.Font("Yu Gothic", 0, 12)); // NOI18N
+        remove.setText("REMOVE");
+        remove.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                removeActionPerformed(evt);
+            }
+        });
+        jPanel1.add(remove, new org.netbeans.lib.awtextra.AbsoluteConstraints(810, 590, 352, 30));
 
         scroll.setViewportView(jPanel1);
 
@@ -898,10 +859,6 @@ public final class Form_3 extends javax.swing.JPanel {
 
     }//GEN-LAST:event_panelMouseClicked
 
-    private void removeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_removeActionPerformed
-        picture1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/iring.jpg")));
-    }//GEN-LAST:event_removeActionPerformed
-
     private void clear1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_clear1ActionPerformed
     }//GEN-LAST:event_clear1ActionPerformed
 
@@ -910,6 +867,43 @@ public final class Form_3 extends javax.swing.JPanel {
 
     private void idMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_idMouseClicked
     }//GEN-LAST:event_idMouseClicked
+
+    private void removeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_removeActionPerformed
+        picture1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/iring.jpg")));
+    }//GEN-LAST:event_removeActionPerformed
+
+    private void panel2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_panel2MouseClicked
+        if (pane.getComponentCount() == 0) {
+            System.out.println("Panel Is Empty!");
+        } else {
+            pane.setSelectedIndex(1);
+            try {
+
+                ResultSet rs = new DBConnection().getData("select * from ac_table where ac_id = '" + id2.getText() + "'");
+                if (rs.next()) {
+                    id.setText("" + String.valueOf(rs.getInt("ac_id")));
+                    email.setText("" + rs.getString("ac_email"));
+                    username.setText("" + rs.getString("ac_username"));
+                    password.setText("" + rs.getString("ac_password"));
+                    secret.setText("" + rs.getString("ac_sq"));
+                    answer.setText("" + rs.getString("ac_sa"));
+                    contact.setText("" + rs.getString("ac_contact"));
+                    type.setSelectedItem("" + rs.getString("ac_type"));
+                    status.setSelectedItem("" + rs.getString("ac_status"));
+
+                    byte[] img = rs.getBytes("ac_image");
+                    ImageIcon image = new ImageIcon(img);
+                    Image im = image.getImage();
+                    Image im2 = im.getScaledInstance(picture1.getWidth(), picture1.getHeight(), Image.SCALE_SMOOTH);
+                    ImageIcon newImage = new ImageIcon(im2);
+                    picture1.setIcon(newImage);
+
+                }
+            } catch (SQLException er) {
+                System.out.println("ERROR: " + er.getMessage());
+            }
+        }
+    }//GEN-LAST:event_panel2MouseClicked
 
     public ImageIcon ResizeImage(String imagePath) {
         ImageIcon MyImage = new ImageIcon(imagePath);
@@ -929,16 +923,33 @@ public final class Form_3 extends javax.swing.JPanel {
         }
     }
 
-    private void fetch() {
+    private void fetch1() {
         try {
             TableModel tbl = ac_db.getModel();
             if (tbl.getRowCount() > 0) {
-                ResultSet rs = new DBConnection().getData("SELECT * FROM ac_table LIMIT 1");
+                xternal_db xdb = xternal_db.getInstance();
+
+                String query = "SELECT * FROM ac_table WHERE ac_id != '" + xdb.getId() + "' LIMIT ?, 1";
+                DBConnection dbConnection = new DBConnection();
+                PreparedStatement ps = dbConnection.getConnection().prepareStatement(query);
+                ps.setInt(1, lastDisplayedIndex);
+
+                ResultSet rs = ps.executeQuery();
                 if (rs.next()) {
-                    id1.setText("" + rs.getString("ac_id"));
-                    name1.setText("" + rs.getString("ac_username"));
-                    type1.setText("" + rs.getString("ac_type"));
-                    status1.setText("" + rs.getString("ac_status"));
+                    id1.setText(rs.getString("ac_id"));
+                    name1.setText(rs.getString("ac_username"));
+                    type1.setText(rs.getString("ac_type"));
+                    status1.setText(rs.getString("ac_status"));
+                    byte[] img = rs.getBytes("ac_image");
+                    ImageIcon image = new ImageIcon(img);
+                    Image im = image.getImage();
+                    Image im2 = im.getScaledInstance(260, 170, Image.SCALE_SMOOTH);
+                    ImageIcon newImage = new ImageIcon(im2);
+                    icon1.setIcon(newImage);
+                    panel1.setBorder(new LineBorder(Color.BLACK, 2));
+                    lastDisplayedIndex++;
+                } else {
+                    System.out.println("No matching records found");
                 }
             } else {
                 System.out.println("Table is empty");
@@ -948,25 +959,39 @@ public final class Form_3 extends javax.swing.JPanel {
         }
     }
 
-    public void imageDisplay() {
+    private void fetch2() {
         try {
-            xternal_db xdb = xternal_db.getInstance();
-            Connection cn = new DBConnection().getConnection();
-            PreparedStatement pst = cn.prepareStatement("SELECT ac_image FROM ac_table WHERE ac_id != ?");
-            pst.setString(1, xdb.getId());
-            ResultSet rs = pst.executeQuery();
+            TableModel tbl = ac_db.getModel();
+            if (tbl.getRowCount() > 0) {
+                xternal_db xdb = xternal_db.getInstance();
 
-            if (rs.next()) {
-                byte[] img = rs.getBytes("ac_image");
-                ImageIcon image = new ImageIcon(img);
-                Image im = image.getImage();
-                Image im2 = im.getScaledInstance(260, 170, Image.SCALE_SMOOTH);
-                ImageIcon newImage = new ImageIcon(im2);
-                icon1.setIcon(newImage);
+                String query = "SELECT * FROM ac_table WHERE ac_id != '" + xdb.getId() + "' LIMIT ?, 1";
+                DBConnection dbConnection = new DBConnection();
+                PreparedStatement ps = dbConnection.getConnection().prepareStatement(query);
+                ps.setInt(1, lastDisplayedIndex);
+
+                ResultSet rs = ps.executeQuery();
+                if (rs.next()) {
+                    id2.setText(rs.getString("ac_id"));
+                    name2.setText(rs.getString("ac_username"));
+                    type2.setText(rs.getString("ac_type"));
+                    status2.setText(rs.getString("ac_status"));
+                    byte[] img = rs.getBytes("ac_image");
+                    ImageIcon image = new ImageIcon(img);
+                    Image im = image.getImage();
+                    Image im2 = im.getScaledInstance(260, 170, Image.SCALE_SMOOTH);
+                    ImageIcon newImage = new ImageIcon(im2);
+                    icon2.setIcon(newImage);
+                    panel2.setBorder(new LineBorder(Color.BLACK, 2));
+                    lastDisplayedIndex++;
+                } else {
+                    System.out.println("No matching records found");
+                }
+            } else {
+                System.out.println("Table is empty");
             }
-
-        } catch (SQLException ex) {
-            ex.printStackTrace();
+        } catch (SQLException er) {
+            System.out.println("ERROR: " + er.getMessage());
         }
     }
 
@@ -1024,8 +1049,10 @@ public final class Form_3 extends javax.swing.JPanel {
     private javax.swing.JButton create;
     private javax.swing.JTextField email;
     public static javax.swing.JLabel icon1;
+    public static javax.swing.JLabel icon2;
     private javax.swing.JTextField id;
     public javax.swing.JLabel id1;
+    public javax.swing.JLabel id2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -1038,7 +1065,6 @@ public final class Form_3 extends javax.swing.JPanel {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel11;
     private javax.swing.JPanel jPanel18;
-    private javax.swing.JPanel jPanel19;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel20;
     private javax.swing.JPanel jPanel21;
@@ -1051,9 +1077,11 @@ public final class Form_3 extends javax.swing.JPanel {
     private javax.swing.JPanel jPanel28;
     private javax.swing.JScrollPane jScrollPane1;
     public javax.swing.JLabel name1;
+    public javax.swing.JLabel name2;
     private javax.swing.JTabbedPane pane;
     private javax.swing.JPanel panel;
     private javax.swing.JPanel panel1;
+    private javax.swing.JPanel panel2;
     private javax.swing.JPasswordField password;
     public javax.swing.JLabel picture1;
     private javax.swing.JButton print;
@@ -1066,8 +1094,10 @@ public final class Form_3 extends javax.swing.JPanel {
     private javax.swing.JTextField secret;
     private javax.swing.JComboBox<String> status;
     public javax.swing.JLabel status1;
+    public javax.swing.JLabel status2;
     private javax.swing.JComboBox<String> type;
     public javax.swing.JLabel type1;
+    public javax.swing.JLabel type2;
     private javax.swing.JTextField username;
     // End of variables declaration//GEN-END:variables
 }
