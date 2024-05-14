@@ -1,6 +1,7 @@
 package RegisterForm;
 
 import Database.DBConnection;
+import Forms.Form_3;
 import Functions.Hasher;
 import LoginForm.LoginDashboard;
 import com.formdev.flatlaf.FlatClientProperties;
@@ -12,12 +13,15 @@ import java.awt.event.ActionListener;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.io.InputStream;
 import java.security.NoSuchAlgorithmException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.BorderFactory;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
@@ -332,6 +336,13 @@ public class RegisterDSB extends javax.swing.JPanel {
                 UIManager.put("Panel.background", Color.white);
                 Icon customIcon = new javax.swing.ImageIcon(getClass().getResource("/Images/sucess.png"));
                 JOptionPane.showMessageDialog(null, "ACCOUNT CREATED SUCCESSFULLY!", "SUCCESS", JOptionPane.WARNING_MESSAGE, customIcon);
+                
+                Form_3 fm3 = new Form_3();
+                
+                ResultSet rs = new DBConnection().getData("select * from ac_table where ac_id = ?");
+                if (rs.next()) {
+                    fm3.id1.setText(String.valueOf(rs.getInt("ac_id")));
+                }
 
                 username.setText("");
                 email.setText("");
@@ -355,6 +366,8 @@ public class RegisterDSB extends javax.swing.JPanel {
 
         } catch (SQLException | NoSuchAlgorithmException | FileNotFoundException ex) {
             System.out.println(ex.getMessage());
+        } catch (IOException ex) {
+            Logger.getLogger(RegisterDSB.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_createActionPerformed
 
