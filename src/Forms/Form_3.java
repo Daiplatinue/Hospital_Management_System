@@ -11,6 +11,7 @@ import java.awt.Component;
 import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.print.PrinterException;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -23,6 +24,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.MessageFormat;
 import javax.swing.BorderFactory;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
@@ -31,6 +33,7 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JTable;
 import javax.swing.SwingUtilities;
 import javax.swing.UIManager;
 import javax.swing.border.LineBorder;
@@ -405,6 +408,9 @@ public final class Form_3 extends javax.swing.JPanel {
         scrols.add(panel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 430, 260, 330));
 
         panel8.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                panel8MouseClicked(evt);
+            }
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 panel8MouseEntered(evt);
             }
@@ -777,6 +783,11 @@ public final class Form_3 extends javax.swing.JPanel {
         jPanel2.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(401, 0, 410, -1));
 
         print.setText("PRINT");
+        print.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                printActionPerformed(evt);
+            }
+        });
         jPanel2.add(print, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 163, 130, 30));
 
         jLabel8.setFont(new java.awt.Font("Yu Gothic", 0, 12)); // NOI18N
@@ -1387,36 +1398,7 @@ public final class Form_3 extends javax.swing.JPanel {
     }//GEN-LAST:event_panel7MouseClicked
 
     private void panel8MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_panel8MouseEntered
-        if (pane.getComponentCount() == 0) {
-            System.out.println("Panel Is Empty!");
-        } else {
-            pane.setSelectedIndex(1);
-            try {
 
-                ResultSet rs = new DBConnection().getData("select * from ac_table where ac_id = '" + id8.getText() + "'");
-                if (rs.next()) {
-                    id.setText("" + String.valueOf(rs.getInt("ac_id")));
-                    email.setText("" + rs.getString("ac_email"));
-                    username.setText("" + rs.getString("ac_username"));
-                    password.setText("" + rs.getString("ac_password"));
-                    secret.setText("" + rs.getString("ac_sq"));
-                    answer.setText("" + rs.getString("ac_sa"));
-                    contact.setText("" + rs.getString("ac_contact"));
-                    type.setSelectedItem("" + rs.getString("ac_type"));
-                    status.setSelectedItem("" + rs.getString("ac_status"));
-
-                    byte[] img = rs.getBytes("ac_image");
-                    ImageIcon image = new ImageIcon(img);
-                    Image im = image.getImage();
-                    Image im2 = im.getScaledInstance(picture1.getWidth(), picture1.getHeight(), Image.SCALE_SMOOTH);
-                    ImageIcon newImage = new ImageIcon(im2);
-                    picture1.setIcon(newImage);
-
-                }
-            } catch (SQLException er) {
-                System.out.println("ERROR: " + er.getMessage());
-            }
-        }
     }//GEN-LAST:event_panel8MouseEntered
 
     private void panel9MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_panel9MouseClicked
@@ -1560,6 +1542,50 @@ public final class Form_3 extends javax.swing.JPanel {
     private void refreshActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_refreshActionPerformed
 
     }//GEN-LAST:event_refreshActionPerformed
+
+    private void panel8MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_panel8MouseClicked
+        if (pane.getComponentCount() == 0) {
+            System.out.println("Panel Is Empty!");
+        } else {
+            pane.setSelectedIndex(1);
+            try {
+
+                ResultSet rs = new DBConnection().getData("select * from ac_table where ac_id = '" + id8.getText() + "'");
+                if (rs.next()) {
+                    id.setText("" + String.valueOf(rs.getInt("ac_id")));
+                    email.setText("" + rs.getString("ac_email"));
+                    username.setText("" + rs.getString("ac_username"));
+                    password.setText("" + rs.getString("ac_password"));
+                    secret.setText("" + rs.getString("ac_sq"));
+                    answer.setText("" + rs.getString("ac_sa"));
+                    contact.setText("" + rs.getString("ac_contact"));
+                    type.setSelectedItem("" + rs.getString("ac_type"));
+                    status.setSelectedItem("" + rs.getString("ac_status"));
+
+                    byte[] img = rs.getBytes("ac_image");
+                    ImageIcon image = new ImageIcon(img);
+                    Image im = image.getImage();
+                    Image im2 = im.getScaledInstance(picture1.getWidth(), picture1.getHeight(), Image.SCALE_SMOOTH);
+                    ImageIcon newImage = new ImageIcon(im2);
+                    picture1.setIcon(newImage);
+
+                }
+            } catch (SQLException er) {
+                System.out.println("ERROR: " + er.getMessage());
+            }
+        }
+    }//GEN-LAST:event_panel8MouseClicked
+
+    private void printActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_printActionPerformed
+
+        MessageFormat header = new MessageFormat("Total Accounts Registered Reports");
+        MessageFormat footer = new MessageFormat("Page{0,number,integer}");
+        try {
+            ac_db.print(JTable.PrintMode.FIT_WIDTH, header, footer);
+        } catch (PrinterException er) {
+            System.out.println("" + er.getMessage());
+        }
+    }//GEN-LAST:event_printActionPerformed
 
     public ImageIcon ResizeImage(String imagePath) {
         ImageIcon MyImage = new ImageIcon(imagePath);

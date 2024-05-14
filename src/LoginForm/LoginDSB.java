@@ -345,17 +345,6 @@ public class LoginDSB extends javax.swing.JPanel {
         password.setText("");
     }//GEN-LAST:event_passwordMouseClicked
 
-    public static void main(String args[]) {
-        FlatLightLaf.registerCustomDefaultsSource("Style");
-        FlatLightLaf.setup();
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            @Override
-            public void run() {
-                new LoginDSB().setVisible(true);
-            }
-        });
-    }
-
     private static String xstatus, xtype;
 
     private boolean loginDB(String username, String pass) throws SQLException {

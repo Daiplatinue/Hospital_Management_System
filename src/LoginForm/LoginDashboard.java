@@ -27,6 +27,7 @@ public class LoginDashboard extends javax.swing.JFrame {
         slide.setAnimate(20);
             
         slide.init(login, register);
+        
         login.addEventRegister(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent ae) {

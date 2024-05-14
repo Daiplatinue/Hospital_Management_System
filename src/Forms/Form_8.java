@@ -37,6 +37,7 @@ public class Form_8 extends javax.swing.JPanel {
         jLabel4 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         ac_archive = new javax.swing.JTable();
+        delete = new javax.swing.JButton();
 
         setBackground(new java.awt.Color(250, 250, 250));
         setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -64,7 +65,7 @@ public class Form_8 extends javax.swing.JPanel {
                 recoverActionPerformed(evt);
             }
         });
-        add(recover, new org.netbeans.lib.awtextra.AbsoluteConstraints(1090, 163, 130, 30));
+        add(recover, new org.netbeans.lib.awtextra.AbsoluteConstraints(1090, 160, 130, 30));
 
         jLabel5.setFont(new java.awt.Font("Yu Gothic", 0, 12)); // NOI18N
         jLabel5.setText("ALL");
@@ -149,6 +150,14 @@ public class Form_8 extends javax.swing.JPanel {
         jScrollPane1.setViewportView(ac_archive);
 
         add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 200, 1150, 490));
+
+        delete.setText("DELETE");
+        delete.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                deleteActionPerformed(evt);
+            }
+        });
+        add(delete, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 160, 130, 30));
     }// </editor-fold>//GEN-END:initComponents
 
     private void recoverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_recoverActionPerformed
@@ -199,6 +208,10 @@ public class Form_8 extends javax.swing.JPanel {
     private void jLabel4MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel4MouseExited
     }//GEN-LAST:event_jLabel4MouseExited
 
+    private void deleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteActionPerformed
+       deleteAccount();
+    }//GEN-LAST:event_deleteActionPerformed
+
     private void displayData() {
         try {
             xternal_db xdb = xternal_db.getInstance();
@@ -231,6 +244,28 @@ public class Form_8 extends javax.swing.JPanel {
         }
     }
 
+    private void deleteAccount() {
+        int rowIndex = ac_archive.getSelectedRow();
+        if (rowIndex < 0) {
+            errorMessage("PLEASE SELECT AN INDEX!");
+        } else {
+            try {
+                TableModel tbl = ac_archive.getModel();
+                String accountId = tbl.getValueAt(rowIndex, 0).toString();
+                String query = "DELETE FROM ac_table WHERE ac_id = ?";
+
+                PreparedStatement ps = new DBConnection().getConnection().prepareStatement(query);
+                ps.setString(1, accountId);
+                ps.executeUpdate();
+
+                successMessage("ACCOUNT DELETED SUCCESSFULLY!!");
+                displayData();
+            } catch (SQLException er) {
+                System.out.println("ERROR: " + er.getMessage());
+            }
+        }
+    }
+
     private void errorMessage(String message) {
         JOptionPane.showMessageDialog(this, message, "ERROR!", JOptionPane.ERROR_MESSAGE);
     }
@@ -242,6 +277,7 @@ public class Form_8 extends javax.swing.JPanel {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTable ac_archive;
+    private javax.swing.JButton delete;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;

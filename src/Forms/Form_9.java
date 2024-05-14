@@ -299,7 +299,7 @@ public class Form_9 extends javax.swing.JPanel {
         secret.setText("");
         answer.setText("");
         contact.setText("");
-        picture1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/iring.jpg")));
+        picture3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/iring.jpg")));
         username.setBorder(BorderFactory.createLineBorder(Color.LIGHT_GRAY));
         email.setBorder(BorderFactory.createLineBorder(Color.LIGHT_GRAY));
         password.setBorder(BorderFactory.createLineBorder(Color.LIGHT_GRAY));
@@ -461,7 +461,7 @@ public class Form_9 extends javax.swing.JPanel {
     }//GEN-LAST:event_panel2MouseClicked
 
     private void removeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_removeActionPerformed
-        picture1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/iring.jpg")));
+        picture3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/iring.jpg")));
     }//GEN-LAST:event_removeActionPerformed
 
     public ImageIcon ResizeImage(String imagePath) {
@@ -514,12 +514,8 @@ public class Form_9 extends javax.swing.JPanel {
     private javax.swing.JTextField id;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
-    private javax.swing.JPanel panel;
-    private javax.swing.JPanel panel1;
     private javax.swing.JPanel panel2;
     private javax.swing.JPasswordField password;
-    public javax.swing.JLabel picture1;
-    public javax.swing.JLabel picture2;
     public javax.swing.JLabel picture3;
     private javax.swing.JButton remove;
     private javax.swing.JTextField secret;
