@@ -3,6 +3,7 @@ package Forms;
 import Database.DBConnection;
 import Database.xternal_db;
 import com.formdev.flatlaf.FlatClientProperties;
+import java.awt.Color;
 import java.awt.Cursor;
 import java.awt.Image;
 import java.awt.Rectangle;
@@ -12,8 +13,10 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
+import javax.swing.UIManager;
 import javax.swing.table.TableModel;
 import jnafilechooser.api.JnaFileChooser;
 import net.proteanit.sql.DbUtils;
@@ -37,6 +40,7 @@ public class Form_7 extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jPanel3 = new javax.swing.JPanel();
         jTabbedPane1 = new javax.swing.JTabbedPane();
         jPanel1 = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
@@ -70,6 +74,21 @@ public class Form_7 extends javax.swing.JPanel {
 
         setBackground(new java.awt.Color(250, 250, 250));
         setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jPanel3.setBackground(new java.awt.Color(255, 255, 255));
+
+        javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
+        jPanel3.setLayout(jPanel3Layout);
+        jPanel3Layout.setHorizontalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 1300, Short.MAX_VALUE)
+        );
+        jPanel3Layout.setVerticalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 60, Short.MAX_VALUE)
+        );
+
+        add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, -20, 1300, 60));
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -148,6 +167,7 @@ public class Form_7 extends javax.swing.JPanel {
         jPanel2.setBackground(new java.awt.Color(255, 255, 255));
         jPanel2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
+        answer.setEditable(false);
         answer.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         answer.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
@@ -161,10 +181,12 @@ public class Form_7 extends javax.swing.JPanel {
         });
         jPanel2.add(answer, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 350, 302, 32));
 
+        password.setEditable(false);
         password.setFont(new java.awt.Font("Yu Gothic", 0, 12)); // NOI18N
         password.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         jPanel2.add(password, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 290, 302, 30));
 
+        username.setEditable(false);
         username.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         username.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
@@ -178,6 +200,7 @@ public class Form_7 extends javax.swing.JPanel {
         });
         jPanel2.add(username, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 230, 302, 32));
 
+        email.setEditable(false);
         email.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         email.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
@@ -191,6 +214,7 @@ public class Form_7 extends javax.swing.JPanel {
         });
         jPanel2.add(email, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 228, 302, 32));
 
+        status.setEditable(false);
         status.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         status.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
@@ -204,6 +228,7 @@ public class Form_7 extends javax.swing.JPanel {
         });
         jPanel2.add(status, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 450, 302, 32));
 
+        contact.setEditable(false);
         contact.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         contact.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
@@ -217,6 +242,7 @@ public class Form_7 extends javax.swing.JPanel {
         });
         jPanel2.add(contact, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 290, 302, 32));
 
+        id.setEditable(false);
         id.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         id.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
@@ -280,6 +306,7 @@ public class Form_7 extends javax.swing.JPanel {
         });
         jPanel2.add(add3, new org.netbeans.lib.awtextra.AbsoluteConstraints(1100, 50, 100, -1));
 
+        secret.setEditable(false);
         secret.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         secret.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
@@ -293,6 +320,7 @@ public class Form_7 extends javax.swing.JPanel {
         });
         jPanel2.add(secret, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 350, 302, 32));
 
+        type.setEditable(false);
         type.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         type.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
@@ -360,16 +388,6 @@ public class Form_7 extends javax.swing.JPanel {
     }//GEN-LAST:event_idMouseClicked
 
     private void picture1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_picture1MouseClicked
-        JnaFileChooser ch = new JnaFileChooser();
-        boolean action = ch.showOpenDialog(new NewJFrame());
-        if (action) {
-            File selectedFile = ch.getSelectedFile();
-            String path = selectedFile.getAbsolutePath();
-            picture1.setIcon(ResizeImage(path));
-            path2 = path;
-        } else {
-            System.out.println("Image Already Exist or Does Not Exist!");
-        }
     }//GEN-LAST:event_picture1MouseClicked
 
     private void panelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_panelMouseClicked
@@ -397,13 +415,16 @@ public class Form_7 extends javax.swing.JPanel {
     }//GEN-LAST:event_typeMouseClicked
 
     private void dpActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_dpActionPerformed
-        if (jTabbedPane1.getComponentCount() == 0) {
-            System.out.println("Panel Is Empty!");
+        int rowIndex = ac_pending.getSelectedRow();
+        if (rowIndex < 0) {
+            UIManager.put("OptionPane.background", Color.white);
+            UIManager.put("Panel.background", Color.white);
+            Icon customIcon = new javax.swing.ImageIcon(getClass().getResource("/Images/alert.gif"));
+            JOptionPane.showMessageDialog(null, "PLEASE CHOOSE AN INDEX!", "WARNING", JOptionPane.WARNING_MESSAGE, customIcon);
         } else {
             jTabbedPane1.setSelectedIndex(1);
             try {
                 TableModel tbl = ac_pending.getModel();
-                int rowIndex = ac_pending.getSelectedRow();
                 ResultSet rs = new DBConnection().getData("select * from ac_table where ac_id = '" + tbl.getValueAt(rowIndex, 0) + "'");
                 if (rs.next()) {
                     id.setText("" + String.valueOf(rs.getInt("ac_id")));
@@ -561,6 +582,8 @@ public class Form_7 extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
+    private javax.swing.JPanel jPanel3;
+    private javax.swing.JPanel jPanel5;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JPanel panel;

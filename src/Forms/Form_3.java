@@ -55,6 +55,7 @@ public final class Form_3 extends javax.swing.JPanel {
         print.setFocusable(false);
         printableTable.setFocusable(false);
         changeView.setFocusable(false);
+        refresh.setFocusable(false);
 
         Component[] components = {username, email, password, secret, answer, contact};
         JLabel[] ids = {id1, id2, id3, id4, id5, id4, id7, id8, id9, id10, id11, id12};
@@ -105,6 +106,7 @@ public final class Form_3 extends javax.swing.JPanel {
     private void initComponents() {
 
         jPanel11 = new javax.swing.JPanel();
+        jPanel5 = new javax.swing.JPanel();
         pane = new javax.swing.JTabbedPane();
         scroll1 = new javax.swing.JScrollPane();
         scrols = new javax.swing.JPanel();
@@ -218,6 +220,21 @@ public final class Form_3 extends javax.swing.JPanel {
 
         jPanel11.setBackground(new java.awt.Color(255, 255, 255));
         jPanel11.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jPanel5.setBackground(new java.awt.Color(255, 255, 255));
+
+        javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
+        jPanel5.setLayout(jPanel5Layout);
+        jPanel5Layout.setHorizontalGroup(
+            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 1290, Short.MAX_VALUE)
+        );
+        jPanel5Layout.setVerticalGroup(
+            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 80, Short.MAX_VALUE)
+        );
+
+        jPanel11.add(jPanel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, -40, 1290, 80));
 
         scroll1.setBackground(new java.awt.Color(255, 255, 255));
         scroll1.setFont(new java.awt.Font("Yu Gothic", 0, 11)); // NOI18N
@@ -725,6 +742,7 @@ public final class Form_3 extends javax.swing.JPanel {
         type.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "PATIENT", "DOCTOR", "ADMIN", "RECEPTIONIST" }));
         jPanel1.add(type, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 402, 303, 30));
 
+        id.setEditable(false);
         id.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         id.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
@@ -1770,6 +1788,9 @@ public final class Form_3 extends javax.swing.JPanel {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel11;
     private javax.swing.JPanel jPanel2;
+    private javax.swing.JPanel jPanel3;
+    private javax.swing.JPanel jPanel4;
+    private javax.swing.JPanel jPanel5;
     private javax.swing.JScrollPane jScrollPane1;
     public javax.swing.JLabel name1;
     public javax.swing.JLabel name10;

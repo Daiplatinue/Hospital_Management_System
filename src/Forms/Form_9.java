@@ -162,6 +162,7 @@ public class Form_9 extends javax.swing.JPanel {
         status.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "PENDING", "ACTIVE", "IN-ACTIVE", "DELETED" }));
         add(status, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 447, 303, 30));
 
+        id.setEditable(false);
         id.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         id.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
