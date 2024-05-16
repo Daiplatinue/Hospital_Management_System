@@ -379,7 +379,7 @@ public class Form_9 extends javax.swing.JPanel {
             String contacts = contact.getText().trim();
             String types = (String) type.getSelectedItem();
             String stats = (String) status.getSelectedItem();
-            String photoPath = path2 != null ? path2.trim() : ""; // Use path2 here
+            String photoPath = path2 != null ? path2.trim() : "";
             String idText = id.getText().trim();
 
             System.out.println("User: [" + user + "]");
@@ -435,7 +435,12 @@ public class Form_9 extends javax.swing.JPanel {
                 pst.executeUpdate();
 
                 JOptionPane.showMessageDialog(null, "ACCOUNT SUCCESSFULLY UPDATED!", "SUCCESS", JOptionPane.INFORMATION_MESSAGE);
-                
+
+                xternal_db xdb = xternal_db.getInstance();
+                PreparedStatement logs = cn.prepareStatement("INSERT INTO ac_logs (lg_email,lg_username,lg_actions)"
+                        + " VALUES ('" + xdb.getEmail() + "', '" + xdb.getUsername() + "', 'JUST UPDATED OWN ACCOUNT, ID = " + xdb.getId() + "')");
+                logs.execute();
+
                 MyInfo();
             }
         } catch (SQLException | FileNotFoundException ex) {

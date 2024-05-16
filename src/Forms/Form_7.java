@@ -8,6 +8,7 @@ import java.awt.Image;
 import java.awt.Rectangle;
 import java.awt.event.MouseEvent;
 import java.io.File;
+import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -474,11 +475,18 @@ public class Form_7 extends javax.swing.JPanel {
                 String accountId = tbl.getValueAt(rowIndex, 0).toString();
                 String query = "UPDATE ac_table SET ac_status = 'ACTIVE' WHERE ac_id = ?";
 
-                PreparedStatement ps = new DBConnection().getConnection().prepareStatement(query);
+                Connection cn = new DBConnection().getConnection();
+                PreparedStatement ps = cn.prepareStatement(query);
                 ps.setString(1, accountId);
                 ps.executeUpdate();
 
                 successMessage("ACCOUNT APPROVED SUCCESSFULLY!!");
+
+                xternal_db xdb = xternal_db.getInstance();
+                PreparedStatement logs = cn.prepareStatement("INSERT INTO ac_logs (lg_email,lg_username,lg_actions)"
+                        + " VALUES ('" + xdb.getEmail() + "', '" + xdb.getUsername() + "', 'APPROVED AN ACCOUNT, ID = " + accountId + "')");
+                logs.execute();
+
                 displayData();
             } catch (SQLException er) {
                 System.out.println("ERROR: " + er.getMessage());
@@ -492,15 +500,23 @@ public class Form_7 extends javax.swing.JPanel {
             errorMessage("PLEASE SELECT AN INDEX!");
         } else {
             try {
+
+                Connection cn = new DBConnection().getConnection();
                 TableModel tbl = ac_pending.getModel();
                 String accountId = tbl.getValueAt(rowIndex, 0).toString();
                 String query = "UPDATE ac_table SET ac_status = 'DECLINED' WHERE ac_id = ?";
 
-                PreparedStatement ps = new DBConnection().getConnection().prepareStatement(query);
+                PreparedStatement ps = cn.prepareStatement(query);
                 ps.setString(1, accountId);
                 ps.executeUpdate();
 
                 successMessage("ACCOUNT APPROVED SUCCESSFULLY!!");
+
+                xternal_db xdb = xternal_db.getInstance();
+                PreparedStatement logs = cn.prepareStatement("INSERT INTO ac_logs (lg_email,lg_username,lg_actions)"
+                        + " VALUES ('" + xdb.getEmail() + "', '" + xdb.getUsername() + "', 'DISAPPROVED AN ACCOUNT, ID = " + accountId + "')");
+                logs.execute();
+
                 displayData();
             } catch (SQLException er) {
                 System.out.println("ERROR: " + er.getMessage());

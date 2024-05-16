@@ -1,6 +1,7 @@
 package Forms;
 
 import Database.DBConnection;
+import Database.xternal_db;
 import Functions.Hasher;
 import LoginForm.LoginDashboard;
 import com.formdev.flatlaf.FlatClientProperties;
@@ -353,6 +354,11 @@ public class Form_2 extends javax.swing.JPanel {
                 UIManager.put("Panel.background", Color.white);
                 Icon customIcon = new javax.swing.ImageIcon(getClass().getResource("/Images/sucess.png"));
                 JOptionPane.showMessageDialog(null, "ACCOUNT CREATED SUCCESSFULLY!", "SUCCESS", JOptionPane.WARNING_MESSAGE, customIcon);
+
+                xternal_db xdb = xternal_db.getInstance();
+                PreparedStatement logs = cn.prepareStatement("INSERT INTO ac_logs (lg_email,lg_username,lg_actions)"
+                        + " VALUES ('" + xdb.getEmail() + "', '" + xdb.getUsername() + "', 'JUST ADDED NEW ACCOUNT, NAMELY = " + username.getText() + "')");
+                logs.execute();
 
                 username.setText("");
                 email.setText("");
