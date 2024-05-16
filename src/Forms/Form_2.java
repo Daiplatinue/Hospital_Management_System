@@ -359,7 +359,7 @@ public class Form_2 extends javax.swing.JPanel {
                 PreparedStatement logs = cn.prepareStatement("INSERT INTO ac_logs (lg_email,lg_username,lg_actions)"
                         + " VALUES ('" + xdb.getEmail() + "', '" + xdb.getUsername() + "', 'JUST ADDED NEW ACCOUNT, NAMELY = " + username.getText() + "')");
                 logs.execute();
-
+                
                 username.setText("");
                 email.setText("");
                 password.setText("");

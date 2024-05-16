@@ -110,18 +110,18 @@ public final class Form_3 extends javax.swing.JPanel {
         pane = new javax.swing.JTabbedPane();
         scroll1 = new javax.swing.JScrollPane();
         scrols = new javax.swing.JPanel();
+        panel4 = new javax.swing.JPanel();
+        id4 = new javax.swing.JLabel();
+        type4 = new javax.swing.JLabel();
+        name4 = new javax.swing.JLabel();
+        status4 = new javax.swing.JLabel();
+        icon4 = new javax.swing.JLabel();
         panel1 = new javax.swing.JPanel();
         icon1 = new javax.swing.JLabel();
         status1 = new javax.swing.JLabel();
         name1 = new javax.swing.JLabel();
         type1 = new javax.swing.JLabel();
         id1 = new javax.swing.JLabel();
-        panel4 = new javax.swing.JPanel();
-        id4 = new javax.swing.JLabel();
-        icon4 = new javax.swing.JLabel();
-        type4 = new javax.swing.JLabel();
-        name4 = new javax.swing.JLabel();
-        status4 = new javax.swing.JLabel();
         panel2 = new javax.swing.JPanel();
         icon2 = new javax.swing.JLabel();
         id2 = new javax.swing.JLabel();
@@ -231,16 +231,43 @@ public final class Form_3 extends javax.swing.JPanel {
         );
         jPanel5Layout.setVerticalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 80, Short.MAX_VALUE)
+            .addGap(0, 50, Short.MAX_VALUE)
         );
 
-        jPanel11.add(jPanel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, -40, 1290, 80));
+        jPanel11.add(jPanel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, -40, 1290, 50));
 
         scroll1.setBackground(new java.awt.Color(255, 255, 255));
         scroll1.setFont(new java.awt.Font("Yu Gothic", 0, 11)); // NOI18N
 
         scrols.setBackground(new java.awt.Color(255, 255, 255));
         scrols.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        panel4.setBackground(new java.awt.Color(255, 255, 255));
+        panel4.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                panel4MouseClicked(evt);
+            }
+        });
+        panel4.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        id4.setFont(new java.awt.Font("Yu Gothic", 0, 12)); // NOI18N
+        id4.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        panel4.add(id4, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 190, 260, 20));
+
+        type4.setFont(new java.awt.Font("Yu Gothic", 0, 12)); // NOI18N
+        type4.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        panel4.add(type4, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 270, 260, 20));
+
+        name4.setFont(new java.awt.Font("Yu Gothic", 0, 12)); // NOI18N
+        name4.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        panel4.add(name4, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 210, 260, 20));
+
+        status4.setFont(new java.awt.Font("Yu Gothic", 0, 12)); // NOI18N
+        status4.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        panel4.add(status4, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 300, 260, 20));
+        panel4.add(icon4, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 240, 160));
+
+        scrols.add(panel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(960, 70, 260, 330));
 
         panel1.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -267,32 +294,6 @@ public final class Form_3 extends javax.swing.JPanel {
         panel1.add(id1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 190, 260, 20));
 
         scrols.add(panel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 70, 260, 330));
-
-        panel4.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                panel4MouseClicked(evt);
-            }
-        });
-        panel4.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-
-        id4.setFont(new java.awt.Font("Yu Gothic", 0, 12)); // NOI18N
-        id4.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        panel4.add(id4, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 190, 260, 20));
-        panel4.add(icon4, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 260, 170));
-
-        type4.setFont(new java.awt.Font("Yu Gothic", 0, 12)); // NOI18N
-        type4.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        panel4.add(type4, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 270, 260, 20));
-
-        name4.setFont(new java.awt.Font("Yu Gothic", 0, 12)); // NOI18N
-        name4.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        panel4.add(name4, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 210, 260, 20));
-
-        status4.setFont(new java.awt.Font("Yu Gothic", 0, 12)); // NOI18N
-        status4.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        panel4.add(status4, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 300, 260, 20));
-
-        scrols.add(panel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(960, 70, 260, 330));
 
         panel2.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -894,7 +895,7 @@ public final class Form_3 extends javax.swing.JPanel {
 
         pane.addTab("tab3", jPanel2);
 
-        jPanel11.add(pane, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1290, 730));
+        jPanel11.add(pane, new org.netbeans.lib.awtextra.AbsoluteConstraints(-10, 0, 1300, 730));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -1125,6 +1126,15 @@ public final class Form_3 extends javax.swing.JPanel {
                 logs.execute();
 
                 pane.setSelectedIndex(0);
+
+                JLabel[] ids = {id1, id2, id3, id4, id5, id4, id7, id8, id9, id10, id11, id12};
+                JLabel[] names = {name1, name2, name3, name4, name5, name4, name7, name8, name9, name10, name11, name12};
+                JLabel[] typess = {type1, type2, type3, type4, type5, type4, type7, type8, type9, type10, type11, type12};
+                JLabel[] statuses = {status1, status2, status3, status4, status5, status4, status7, status8, status9, status10, status11, status12};
+                JLabel[] icons = {icon1, icon2, icon3, icon4, icon5, icon4, icon7, icon8, icon9, icon10, icon11, icon12};
+                JPanel[] panels = {panel1, panel2, panel3, panel4, panel5, panel6, panel7, panel8, panel9, panel10, panel11, panel12};
+                fetch(lastDisplayedIndex, ids, names, typess, statuses, icons, panels);
+
             }
         } catch (SQLException | FileNotFoundException ex) {
             System.out.println("Error: " + ex.getMessage());
@@ -1165,6 +1175,8 @@ public final class Form_3 extends javax.swing.JPanel {
                     PreparedStatement logs = cn.prepareStatement("INSERT INTO ac_logs (lg_email,lg_username,lg_actions)"
                             + " VALUES ('" + xdb.getEmail() + "', '" + xdb.getUsername() + "', 'JUST DELETED AN ACCOUNT, ID = " + id.getText() + "')");
                     logs.execute();
+                    
+                    refreshBtn();
 
                     int choice1 = JOptionPane.showOptionDialog(
                             null,
@@ -1639,6 +1651,15 @@ public final class Form_3 extends javax.swing.JPanel {
                     panels[i].setBorder(new LineBorder(Color.BLACK, 2));
                     i++;
                 }
+
+                for (int j = i; j < icons.length; j++) {
+                    removeLable(icons[j]);
+                    removeLable(ids[j]);
+                    removeLable(types[j]);
+                    removeLable(names[j]);
+                    removeLable(statuses[j]);
+                }
+
             } else {
                 System.out.println("Table is empty");
             }
@@ -1737,6 +1758,14 @@ public final class Form_3 extends javax.swing.JPanel {
         fetch(lastDisplayedIndex, ids, names, types, statuses, icons, panels);
     }
 
+    private void removeLable(JLabel label) {
+        if (label != null) {
+            label.setIcon(null);
+            label.setText(null);
+            label.setVisible(false);
+        }
+    }
+
     public void dispose() {
         JFrame parent = (JFrame) this.getTopLevelAncestor();
         parent.dispose();
@@ -1788,8 +1817,6 @@ public final class Form_3 extends javax.swing.JPanel {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel11;
     private javax.swing.JPanel jPanel2;
-    private javax.swing.JPanel jPanel3;
-    private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
     private javax.swing.JScrollPane jScrollPane1;
     public javax.swing.JLabel name1;

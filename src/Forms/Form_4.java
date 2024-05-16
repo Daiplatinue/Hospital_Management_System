@@ -10,6 +10,9 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.text.MessageFormat;
 import javax.swing.JTable;
+import javax.swing.SwingConstants;
+import javax.swing.table.DefaultTableCellRenderer;
+import javax.swing.table.TableColumn;
 import net.proteanit.sql.DbUtils;
 
 public class Form_4 extends javax.swing.JPanel {
@@ -19,6 +22,7 @@ public class Form_4 extends javax.swing.JPanel {
         print.setFocusable(false);
 
         displayData();
+
     }
 
     @SuppressWarnings("unchecked")
@@ -81,10 +85,23 @@ public class Form_4 extends javax.swing.JPanel {
         try {
             ResultSet rs = new DBConnection().getData("SELECT * FROM ac_logs");
             logs.setModel(DbUtils.resultSetToTableModel(rs));
+
+            TableColumn column;
+            column = logs.getColumnModel().getColumn(3);
+
+            column.setPreferredWidth(500);
+
+            ((DefaultTableCellRenderer) logs.getTableHeader().getDefaultRenderer())
+                    .setHorizontalAlignment(SwingConstants.CENTER);
+            DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
+            centerRenderer.setHorizontalAlignment(SwingConstants.CENTER);
+            logs.setDefaultRenderer(Object.class, centerRenderer);
+
         } catch (SQLException e) {
             System.err.println("An error occurred while fetching data: " + e.getMessage());
         }
     }
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel jLabel2;
