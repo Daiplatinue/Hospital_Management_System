@@ -55,7 +55,6 @@ public final class Form_3 extends javax.swing.JPanel {
         print.setFocusable(false);
         printableTable.setFocusable(false);
         changeView.setFocusable(false);
-        refresh.setFocusable(false);
 
         Component[] components = {username, email, password, secret, answer, contact};
         JLabel[] ids = {id1, id2, id3, id4, id5, id4, id7, id8, id9, id10, id11, id12};
@@ -75,13 +74,6 @@ public final class Form_3 extends javax.swing.JPanel {
                 }
             });
         }
-
-        refresh.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                refreshBtn();
-            }
-        });
 
         username.putClientProperty(FlatClientProperties.PLACEHOLDER_TEXT, "USERNAME");
         password.putClientProperty(FlatClientProperties.PLACEHOLDER_TEXT, "PASSWORD");
@@ -183,7 +175,6 @@ public final class Form_3 extends javax.swing.JPanel {
         id12 = new javax.swing.JLabel();
         icon12 = new javax.swing.JLabel();
         printableTable = new javax.swing.JButton();
-        refresh = new javax.swing.JButton();
         scroll = new javax.swing.JScrollPane();
         jPanel1 = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
@@ -227,14 +218,14 @@ public final class Form_3 extends javax.swing.JPanel {
         jPanel5.setLayout(jPanel5Layout);
         jPanel5Layout.setHorizontalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 1290, Short.MAX_VALUE)
+            .addGap(0, 1310, Short.MAX_VALUE)
         );
         jPanel5Layout.setVerticalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 50, Short.MAX_VALUE)
+            .addGap(0, 80, Short.MAX_VALUE)
         );
 
-        jPanel11.add(jPanel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, -40, 1290, 50));
+        jPanel11.add(jPanel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, -40, 1310, 80));
 
         scroll1.setBackground(new java.awt.Color(255, 255, 255));
         scroll1.setFont(new java.awt.Font("Yu Gothic", 0, 11)); // NOI18N
@@ -572,14 +563,6 @@ public final class Form_3 extends javax.swing.JPanel {
         });
         scrols.add(printableTable, new org.netbeans.lib.awtextra.AbsoluteConstraints(1090, 20, 130, 30));
 
-        refresh.setText("REFRESH");
-        refresh.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                refreshActionPerformed(evt);
-            }
-        });
-        scrols.add(refresh, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 20, 130, 30));
-
         scroll1.setViewportView(scrols);
 
         pane.addTab("tab3", scroll1);
@@ -895,7 +878,7 @@ public final class Form_3 extends javax.swing.JPanel {
 
         pane.addTab("tab3", jPanel2);
 
-        jPanel11.add(pane, new org.netbeans.lib.awtextra.AbsoluteConstraints(-10, 0, 1300, 730));
+        jPanel11.add(pane, new org.netbeans.lib.awtextra.AbsoluteConstraints(-10, 0, 1320, 770));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -905,7 +888,9 @@ public final class Form_3 extends javax.swing.JPanel {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel11, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(jPanel11, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -1175,42 +1160,9 @@ public final class Form_3 extends javax.swing.JPanel {
                     PreparedStatement logs = cn.prepareStatement("INSERT INTO ac_logs (lg_email,lg_username,lg_actions)"
                             + " VALUES ('" + xdb.getEmail() + "', '" + xdb.getUsername() + "', 'JUST DELETED AN ACCOUNT, ID = " + id.getText() + "')");
                     logs.execute();
-                    
+
                     refreshBtn();
-
-                    int choice1 = JOptionPane.showOptionDialog(
-                            null,
-                            "SOME CHANGES MAY APPLY AFTER RESTARTING!",
-                            "WARNING",
-                            JOptionPane.YES_NO_OPTION,
-                            JOptionPane.QUESTION_MESSAGE,
-                            null,
-                            new String[]{"RESTART NOW", "RESTART LATER"},
-                            "RESTART NOW"
-                    );
-
-                    if (choice1 == JOptionPane.YES_OPTION) {
-                        new LoginDashboard().setVisible(true);
-                        dispose();
-                    } else {
-                        int choice2 = JOptionPane.showOptionDialog(
-                                null,
-                                "ARE YOU SURE THIS MAY RESULT IN SOME DATA CONFLICTS!",
-                                "WARNING",
-                                JOptionPane.YES_NO_OPTION,
-                                JOptionPane.QUESTION_MESSAGE,
-                                null,
-                                new String[]{"YES", "NO"},
-                                "YES"
-                        );
-
-                        if (choice2 == JOptionPane.YES_OPTION) {
-                            pane.setSelectedIndex(0);
-                        } else {
-                            new LoginDashboard().setVisible(true);
-                            dispose();
-                        }
-                    }
+                    pane.setSelectedIndex(0);
 
                 } else {
                     JOptionPane.showMessageDialog(null, "NO ACCOUNT FOUND WITH ID: " + idText, "WARNING", JOptionPane.WARNING_MESSAGE);
@@ -1551,10 +1503,6 @@ public final class Form_3 extends javax.swing.JPanel {
         }
     }//GEN-LAST:event_panel11MouseClicked
 
-    private void refreshActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_refreshActionPerformed
-
-    }//GEN-LAST:event_refreshActionPerformed
-
     private void panel8MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_panel8MouseClicked
         if (!id8.getText().isEmpty() && !name8.getText().isEmpty() && !status8.getText().isEmpty() && !type8.getText().isEmpty()) {
             pane.setSelectedIndex(1);
@@ -1615,7 +1563,7 @@ public final class Form_3 extends javax.swing.JPanel {
     private void displayData() {
         try {
             xternal_db xdb = xternal_db.getInstance();
-            ResultSet rs = new DBConnection().getData("select ac_id,ac_email,ac_username,ac_contact,ac_type,ac_status from ac_table where ac_status in ('active', 'inactive') and ac_id != '" + xdb.getId() + "'");
+            ResultSet rs = new DBConnection().getData("select ac_id,ac_email,ac_username,ac_contact,ac_type,ac_status from ac_table where ac_status in ('active', 'in-active') and ac_id != '" + xdb.getId() + "'");
             ac_db.setModel(DbUtils.resultSetToTableModel(rs));
         } catch (SQLException e) {
             System.err.println("An error occurred while fetching data: " + e.getMessage());
@@ -1653,11 +1601,12 @@ public final class Form_3 extends javax.swing.JPanel {
                 }
 
                 for (int j = i; j < icons.length; j++) {
-                    removeLable(icons[j]);
-                    removeLable(ids[j]);
-                    removeLable(types[j]);
-                    removeLable(names[j]);
-                    removeLable(statuses[j]);
+                    removeLabel(icons[j]);  // Corrected method name to removeLabel
+                    removeLabel(ids[j]);
+                    removeLabel(types[j]);
+                    removeLabel(names[j]);
+                    removeLabel(statuses[j]);
+                    panels[j].setVisible(false);  // Hide the remaining panels
                 }
 
             } else {
@@ -1748,17 +1697,17 @@ public final class Form_3 extends javax.swing.JPanel {
     }
 
     public void refreshBtn() {
-        JLabel[] ids = {id1, id2, id3, id4, id5, id4, id7, id8, id9, id10, id11, id12};
-        JLabel[] names = {name1, name2, name3, name4, name5, name4, name7, name8, name9, name10, name11, name12};
-        JLabel[] types = {type1, type2, type3, type4, type5, type4, type7, type8, type9, type10, type11, type12};
-        JLabel[] statuses = {status1, status2, status3, status4, status5, status4, status7, status8, status9, status10, status11, status12};
-        JLabel[] icons = {icon1, icon2, icon3, icon4, icon5, icon4, icon7, icon8, icon9, icon10, icon11, icon12};
+        JLabel[] ids = {id1, id2, id3, id4, id5, id6, id7, id8, id9, id10, id11, id12};
+        JLabel[] names = {name1, name2, name3, name4, name5, name6, name7, name8, name9, name10, name11, name12};
+        JLabel[] types = {type1, type2, type3, type4, type5, type6, type7, type8, type9, type10, type11, type12};
+        JLabel[] statuses = {status1, status2, status3, status4, status5, status6, status7, status8, status9, status10, status11, status12};
+        JLabel[] icons = {icon1, icon2, icon3, icon4, icon5, icon6, icon7, icon8, icon9, icon10, icon11, icon12};
         JPanel[] panels = {panel1, panel2, panel3, panel4, panel5, panel6, panel7, panel8, panel9, panel10, panel11, panel12};
         displayData();
         fetch(lastDisplayedIndex, ids, names, types, statuses, icons, panels);
     }
 
-    private void removeLable(JLabel label) {
+    private void removeLabel(JLabel label) {
         if (label != null) {
             label.setIcon(null);
             label.setText(null);
@@ -1849,7 +1798,6 @@ public final class Form_3 extends javax.swing.JPanel {
     public javax.swing.JLabel picture1;
     private javax.swing.JButton print;
     private javax.swing.JButton printableTable;
-    private javax.swing.JButton refresh;
     private javax.swing.JButton remove;
     private javax.swing.JScrollPane scroll;
     private javax.swing.JScrollPane scroll1;
