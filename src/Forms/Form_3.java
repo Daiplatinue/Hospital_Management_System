@@ -2,39 +2,35 @@ package Forms;
 
 import Database.DBConnection;
 import Database.xternal_db;
-import Functions.Hasher;
-import LoginForm.LoginDashboard;
-import RegisterForm.RegisterDSB;
 import com.formdev.flatlaf.FlatClientProperties;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Image;
 import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.awt.print.PrinterException;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.security.NoSuchAlgorithmException;
-import java.sql.Blob;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.text.MessageFormat;
+import java.util.HashMap;
+import java.util.Map;
 import javax.swing.BorderFactory;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
-import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTable;
-import javax.swing.SwingUtilities;
+import javax.swing.Timer;
 import javax.swing.UIManager;
 import javax.swing.border.LineBorder;
 import javax.swing.table.TableModel;
@@ -44,9 +40,14 @@ import net.proteanit.sql.DbUtils;
 public final class Form_3 extends javax.swing.JPanel {
 
     String path2 = null;
-    private final int lastDisplayedIndex = 0;
+    private final int lastDisplayedIndex;
+    private final Map<JPanel, Timer> enterTimers;
+    private final Map<JPanel, Timer> exitTimers;
+    private final int step = 5;
 
     public Form_3() throws IOException {
+        this.enterTimers = new HashMap<>();
+        this.exitTimers = new HashMap<>();
         initComponents();
         displayData();
 
@@ -56,16 +57,17 @@ public final class Form_3 extends javax.swing.JPanel {
         printableTable.setFocusable(false);
         changeView.setFocusable(false);
 
-        Component[] components = {username, email, password, secret, answer, contact};
-        JLabel[] ids = {id1, id2, id3, id4, id5, id4, id7, id8, id9, id10, id11, id12};
-        JLabel[] names = {name1, name2, name3, name4, name5, name4, name7, name8, name9, name10, name11, name12};
-        JLabel[] types = {type1, type2, type3, type4, type5, type4, type7, type8, type9, type10, type11, type12};
-        JLabel[] statuses = {status1, status2, status3, status4, status5, status4, status7, status8, status9, status10, status11, status12};
-        JLabel[] icons = {icon1, icon2, icon3, icon4, icon5, icon4, icon7, icon8, icon9, icon10, icon11, icon12};
+        JLabel[] ids = {id1, id2, id3, id4, id5, id6, id7, id8, id9, id10, id11, id12};
+        JLabel[] names = {name1, name2, name3, name4, name5, name6, name7, name8, name9, name10, name11, name12};
+        JLabel[] types = {type1, type2, type3, type4, type5, type6, type7, type8, type9, type10, type11, type12};
+        JLabel[] statuses = {status1, status2, status3, status4, status5, status6, status7, status8, status9, status10, status11, status12};
+        JLabel[] icons = {icon1, icon2, icon3, icon4, icon5, icon6, icon7, icon8, icon9, icon10, icon11, icon12};
         JPanel[] panels = {panel1, panel2, panel3, panel4, panel5, panel6, panel7, panel8, panel9, panel10, panel11, panel12};
 
+        lastDisplayedIndex = 0;
         fetch(lastDisplayedIndex, ids, names, types, statuses, icons, panels);
 
+        Component[] components = {username, email, password, secret, answer, contact};
         for (Component component : components) {
             component.addFocusListener(new java.awt.event.FocusAdapter() {
                 @Override
@@ -90,7 +92,6 @@ public final class Form_3 extends javax.swing.JPanel {
         secret.putClientProperty(FlatClientProperties.TEXT_FIELD_SHOW_CLEAR_BUTTON, true);
         contact.putClientProperty(FlatClientProperties.TEXT_FIELD_SHOW_CLEAR_BUTTON, true);
         search.putClientProperty(FlatClientProperties.TEXT_FIELD_SHOW_CLEAR_BUTTON, true);
-
     }
 
     @SuppressWarnings("unchecked")
@@ -189,12 +190,11 @@ public final class Form_3 extends javax.swing.JPanel {
         status = new javax.swing.JComboBox<>();
         clear = new javax.swing.JButton();
         update = new javax.swing.JButton();
-        panel = new javax.swing.JPanel();
-        picture1 = new javax.swing.JLabel();
         delete = new javax.swing.JButton();
         type = new javax.swing.JComboBox<>();
         id = new javax.swing.JTextField();
         remove = new javax.swing.JButton();
+        picture1 = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
         changeView = new javax.swing.JButton();
         search = new javax.swing.JTextField();
@@ -238,6 +238,12 @@ public final class Form_3 extends javax.swing.JPanel {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 panel4MouseClicked(evt);
             }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                panel4MouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                panel4MouseExited(evt);
+            }
         });
         panel4.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
@@ -258,15 +264,21 @@ public final class Form_3 extends javax.swing.JPanel {
         panel4.add(status4, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 300, 260, 20));
         panel4.add(icon4, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 240, 160));
 
-        scrols.add(panel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(960, 70, 260, 330));
+        scrols.add(panel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(960, 110, 260, 330));
 
         panel1.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 panel1MouseClicked(evt);
             }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                panel1MouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                panel1MouseExited(evt);
+            }
         });
         panel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-        panel1.add(icon1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 260, 170));
+        panel1.add(icon1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 240, 160));
 
         status1.setFont(new java.awt.Font("Yu Gothic", 0, 12)); // NOI18N
         status1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -284,15 +296,21 @@ public final class Form_3 extends javax.swing.JPanel {
         id1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         panel1.add(id1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 190, 260, 20));
 
-        scrols.add(panel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 70, 260, 330));
+        scrols.add(panel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 110, 260, 330));
 
         panel2.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 panel2MouseClicked(evt);
             }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                panel2MouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                panel2MouseExited(evt);
+            }
         });
         panel2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-        panel2.add(icon2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 260, 170));
+        panel2.add(icon2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 240, 160));
 
         id2.setFont(new java.awt.Font("Yu Gothic", 0, 12)); // NOI18N
         id2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -310,11 +328,17 @@ public final class Form_3 extends javax.swing.JPanel {
         status2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         panel2.add(status2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 300, 260, 20));
 
-        scrols.add(panel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 70, 260, 330));
+        scrols.add(panel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 110, 260, 330));
 
         panel3.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 panel3MouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                panel3MouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                panel3MouseExited(evt);
             }
         });
         panel3.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -322,7 +346,7 @@ public final class Form_3 extends javax.swing.JPanel {
         id3.setFont(new java.awt.Font("Yu Gothic", 0, 12)); // NOI18N
         id3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         panel3.add(id3, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 190, 260, 20));
-        panel3.add(icon3, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 260, 170));
+        panel3.add(icon3, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 240, 160));
 
         type3.setFont(new java.awt.Font("Yu Gothic", 0, 12)); // NOI18N
         type3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -336,11 +360,17 @@ public final class Form_3 extends javax.swing.JPanel {
         status3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         panel3.add(status3, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 300, 260, 20));
 
-        scrols.add(panel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(660, 70, 260, 330));
+        scrols.add(panel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(660, 110, 260, 330));
 
         panel7.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 panel7MouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                panel7MouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                panel7MouseExited(evt);
             }
         });
         panel7.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -360,13 +390,19 @@ public final class Form_3 extends javax.swing.JPanel {
         id7.setFont(new java.awt.Font("Yu Gothic", 0, 12)); // NOI18N
         id7.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         panel7.add(id7, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 190, 260, 20));
-        panel7.add(icon7, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 260, 170));
+        panel7.add(icon7, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 240, 160));
 
-        scrols.add(panel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(660, 430, 260, 330));
+        scrols.add(panel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(660, 530, 260, 330));
 
         panel6.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 panel6MouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                panel6MouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                panel6MouseExited(evt);
             }
         });
         panel6.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -386,13 +422,19 @@ public final class Form_3 extends javax.swing.JPanel {
         id6.setFont(new java.awt.Font("Yu Gothic", 0, 12)); // NOI18N
         id6.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         panel6.add(id6, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 190, 260, 20));
-        panel6.add(icon6, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 260, 170));
+        panel6.add(icon6, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 240, 160));
 
-        scrols.add(panel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 430, 260, 330));
+        scrols.add(panel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 530, 260, 330));
 
         panel5.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 panel5MouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                panel5MouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                panel5MouseExited(evt);
             }
         });
         panel5.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -412,9 +454,9 @@ public final class Form_3 extends javax.swing.JPanel {
         id5.setFont(new java.awt.Font("Yu Gothic", 0, 12)); // NOI18N
         id5.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         panel5.add(id5, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 190, 260, 20));
-        panel5.add(icon5, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 260, 170));
+        panel5.add(icon5, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 240, 160));
 
-        scrols.add(panel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 430, 260, 330));
+        scrols.add(panel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 530, 260, 330));
 
         panel8.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -422,6 +464,9 @@ public final class Form_3 extends javax.swing.JPanel {
             }
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 panel8MouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                panel8MouseExited(evt);
             }
         });
         panel8.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -441,9 +486,9 @@ public final class Form_3 extends javax.swing.JPanel {
         id8.setFont(new java.awt.Font("Yu Gothic", 0, 12)); // NOI18N
         id8.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         panel8.add(id8, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 190, 260, 20));
-        panel8.add(icon8, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 260, 170));
+        panel8.add(icon8, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 240, 160));
 
-        scrols.add(panel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(960, 430, 260, 330));
+        scrols.add(panel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(960, 530, 260, 330));
 
         panel11.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -451,6 +496,9 @@ public final class Form_3 extends javax.swing.JPanel {
             }
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 panel11MouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                panel11MouseExited(evt);
             }
         });
         panel11.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -470,13 +518,19 @@ public final class Form_3 extends javax.swing.JPanel {
         id11.setFont(new java.awt.Font("Yu Gothic", 0, 12)); // NOI18N
         id11.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         panel11.add(id11, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 190, 260, 20));
-        panel11.add(icon11, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 260, 170));
+        panel11.add(icon11, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 240, 160));
 
-        scrols.add(panel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(660, 790, 260, 330));
+        scrols.add(panel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(660, 960, 260, 330));
 
         panel10.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 panel10MouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                panel10MouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                panel10MouseExited(evt);
             }
         });
         panel10.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -496,13 +550,19 @@ public final class Form_3 extends javax.swing.JPanel {
         id10.setFont(new java.awt.Font("Yu Gothic", 0, 12)); // NOI18N
         id10.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         panel10.add(id10, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 190, 260, 20));
-        panel10.add(icon10, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 260, 170));
+        panel10.add(icon10, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 240, 160));
 
-        scrols.add(panel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 790, 260, 330));
+        scrols.add(panel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 960, 260, 330));
 
         panel9.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 panel9MouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                panel9MouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                panel9MouseExited(evt);
             }
         });
         panel9.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -522,9 +582,9 @@ public final class Form_3 extends javax.swing.JPanel {
         id9.setFont(new java.awt.Font("Yu Gothic", 0, 12)); // NOI18N
         id9.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         panel9.add(id9, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 190, 260, 20));
-        panel9.add(icon9, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 260, 170));
+        panel9.add(icon9, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 240, 160));
 
-        scrols.add(panel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 790, 260, 330));
+        scrols.add(panel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 960, 260, 330));
 
         panel12.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -532,6 +592,9 @@ public final class Form_3 extends javax.swing.JPanel {
             }
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 panel12MouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                panel12MouseExited(evt);
             }
         });
         panel12.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -551,17 +614,17 @@ public final class Form_3 extends javax.swing.JPanel {
         id12.setFont(new java.awt.Font("Yu Gothic", 0, 12)); // NOI18N
         id12.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         panel12.add(id12, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 190, 260, 20));
-        panel12.add(icon12, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 260, 170));
+        panel12.add(icon12, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 240, 160));
 
-        scrols.add(panel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(960, 790, 260, 330));
+        scrols.add(panel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(960, 960, 260, 330));
 
-        printableTable.setText("PRINTABLE TABLE");
+        printableTable.setText("CHANGE VIEW");
         printableTable.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 printableTableActionPerformed(evt);
             }
         });
-        scrols.add(printableTable, new org.netbeans.lib.awtextra.AbsoluteConstraints(1090, 20, 130, 30));
+        scrols.add(printableTable, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 20, 1160, 30));
 
         scroll1.setViewportView(scrols);
 
@@ -681,38 +744,6 @@ public final class Form_3 extends javax.swing.JPanel {
         });
         jPanel1.add(update, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 520, 302, 30));
 
-        panel.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                panelMouseClicked(evt);
-            }
-        });
-
-        picture1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/iring.jpg"))); // NOI18N
-        picture1.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                picture1MouseClicked(evt);
-            }
-        });
-
-        javax.swing.GroupLayout panelLayout = new javax.swing.GroupLayout(panel);
-        panel.setLayout(panelLayout);
-        panelLayout.setHorizontalGroup(
-            panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(panelLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(picture1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addContainerGap())
-        );
-        panelLayout.setVerticalGroup(
-            panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(panelLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(picture1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addContainerGap())
-        );
-
-        jPanel1.add(panel, new org.netbeans.lib.awtextra.AbsoluteConstraints(810, 220, 350, 350));
-
         delete.setFont(new java.awt.Font("Yu Gothic", 0, 11)); // NOI18N
         delete.setText("DELETE");
         delete.addActionListener(new java.awt.event.ActionListener() {
@@ -749,6 +780,14 @@ public final class Form_3 extends javax.swing.JPanel {
         });
         jPanel1.add(remove, new org.netbeans.lib.awtextra.AbsoluteConstraints(810, 590, 352, 30));
 
+        picture1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/defaultImage.png"))); // NOI18N
+        picture1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                picture1MouseClicked(evt);
+            }
+        });
+        jPanel1.add(picture1, new org.netbeans.lib.awtextra.AbsoluteConstraints(810, 200, -1, -1));
+
         scroll.setViewportView(jPanel1);
 
         pane.addTab("tab3", scroll);
@@ -777,12 +816,12 @@ public final class Form_3 extends javax.swing.JPanel {
                 searchMouseExited(evt);
             }
         });
-        jPanel2.add(search, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 50, 410, 30));
+        jPanel2.add(search, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 110, 410, 30));
 
         jLabel1.setFont(new java.awt.Font("Yu Gothic", 0, 20)); // NOI18N
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel1.setText("VIEW ALL ACCOUNTS");
-        jPanel2.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(401, 0, 410, -1));
+        jPanel2.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 60, 410, -1));
 
         print.setText("PRINT");
         print.addActionListener(new java.awt.event.ActionListener() {
@@ -802,7 +841,7 @@ public final class Form_3 extends javax.swing.JPanel {
                 jLabel8MouseExited(evt);
             }
         });
-        jPanel2.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(590, 90, -1, -1));
+        jPanel2.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(610, 150, -1, -1));
 
         jLabel5.setFont(new java.awt.Font("Yu Gothic", 0, 12)); // NOI18N
         jLabel5.setText("ALL");
@@ -814,7 +853,7 @@ public final class Form_3 extends javax.swing.JPanel {
                 jLabel5MouseExited(evt);
             }
         });
-        jPanel2.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 90, -1, -1));
+        jPanel2.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 150, -1, -1));
 
         jLabel6.setFont(new java.awt.Font("Yu Gothic", 0, 12)); // NOI18N
         jLabel6.setText("ADMIN");
@@ -826,7 +865,7 @@ public final class Form_3 extends javax.swing.JPanel {
                 jLabel6MouseExited(evt);
             }
         });
-        jPanel2.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(435, 90, -1, -1));
+        jPanel2.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 150, -1, -1));
 
         jLabel7.setFont(new java.awt.Font("Yu Gothic", 0, 12)); // NOI18N
         jLabel7.setText("RECEPTIONIST");
@@ -838,7 +877,7 @@ public final class Form_3 extends javax.swing.JPanel {
                 jLabel7MouseExited(evt);
             }
         });
-        jPanel2.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 90, -1, -1));
+        jPanel2.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(510, 150, -1, -1));
 
         jLabel9.setFont(new java.awt.Font("Yu Gothic", 0, 12)); // NOI18N
         jLabel9.setText("DOCTOR");
@@ -850,7 +889,7 @@ public final class Form_3 extends javax.swing.JPanel {
                 jLabel9MouseExited(evt);
             }
         });
-        jPanel2.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(683, 90, -1, -1));
+        jPanel2.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(700, 150, -1, -1));
 
         jLabel4.setFont(new java.awt.Font("Yu Gothic", 0, 12)); // NOI18N
         jLabel4.setText("PATIENTS");
@@ -862,7 +901,7 @@ public final class Form_3 extends javax.swing.JPanel {
                 jLabel4MouseExited(evt);
             }
         });
-        jPanel2.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(750, 90, -1, -1));
+        jPanel2.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(770, 150, -1, -1));
 
         ac_db.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -1112,13 +1151,7 @@ public final class Form_3 extends javax.swing.JPanel {
 
                 pane.setSelectedIndex(0);
 
-                JLabel[] ids = {id1, id2, id3, id4, id5, id4, id7, id8, id9, id10, id11, id12};
-                JLabel[] names = {name1, name2, name3, name4, name5, name4, name7, name8, name9, name10, name11, name12};
-                JLabel[] typess = {type1, type2, type3, type4, type5, type4, type7, type8, type9, type10, type11, type12};
-                JLabel[] statuses = {status1, status2, status3, status4, status5, status4, status7, status8, status9, status10, status11, status12};
-                JLabel[] icons = {icon1, icon2, icon3, icon4, icon5, icon4, icon7, icon8, icon9, icon10, icon11, icon12};
-                JPanel[] panels = {panel1, panel2, panel3, panel4, panel5, panel6, panel7, panel8, panel9, panel10, panel11, panel12};
-                fetch(lastDisplayedIndex, ids, names, typess, statuses, icons, panels);
+                refreshBtn();
 
             }
         } catch (SQLException | FileNotFoundException ex) {
@@ -1138,10 +1171,6 @@ public final class Form_3 extends javax.swing.JPanel {
             System.out.println("Image selection cancelled or failed!");
         }
     }//GEN-LAST:event_picture1MouseClicked
-
-    private void panelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_panelMouseClicked
-
-    }//GEN-LAST:event_panelMouseClicked
 
     private void deleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteActionPerformed
         try {
@@ -1370,7 +1399,7 @@ public final class Form_3 extends javax.swing.JPanel {
     }//GEN-LAST:event_panel7MouseClicked
 
     private void panel8MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_panel8MouseEntered
-
+        animatePanels(new JPanel[]{panel8}, new int[]{500});
     }//GEN-LAST:event_panel8MouseEntered
 
     private void panel9MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_panel9MouseClicked
@@ -1436,9 +1465,11 @@ public final class Form_3 extends javax.swing.JPanel {
     }//GEN-LAST:event_panel10MouseClicked
 
     private void panel11MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_panel11MouseEntered
+        animatePanels(new JPanel[]{panel11}, new int[]{930});
     }//GEN-LAST:event_panel11MouseEntered
 
     private void panel12MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_panel12MouseEntered
+        animatePanels(new JPanel[]{panel12}, new int[]{930});
     }//GEN-LAST:event_panel12MouseEntered
 
     private void panel12MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_panel12MouseClicked
@@ -1552,6 +1583,90 @@ public final class Form_3 extends javax.swing.JPanel {
         }
     }//GEN-LAST:event_printActionPerformed
 
+    private void panel1MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_panel1MouseEntered
+        animatePanels(new JPanel[]{panel1}, new int[]{90});
+    }//GEN-LAST:event_panel1MouseEntered
+
+    private void panel1MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_panel1MouseExited
+        animatePanels(new JPanel[]{panel1}, new int[]{110});
+    }//GEN-LAST:event_panel1MouseExited
+
+    private void panel2MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_panel2MouseEntered
+        animatePanels(new JPanel[]{panel2}, new int[]{90});
+    }//GEN-LAST:event_panel2MouseEntered
+
+    private void panel2MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_panel2MouseExited
+        animatePanels(new JPanel[]{panel2}, new int[]{110});
+    }//GEN-LAST:event_panel2MouseExited
+
+    private void panel3MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_panel3MouseEntered
+        animatePanels(new JPanel[]{panel3}, new int[]{90});
+    }//GEN-LAST:event_panel3MouseEntered
+
+    private void panel3MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_panel3MouseExited
+        animatePanels(new JPanel[]{panel3}, new int[]{110});
+    }//GEN-LAST:event_panel3MouseExited
+
+    private void panel4MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_panel4MouseEntered
+        animatePanels(new JPanel[]{panel4}, new int[]{90});
+    }//GEN-LAST:event_panel4MouseEntered
+
+    private void panel4MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_panel4MouseExited
+        animatePanels(new JPanel[]{panel4}, new int[]{110});
+    }//GEN-LAST:event_panel4MouseExited
+
+    private void panel5MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_panel5MouseEntered
+        animatePanels(new JPanel[]{panel5}, new int[]{500});
+    }//GEN-LAST:event_panel5MouseEntered
+
+    private void panel5MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_panel5MouseExited
+        animatePanels(new JPanel[]{panel5}, new int[]{530});
+    }//GEN-LAST:event_panel5MouseExited
+
+    private void panel6MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_panel6MouseEntered
+        animatePanels(new JPanel[]{panel6}, new int[]{500});
+    }//GEN-LAST:event_panel6MouseEntered
+
+    private void panel6MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_panel6MouseExited
+        animatePanels(new JPanel[]{panel6}, new int[]{530});
+    }//GEN-LAST:event_panel6MouseExited
+
+    private void panel7MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_panel7MouseEntered
+        animatePanels(new JPanel[]{panel7}, new int[]{500});
+    }//GEN-LAST:event_panel7MouseEntered
+
+    private void panel7MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_panel7MouseExited
+        animatePanels(new JPanel[]{panel7}, new int[]{530});
+    }//GEN-LAST:event_panel7MouseExited
+
+    private void panel8MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_panel8MouseExited
+        animatePanels(new JPanel[]{panel8}, new int[]{530});
+    }//GEN-LAST:event_panel8MouseExited
+
+    private void panel9MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_panel9MouseEntered
+        animatePanels(new JPanel[]{panel9}, new int[]{930});
+    }//GEN-LAST:event_panel9MouseEntered
+
+    private void panel9MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_panel9MouseExited
+        animatePanels(new JPanel[]{panel9}, new int[]{960});
+    }//GEN-LAST:event_panel9MouseExited
+
+    private void panel10MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_panel10MouseEntered
+        animatePanels(new JPanel[]{panel10}, new int[]{930});
+    }//GEN-LAST:event_panel10MouseEntered
+
+    private void panel10MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_panel10MouseExited
+        animatePanels(new JPanel[]{panel10}, new int[]{960});
+    }//GEN-LAST:event_panel10MouseExited
+
+    private void panel11MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_panel11MouseExited
+        animatePanels(new JPanel[]{panel11}, new int[]{960});
+    }//GEN-LAST:event_panel11MouseExited
+
+    private void panel12MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_panel12MouseExited
+        animatePanels(new JPanel[]{panel12}, new int[]{960});
+    }//GEN-LAST:event_panel12MouseExited
+
     public ImageIcon ResizeImage(String imagePath) {
         ImageIcon MyImage = new ImageIcon(imagePath);
         Image img = MyImage.getImage();
@@ -1585,7 +1700,7 @@ public final class Form_3 extends javax.swing.JPanel {
 
                 ResultSet rs = ps.executeQuery();
                 int i = 0;
-                while (rs.next() && i < ids.length) {
+                while (rs.next() && i <= ids.length) {
                     ids[i].setText(rs.getString("ac_id"));
                     names[i].setText(rs.getString("ac_username"));
                     types[i].setText(rs.getString("ac_type"));
@@ -1596,17 +1711,18 @@ public final class Form_3 extends javax.swing.JPanel {
                     Image im2 = im.getScaledInstance(260, 170, Image.SCALE_SMOOTH);
                     ImageIcon newImage = new ImageIcon(im2);
                     icons[i].setIcon(newImage);
+                    panels[i].setVisible(true);
                     panels[i].setBorder(new LineBorder(Color.BLACK, 2));
                     i++;
                 }
 
-                for (int j = i; j < icons.length; j++) {
-                    removeLabel(icons[j]);  // Corrected method name to removeLabel
+                for (int j = i; j < panels.length; j++) {
+                    removeLabel(icons[j]);
                     removeLabel(ids[j]);
                     removeLabel(types[j]);
                     removeLabel(names[j]);
                     removeLabel(statuses[j]);
-                    panels[j].setVisible(false);  // Hide the remaining panels
+                    panels[j].setVisible(false);
                 }
 
             } else {
@@ -1703,8 +1819,8 @@ public final class Form_3 extends javax.swing.JPanel {
         JLabel[] statuses = {status1, status2, status3, status4, status5, status6, status7, status8, status9, status10, status11, status12};
         JLabel[] icons = {icon1, icon2, icon3, icon4, icon5, icon6, icon7, icon8, icon9, icon10, icon11, icon12};
         JPanel[] panels = {panel1, panel2, panel3, panel4, panel5, panel6, panel7, panel8, panel9, panel10, panel11, panel12};
-        displayData();
         fetch(lastDisplayedIndex, ids, names, types, statuses, icons, panels);
+        displayData();
     }
 
     private void removeLabel(JLabel label) {
@@ -1718,6 +1834,41 @@ public final class Form_3 extends javax.swing.JPanel {
     public void dispose() {
         JFrame parent = (JFrame) this.getTopLevelAncestor();
         parent.dispose();
+    }
+
+    public void animatePanels(JPanel[] panels, int[] targetYs) {
+        for (int i = 0; i < panels.length; i++) {
+            JPanel panel = panels[i];
+            int targetY = targetYs[i];
+
+            if (enterTimers.containsKey(panel) && enterTimers.get(panel).isRunning()) {
+                enterTimers.get(panel).stop();
+            }
+            if (exitTimers.containsKey(panel) && exitTimers.get(panel).isRunning()) {
+                exitTimers.get(panel).stop();
+            }
+
+            Timer timer = new Timer(10, (ActionEvent e) -> {
+                int currentY = panel.getY();
+                if (currentY < targetY) {
+                    panel.setLocation(panel.getX(), Math.min(currentY + step, targetY));
+                } else if (currentY > targetY) {
+                    panel.setLocation(panel.getX(), Math.max(currentY - step, targetY));
+                }
+
+                if (currentY == targetY) {
+                    ((Timer) e.getSource()).stop();
+                }
+            });
+
+            if (targetY == 100) {
+                enterTimers.put(panel, timer);
+            } else {
+                exitTimers.put(panel, timer);
+            }
+
+            timer.start();
+        }
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -1781,7 +1932,6 @@ public final class Form_3 extends javax.swing.JPanel {
     public javax.swing.JLabel name8;
     public javax.swing.JLabel name9;
     private javax.swing.JTabbedPane pane;
-    private javax.swing.JPanel panel;
     private javax.swing.JPanel panel1;
     private javax.swing.JPanel panel10;
     private javax.swing.JPanel panel11;

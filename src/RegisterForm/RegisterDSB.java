@@ -1,7 +1,6 @@
 package RegisterForm;
 
 import Database.DBConnection;
-import Forms.Form_3;
 import Functions.Hasher;
 import LoginForm.LoginDashboard;
 import com.formdev.flatlaf.FlatClientProperties;
@@ -28,9 +27,6 @@ import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import static javax.swing.JOptionPane.ERROR_MESSAGE;
-import static javax.swing.JOptionPane.INFORMATION_MESSAGE;
-import javax.swing.JTextField;
-import javax.swing.SwingUtilities;
 import javax.swing.Timer;
 import javax.swing.UIManager;
 import jnafilechooser.api.JnaFileChooser;
@@ -119,8 +115,6 @@ public class RegisterDSB extends javax.swing.JPanel {
         back = new javax.swing.JButton();
         type = new javax.swing.JComboBox<>();
         remove = new javax.swing.JButton();
-        panel = new javax.swing.JPanel();
-        picture = new javax.swing.JLabel();
         secret = new javax.swing.JTextField();
         contact = new javax.swing.JTextField();
         cpassword = new javax.swing.JPasswordField();
@@ -128,6 +122,7 @@ public class RegisterDSB extends javax.swing.JPanel {
         username = new javax.swing.JTextField();
         password = new javax.swing.JPasswordField();
         clear = new javax.swing.JButton();
+        picture = new javax.swing.JLabel();
 
         setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
@@ -184,38 +179,6 @@ public class RegisterDSB extends javax.swing.JPanel {
             }
         });
         jPanel1.add(remove, new org.netbeans.lib.awtextra.AbsoluteConstraints(830, 590, 302, 30));
-
-        panel.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                panelMouseClicked(evt);
-            }
-        });
-
-        picture.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/iring.jpg"))); // NOI18N
-        picture.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                pictureMouseClicked(evt);
-            }
-        });
-
-        javax.swing.GroupLayout panelLayout = new javax.swing.GroupLayout(panel);
-        panel.setLayout(panelLayout);
-        panelLayout.setHorizontalGroup(
-            panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(panelLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(picture, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addContainerGap())
-        );
-        panelLayout.setVerticalGroup(
-            panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(panelLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(picture, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addContainerGap())
-        );
-
-        jPanel1.add(panel, new org.netbeans.lib.awtextra.AbsoluteConstraints(810, 220, 350, 350));
 
         secret.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         secret.addFocusListener(new java.awt.event.FocusAdapter() {
@@ -285,6 +248,14 @@ public class RegisterDSB extends javax.swing.JPanel {
             }
         });
         jPanel1.add(clear, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 550, 302, 30));
+
+        picture.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/defaultImage.png"))); // NOI18N
+        picture.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                pictureMouseClicked(evt);
+            }
+        });
+        jPanel1.add(picture, new org.netbeans.lib.awtextra.AbsoluteConstraints(810, 210, -1, -1));
 
         add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, 800));
     }// </editor-fold>//GEN-END:initComponents
@@ -371,10 +342,6 @@ public class RegisterDSB extends javax.swing.JPanel {
     private void removeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_removeActionPerformed
         picture.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/iring.jpg")));
     }//GEN-LAST:event_removeActionPerformed
-
-    private void panelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_panelMouseClicked
-
-    }//GEN-LAST:event_panelMouseClicked
 
     private void secretFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_secretFocusGained
     }//GEN-LAST:event_secretFocusGained
@@ -619,7 +586,6 @@ public class RegisterDSB extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;
     public final javax.swing.JProgressBar jProgressBar1 = new javax.swing.JProgressBar();
-    private javax.swing.JPanel panel;
     private javax.swing.JPasswordField password;
     public javax.swing.JLabel picture;
     private javax.swing.JButton remove;
