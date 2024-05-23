@@ -3,10 +3,8 @@ package LoginForm;
 import AdminForm.*;
 import Database.DBConnection;
 import Database.xternal_db;
-import PatientsForm.PatientDashboard;
 import Functions.Hasher;
-import Notification.*;
-import RegisterForm.*;
+import PatientsForm.PatientDSB;
 import com.formdev.flatlaf.*;
 import java.awt.*;
 import java.awt.event.*;
@@ -15,21 +13,21 @@ import java.sql.*;
 import javax.swing.*;
 
 public class LoginDSB extends javax.swing.JPanel {
-    
+
     public LoginDSB() {
         initComponents();
         exit.setFocusable(false);
         remember.setFocusable(false);
-        
+
         login.setFocusable(false);
         google.setFocusable(false);
         register.setFocusable(false);
-        
+
         username.putClientProperty(FlatClientProperties.PLACEHOLDER_TEXT, "USERNAME");
         password.putClientProperty(FlatClientProperties.PLACEHOLDER_TEXT, "PASSWORD");
         username.putClientProperty(FlatClientProperties.TEXT_FIELD_SHOW_CLEAR_BUTTON, true);
         password.putClientProperty(FlatClientProperties.TEXT_FIELD_SHOW_CLEAR_BUTTON, true);
-        
+
         login.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke(KeyEvent.VK_ENTER, 0), "login");
         login.getActionMap().put("login", new AbstractAction() {
             @Override
@@ -37,7 +35,7 @@ public class LoginDSB extends javax.swing.JPanel {
                 loginActionPerformed(e);
             }
         });
-        
+
         exit.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke(KeyEvent.VK_ESCAPE, 0), "exit");
         exit.getActionMap().put("exit", new AbstractAction() {
             @Override
@@ -45,9 +43,9 @@ public class LoginDSB extends javax.swing.JPanel {
                 exitActionPerformed(e);
             }
         });
-        
+
     }
-    
+
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -222,7 +220,7 @@ public class LoginDSB extends javax.swing.JPanel {
 
     private void loginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_loginActionPerformed
         try {
-            
+
             if (username.getText().isEmpty() && password.getText().isEmpty()) {
                 UIManager.put("OptionPane.background", Color.white);
                 UIManager.put("Panel.background", Color.white);
@@ -231,10 +229,10 @@ public class LoginDSB extends javax.swing.JPanel {
                 Icon customIcon = new javax.swing.ImageIcon(getClass().getResource("/Images/alert.gif"));
                 JOptionPane.showMessageDialog(null, "PLEASE FILL OUT BOTH USERNAME AND PASSWORD FIELDS!", "WARNING", JOptionPane.WARNING_MESSAGE, customIcon);
             }
-            
+
             String hashedPass = Hasher.passwordHasher(password.getText());
             if (loginDB(username.getText(), hashedPass)) {
-                
+
                 if (xstatus.equalsIgnoreCase("pending")) {
                     errorMessage("WAIT FOR ADMIN APPROVAL!");
                 } else if (xstatus.equalsIgnoreCase("declined")) {
@@ -244,17 +242,17 @@ public class LoginDSB extends javax.swing.JPanel {
                 } else if (!xstatus.equalsIgnoreCase("active")) {
                     errorMessage("INVALID TYPE!");
                 } else {
-                    if (xtype.equalsIgnoreCase("doctor")) {
+                    if (xtype.equalsIgnoreCase("PATIENT")) {
                         UIManager.put("OptionPane.background", Color.white);
                         UIManager.put("Panel.background", Color.white);
                         username.putClientProperty("JComponent.outline", "success");
                         password.putClientProperty("JComponent.outline", "success");
                         Icon customIcon = new javax.swing.ImageIcon(getClass().getResource("/Images/sucess.png"));
                         JOptionPane.showMessageDialog(null, "WELCOME TO AURORA WELLNESS PAVILION!", "SUCCESS", JOptionPane.WARNING_MESSAGE, customIcon);
-                        
-                        new PatientDashboard().setVisible(true);
+
+                        new PatientDSB().setVisible(true);
                         dispose();
-                        
+
                     } else if (xtype.equalsIgnoreCase("admin")) {
                         UIManager.put("OptionPane.background", Color.white);
                         UIManager.put("Panel.background", Color.white);
@@ -264,7 +262,7 @@ public class LoginDSB extends javax.swing.JPanel {
                         username.setBorder(BorderFactory.createLineBorder(Color.GREEN));
                         password.setBorder(BorderFactory.createLineBorder(Color.GREEN));
                         JOptionPane.showMessageDialog(null, "WELCOME TO AURORA WELLNESS PAVILION!", "SUCCESS", JOptionPane.WARNING_MESSAGE, customIcon);
-                        
+
                         new AdminForm().setVisible(true);
                         dispose();
                     } else {
@@ -343,9 +341,9 @@ public class LoginDSB extends javax.swing.JPanel {
     private void passwordMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_passwordMouseClicked
         password.setText("");
     }//GEN-LAST:event_passwordMouseClicked
-    
+
     private static String xstatus, xtype;
-    
+
     private boolean loginDB(String username, String pass) throws SQLException {
         ResultSet rs = new DBConnection().getData("select * from ac_table where ac_username = '" + username + "' and ac_password = '" + pass + "'");
         if (rs.next()) {
@@ -366,20 +364,20 @@ public class LoginDSB extends javax.swing.JPanel {
             return false;
         }
     }
-    
+
     private void errorMessage(String message) {
         JOptionPane.showMessageDialog(this, message, "ERROR!", JOptionPane.ERROR_MESSAGE);
     }
-    
+
     private void successMessage(String message) {
         JOptionPane.showMessageDialog(this, message, "SUCCESS!", JOptionPane.INFORMATION_MESSAGE);
     }
-    
+
     public void dispose() {
         JFrame parent = (JFrame) this.getTopLevelAncestor();
         parent.dispose();
     }
-    
+
     public void mouseEntered(MouseEvent me) {
         int x = getWidth() - 30;
         if (new Rectangle(x, 0, 30, 30).contains(me.getPoint())) {
@@ -388,7 +386,7 @@ public class LoginDSB extends javax.swing.JPanel {
             setCursor(new Cursor(Cursor.HAND_CURSOR));
         }
     }
-    
+
     public void mouseExited(MouseEvent me) {
         int x = getWidth() - 30;
         if (new Rectangle(x, 0, 30, 30).contains(me.getPoint())) {
@@ -397,11 +395,11 @@ public class LoginDSB extends javax.swing.JPanel {
             setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
         }
     }
-    
+
     public void login() {
         username.grabFocus();
     }
-    
+
     public void addEventRegister(ActionListener event) {
         register.addActionListener(event);
     }
