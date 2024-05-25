@@ -1,10 +1,10 @@
 package Forms;
 
-import java.awt.Component;
-import java.awt.event.ActionListener;
-import javax.swing.JFrame;
+import java.awt.*;
+import java.awt.event.*;
+import javax.swing.*;
 
-public class MainForm extends javax.swing.JPanel {
+public final class MainForm extends javax.swing.JPanel {
 
     public MainForm() {
         initComponents();

@@ -1,56 +1,29 @@
 package Forms;
 
-import Database.DBConnection;
-import Database.xternal_db;
-import LoginForm.LoginDashboard;
-import com.formdev.flatlaf.FlatClientProperties;
-import com.mysql.jdbc.Connection;
-import java.awt.Color;
-import java.awt.Image;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.InputStream;
+import Database.*;
+import Functions.BorderColorManager;
+import Functions.Checkers;
+import LoginForm.*;
+import com.formdev.flatlaf.*;
+import com.mysql.jdbc.*;
+import java.awt.*;
+import java.io.*;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import javax.swing.BorderFactory;
-import javax.swing.Icon;
-import javax.swing.ImageIcon;
-import javax.swing.JFrame;
-import javax.swing.JOptionPane;
-import javax.swing.UIManager;
-import jnafilechooser.api.JnaFileChooser;
+import javax.swing.*;
+import jnafilechooser.api.*;
 
-public class Form_9 extends javax.swing.JPanel {
-
+public final class Form_9 extends javax.swing.JPanel {
+    
     String path2 = null;
-
+    
     public Form_9() {
         initComponents();
         MyInfo();
-
-        clear.setFocusable(false);
-        update.setFocusable(false);
-        delete.setFocusable(false);
-        remove.setFocusable(false);
-        type.setFocusable(false);
-
-        username.putClientProperty(FlatClientProperties.PLACEHOLDER_TEXT, "USERNAME");
-        password.putClientProperty(FlatClientProperties.PLACEHOLDER_TEXT, "PASSWORD");
-        email.putClientProperty(FlatClientProperties.PLACEHOLDER_TEXT, "EMAIL");
-        answer.putClientProperty(FlatClientProperties.PLACEHOLDER_TEXT, "SECRET ANSWER");
-        secret.putClientProperty(FlatClientProperties.PLACEHOLDER_TEXT, "SECRET QUESTION");
-        contact.putClientProperty(FlatClientProperties.PLACEHOLDER_TEXT, "CONTACT");
-
-        username.putClientProperty(FlatClientProperties.TEXT_FIELD_SHOW_CLEAR_BUTTON, true);
-        email.putClientProperty(FlatClientProperties.TEXT_FIELD_SHOW_CLEAR_BUTTON, true);
-        password.putClientProperty(FlatClientProperties.TEXT_FIELD_SHOW_CLEAR_BUTTON, true);
-        answer.putClientProperty(FlatClientProperties.TEXT_FIELD_SHOW_CLEAR_BUTTON, true);
-        secret.putClientProperty(FlatClientProperties.TEXT_FIELD_SHOW_CLEAR_BUTTON, true);
-        contact.putClientProperty(FlatClientProperties.TEXT_FIELD_SHOW_CLEAR_BUTTON, true);
+        customizeFormFields();
     }
-
+    
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -301,69 +274,28 @@ public class Form_9 extends javax.swing.JPanel {
         answer.setText("");
         contact.setText("");
         picture3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/iring.jpg")));
-        username.setBorder(BorderFactory.createLineBorder(Color.LIGHT_GRAY));
-        email.setBorder(BorderFactory.createLineBorder(Color.LIGHT_GRAY));
-        password.setBorder(BorderFactory.createLineBorder(Color.LIGHT_GRAY));
-        secret.setBorder(BorderFactory.createLineBorder(Color.LIGHT_GRAY));
-        answer.setBorder(BorderFactory.createLineBorder(Color.LIGHT_GRAY));
-        contact.setBorder(BorderFactory.createLineBorder(Color.LIGHT_GRAY));
+        
+        JTextField[] components = {username, email, password, secret, answer, contact};
+        BorderColorManager resetField = new BorderColorManager(components);
+        resetField.resetBorderColor();
     }//GEN-LAST:event_clearActionPerformed
 
     private void deleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteActionPerformed
         try {
             String idText = id.getText().trim();
             if (idText.isEmpty()) {
-                UIManager.put("OptionPane.background", Color.white);
-                UIManager.put("Panel.background", Color.white);
-                Icon customIcon = new javax.swing.ImageIcon(getClass().getResource("/Images/alert.gif"));
-                JOptionPane.showMessageDialog(null, "PLEASE ENTER ID!", "WARNING", JOptionPane.WARNING_MESSAGE, customIcon);
-                return;
+                Checkers.noAccountFieldChecker("NO ACCOUNT FOUND!");
             } else {
                 Connection cn = new DBConnection().getConnection();
                 PreparedStatement pst = cn.prepareStatement("UPDATE ac_table SET ac_status = 'DELETED' WHERE ac_id = ?");
                 pst.setString(1, idText);
                 int rowsAffected = pst.executeUpdate();
                 if (rowsAffected > 0) {
-                    JOptionPane.showMessageDialog(null, "ACCOUNT STATUS UPDATED TO 'DELETED'!", "SUCCESS", JOptionPane.INFORMATION_MESSAGE);
-
-                    int choice1 = JOptionPane.showOptionDialog(
-                            null,
-                            "SOME CHANGES MAY APPLY AFTER RESTARTING!",
-                            "WARNING",
-                            JOptionPane.YES_NO_OPTION,
-                            JOptionPane.QUESTION_MESSAGE,
-                            null,
-                            new String[]{"RESTART NOW", "RESTART LATER"},
-                            "RESTART NOW"
-                    );
-
-                    int choice2 = JOptionPane.showOptionDialog(
-                            null,
-                            "ARE YOU SURE THIS MAY RESULT SOME DATA CONFLICTS!",
-                            "WARNING",
-                            JOptionPane.YES_NO_OPTION,
-                            JOptionPane.QUESTION_MESSAGE,
-                            null,
-                            new String[]{"YES", "NO"},
-                            "YES"
-                    );
-
-                    if (choice1 == JOptionPane.YES_OPTION) {
-                        new LoginDashboard().setVisible(true);
-                        dispose();
-                    } else {
-
-                        if (choice2 == JOptionPane.YES_OPTION) {
-
-                        } else {
-                            new LoginDashboard().setVisible(true);
-                            dispose();
-                        }
-
-                    }
-
+                    Checkers.successFieldChecker("ACCOUNT HAS BEEN DELETED!");
+                    new LoginDSB().setVisible(true);
+                    dispose();
                 } else {
-                    JOptionPane.showMessageDialog(null, "NO ACCOUNT FOUND WITH ID: " + idText, "WARNING", JOptionPane.WARNING_MESSAGE);
+                    Checkers.noAccountFieldChecker("NO ACCOUNT FOUND!");
                 }
             }
         } catch (SQLException ex) {
@@ -382,7 +314,7 @@ public class Form_9 extends javax.swing.JPanel {
             String stats = (String) status.getSelectedItem();
             String photoPath = path2 != null ? path2.trim() : "";
             String idText = id.getText().trim();
-
+            
             System.out.println("User: [" + user + "]");
             System.out.println("Email: [" + emails + "]");
             System.out.println("Secret Question: [" + secretQuestion + "]");
@@ -390,23 +322,16 @@ public class Form_9 extends javax.swing.JPanel {
             System.out.println("Contact: [" + contacts + "]");
             System.out.println("Photo Path: [" + photoPath + "]");
             System.out.println("ID: [" + idText + "]");
-
+            
             if (user.isEmpty() || emails.isEmpty() || secretQuestion.isEmpty() || secretAnswer.isEmpty()
                     || contacts.isEmpty() || idText.isEmpty()) {
-                UIManager.put("OptionPane.background", Color.white);
-                UIManager.put("Panel.background", Color.white);
-                Icon customIcon = new javax.swing.ImageIcon(getClass().getResource("/Images/alert.gif"));
-                JOptionPane.showMessageDialog(null, "PLEASE FILL ALL FIELDS AND INSERT AN IMAGE!", "WARNING", JOptionPane.WARNING_MESSAGE, customIcon);
-
+                Checkers.emptyFieldChecker("PLEASE FILL ALL FIELDS AND INSERT AN IMAGE!");
                 if (photoPath.isEmpty()) {
-                    System.out.println("Image file path is empty.");
+                    Checkers.unsuccessfullFieldChecker("IMAGE FILE PATH IS EMPTY!");
                 } else {
                     File photoFile = new File(photoPath);
                     if (!photoFile.exists() || !photoFile.isFile()) {
-                        System.out.println("Image file not found or invalid: " + photoPath);
-                        UIManager.put("OptionPane.background", Color.white);
-                        UIManager.put("Panel.background", Color.white);
-                        JOptionPane.showMessageDialog(null, "IMAGE FILE NOT FOUND OR INVALID!", "WARNING", JOptionPane.WARNING_MESSAGE, customIcon);
+                        Checkers.noAccountFieldChecker("IMAGE FILE NOT FOUND OR INVALID!");
                     }
                 }
                 return;
@@ -416,7 +341,7 @@ public class Form_9 extends javax.swing.JPanel {
                         "UPDATE ac_table SET ac_username = ?, ac_email = ?, ac_sq = ?, ac_sa = ?, ac_type = ?, ac_status = ?, ac_contact = ? "
                         + (!photoPath.isEmpty() ? ", ac_image = ? " : "")
                         + "WHERE ac_id = ?");
-
+                
                 pst.setString(1, user);
                 pst.setString(2, emails);
                 pst.setString(3, secretQuestion);
@@ -424,24 +349,24 @@ public class Form_9 extends javax.swing.JPanel {
                 pst.setString(5, types);
                 pst.setString(6, stats);
                 pst.setString(7, contacts);
-
+                
                 int parameterIndex = 8;
                 if (!photoPath.isEmpty()) {
                     InputStream is = new FileInputStream(new File(photoPath));
                     pst.setBlob(parameterIndex++, is);
                 }
-
+                
                 pst.setString(parameterIndex, idText);
-
+                
                 pst.executeUpdate();
-
-                JOptionPane.showMessageDialog(null, "ACCOUNT SUCCESSFULLY UPDATED!", "SUCCESS", JOptionPane.INFORMATION_MESSAGE);
-
+                
+                Checkers.successFieldChecker("ACCOUNT SUCCESSFULLY UPDATED!");
+                
                 xternal_db xdb = xternal_db.getInstance();
                 PreparedStatement logs = cn.prepareStatement("INSERT INTO ac_logs (lg_email,lg_username,lg_actions)"
                         + " VALUES ('" + xdb.getEmail() + "', '" + xdb.getUsername() + "', 'JUST UPDATED OWN ACCOUNT, ID = " + xdb.getId() + "')");
                 logs.execute();
-
+                
                 MyInfo();
             }
         } catch (SQLException | FileNotFoundException ex) {
@@ -458,7 +383,7 @@ public class Form_9 extends javax.swing.JPanel {
             picture3.setIcon(ResizeImage(path));
             path2 = path;
         } else {
-            System.out.println("Image selection cancelled or failed!");
+            Checkers.unsuccessfullFieldChecker("IMAGE SELECTION CANCELLED OR FAILED!");
         }
     }//GEN-LAST:event_picture3MouseClicked
 
@@ -469,7 +394,7 @@ public class Form_9 extends javax.swing.JPanel {
     private void removeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_removeActionPerformed
         picture3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/iring.jpg")));
     }//GEN-LAST:event_removeActionPerformed
-
+    
     public ImageIcon ResizeImage(String imagePath) {
         ImageIcon MyImage = new ImageIcon(imagePath);
         Image img = MyImage.getImage();
@@ -477,7 +402,7 @@ public class Form_9 extends javax.swing.JPanel {
         ImageIcon image = new ImageIcon(newImg);
         return image;
     }
-
+    
     private void MyInfo() {
         try {
             xternal_db xdb = xternal_db.getInstance();
@@ -492,24 +417,40 @@ public class Form_9 extends javax.swing.JPanel {
                 contact.setText("" + rs.getString("ac_contact"));
                 type.setSelectedItem("" + rs.getString("ac_type"));
                 status.setSelectedItem("" + rs.getString("ac_status"));
-
+                
                 byte[] img = rs.getBytes("ac_image");
                 ImageIcon image = new ImageIcon(img);
                 Image im = image.getImage();
                 Image im2 = im.getScaledInstance(330, 328, Image.SCALE_SMOOTH);
                 ImageIcon newImage = new ImageIcon(im2);
                 picture3.setIcon(newImage);
-
+                
             }
         } catch (SQLException er) {
             System.out.println("ERROR: " + er.getMessage());
         }
     }
-
+    
     public void dispose() {
         JFrame parent = (JFrame) this.getTopLevelAncestor();
         parent.dispose();
     }
+    
+    public void customizeFormFields() {
+        JButton[] buttons = {clear, update, delete, remove};
+        JTextField[] textFields = {username, password, email, answer, secret, contact};
+        String[] placeholders = {"USERNAME", "PASSWORD", "EMAIL", "SECRET ANSWER", "SECRET QUESTION", "CONTACT"};
+        
+        for (JButton button : buttons) {
+            button.setFocusable(false);
+        }
+        
+        for (int i = 0; i < textFields.length; i++) {
+            textFields[i].putClientProperty(FlatClientProperties.TEXT_FIELD_SHOW_CLEAR_BUTTON, true);
+            textFields[i].putClientProperty(FlatClientProperties.PLACEHOLDER_TEXT, placeholders[i]);
+        }
+    }
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTextField answer;

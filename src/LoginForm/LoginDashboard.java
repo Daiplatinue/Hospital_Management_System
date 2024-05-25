@@ -1,47 +1,35 @@
 package LoginForm;
 
-import Notification.*;
 import RegisterForm.*;
-import Regulations.*;
 import com.formdev.flatlaf.*;
-import java.awt.*;
-import java.awt.Color;
 import java.awt.event.*;
 import java.awt.geom.*;
-import java.util.logging.*;
-import javafx.scene.control.*;
-import javax.swing.*;
-import javax.swing.plaf.*;
 
 public class LoginDashboard extends javax.swing.JFrame {
 
     public LoginDashboard() {
         initComponents();
 
-//        setOpacity(0.7f);
+//      setOpacity(0.7f);
         setLocationRelativeTo(null);
         setShape(new RoundRectangle2D.Double(0, 0, getWidth(), getHeight(), 20, 20));
 
         LoginDSB login = new LoginDSB();
         RegisterDSB register = new RegisterDSB();
         slide.setAnimate(20);
-            
+
         slide.init(login, register);
-        
-        login.addEventRegister(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent ae) {
-                slide.show(1);
-                register.register();
-            }
+
+        login.addEventRegister((ActionEvent ae) -> {
+            slide.show(1);
+            register.register();
         });
-        register.addEventBackLogin(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent ae) {
-                slide.show(0);
-                login.login();
-            }
+
+        register.addEventBackLogin((ActionEvent ae) -> {
+            slide.show(0);
+            login.login();
         });
+
     }
 
     @SuppressWarnings("unchecked")

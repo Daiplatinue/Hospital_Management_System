@@ -1,10 +1,7 @@
 package Components;
 
-import java.awt.AlphaComposite;
-import java.awt.Color;
-import java.awt.Graphics;
-import java.awt.Graphics2D;
-import java.awt.event.MouseAdapter;
+import java.awt.*;
+import java.awt.event.*;
 
 public class MenuLayout extends javax.swing.JPanel {
 

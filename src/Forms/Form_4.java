@@ -1,28 +1,19 @@
 package Forms;
 
-import Database.DBConnection;
-import Database.xternal_db;
-import static Forms.Form_3.ac_db;
-import java.awt.print.PrinterException;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.text.MessageFormat;
-import javax.swing.JTable;
-import javax.swing.SwingConstants;
-import javax.swing.table.DefaultTableCellRenderer;
-import javax.swing.table.TableColumn;
-import net.proteanit.sql.DbUtils;
+import Database.*;
+import java.awt.print.*;
+import java.sql.*;
+import java.text.*;
+import javax.swing.*;
+import javax.swing.table.*;
+import net.proteanit.sql.*;
 
 public class Form_4 extends javax.swing.JPanel {
 
     public Form_4() {
         initComponents();
         print.setFocusable(false);
-
         displayData();
-
     }
 
     @SuppressWarnings("unchecked")
@@ -72,9 +63,9 @@ public class Form_4 extends javax.swing.JPanel {
             Connection cn = new DBConnection().getConnection();
 
             xternal_db xdb = xternal_db.getInstance();
-            PreparedStatement logs = cn.prepareStatement("INSERT INTO ac_logs (lg_email,lg_username,lg_actions)"
+            PreparedStatement userActivity = cn.prepareStatement("INSERT INTO ac_logs (lg_email,lg_username,lg_actions)"
                     + " VALUES ('" + xdb.getEmail() + "', '" + xdb.getUsername() + "', 'PRINTED TABLE LOGS')");
-            logs.execute();
+            userActivity.execute();
 
         } catch (PrinterException | SQLException er) {
             System.out.println("" + er.getMessage());

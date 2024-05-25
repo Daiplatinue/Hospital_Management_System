@@ -1,44 +1,25 @@
 package Forms;
 
-import Database.DBConnection;
-import Database.xternal_db;
-import com.formdev.flatlaf.FlatClientProperties;
-import java.awt.Color;
-import java.awt.Component;
-import java.awt.Image;
-import java.awt.event.ActionEvent;
-import java.awt.print.PrinterException;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.io.InputStream;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.text.MessageFormat;
-import java.util.HashMap;
-import java.util.Map;
-import javax.swing.BorderFactory;
-import javax.swing.Icon;
-import javax.swing.ImageIcon;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JOptionPane;
-import javax.swing.JPanel;
-import javax.swing.JTable;
+import Database.*;
+import Functions.*;
+import com.formdev.flatlaf.*;
+import java.awt.*;
+import java.awt.event.*;
+import java.awt.print.*;
+import java.io.*;
+import java.sql.*;
+import java.text.*;
+import java.util.*;
+import javax.swing.*;
 import javax.swing.Timer;
-import javax.swing.UIManager;
-import javax.swing.border.LineBorder;
-import javax.swing.table.TableModel;
-import jnafilechooser.api.JnaFileChooser;
-import net.proteanit.sql.DbUtils;
+import javax.swing.border.*;
+import javax.swing.table.*;
+import jnafilechooser.api.*;
+import net.proteanit.sql.*;
 
 public final class Form_3 extends javax.swing.JPanel {
 
     String path2 = null;
-    private final int lastDisplayedIndex;
     private final Map<JPanel, Timer> enterTimers;
     private final Map<JPanel, Timer> exitTimers;
     private final int step = 5;
@@ -46,50 +27,14 @@ public final class Form_3 extends javax.swing.JPanel {
     public Form_3() throws IOException {
         this.enterTimers = new HashMap<>();
         this.exitTimers = new HashMap<>();
+
         initComponents();
         displayData();
-
+        focusableButtonsSetter();
+        form3Handlers();
+        addKeyListener();
+        acquireData();
         scroll1.getVerticalScrollBar().setUnitIncrement(16);
-        search.setFocusable(false);
-        print.setFocusable(false);
-        printableTable.setFocusable(false);
-        changeView.setFocusable(false);
-
-        JLabel[] ids = {id1, id2, id3, id4, id5, id6, id7, id8, id9, id10, id11, id12};
-        JLabel[] names = {name1, name2, name3, name4, name5, name6, name7, name8, name9, name10, name11, name12};
-        JLabel[] types = {type1, type2, type3, type4, type5, type6, type7, type8, type9, type10, type11, type12};
-        JLabel[] statuses = {status1, status2, status3, status4, status5, status6, status7, status8, status9, status10, status11, status12};
-        JLabel[] icons = {icon1, icon2, icon3, icon4, icon5, icon6, icon7, icon8, icon9, icon10, icon11, icon12};
-        JPanel[] panels = {panel1, panel2, panel3, panel4, panel5, panel6, panel7, panel8, panel9, panel10, panel11, panel12};
-
-        lastDisplayedIndex = 0;
-        fetch(lastDisplayedIndex, ids, names, types, statuses, icons, panels);
-
-        Component[] components = {username, email, password, secret, answer, contact};
-        for (Component component : components) {
-            component.addFocusListener(new java.awt.event.FocusAdapter() {
-                @Override
-                public void focusLost(java.awt.event.FocusEvent evt) {
-                    progress();
-                }
-            });
-        }
-
-        username.putClientProperty(FlatClientProperties.PLACEHOLDER_TEXT, "USERNAME");
-        password.putClientProperty(FlatClientProperties.PLACEHOLDER_TEXT, "PASSWORD");
-        email.putClientProperty(FlatClientProperties.PLACEHOLDER_TEXT, "EMAIL");
-        answer.putClientProperty(FlatClientProperties.PLACEHOLDER_TEXT, "SECRET ANSWER");
-        secret.putClientProperty(FlatClientProperties.PLACEHOLDER_TEXT, "SECRET QUESTION");
-        contact.putClientProperty(FlatClientProperties.PLACEHOLDER_TEXT, "CONTACT");
-        search.putClientProperty(FlatClientProperties.PLACEHOLDER_TEXT, "SEARCH");
-
-        username.putClientProperty(FlatClientProperties.TEXT_FIELD_SHOW_CLEAR_BUTTON, true);
-        email.putClientProperty(FlatClientProperties.TEXT_FIELD_SHOW_CLEAR_BUTTON, true);
-        password.putClientProperty(FlatClientProperties.TEXT_FIELD_SHOW_CLEAR_BUTTON, true);
-        answer.putClientProperty(FlatClientProperties.TEXT_FIELD_SHOW_CLEAR_BUTTON, true);
-        secret.putClientProperty(FlatClientProperties.TEXT_FIELD_SHOW_CLEAR_BUTTON, true);
-        contact.putClientProperty(FlatClientProperties.TEXT_FIELD_SHOW_CLEAR_BUTTON, true);
-        search.putClientProperty(FlatClientProperties.TEXT_FIELD_SHOW_CLEAR_BUTTON, true);
     }
 
     @SuppressWarnings("unchecked")
@@ -786,7 +731,7 @@ public final class Form_3 extends javax.swing.JPanel {
                 picture1MouseClicked(evt);
             }
         });
-        jPanel1.add(picture1, new org.netbeans.lib.awtextra.AbsoluteConstraints(810, 200, -1, -1));
+        jPanel1.add(picture1, new org.netbeans.lib.awtextra.AbsoluteConstraints(810, 200, 350, 340));
 
         scroll.setViewportView(jPanel1);
 
@@ -934,34 +879,7 @@ public final class Form_3 extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void panel1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_panel1MouseClicked
-        if (!id1.getText().isEmpty() && !name1.getText().isEmpty() && !status1.getText().isEmpty() && !type1.getText().isEmpty()) {
-            pane.setSelectedIndex(1);
-            try {
-                ResultSet rs = new DBConnection().getData("select * from ac_table where ac_id = '" + id1.getText() + "'");
-                if (rs.next()) {
-                    id.setText(String.valueOf(rs.getInt("ac_id")));
-                    email.setText(rs.getString("ac_email"));
-                    username.setText(rs.getString("ac_username"));
-                    password.setText(rs.getString("ac_password"));
-                    secret.setText(rs.getString("ac_sq"));
-                    answer.setText(rs.getString("ac_sa"));
-                    contact.setText(rs.getString("ac_contact"));
-                    type.setSelectedItem(rs.getString("ac_type"));
-                    status.setSelectedItem(rs.getString("ac_status"));
-
-                    byte[] img = rs.getBytes("ac_image");
-                    ImageIcon image = new ImageIcon(img);
-                    Image im = image.getImage();
-                    Image im2 = im.getScaledInstance(picture1.getWidth(), picture1.getHeight(), Image.SCALE_SMOOTH);
-                    ImageIcon newImage = new ImageIcon(im2);
-                    picture1.setIcon(newImage);
-                }
-            } catch (SQLException er) {
-                System.out.println("ERROR: " + er.getMessage());
-            }
-        } else {
-            System.out.println("Panel Is Empty!");
-        }
+        dataRetriever(1, id1, name1, status1, type1, picture1, pane);
     }//GEN-LAST:event_panel1MouseClicked
 
     private void add2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_add2ActionPerformed
@@ -1070,12 +988,10 @@ public final class Form_3 extends javax.swing.JPanel {
         answer.setText("");
         contact.setText("");
         picture1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/iring.jpg")));
-        username.setBorder(BorderFactory.createLineBorder(Color.LIGHT_GRAY));
-        email.setBorder(BorderFactory.createLineBorder(Color.LIGHT_GRAY));
-        password.setBorder(BorderFactory.createLineBorder(Color.LIGHT_GRAY));
-        secret.setBorder(BorderFactory.createLineBorder(Color.LIGHT_GRAY));
-        answer.setBorder(BorderFactory.createLineBorder(Color.LIGHT_GRAY));
-        contact.setBorder(BorderFactory.createLineBorder(Color.LIGHT_GRAY));
+
+        JTextField[] components = {username, email, password, secret, answer, contact};
+        BorderColorManager borderReset = new BorderColorManager(components);
+        borderReset.resetBorderColor();
     }//GEN-LAST:event_clearActionPerformed
 
     private void updateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_updateActionPerformed
@@ -1090,6 +1006,7 @@ public final class Form_3 extends javax.swing.JPanel {
             String photoPath = path2 != null ? path2.trim() : "";
             String idText = id.getText().trim();
 
+            // Debugging
             System.out.println("User: [" + user + "]");
             System.out.println("Email: [" + emails + "]");
             System.out.println("Secret Question: [" + secretQuestion + "]");
@@ -1116,7 +1033,6 @@ public final class Form_3 extends javax.swing.JPanel {
                         JOptionPane.showMessageDialog(null, "IMAGE FILE NOT FOUND OR INVALID!", "WARNING", JOptionPane.WARNING_MESSAGE, customIcon);
                     }
                 }
-                return;
             } else {
                 Connection cn = new DBConnection().getConnection();
                 PreparedStatement pst = cn.prepareStatement(
@@ -1151,7 +1067,7 @@ public final class Form_3 extends javax.swing.JPanel {
 
                 pane.setSelectedIndex(0);
 
-                refreshBtn();
+                acquireData();
 
             }
         } catch (SQLException | FileNotFoundException ex) {
@@ -1168,7 +1084,7 @@ public final class Form_3 extends javax.swing.JPanel {
             picture1.setIcon(ResizeImage(path));
             path2 = path;
         } else {
-            System.out.println("Image selection cancelled or failed!");
+            System.out.println("nabanhaw ng image wama kiti");
         }
     }//GEN-LAST:event_picture1MouseClicked
 
@@ -1190,7 +1106,7 @@ public final class Form_3 extends javax.swing.JPanel {
                             + " VALUES ('" + xdb.getEmail() + "', '" + xdb.getUsername() + "', 'JUST DELETED AN ACCOUNT, ID = " + id.getText() + "')");
                     logs.execute();
 
-                    refreshBtn();
+                    acquireData();
                     pane.setSelectedIndex(0);
 
                 } else {
@@ -1213,189 +1129,27 @@ public final class Form_3 extends javax.swing.JPanel {
     }//GEN-LAST:event_removeActionPerformed
 
     private void panel2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_panel2MouseClicked
-        if (!id2.getText().isEmpty() && !name2.getText().isEmpty() && !status2.getText().isEmpty() && !type2.getText().isEmpty()) {
-            pane.setSelectedIndex(1);
-            try {
-                ResultSet rs = new DBConnection().getData("select * from ac_table where ac_id = '" + id2.getText() + "'");
-                if (rs.next()) {
-                    id.setText(String.valueOf(rs.getInt("ac_id")));
-                    email.setText(rs.getString("ac_email"));
-                    username.setText(rs.getString("ac_username"));
-                    password.setText(rs.getString("ac_password"));
-                    secret.setText(rs.getString("ac_sq"));
-                    answer.setText(rs.getString("ac_sa"));
-                    contact.setText(rs.getString("ac_contact"));
-                    type.setSelectedItem(rs.getString("ac_type"));
-                    status.setSelectedItem(rs.getString("ac_status"));
-
-                    byte[] img = rs.getBytes("ac_image");
-                    ImageIcon image = new ImageIcon(img);
-                    Image im = image.getImage();
-                    Image im2 = im.getScaledInstance(picture1.getWidth(), picture1.getHeight(), Image.SCALE_SMOOTH);
-                    ImageIcon newImage = new ImageIcon(im2);
-                    picture1.setIcon(newImage);
-                }
-            } catch (SQLException er) {
-                System.out.println("ERROR: " + er.getMessage());
-            }
-        } else {
-            System.out.println("Panel Is Empty!");
-        }
+        dataRetriever(1, id2, name2, status2, type2, picture1, pane);
     }//GEN-LAST:event_panel2MouseClicked
 
     private void panel3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_panel3MouseClicked
-        if (!id3.getText().isEmpty() && !name3.getText().isEmpty() && !status3.getText().isEmpty() && !type3.getText().isEmpty()) {
-            pane.setSelectedIndex(1);
-            try {
-                ResultSet rs = new DBConnection().getData("select * from ac_table where ac_id = '" + id3.getText() + "'");
-                if (rs.next()) {
-                    id.setText(String.valueOf(rs.getInt("ac_id")));
-                    email.setText(rs.getString("ac_email"));
-                    username.setText(rs.getString("ac_username"));
-                    password.setText(rs.getString("ac_password"));
-                    secret.setText(rs.getString("ac_sq"));
-                    answer.setText(rs.getString("ac_sa"));
-                    contact.setText(rs.getString("ac_contact"));
-                    type.setSelectedItem(rs.getString("ac_type"));
-                    status.setSelectedItem(rs.getString("ac_status"));
-
-                    byte[] img = rs.getBytes("ac_image");
-                    ImageIcon image = new ImageIcon(img);
-                    Image im = image.getImage();
-                    Image im2 = im.getScaledInstance(picture1.getWidth(), picture1.getHeight(), Image.SCALE_SMOOTH);
-                    ImageIcon newImage = new ImageIcon(im2);
-                    picture1.setIcon(newImage);
-                }
-            } catch (SQLException er) {
-                System.out.println("ERROR: " + er.getMessage());
-            }
-        } else {
-            System.out.println("Panel Is Empty!");
-        }
+        dataRetriever(1, id3, name3, status3, type3, picture1, pane);
     }//GEN-LAST:event_panel3MouseClicked
 
     private void panel4MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_panel4MouseClicked
-        if (!id4.getText().isEmpty() && !name4.getText().isEmpty() && !status4.getText().isEmpty() && !type4.getText().isEmpty()) {
-            pane.setSelectedIndex(1);
-            try {
-                ResultSet rs = new DBConnection().getData("select * from ac_table where ac_id = '" + id4.getText() + "'");
-                if (rs.next()) {
-                    id.setText(String.valueOf(rs.getInt("ac_id")));
-                    email.setText(rs.getString("ac_email"));
-                    username.setText(rs.getString("ac_username"));
-                    password.setText(rs.getString("ac_password"));
-                    secret.setText(rs.getString("ac_sq"));
-                    answer.setText(rs.getString("ac_sa"));
-                    contact.setText(rs.getString("ac_contact"));
-                    type.setSelectedItem(rs.getString("ac_type"));
-                    status.setSelectedItem(rs.getString("ac_status"));
-
-                    byte[] img = rs.getBytes("ac_image");
-                    ImageIcon image = new ImageIcon(img);
-                    Image im = image.getImage();
-                    Image im2 = im.getScaledInstance(picture1.getWidth(), picture1.getHeight(), Image.SCALE_SMOOTH);
-                    ImageIcon newImage = new ImageIcon(im2);
-                    picture1.setIcon(newImage);
-                }
-            } catch (SQLException er) {
-                System.out.println("ERROR: " + er.getMessage());
-            }
-        } else {
-            System.out.println("Panel Is Empty!");
-        }
+        dataRetriever(1, id4, name4, status4, type4, picture1, pane);
     }//GEN-LAST:event_panel4MouseClicked
 
     private void panel5MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_panel5MouseClicked
-        if (!id5.getText().isEmpty() && !name5.getText().isEmpty() && !status5.getText().isEmpty() && !type5.getText().isEmpty()) {
-            pane.setSelectedIndex(1);
-            try {
-                ResultSet rs = new DBConnection().getData("select * from ac_table where ac_id = '" + id5.getText() + "'");
-                if (rs.next()) {
-                    id.setText(String.valueOf(rs.getInt("ac_id")));
-                    email.setText(rs.getString("ac_email"));
-                    username.setText(rs.getString("ac_username"));
-                    password.setText(rs.getString("ac_password"));
-                    secret.setText(rs.getString("ac_sq"));
-                    answer.setText(rs.getString("ac_sa"));
-                    contact.setText(rs.getString("ac_contact"));
-                    type.setSelectedItem(rs.getString("ac_type"));
-                    status.setSelectedItem(rs.getString("ac_status"));
-
-                    byte[] img = rs.getBytes("ac_image");
-                    ImageIcon image = new ImageIcon(img);
-                    Image im = image.getImage();
-                    Image im2 = im.getScaledInstance(picture1.getWidth(), picture1.getHeight(), Image.SCALE_SMOOTH);
-                    ImageIcon newImage = new ImageIcon(im2);
-                    picture1.setIcon(newImage);
-                }
-            } catch (SQLException er) {
-                System.out.println("ERROR: " + er.getMessage());
-            }
-        } else {
-            System.out.println("Panel Is Empty!");
-        }
+        dataRetriever(1, id5, name5, status5, type5, picture1, pane);
     }//GEN-LAST:event_panel5MouseClicked
 
     private void panel6MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_panel6MouseClicked
-        if (!id6.getText().isEmpty() && !name6.getText().isEmpty() && !status6.getText().isEmpty() && !type6.getText().isEmpty()) {
-            pane.setSelectedIndex(1);
-            try {
-                ResultSet rs = new DBConnection().getData("select * from ac_table where ac_id = '" + id6.getText() + "'");
-                if (rs.next()) {
-                    id.setText(String.valueOf(rs.getInt("ac_id")));
-                    email.setText(rs.getString("ac_email"));
-                    username.setText(rs.getString("ac_username"));
-                    password.setText(rs.getString("ac_password"));
-                    secret.setText(rs.getString("ac_sq"));
-                    answer.setText(rs.getString("ac_sa"));
-                    contact.setText(rs.getString("ac_contact"));
-                    type.setSelectedItem(rs.getString("ac_type"));
-                    status.setSelectedItem(rs.getString("ac_status"));
-
-                    byte[] img = rs.getBytes("ac_image");
-                    ImageIcon image = new ImageIcon(img);
-                    Image im = image.getImage();
-                    Image im2 = im.getScaledInstance(picture1.getWidth(), picture1.getHeight(), Image.SCALE_SMOOTH);
-                    ImageIcon newImage = new ImageIcon(im2);
-                    picture1.setIcon(newImage);
-                }
-            } catch (SQLException er) {
-                System.out.println("ERROR: " + er.getMessage());
-            }
-        } else {
-            System.out.println("Panel Is Empty!");
-        }
+        dataRetriever(1, id6, name6, status6, type6, picture1, pane);
     }//GEN-LAST:event_panel6MouseClicked
 
     private void panel7MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_panel7MouseClicked
-        if (!id7.getText().isEmpty() && !name7.getText().isEmpty() && !status7.getText().isEmpty() && !type7.getText().isEmpty()) {
-            pane.setSelectedIndex(1);
-            try {
-                ResultSet rs = new DBConnection().getData("select * from ac_table where ac_id = '" + id7.getText() + "'");
-                if (rs.next()) {
-                    id.setText(String.valueOf(rs.getInt("ac_id")));
-                    email.setText(rs.getString("ac_email"));
-                    username.setText(rs.getString("ac_username"));
-                    password.setText(rs.getString("ac_password"));
-                    secret.setText(rs.getString("ac_sq"));
-                    answer.setText(rs.getString("ac_sa"));
-                    contact.setText(rs.getString("ac_contact"));
-                    type.setSelectedItem(rs.getString("ac_type"));
-                    status.setSelectedItem(rs.getString("ac_status"));
-
-                    byte[] img = rs.getBytes("ac_image");
-                    ImageIcon image = new ImageIcon(img);
-                    Image im = image.getImage();
-                    Image im2 = im.getScaledInstance(picture1.getWidth(), picture1.getHeight(), Image.SCALE_SMOOTH);
-                    ImageIcon newImage = new ImageIcon(im2);
-                    picture1.setIcon(newImage);
-                }
-            } catch (SQLException er) {
-                System.out.println("ERROR: " + er.getMessage());
-            }
-        } else {
-            System.out.println("Panel Is Empty!");
-        }
+        dataRetriever(1, id7, name7, status7, type7, picture1, pane);
     }//GEN-LAST:event_panel7MouseClicked
 
     private void panel8MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_panel8MouseEntered
@@ -1403,65 +1157,11 @@ public final class Form_3 extends javax.swing.JPanel {
     }//GEN-LAST:event_panel8MouseEntered
 
     private void panel9MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_panel9MouseClicked
-        if (!id9.getText().isEmpty() && !name9.getText().isEmpty() && !status9.getText().isEmpty() && !type9.getText().isEmpty()) {
-            pane.setSelectedIndex(1);
-            try {
-                ResultSet rs = new DBConnection().getData("select * from ac_table where ac_id = '" + id9.getText() + "'");
-                if (rs.next()) {
-                    id.setText(String.valueOf(rs.getInt("ac_id")));
-                    email.setText(rs.getString("ac_email"));
-                    username.setText(rs.getString("ac_username"));
-                    password.setText(rs.getString("ac_password"));
-                    secret.setText(rs.getString("ac_sq"));
-                    answer.setText(rs.getString("ac_sa"));
-                    contact.setText(rs.getString("ac_contact"));
-                    type.setSelectedItem(rs.getString("ac_type"));
-                    status.setSelectedItem(rs.getString("ac_status"));
-
-                    byte[] img = rs.getBytes("ac_image");
-                    ImageIcon image = new ImageIcon(img);
-                    Image im = image.getImage();
-                    Image im2 = im.getScaledInstance(picture1.getWidth(), picture1.getHeight(), Image.SCALE_SMOOTH);
-                    ImageIcon newImage = new ImageIcon(im2);
-                    picture1.setIcon(newImage);
-                }
-            } catch (SQLException er) {
-                System.out.println("ERROR: " + er.getMessage());
-            }
-        } else {
-            System.out.println("Panel Is Empty!");
-        }
+        dataRetriever(1, id9, name9, status9, type9, picture1, pane);
     }//GEN-LAST:event_panel9MouseClicked
 
     private void panel10MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_panel10MouseClicked
-        if (!id10.getText().isEmpty() && !name10.getText().isEmpty() && !status10.getText().isEmpty() && !type10.getText().isEmpty()) {
-            pane.setSelectedIndex(1);
-            try {
-                ResultSet rs = new DBConnection().getData("select * from ac_table where ac_id = '" + id10.getText() + "'");
-                if (rs.next()) {
-                    id.setText(String.valueOf(rs.getInt("ac_id")));
-                    email.setText(rs.getString("ac_email"));
-                    username.setText(rs.getString("ac_username"));
-                    password.setText(rs.getString("ac_password"));
-                    secret.setText(rs.getString("ac_sq"));
-                    answer.setText(rs.getString("ac_sa"));
-                    contact.setText(rs.getString("ac_contact"));
-                    type.setSelectedItem(rs.getString("ac_type"));
-                    status.setSelectedItem(rs.getString("ac_status"));
-
-                    byte[] img = rs.getBytes("ac_image");
-                    ImageIcon image = new ImageIcon(img);
-                    Image im = image.getImage();
-                    Image im2 = im.getScaledInstance(picture1.getWidth(), picture1.getHeight(), Image.SCALE_SMOOTH);
-                    ImageIcon newImage = new ImageIcon(im2);
-                    picture1.setIcon(newImage);
-                }
-            } catch (SQLException er) {
-                System.out.println("ERROR: " + er.getMessage());
-            }
-        } else {
-            System.out.println("Panel Is Empty!");
-        }
+        dataRetriever(1, id10, name10, status10, type10, picture1, pane);
     }//GEN-LAST:event_panel10MouseClicked
 
     private void panel11MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_panel11MouseEntered
@@ -1473,96 +1173,15 @@ public final class Form_3 extends javax.swing.JPanel {
     }//GEN-LAST:event_panel12MouseEntered
 
     private void panel12MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_panel12MouseClicked
-        if (!id12.getText().isEmpty() && !name12.getText().isEmpty() && !status12.getText().isEmpty() && !type12.getText().isEmpty()) {
-            pane.setSelectedIndex(1);
-            try {
-                ResultSet rs = new DBConnection().getData("select * from ac_table where ac_id = '" + id12.getText() + "'");
-                if (rs.next()) {
-                    id.setText(String.valueOf(rs.getInt("ac_id")));
-                    email.setText(rs.getString("ac_email"));
-                    username.setText(rs.getString("ac_username"));
-                    password.setText(rs.getString("ac_password"));
-                    secret.setText(rs.getString("ac_sq"));
-                    answer.setText(rs.getString("ac_sa"));
-                    contact.setText(rs.getString("ac_contact"));
-                    type.setSelectedItem(rs.getString("ac_type"));
-                    status.setSelectedItem(rs.getString("ac_status"));
-
-                    byte[] img = rs.getBytes("ac_image");
-                    ImageIcon image = new ImageIcon(img);
-                    Image im = image.getImage();
-                    Image im2 = im.getScaledInstance(picture1.getWidth(), picture1.getHeight(), Image.SCALE_SMOOTH);
-                    ImageIcon newImage = new ImageIcon(im2);
-                    picture1.setIcon(newImage);
-                }
-            } catch (SQLException er) {
-                System.out.println("ERROR: " + er.getMessage());
-            }
-        } else {
-            System.out.println("Panel Is Empty!");
-        }
+        dataRetriever(1, id12, name12, status12, type12, picture1, pane);
     }//GEN-LAST:event_panel12MouseClicked
 
     private void panel11MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_panel11MouseClicked
-        if (!id11.getText().isEmpty() && !name11.getText().isEmpty() && !status11.getText().isEmpty() && !type11.getText().isEmpty()) {
-            pane.setSelectedIndex(1);
-            try {
-                ResultSet rs = new DBConnection().getData("select * from ac_table where ac_id = '" + id11.getText() + "'");
-                if (rs.next()) {
-                    id.setText(String.valueOf(rs.getInt("ac_id")));
-                    email.setText(rs.getString("ac_email"));
-                    username.setText(rs.getString("ac_username"));
-                    password.setText(rs.getString("ac_password"));
-                    secret.setText(rs.getString("ac_sq"));
-                    answer.setText(rs.getString("ac_sa"));
-                    contact.setText(rs.getString("ac_contact"));
-                    type.setSelectedItem(rs.getString("ac_type"));
-                    status.setSelectedItem(rs.getString("ac_status"));
-
-                    byte[] img = rs.getBytes("ac_image");
-                    ImageIcon image = new ImageIcon(img);
-                    Image im = image.getImage();
-                    Image im2 = im.getScaledInstance(picture1.getWidth(), picture1.getHeight(), Image.SCALE_SMOOTH);
-                    ImageIcon newImage = new ImageIcon(im2);
-                    picture1.setIcon(newImage);
-                }
-            } catch (SQLException er) {
-                System.out.println("ERROR: " + er.getMessage());
-            }
-        } else {
-            System.out.println("Panel Is Empty!");
-        }
+        dataRetriever(1, id11, name11, status11, type11, picture1, pane);
     }//GEN-LAST:event_panel11MouseClicked
 
     private void panel8MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_panel8MouseClicked
-        if (!id8.getText().isEmpty() && !name8.getText().isEmpty() && !status8.getText().isEmpty() && !type8.getText().isEmpty()) {
-            pane.setSelectedIndex(1);
-            try {
-                ResultSet rs = new DBConnection().getData("select * from ac_table where ac_id = '" + id8.getText() + "'");
-                if (rs.next()) {
-                    id.setText(String.valueOf(rs.getInt("ac_id")));
-                    email.setText(rs.getString("ac_email"));
-                    username.setText(rs.getString("ac_username"));
-                    password.setText(rs.getString("ac_password"));
-                    secret.setText(rs.getString("ac_sq"));
-                    answer.setText(rs.getString("ac_sa"));
-                    contact.setText(rs.getString("ac_contact"));
-                    type.setSelectedItem(rs.getString("ac_type"));
-                    status.setSelectedItem(rs.getString("ac_status"));
-
-                    byte[] img = rs.getBytes("ac_image");
-                    ImageIcon image = new ImageIcon(img);
-                    Image im = image.getImage();
-                    Image im2 = im.getScaledInstance(picture1.getWidth(), picture1.getHeight(), Image.SCALE_SMOOTH);
-                    ImageIcon newImage = new ImageIcon(im2);
-                    picture1.setIcon(newImage);
-                }
-            } catch (SQLException er) {
-                System.out.println("ERROR: " + er.getMessage());
-            }
-        } else {
-            System.out.println("Panel Is Empty!");
-        }
+        dataRetriever(1, id8, name8, status8, type8, picture1, pane);
     }//GEN-LAST:event_panel8MouseClicked
 
     private void printActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_printActionPerformed
@@ -1717,11 +1336,11 @@ public final class Form_3 extends javax.swing.JPanel {
                 }
 
                 for (int j = i; j < panels.length; j++) {
-                    removeLabel(icons[j]);
-                    removeLabel(ids[j]);
-                    removeLabel(types[j]);
-                    removeLabel(names[j]);
-                    removeLabel(statuses[j]);
+                    removePanel(icons[j]);
+                    removePanel(ids[j]);
+                    removePanel(types[j]);
+                    removePanel(names[j]);
+                    removePanel(statuses[j]);
                     panels[j].setVisible(false);
                 }
 
@@ -1734,100 +1353,77 @@ public final class Form_3 extends javax.swing.JPanel {
     }
 
     public int progress() {
-
         int progress = 0;
 
-        if (!username.getText().equals("")) {
-            username.setBorder(BorderFactory.createLineBorder(Color.GREEN));
-        } else if (username.getText().equals("")) {
-            username.setBorder(BorderFactory.createLineBorder(Color.RED));
+        JTextField[] fields = {username, email, password, secret, answer, contact};
+        int[] scores = {5, 5, 10, 5, 7, 7, 5};
+        Color[] colors = {Color.RED, Color.GREEN};
+
+        for (int i = 0; i < fields.length; i++) {
+            if (!fields[i].getText().equals("")) {
+                progress += scores[i];
+                fields[i].setBorder(BorderFactory.createLineBorder(colors[1]));
+            } else {
+                progress -= scores[i];
+                fields[i].setBorder(BorderFactory.createLineBorder(colors[0]));
+            }
         }
 
-        if (!email.getText().equals("")) {
-            email.setBorder(BorderFactory.createLineBorder(Color.GREEN));
-        } else if (email.getText().equals("")) {
-            email.setBorder(BorderFactory.createLineBorder(Color.RED));
+        if (type.getSelectedIndex() != -1) {
+            progress += 60;
         }
 
-        if (!password.getText().equals("")) {
-            password.setBorder(BorderFactory.createLineBorder(Color.GREEN));
-        } else if (password.getText().equals("")) {
-            password.setBorder(BorderFactory.createLineBorder(Color.RED));
-        }
-
-        if (!secret.getText().equals("")) {
-            secret.setBorder(BorderFactory.createLineBorder(Color.GREEN));
-        } else if (secret.getText().equals("")) {
-            secret.setBorder(BorderFactory.createLineBorder(Color.RED));
-        }
-
-        if (!answer.getText().equals("")) {
-            answer.setBorder(BorderFactory.createLineBorder(Color.GREEN));
-        } else if (answer.getText().equals("")) {
-            answer.setBorder(BorderFactory.createLineBorder(Color.RED));
-        }
-
-        if (!contact.getText().equals("")) {
-            contact.setBorder(BorderFactory.createLineBorder(Color.GREEN));
-        } else if (contact.getText().equals("")) {
-            contact.setBorder(BorderFactory.createLineBorder(Color.RED));
-        }
         return progress;
     }
+// Validations Hasn't Implemented Yet, Design Muna
+//    private boolean updateChecker() throws SQLException {
+//        ResultSet rs = new DBConnection().getData("select * from ac_table where (ac_username = '" + username.getText() + "' or ac_email = '" + email.getText() + "') and ac_id != '" + id.getText() + "'");
+//        if (rs.next()) {
+//            String xemail = rs.getString("ac_email");
+//            if (xemail.equalsIgnoreCase(email.getText())) {
+//                errorMessage("EMAIL HAS BEEN USED!");
+//            }
+//            String xusername = rs.getString("ac_username");
+//            if (xusername.equalsIgnoreCase(username.getText())) {
+//                errorMessage("USERNAME HAS BEEN USED!");
+//            }
+//            return true;
+//        } else {
+//            return false;
+//        }
+//    }
+//
+//    private boolean validationChecker() {
+//        if (username.getText().isEmpty() || email.getText().isEmpty() || contact.getText().isEmpty()) {
+//            errorMessage("FILL ALL THE REQUIREMENTS!");
+//            return false;
+//        } else if (!contact.getText().matches("\\d+")) {
+//            errorMessage("CONTACT MUST CONTAIN ONLY DIGITS!");
+//            return false;
+//        } else {
+//            return true;
+//        }
+//    }
 
-    private boolean updateChecker() throws SQLException {
-        ResultSet rs = new DBConnection().getData("select * from ac_table where (ac_username = '" + username.getText() + "' or ac_email = '" + email.getText() + "') and ac_id != '" + id.getText() + "'");
-        if (rs.next()) {
-            String xemail = rs.getString("ac_email");
-            if (xemail.equalsIgnoreCase(email.getText())) {
-                errorMessage("EMAIL HAS BEEN USED!");
-            }
-            String xusername = rs.getString("ac_username");
-            if (xusername.equalsIgnoreCase(username.getText())) {
-                errorMessage("USERNAME HAS BEEN USED!");
-            }
-            return true;
-        } else {
-            return false;
-        }
-    }
-
-    private boolean validationChecker() {
-        if (username.getText().isEmpty() || email.getText().isEmpty() || contact.getText().isEmpty()) {
-            errorMessage("FILL ALL THE REQUIREMENTS!");
-            return false;
-        } else if (!contact.getText().matches("\\d+")) {
-            errorMessage("CONTACT MUST CONTAIN ONLY DIGITS!");
-            return false;
-        } else {
-            return true;
-        }
-    }
-
-    private void errorMessage(String message) {
-        JOptionPane.showMessageDialog(this, message, "ERROR!", JOptionPane.ERROR_MESSAGE);
-    }
-
-    private void successMessage(String message) {
-        JOptionPane.showMessageDialog(this, message, "SUCCESS!", JOptionPane.INFORMATION_MESSAGE);
-    }
-
-    public void refreshBtn() {
+    public void acquireData() {
         JLabel[] ids = {id1, id2, id3, id4, id5, id6, id7, id8, id9, id10, id11, id12};
         JLabel[] names = {name1, name2, name3, name4, name5, name6, name7, name8, name9, name10, name11, name12};
         JLabel[] types = {type1, type2, type3, type4, type5, type6, type7, type8, type9, type10, type11, type12};
         JLabel[] statuses = {status1, status2, status3, status4, status5, status6, status7, status8, status9, status10, status11, status12};
         JLabel[] icons = {icon1, icon2, icon3, icon4, icon5, icon6, icon7, icon8, icon9, icon10, icon11, icon12};
         JPanel[] panels = {panel1, panel2, panel3, panel4, panel5, panel6, panel7, panel8, panel9, panel10, panel11, panel12};
-        fetch(lastDisplayedIndex, ids, names, types, statuses, icons, panels);
+        fetch(0, ids, names, types, statuses, icons, panels);
         displayData();
+        focusableButtonsSetter();
+        form3Handlers();
+        addKeyListener();
     }
 
-    private void removeLabel(JLabel label) {
-        if (label != null) {
-            label.setIcon(null);
-            label.setText(null);
-            label.setVisible(false);
+    private void removePanel(JLabel panel) {
+        if (panel != null) {
+            panel.setIcon(null);
+            panel.setText(null);
+            panel.setVisible(false);
         }
     }
 
@@ -1870,6 +1466,93 @@ public final class Form_3 extends javax.swing.JPanel {
             timer.start();
         }
     }
+
+    public void focusableButtonsSetter() {
+        search.setFocusable(false);
+        print.setFocusable(false);
+        printableTable.setFocusable(false);
+        changeView.setFocusable(false);
+    }
+
+    public void form3Handlers() {
+        String[] placeholders = {
+            "ID", "USERNAME", "PASSWORD", "EMAIL",
+            "SECRET ANSWER", "SECRET QUESTION", "CONTACT", "SEARCH BAR"
+        };
+        JComponent[] components = {
+            id, username, password, email, answer, secret, contact, search
+        };
+
+        for (int i = 0; i < components.length; i++) {
+            components[i].putClientProperty(FlatClientProperties.PLACEHOLDER_TEXT, placeholders[i]);
+            components[i].putClientProperty(FlatClientProperties.TEXT_FIELD_SHOW_CLEAR_BUTTON, true);
+        }
+
+        clear.setFocusable(false);
+        update.setFocusable(false);
+        remove.setFocusable(false);
+        delete.setFocusable(false);
+        type.setFocusable(false);
+        add2.setFocusable(false);
+        printableTable.setFocusable(false);
+        print.setFocusable(false);
+        changeView.setFocusable(false);
+    }
+
+    public void dataRetriever(int index, JLabel idLabel, JLabel nameLabel, JLabel statusLabel, JLabel typeLabel, JLabel pictureLabel, JTabbedPane pane) {
+        JLabel[] labels = {idLabel, nameLabel, statusLabel, typeLabel};
+        if (Arrays.stream(labels).allMatch(label -> !label.getText().isEmpty())) {
+            pane.setSelectedIndex(index);
+            try {
+                ResultSet rs = new DBConnection().getData("select * from ac_table where ac_id = '" + idLabel.getText() + "'");
+                if (rs.next()) {
+                    id.setText(String.valueOf(rs.getInt("ac_id")));
+                    email.setText(rs.getString("ac_email"));
+                    username.setText(rs.getString("ac_username"));
+                    password.setText(rs.getString("ac_password"));
+                    secret.setText(rs.getString("ac_sq"));
+                    answer.setText(rs.getString("ac_sa"));
+                    contact.setText(rs.getString("ac_contact"));
+                    type.setSelectedItem(rs.getString("ac_type"));
+                    status.setSelectedItem(rs.getString("ac_status"));
+
+                    byte[] img = rs.getBytes("ac_image");
+                    ImageIcon image = new ImageIcon(img);
+                    Image im = image.getImage();
+                    Image im2 = im.getScaledInstance(350, 340, Image.SCALE_SMOOTH);
+                    ImageIcon newImage = new ImageIcon(im2);
+                    pictureLabel.setIcon(newImage);
+                }
+            } catch (SQLException er) {
+                System.out.println("ERROR: " + er.getMessage());
+            }
+        } else {
+            System.out.println("Panel Is Empty!");
+        }
+    }
+
+    public void addKeyListener() {
+        Component[] components = {username, email, password, secret, answer, contact};
+        for (Component component : components) {
+            component.addKeyListener(new KeyListener() {
+                @Override
+                public void keyTyped(KeyEvent e) {
+                    progress();
+                }
+
+                @Override
+                public void keyPressed(KeyEvent e) {
+                    progress();
+                }
+
+                @Override
+                public void keyReleased(KeyEvent e) {
+                    progress();
+                }
+            });
+        }
+    }
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     public static javax.swing.JTable ac_db;

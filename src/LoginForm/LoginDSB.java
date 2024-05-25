@@ -19,8 +19,7 @@ public final class LoginDSB extends javax.swing.JPanel {
 
     public LoginDSB() {
         initComponents();
-        placeHolders();
-        focus();
+        focusAndPlaceholderHandlers();
         keyMapping();
     }
 
@@ -233,7 +232,7 @@ public final class LoginDSB extends javax.swing.JPanel {
             if (username.getText().isEmpty() && password.getText().isEmpty()) {
                 username.setBorder(BorderFactory.createLineBorder(new Color(255, 189, 46)));
                 password.setBorder(BorderFactory.createLineBorder(new Color(255, 189, 46)));
-                Checkers.emptyFieldChecker();
+                Checkers.emptyFieldChecker("PLEASE FILL-UP ALL THE FIELDS!");
                 return;
             }
 
@@ -241,19 +240,19 @@ public final class LoginDSB extends javax.swing.JPanel {
             if (loginDB(username.getText(), hashedPass)) {
                 switch (xstatus.toLowerCase()) {
                     case "pending":
-                        Checkers.errorMessage("WAIT FOR ADMIN APPROVAL!");
+                        Checkers.unsuccessfullFieldChecker("WAIT FOR ADMIN APPROVAL!");
                         break;
                     case "declined":
-                        Checkers.errorMessage("YOUR ACCOUNT HAS BEEN DECLINED!");
+                        Checkers.unsuccessfullFieldChecker("YOUR ACCOUNT HAS BEEN DECLINED!");
                         break;
                     case "inactive":
-                        Checkers.errorMessage("YOUR ACCOUNT IS IN-ACTIVE!");
+                        Checkers.unsuccessfullFieldChecker("YOUR ACCOUNT IS IN-ACTIVE!");
                         break;
                     case "active":
                         handleUserType(xtype);
                         break;
                     default:
-                        Checkers.errorMessage("INVALID TYPE!");
+                        Checkers.noAccountFieldChecker("INVALID TYPE!");
                 }
             } else {
                 setErrorState();
@@ -337,7 +336,7 @@ public final class LoginDSB extends javax.swing.JPanel {
 
     private void usernameKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_usernameKeyTyped
         String currentText = username.getText();
-        if ((currentText + evt.getKeyChar()).length() > 35) {
+        if ((currentText + evt.getKeyChar()).length() > 30) {
             evt.consume();
         }
     }//GEN-LAST:event_usernameKeyTyped
@@ -403,12 +402,9 @@ public final class LoginDSB extends javax.swing.JPanel {
         register.addActionListener(event);
     }
 
-    private void placeHolders() {
+    private void focusAndPlaceholderHandlers() {
         username.putClientProperty(FlatClientProperties.PLACEHOLDER_TEXT, "LAST NAME");
         password.putClientProperty(FlatClientProperties.PLACEHOLDER_TEXT, "PASSWORD");
-    }
-
-    private void focus() {
         exit.setFocusable(false);
         remember.setFocusable(false);
         login.setFocusable(false);
@@ -437,7 +433,7 @@ public final class LoginDSB extends javax.swing.JPanel {
         if (xtype.equalsIgnoreCase("patient") || xtype.equalsIgnoreCase("admin")) {
             username.setBorder(BorderFactory.createLineBorder(Color.GREEN));
             password.setBorder(BorderFactory.createLineBorder(Color.GREEN));
-            Checkers.successFieldChecker();
+            Checkers.successFieldChecker("WELCONE TO AURORA WELLNESS PAVILION!");
             if (xtype.equalsIgnoreCase("patient")) {
                 new PatientDSB().setVisible(true);
             } else {
@@ -452,7 +448,7 @@ public final class LoginDSB extends javax.swing.JPanel {
     private void setErrorState() {
         username.setBorder(BorderFactory.createLineBorder(Color.RED));
         password.setBorder(BorderFactory.createLineBorder(Color.RED));
-        Checkers.unsuccessfullFieldChecker();
+        Checkers.unsuccessfullFieldChecker("LASTNAME OR PASSWORD IS INCORRECT!");
         username.setText("");
         password.setText("");
         username.requestFocus();

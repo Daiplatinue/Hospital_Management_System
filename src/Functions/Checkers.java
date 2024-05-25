@@ -1,90 +1,102 @@
 package Functions;
 
 import java.awt.*;
+import java.net.URL;
 import javax.swing.*;
 
 public class Checkers {
 
-    public static void errorMessage(String message) {
-        JOptionPane.showMessageDialog(null, message, "ERROR!", JOptionPane.ERROR_MESSAGE);
+    private static Icon loadIcon(String path) {
+        try {
+            URL imgURL = Checkers.class.getResource(path);
+            if (imgURL != null) {
+                return new ImageIcon(imgURL);
+            } else {
+                noAccountFieldChecker("PATH NOT FOUND: " + path);
+                return null;
+            }
+        } catch (Exception e) {
+            noAccountFieldChecker("ERROR: " + e.getMessage());
+            return null;
+        }
     }
 
-    public static void successMessage(String message) {
-        JOptionPane.showMessageDialog(null, message, "SUCCESS!", JOptionPane.INFORMATION_MESSAGE);
-    }
-
-    public static void emptyFieldChecker() {
+    public static void emptyFieldChecker(String message) {
         UIManager.put("OptionPane.background", Color.white);
         UIManager.put("Panel.background", Color.white);
 
-        Icon customIcon = null;
-        java.net.URL imgURL = Checkers.class.getResource("/Images/alert.gif");
-        if (imgURL != null) {
-            customIcon = new ImageIcon(imgURL);
-        } else {
-            System.err.println("Couldn't find file!");
+        Icon customIcon = loadIcon("/Images/alert.gif");
+        if (customIcon == null) {
+            JOptionPane.showMessageDialog(null,
+                    "ICON NOT FOUND!",
+                    "ICON LOADING ERROR!",
+                    JOptionPane.ERROR_MESSAGE);
+            return;
         }
 
         JOptionPane.showMessageDialog(null,
-                "PLEASE FILL OUT BOTH LASTNAME AND PASSWORD FIELDS!",
+                message,
                 "WARNING",
                 JOptionPane.WARNING_MESSAGE,
                 customIcon);
     }
 
-    public static void noAccountFieldChecker() {
+    public static void noAccountFieldChecker(String message) {
         UIManager.put("OptionPane.background", Color.white);
         UIManager.put("Panel.background", Color.white);
 
-        Icon customIcon = null;
-        java.net.URL imgURL = Checkers.class.getResource("/Images/alert.gif");
-        if (imgURL != null) {
-            customIcon = new ImageIcon(imgURL);
-        } else {
-            System.err.println("Couldn't find file!");
+        Icon customIcon = loadIcon("/Images/alert.gif");
+        if (customIcon == null) {
+            JOptionPane.showMessageDialog(null,
+                    "ICON NOT FOUND!",
+                    "ICON LOADING ERROR!",
+                    JOptionPane.ERROR_MESSAGE);
+            return;
         }
 
         JOptionPane.showMessageDialog(null,
-                "NO ACCOUNT FOUND!",
+                message,
                 "WARNING",
                 JOptionPane.WARNING_MESSAGE,
                 customIcon);
     }
 
-    public static void unsuccessfullFieldChecker() {
+    public static void unsuccessfullFieldChecker(String message) {
         UIManager.put("OptionPane.background", Color.white);
         UIManager.put("Panel.background", Color.white);
 
-        Icon customIcon = null;
-        java.net.URL imgURL = Checkers.class.getResource("/Images/alert.gif");
-        if (imgURL != null) {
-            customIcon = new ImageIcon(imgURL);
-        } else {
-            System.err.println("Couldn't find file!");
+        Icon customIcon = loadIcon("/Images/alert.gif");
+        if (customIcon == null) {
+            JOptionPane.showMessageDialog(null,
+                    "ICON NOT FOUND!",
+                    "ICON LOADING ERROR!",
+                    JOptionPane.ERROR_MESSAGE);
+            return;
         }
 
         JOptionPane.showMessageDialog(null,
-                "LASTNAME OR PASSWORD IS INCORRECT!",
+                message,
                 "WARNING",
                 JOptionPane.WARNING_MESSAGE,
                 customIcon);
     }
 
-    public static void successFieldChecker() {
+    public static void successFieldChecker(String message) {
         UIManager.put("OptionPane.background", Color.white);
-        Object put = UIManager.put("Panel.background", Color.white);
+        UIManager.put("Panel.background", Color.white);
 
-        Icon customIcon = null;
-        java.net.URL imgURL = Checkers.class.getResource("/Images/sucess.png");
-        if (imgURL != null) {
-            customIcon = new ImageIcon(imgURL);
-        } else {
-            System.err.println("Couldn't find file!");
+        Icon customIcon = loadIcon("/Images/sucess.png");
+        if (customIcon == null) {
+            JOptionPane.showMessageDialog(null,
+                    "ICON NOT FOUND!",
+                    "ICON LOADING ERROR!",
+                    JOptionPane.ERROR_MESSAGE);
+            return;
         }
 
         JOptionPane.showMessageDialog(null,
-                "WELCOME TO AURORA WELLNESS PAVILION!",
-                "SUCCESS",
+                message,
+                "WARNING",
                 JOptionPane.WARNING_MESSAGE,
                 customIcon);
     }

@@ -1,26 +1,18 @@
 package Forms;
 
-import Database.DBConnection;
-import Database.xternal_db;
-import com.formdev.flatlaf.FlatClientProperties;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import javax.swing.JOptionPane;
-import javax.swing.table.TableModel;
-import net.proteanit.sql.DbUtils;
+import Database.*;
+import Functions.Checkers;
+import com.formdev.flatlaf.*;
+import java.sql.*;
+import javax.swing.table.*;
+import net.proteanit.sql.*;
 
-public class Form_8 extends javax.swing.JPanel {
+public final class Form_8 extends javax.swing.JPanel {
 
     public Form_8() {
         initComponents();
         displayData();
-
-        search.putClientProperty(FlatClientProperties.TEXT_FIELD_SHOW_CLEAR_BUTTON, true);
-        search.putClientProperty(FlatClientProperties.PLACEHOLDER_TEXT, "SEARCH BAR");
-
-        recover.setFocusable(false);
+        EmphasizableButtons();
     }
 
     @SuppressWarnings("unchecked")
@@ -213,7 +205,7 @@ public class Form_8 extends javax.swing.JPanel {
     private void recoverAccount() {
         int rowIndex = ac_archive.getSelectedRow();
         if (rowIndex < 0) {
-            errorMessage("PLEASE SELECT AN INDEX!");
+            Checkers.unsuccessfullFieldChecker("PLEASE SELECT AN INDEX!");
         } else {
             try {
                 TableModel tbl = ac_archive.getModel();
@@ -225,7 +217,7 @@ public class Form_8 extends javax.swing.JPanel {
                 ps.setString(1, accountId);
                 ps.executeUpdate();
 
-                successMessage("ACCOUNT APPROVED SUCCESSFULLY!!");
+                Checkers.successFieldChecker("ACCOUNT RECOVERED SUCCESSFULLY!!");
 
                 xternal_db xdb = xternal_db.getInstance();
                 PreparedStatement logs = cn.prepareStatement("INSERT INTO ac_logs (lg_email,lg_username,lg_actions)"
@@ -239,14 +231,11 @@ public class Form_8 extends javax.swing.JPanel {
         }
     }
 
-    private void errorMessage(String message) {
-        JOptionPane.showMessageDialog(this, message, "ERROR!", JOptionPane.ERROR_MESSAGE);
+    public void EmphasizableButtons() {
+        search.putClientProperty(FlatClientProperties.TEXT_FIELD_SHOW_CLEAR_BUTTON, true);
+        search.putClientProperty(FlatClientProperties.PLACEHOLDER_TEXT, "SEARCH BAR");
+        recover.setFocusable(false);
     }
-
-    private void successMessage(String message) {
-        JOptionPane.showMessageDialog(this, message, "SUCCESS!", JOptionPane.INFORMATION_MESSAGE);
-    }
-
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTable ac_archive;

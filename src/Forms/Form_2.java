@@ -1,104 +1,31 @@
 package Forms;
 
-import Database.DBConnection;
-import Database.xternal_db;
-import Functions.Hasher;
-import com.formdev.flatlaf.FlatClientProperties;
-import java.awt.Color;
-import java.awt.Image;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.InputStream;
-import java.security.NoSuchAlgorithmException;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.SQLException;
-import javax.swing.BorderFactory;
-import javax.swing.Icon;
-import javax.swing.ImageIcon;
-import javax.swing.JOptionPane;
-import javax.swing.Timer;
-import javax.swing.UIManager;
-import jnafilechooser.api.JnaFileChooser;
+import Database.*;
+import Functions.*;
+import LoginForm.LoginDashboard;
+import RegisterForm.RegisterDSB;
+import com.formdev.flatlaf.*;
+import java.awt.*;
+import java.awt.event.*;
+import java.io.*;
+import java.security.*;
+import java.sql.*;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.*;
+import javax.swing.event.*;
+import jnafilechooser.api.*;
 
-public class Form_2 extends javax.swing.JPanel {
+public final class Form_2 extends javax.swing.JPanel {
 
     String path2 = null;
 
     public Form_2() {
         initComponents();
+        form2Handlers();
 
-        create.setFocusable(false);
-        remove.setFocusable(false);
-        type.setFocusable(false);
-
-        username.addFocusListener(new java.awt.event.FocusAdapter() {
-            @Override
-            public void focusLost(java.awt.event.FocusEvent evt) {
-                progress();
-            }
-        });
-
-        email.addFocusListener(new java.awt.event.FocusAdapter() {
-            @Override
-            public void focusLost(java.awt.event.FocusEvent evt) {
-                progress();
-            }
-        });
-
-        password.addFocusListener(new java.awt.event.FocusAdapter() {
-            @Override
-            public void focusLost(java.awt.event.FocusEvent evt) {
-                progress();
-            }
-        });
-
-        cpassword.addFocusListener(new java.awt.event.FocusAdapter() {
-            @Override
-            public void focusLost(java.awt.event.FocusEvent evt) {
-                progress();
-            }
-        });
-
-        secret.addFocusListener(new java.awt.event.FocusAdapter() {
-            @Override
-            public void focusLost(java.awt.event.FocusEvent evt) {
-                progress();
-            }
-        });
-
-        answer.addFocusListener(new java.awt.event.FocusAdapter() {
-            @Override
-            public void focusLost(java.awt.event.FocusEvent evt) {
-                progress();
-            }
-        });
-
-        contact.addFocusListener(new java.awt.event.FocusAdapter() {
-            @Override
-            public void focusLost(java.awt.event.FocusEvent evt) {
-                progress();
-            }
-        });
-
-        username.putClientProperty(FlatClientProperties.PLACEHOLDER_TEXT, "USERNAME");
-        password.putClientProperty(FlatClientProperties.PLACEHOLDER_TEXT, "PASSWORD");
-        email.putClientProperty(FlatClientProperties.PLACEHOLDER_TEXT, "EMAIL");
-        cpassword.putClientProperty(FlatClientProperties.PLACEHOLDER_TEXT, "CONFIRM PASSWORD");
-        answer.putClientProperty(FlatClientProperties.PLACEHOLDER_TEXT, "SECRET ANSWER");
-        secret.putClientProperty(FlatClientProperties.PLACEHOLDER_TEXT, "SECRET QUESTION");
-        contact.putClientProperty(FlatClientProperties.PLACEHOLDER_TEXT, "CONTACT");
-
-        username.putClientProperty(FlatClientProperties.TEXT_FIELD_SHOW_CLEAR_BUTTON, true);
-        email.putClientProperty(FlatClientProperties.TEXT_FIELD_SHOW_CLEAR_BUTTON, true);
-        password.putClientProperty(FlatClientProperties.TEXT_FIELD_SHOW_CLEAR_BUTTON, true);
-        cpassword.putClientProperty(FlatClientProperties.TEXT_FIELD_SHOW_CLEAR_BUTTON, true);
-        answer.putClientProperty(FlatClientProperties.TEXT_FIELD_SHOW_CLEAR_BUTTON, true);
-        secret.putClientProperty(FlatClientProperties.TEXT_FIELD_SHOW_CLEAR_BUTTON, true);
-        contact.putClientProperty(FlatClientProperties.TEXT_FIELD_SHOW_CLEAR_BUTTON, true);
+        // Adding Action Listener Cause Adding Events Will Not Save Me Some Energy
+        actionListeners();
     }
 
     @SuppressWarnings("unchecked")
@@ -287,27 +214,25 @@ public class Form_2 extends javax.swing.JPanel {
 
     private void createActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_createActionPerformed
         try {
-            String user = username.getText().trim();
-            String emails = email.getText().trim();
-            String passwordText = password.getText().trim();
-            String secretQuestion = secret.getText().trim();
-            String secretAnswer = answer.getText().trim();
-            String contacts = contact.getText().trim();
-            String types = (String) type.getSelectedItem();
-            Icon photo = picture.getIcon();
-
-            if (user.isEmpty() || emails.isEmpty() || passwordText.isEmpty() || secretQuestion.isEmpty() || secretAnswer.isEmpty() || contacts.isEmpty() || path2 == null || path2.isEmpty() || photo == null) {
+            if (path2 == null || path2.isEmpty()) {
                 UIManager.put("OptionPane.background", Color.white);
                 UIManager.put("Panel.background", Color.white);
                 Icon customIcon = new javax.swing.ImageIcon(getClass().getResource("/Images/alert.gif"));
-                JOptionPane.showMessageDialog(null, "PLEASE FILL ALL FIELDS AND INSERT AN IMAGE!", "WARNING", JOptionPane.WARNING_MESSAGE, customIcon);
-
+                JOptionPane.showMessageDialog(null, "PLEASE INSERT AN IMAGE FIRST!", "WARNING", JOptionPane.WARNING_MESSAGE, customIcon);
             } else {
-                String hashedPass = Hasher.passwordHasher(passwordText);
+
+                String user = username.getText();
+                String emails = this.email.getText();
+                String hashedPass = Hasher.passwordHasher(this.password.getText());
+                String secretQuestion = secret.getText();
+                String secretAnswer = answer.getText();
                 String status = "Pending";
+                String contacts = contact.getText();
+                String types = (String) type.getSelectedItem();
 
                 Connection cn = new DBConnection().getConnection();
-                PreparedStatement pst = cn.prepareStatement("INSERT INTO ac_table (ac_username, ac_email, ac_password, ac_sq, ac_sa, ac_type, ac_status, ac_contact, ac_image) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)");
+                PreparedStatement pst = cn.prepareStatement("insert into ac_table (ac_username,ac_email,ac_password,ac_sq,ac_sa,ac_type,ac_status,"
+                        + "ac_contact,ac_image) values (?,?,?,?,?,?,?,?,?)");
 
                 pst.setString(1, user);
                 pst.setString(2, emails);
@@ -327,11 +252,6 @@ public class Form_2 extends javax.swing.JPanel {
                 Icon customIcon = new javax.swing.ImageIcon(getClass().getResource("/Images/sucess.png"));
                 JOptionPane.showMessageDialog(null, "ACCOUNT CREATED SUCCESSFULLY!", "SUCCESS", JOptionPane.WARNING_MESSAGE, customIcon);
 
-                xternal_db xdb = xternal_db.getInstance();
-                PreparedStatement logs = cn.prepareStatement("INSERT INTO ac_logs (lg_email,lg_username,lg_actions)"
-                        + " VALUES ('" + xdb.getEmail() + "', '" + xdb.getUsername() + "', 'JUST ADDED NEW ACCOUNT, NAMELY = " + username.getText() + "')");
-                logs.execute();
-                
                 username.setText("");
                 email.setText("");
                 password.setText("");
@@ -339,8 +259,8 @@ public class Form_2 extends javax.swing.JPanel {
                 secret.setText("");
                 answer.setText("");
                 contact.setText("");
-                picture.setIcon(null);
-                jProgressBar1.setValue(0);
+                picture.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/iring.jpg")));
+
                 username.setBorder(BorderFactory.createLineBorder(Color.LIGHT_GRAY));
                 email.setBorder(BorderFactory.createLineBorder(Color.LIGHT_GRAY));
                 password.setBorder(BorderFactory.createLineBorder(Color.LIGHT_GRAY));
@@ -349,10 +269,12 @@ public class Form_2 extends javax.swing.JPanel {
                 answer.setBorder(BorderFactory.createLineBorder(Color.LIGHT_GRAY));
                 contact.setBorder(BorderFactory.createLineBorder(Color.LIGHT_GRAY));
 
+                LoginDashboard.slide.show(0);
             }
+
         } catch (SQLException | NoSuchAlgorithmException | FileNotFoundException ex) {
             System.out.println(ex.getMessage());
-        }
+        } 
     }//GEN-LAST:event_createActionPerformed
 
     private void pictureMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_pictureMouseClicked
@@ -364,31 +286,38 @@ public class Form_2 extends javax.swing.JPanel {
             picture.setIcon(ResizeImage(path));
             path2 = path;
         } else {
-            System.out.println("Image Already Exist or Does Not Exist!");
+            Checkers.unsuccessfullFieldChecker("IMAGE ALREADY EXIST OR DOES NOT EXIST!");
         }
     }//GEN-LAST:event_pictureMouseClicked
 
     private void clearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_clearActionPerformed
-        username.setText("");
-        email.setText("");
-        password.setText("");
-        cpassword.setText("");
-        secret.setText("");
-        answer.setText("");
-        contact.setText("");
-        picture.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/iring.jpg")));
-        jProgressBar1.setValue(0);
-        username.setBorder(BorderFactory.createLineBorder(Color.LIGHT_GRAY));
-        email.setBorder(BorderFactory.createLineBorder(Color.LIGHT_GRAY));
-        password.setBorder(BorderFactory.createLineBorder(Color.LIGHT_GRAY));
-        cpassword.setBorder(BorderFactory.createLineBorder(Color.LIGHT_GRAY));
-        secret.setBorder(BorderFactory.createLineBorder(Color.LIGHT_GRAY));
-        answer.setBorder(BorderFactory.createLineBorder(Color.LIGHT_GRAY));
-        contact.setBorder(BorderFactory.createLineBorder(Color.LIGHT_GRAY));
+        Icon currentImage = picture.getIcon();
+        if (isDefaultImage(currentImage)) {
+            Checkers.emptyFieldChecker("PLEASE FILL-UP ALL THE FIELDS AND INSERT AN IMAGE!");
+        } else {
+            username.setText("");
+            email.setText("");
+            password.setText("");
+            cpassword.setText("");
+            secret.setText("");
+            answer.setText("");
+            contact.setText("");
+            picture.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/defaultImage.png")));
+            jProgressBar1.setValue(0);
+
+            JTextField[] components = {username, email, password, secret, answer, contact, cpassword};
+            BorderColorManager clearBorderColor = new BorderColorManager(components);
+            clearBorderColor.resetBorderColor();
+        }
     }//GEN-LAST:event_clearActionPerformed
 
     private void removeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_removeActionPerformed
-        picture.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/iring.jpg")));
+        Icon currentImage = picture.getIcon();
+        if (isDefaultImage(currentImage)) {
+            Checkers.emptyFieldChecker("PLEASE SELECT AN IMAGE!");
+        } else {
+            picture.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/defaultImage.png")));
+        }
     }//GEN-LAST:event_removeActionPerformed
 
     public ImageIcon ResizeImage(String imagePath) {
@@ -399,83 +328,21 @@ public class Form_2 extends javax.swing.JPanel {
         return image;
     }
 
-    public void progress() {
-        Timer timer = new Timer(20, new ActionListener() {
-            int currentProgress = jProgressBar1.getValue();
-            int targetProgress = calculateProgress();
-            int step = (targetProgress > currentProgress) ? 1 : -1;
-
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                if (currentProgress != targetProgress) {
-                    currentProgress += step;
-                    jProgressBar1.setValue(currentProgress);
-                } else {
-                    ((Timer) e.getSource()).stop();
-                }
-            }
-        });
-        timer.start();
-    }
-
     public int calculateProgress() {
-
         int progress = 0;
 
-        if (!username.getText().equals("")) {
-            progress += 5;
-            username.setBorder(BorderFactory.createLineBorder(Color.GREEN));
-        } else if (username.getText().equals("")) {
-            progress -= 5;
-            username.setBorder(BorderFactory.createLineBorder(Color.RED));
-        }
+        JTextField[] fields = {username, email, password, cpassword, secret, answer, contact};
+        int[] scores = {5, 5, 10, 5, 7, 7, 5};
+        Color[] colors = {Color.RED, Color.GREEN};
 
-        if (!email.getText().equals("")) {
-            progress += 5;
-            email.setBorder(BorderFactory.createLineBorder(Color.GREEN));
-        } else if (email.getText().equals("")) {
-            progress -= 5;
-            email.setBorder(BorderFactory.createLineBorder(Color.RED));
-        }
-
-        if (!password.getText().equals("")) {
-            progress += 10;
-            password.setBorder(BorderFactory.createLineBorder(Color.GREEN));
-        } else if (password.getText().equals("")) {
-            progress -= 10;
-            password.setBorder(BorderFactory.createLineBorder(Color.RED));
-        }
-
-        if (!cpassword.getText().equals("")) {
-            progress += 5;
-            cpassword.setBorder(BorderFactory.createLineBorder(Color.GREEN));
-        } else if (cpassword.getText().equals("")) {
-            progress -= 5;
-            cpassword.setBorder(BorderFactory.createLineBorder(Color.RED));
-        }
-
-        if (!secret.getText().equals("")) {
-            progress += 7;
-            secret.setBorder(BorderFactory.createLineBorder(Color.GREEN));
-        } else if (secret.getText().equals("")) {
-            progress -= 7;
-            secret.setBorder(BorderFactory.createLineBorder(Color.RED));
-        }
-
-        if (!answer.getText().equals("")) {
-            progress += 7;
-            answer.setBorder(BorderFactory.createLineBorder(Color.GREEN));
-        } else if (answer.getText().equals("")) {
-            progress -= 7;
-            answer.setBorder(BorderFactory.createLineBorder(Color.RED));
-        }
-
-        if (!contact.getText().equals("")) {
-            progress += 5;
-            contact.setBorder(BorderFactory.createLineBorder(Color.GREEN));
-        } else if (contact.getText().equals("")) {
-            progress -= 5;
-            contact.setBorder(BorderFactory.createLineBorder(Color.RED));
+        for (int i = 0; i < fields.length; i++) {
+            if (!fields[i].getText().equals("")) {
+                progress += scores[i];
+                fields[i].setBorder(BorderFactory.createLineBorder(colors[1]));
+            } else {
+                progress -= scores[i];
+                fields[i].setBorder(BorderFactory.createLineBorder(colors[0]));
+            }
         }
 
         if (type.getSelectedIndex() != -1) {
@@ -495,13 +362,81 @@ public class Form_2 extends javax.swing.JPanel {
         return progress;
     }
 
-    private void errorMessage(String message) {
-        JOptionPane.showMessageDialog(this, message, "ERROR!", JOptionPane.ERROR_MESSAGE);
+    /**
+     * Daiplatinue
+     */
+    public void form2Handlers() {
+        String[] placeholders = {
+            "USERNAME", "PASSWORD", "EMAIL", "CONFIRM PASSWORD",
+            "SECRET ANSWER", "SECRET QUESTION", "CONTACT"
+        };
+        JComponent[] components = {
+            username, password, email, cpassword, answer, secret, contact
+        };
+
+        for (int i = 0; i < components.length; i++) {
+            components[i].putClientProperty(FlatClientProperties.PLACEHOLDER_TEXT, placeholders[i]);
+            components[i].putClientProperty(FlatClientProperties.TEXT_FIELD_SHOW_CLEAR_BUTTON, true);
+        }
+
+        create.setFocusable(false);
+        remove.setFocusable(false);
+        type.setFocusable(false);
     }
 
-    private void successMessage(String message) {
-        JOptionPane.showMessageDialog(this, message, "SUCCESS!", JOptionPane.INFORMATION_MESSAGE);
+    public void actionListeners() {
+        ProgressBarAnimator animator = new ProgressBarAnimator();
+        animator.setUsername(username);
+        animator.setEmail(email);
+        animator.setPassword(password);
+        animator.setCpassword(cpassword);
+        animator.setSecret(secret);
+        animator.setAnswer(answer);
+        animator.setContact(contact);
+        animator.setType(type);
+        animator.setProgressBar(jProgressBar1);
+        type.addActionListener(e -> animator.calculateProgress());
+
+        DocumentListener documentListener = new SimpleDocumentListener(() -> animator.calculateProgress());
+        username.getDocument().addDocumentListener(documentListener);
+        email.getDocument().addDocumentListener(documentListener);
+        password.getDocument().addDocumentListener(documentListener);
+        cpassword.getDocument().addDocumentListener(documentListener);
+        secret.getDocument().addDocumentListener(documentListener);
+        answer.getDocument().addDocumentListener(documentListener);
+        contact.getDocument().addDocumentListener(documentListener);
     }
+
+    private boolean isDefaultImage(Icon imageIcon) {
+        ImageIcon defaultImageIcon = new javax.swing.ImageIcon(getClass().getResource("/Images/defaultImage.png"));
+        return imageIcon != null && imageIcon.equals(defaultImageIcon);
+    }
+
+    class SimpleDocumentListener implements DocumentListener {
+
+        private final Runnable callback;
+
+        public SimpleDocumentListener(Runnable callback) {
+            this.callback = callback;
+        }
+
+        @Override
+        public void insertUpdate(DocumentEvent e) {
+            callback.run();
+        }
+
+        @Override
+        public void removeUpdate(DocumentEvent e) {
+            callback.run();
+        }
+
+        @Override
+        public void changedUpdate(DocumentEvent e) {
+            callback.run();
+        }
+
+    }
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTextField answer;

@@ -1,17 +1,11 @@
 package Components;
 
-import Events.EventMenuSelected;
-import Models.Model_Menu;
-import java.awt.Color;
-import java.awt.GradientPaint;
-import java.awt.Graphics;
-import java.awt.Graphics2D;
-import java.awt.RenderingHints;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseMotionAdapter;
-import java.awt.geom.Path2D;
-import javax.swing.JFrame;
+import Events.*;
+import Models.*;
+import java.awt.*;
+import java.awt.event.*;
+import java.awt.geom.*;
+import javax.swing.*;
 
 public class Menu extends javax.swing.JPanel {
 
@@ -41,6 +35,7 @@ public class Menu extends javax.swing.JPanel {
         listMenu1.addItem(new Model_Menu("7", "My Account", Model_Menu.MenuType.MENU));
         listMenu1.addItem(new Model_Menu("8", "Logout", Model_Menu.MenuType.MENU));
         listMenu1.setForeground(Color.BLACK);
+        // yawa mani di ma black
     }
 
     @SuppressWarnings("unchecked")

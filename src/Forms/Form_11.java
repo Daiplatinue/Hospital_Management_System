@@ -17,7 +17,7 @@ public class Form_11 extends javax.swing.JPanel {
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
 
-        jLabel1.setText("THIS IS FORM NGA YAWA");
+        jLabel1.setText("THIS IS FORM NGA NAUNSA NANI");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -26,7 +26,7 @@ public class Form_11 extends javax.swing.JPanel {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(599, 599, 599)
                 .addComponent(jLabel1)
-                .addContainerGap(576, Short.MAX_VALUE))
+                .addContainerGap(537, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)

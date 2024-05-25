@@ -1,107 +1,28 @@
 package RegisterForm;
 
-import Database.DBConnection;
-import Functions.Hasher;
-import LoginForm.LoginDashboard;
-import com.formdev.flatlaf.FlatClientProperties;
-import com.formdev.flatlaf.FlatLightLaf;
-import java.awt.Color;
-import java.awt.Image;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.io.InputStream;
-import java.security.NoSuchAlgorithmException;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import Database.*;
+import Functions.*;
+import LoginForm.*;
+import com.formdev.flatlaf.*;
+import java.awt.*;
+import java.awt.event.*;
+import java.io.*;
+import java.security.*;
+import java.sql.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.swing.BorderFactory;
-import javax.swing.Icon;
-import javax.swing.ImageIcon;
-import javax.swing.JFrame;
-import javax.swing.JOptionPane;
-import static javax.swing.JOptionPane.ERROR_MESSAGE;
-import javax.swing.Timer;
-import javax.swing.UIManager;
-import jnafilechooser.api.JnaFileChooser;
+import javax.swing.*;
+import javax.swing.event.*;
+import jnafilechooser.api.*;
 
-public class RegisterDSB extends javax.swing.JPanel {
+public final class RegisterDSB extends javax.swing.JPanel {
 
     String path2 = null;
 
     public RegisterDSB() {
         initComponents();
-
-        username.addFocusListener(new java.awt.event.FocusAdapter() {
-            @Override
-            public void focusLost(java.awt.event.FocusEvent evt) {
-                progress();
-            }
-        });
-
-        email.addFocusListener(new java.awt.event.FocusAdapter() {
-            @Override
-            public void focusLost(java.awt.event.FocusEvent evt) {
-                progress();
-            }
-        });
-
-        password.addFocusListener(new java.awt.event.FocusAdapter() {
-            @Override
-            public void focusLost(java.awt.event.FocusEvent evt) {
-                progress();
-            }
-        });
-
-        cpassword.addFocusListener(new java.awt.event.FocusAdapter() {
-            @Override
-            public void focusLost(java.awt.event.FocusEvent evt) {
-                progress();
-            }
-        });
-
-        secret.addFocusListener(new java.awt.event.FocusAdapter() {
-            @Override
-            public void focusLost(java.awt.event.FocusEvent evt) {
-                progress();
-            }
-        });
-
-        answer.addFocusListener(new java.awt.event.FocusAdapter() {
-            @Override
-            public void focusLost(java.awt.event.FocusEvent evt) {
-                progress();
-            }
-        });
-
-        contact.addFocusListener(new java.awt.event.FocusAdapter() {
-            @Override
-            public void focusLost(java.awt.event.FocusEvent evt) {
-                progress();
-            }
-        });
-
-        username.putClientProperty(FlatClientProperties.PLACEHOLDER_TEXT, "USERNAME");
-        password.putClientProperty(FlatClientProperties.PLACEHOLDER_TEXT, "PASSWORD");
-        email.putClientProperty(FlatClientProperties.PLACEHOLDER_TEXT, "EMAIL");
-        cpassword.putClientProperty(FlatClientProperties.PLACEHOLDER_TEXT, "CONFIRM PASSWORD");
-        answer.putClientProperty(FlatClientProperties.PLACEHOLDER_TEXT, "SECRET ANSWER");
-        secret.putClientProperty(FlatClientProperties.PLACEHOLDER_TEXT, "SECRET QUESTION");
-        contact.putClientProperty(FlatClientProperties.PLACEHOLDER_TEXT, "CONTACT");
-
-        username.putClientProperty(FlatClientProperties.TEXT_FIELD_SHOW_CLEAR_BUTTON, true);
-        email.putClientProperty(FlatClientProperties.TEXT_FIELD_SHOW_CLEAR_BUTTON, true);
-        password.putClientProperty(FlatClientProperties.TEXT_FIELD_SHOW_CLEAR_BUTTON, true);
-        cpassword.putClientProperty(FlatClientProperties.TEXT_FIELD_SHOW_CLEAR_BUTTON, true);
-        answer.putClientProperty(FlatClientProperties.TEXT_FIELD_SHOW_CLEAR_BUTTON, true);
-        secret.putClientProperty(FlatClientProperties.TEXT_FIELD_SHOW_CLEAR_BUTTON, true);
-        contact.putClientProperty(FlatClientProperties.TEXT_FIELD_SHOW_CLEAR_BUTTON, true);
+        actionListeners();
+        registerHandlers();
     }
 
     @SuppressWarnings("unchecked")
@@ -330,9 +251,7 @@ public class RegisterDSB extends javax.swing.JPanel {
 
         } catch (SQLException | NoSuchAlgorithmException | FileNotFoundException ex) {
             System.out.println(ex.getMessage());
-        } catch (IOException ex) {
-            Logger.getLogger(RegisterDSB.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        } 
     }//GEN-LAST:event_createActionPerformed
 
     private void backActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backActionPerformed
@@ -376,7 +295,7 @@ public class RegisterDSB extends javax.swing.JPanel {
             picture.setIcon(ResizeImage(path));
             path2 = path;
         } else {
-            System.out.println("Image Already Exist or Does Not Exist!");
+            Checkers.unsuccessfullFieldChecker("IMAGE ALREADY EXIST OR DOES NOT EXIST!");
         }
     }//GEN-LAST:event_pictureMouseClicked
 
@@ -388,15 +307,12 @@ public class RegisterDSB extends javax.swing.JPanel {
         secret.setText("");
         answer.setText("");
         contact.setText("");
-        picture.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/iring.jpg")));
+        picture.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/defaultImage.png")));
         jProgressBar1.setValue(0);
-        username.setBorder(BorderFactory.createLineBorder(Color.LIGHT_GRAY));
-        email.setBorder(BorderFactory.createLineBorder(Color.LIGHT_GRAY));
-        password.setBorder(BorderFactory.createLineBorder(Color.LIGHT_GRAY));
-        cpassword.setBorder(BorderFactory.createLineBorder(Color.LIGHT_GRAY));
-        secret.setBorder(BorderFactory.createLineBorder(Color.LIGHT_GRAY));
-        answer.setBorder(BorderFactory.createLineBorder(Color.LIGHT_GRAY));
-        contact.setBorder(BorderFactory.createLineBorder(Color.LIGHT_GRAY));
+
+        JTextField[] components = {username, email, password, secret, answer, contact, cpassword};
+        BorderColorManager borderFieldReset = new BorderColorManager(components);
+        borderFieldReset.resetBorderColor();
     }//GEN-LAST:event_clearActionPerformed
 
     public static void main(String args[]) {
@@ -410,54 +326,45 @@ public class RegisterDSB extends javax.swing.JPanel {
         });
     }
 
-    private String xemail, xusername;
-
-    private boolean duplicateChecker() throws SQLException {
-        ResultSet rs = new DBConnection().getData("select * from ac_table where ac_email = '" + email.getText() + "' or ac_username = '" + username.getText() + "'");
-
-        if (rs.next()) {
-            xemail = rs.getString("ac_email");
-            if (xemail.equals(email.getText())) {
-                JOptionPane.showMessageDialog(this, "EMAIL HAS BEEN USED!", "OH NO!", ERROR_MESSAGE);
-            }
-
-            xusername = rs.getString("ac_username");
-            if (xusername.equals(username.getText())) {
-                JOptionPane.showMessageDialog(this, "USERNAME HAS BEEN USED!", "OH NO!", ERROR_MESSAGE);
-            }
-            return true;
-        } else {
-            return false;
-        }
-    }
-
-    private boolean validationChecker() {
-        if (username.getText().isEmpty() || password.getText().isEmpty()
-                || cpassword.getText().isEmpty() || email.getText().isEmpty() || contact.getText().isEmpty()) {
-            errorMessage("FILL ALL THE REQUIREMENTS!");
-            return false;
-        } else if (password.getText().length() < 8) {
-            errorMessage("PASSWORD MUST BE AT LEAST 8 CHARACTERS!");
-            return false;
-        } else if (!password.getText().equals(cpassword.getText())) {
-            errorMessage("PASSWORDS DO NOT MATCH!");
-            return false;
-        } else if (!contact.getText().matches("\\d+")) {
-            errorMessage("CONTACT MUST CONTAIN ONLY DIGITS!");
-            return false;
-        } else {
-            return true;
-        }
-    }
-
-    private void errorMessage(String message) {
-        JOptionPane.showMessageDialog(this, message, "ERROR!", JOptionPane.ERROR_MESSAGE);
-    }
-
-    private void successMessage(String message) {
-        JOptionPane.showMessageDialog(this, message, "SUCCESS!", JOptionPane.INFORMATION_MESSAGE);
-    }
-
+//    Validation Hasb't Implemented Yet!, Design Muna   
+//    private String xemail, xusername; 
+//
+//    private boolean duplicateChecker() throws SQLException {
+//        ResultSet rs = new DBConnection().getData("select * from ac_table where ac_email = '" + email.getText() + "' or ac_username = '" + username.getText() + "'");
+//
+//        if (rs.next()) {
+//            xemail = rs.getString("ac_email");
+//            if (xemail.equals(email.getText())) {
+//                JOptionPane.showMessageDialog(this, "EMAIL HAS BEEN USED!", "OH NO!", ERROR_MESSAGE);
+//            }
+//
+//            xusername = rs.getString("ac_username");
+//            if (xusername.equals(username.getText())) {
+//                JOptionPane.showMessageDialog(this, "USERNAME HAS BEEN USED!", "OH NO!", ERROR_MESSAGE);
+//            }
+//            return true;
+//        } else {
+//            return false;
+//        }
+//    }
+//    private boolean validationChecker() {
+//        if (username.getText().isEmpty() || password.getText().isEmpty()
+//                || cpassword.getText().isEmpty() || email.getText().isEmpty() || contact.getText().isEmpty()) {
+//            Checkers.emptyFieldChecker("FILL ALL THE REQUIREMENTS!");
+//            return false;
+//        } else if (password.getText().length() < 8) {
+//            errorMessage("PASSWORD MUST BE AT LEAST 8 CHARACTERS!");
+//            return false;
+//        } else if (!password.getText().equals(cpassword.getText())) {
+//            errorMessage("PASSWORDS DO NOT MATCH!");
+//            return false;
+//        } else if (!contact.getText().matches("\\d+")) {
+//            errorMessage("CONTACT MUST CONTAIN ONLY DIGITS!");
+//            return false;
+//        } else {
+//            return true;
+//        }
+//    }
     public void register() {
         email.grabFocus();
     }
@@ -486,63 +393,20 @@ public class RegisterDSB extends javax.swing.JPanel {
     }
 
     public int calculateProgress() {
-
         int progress = 0;
 
-        if (!username.getText().equals("")) {
-            progress += 5;
-            username.setBorder(BorderFactory.createLineBorder(Color.GREEN));
-        } else if (username.getText().equals("")) {
-            progress -= 5;
-            username.setBorder(BorderFactory.createLineBorder(Color.RED));
-        }
+        JTextField[] fields = {username, email, password, cpassword, secret, answer, contact};
+        int[] scores = {5, 5, 10, 5, 7, 7, 5};
+        Color[] colors = {Color.RED, Color.GREEN};
 
-        if (!email.getText().equals("")) {
-            progress += 5;
-            email.setBorder(BorderFactory.createLineBorder(Color.GREEN));
-        } else if (email.getText().equals("")) {
-            progress -= 5;
-            email.setBorder(BorderFactory.createLineBorder(Color.RED));
-        }
-
-        if (!password.getText().equals("")) {
-            progress += 10;
-            password.setBorder(BorderFactory.createLineBorder(Color.GREEN));
-        } else if (password.getText().equals("")) {
-            progress -= 10;
-            password.setBorder(BorderFactory.createLineBorder(Color.RED));
-        }
-
-        if (!cpassword.getText().equals("")) {
-            progress += 5;
-            cpassword.setBorder(BorderFactory.createLineBorder(Color.GREEN));
-        } else if (cpassword.getText().equals("")) {
-            progress -= 5;
-            cpassword.setBorder(BorderFactory.createLineBorder(Color.RED));
-        }
-
-        if (!secret.getText().equals("")) {
-            progress += 7;
-            secret.setBorder(BorderFactory.createLineBorder(Color.GREEN));
-        } else if (secret.getText().equals("")) {
-            progress -= 7;
-            secret.setBorder(BorderFactory.createLineBorder(Color.RED));
-        }
-
-        if (!answer.getText().equals("")) {
-            progress += 7;
-            answer.setBorder(BorderFactory.createLineBorder(Color.GREEN));
-        } else if (answer.getText().equals("")) {
-            progress -= 7;
-            answer.setBorder(BorderFactory.createLineBorder(Color.RED));
-        }
-
-        if (!contact.getText().equals("")) {
-            progress += 5;
-            contact.setBorder(BorderFactory.createLineBorder(Color.GREEN));
-        } else if (contact.getText().equals("")) {
-            progress -= 5;
-            contact.setBorder(BorderFactory.createLineBorder(Color.RED));
+        for (int i = 0; i < fields.length; i++) {
+            if (!fields[i].getText().equals("")) {
+                progress += scores[i];
+                fields[i].setBorder(BorderFactory.createLineBorder(colors[1]));
+            } else {
+                progress -= scores[i];
+                fields[i].setBorder(BorderFactory.createLineBorder(colors[0]));
+            }
         }
 
         if (type.getSelectedIndex() != -1) {
@@ -573,6 +437,80 @@ public class RegisterDSB extends javax.swing.JPanel {
         Image newImg = img.getScaledInstance(picture.getHeight(), picture.getHeight(), Image.SCALE_SMOOTH);
         ImageIcon image = new ImageIcon(newImg);
         return image;
+    }
+
+    public void actionListeners() {
+        ProgressBarAnimator animator = new ProgressBarAnimator();
+        animator.setUsername(username);
+        animator.setEmail(email);
+        animator.setPassword(password);
+        animator.setCpassword(cpassword);
+        animator.setSecret(secret);
+        animator.setAnswer(answer);
+        animator.setContact(contact);
+        animator.setType(type);
+        animator.setProgressBar(jProgressBar1);
+        type.addActionListener(e -> animator.calculateProgress());
+
+        DocumentListener documentListener = new RegisterDSB.SimpleDocumentListener(() -> animator.calculateProgress());
+        username.getDocument().addDocumentListener(documentListener);
+        email.getDocument().addDocumentListener(documentListener);
+        password.getDocument().addDocumentListener(documentListener);
+        cpassword.getDocument().addDocumentListener(documentListener);
+        secret.getDocument().addDocumentListener(documentListener);
+        answer.getDocument().addDocumentListener(documentListener);
+        contact.getDocument().addDocumentListener(documentListener);
+
+    }
+
+    class SimpleDocumentListener implements DocumentListener {
+
+        private final Runnable callback;
+
+        public SimpleDocumentListener(Runnable callback) {
+            this.callback = callback;
+        }
+
+        @Override
+        public void insertUpdate(DocumentEvent e) {
+            callback.run();
+        }
+
+        @Override
+        public void removeUpdate(DocumentEvent e) {
+            callback.run();
+        }
+
+        @Override
+        public void changedUpdate(DocumentEvent e) {
+            callback.run();
+        }
+
+    }
+
+    private boolean isDefaultImage(Icon imageIcon) {
+        ImageIcon defaultImageIcon = new javax.swing.ImageIcon(getClass().getResource("/Images/defaultImage.png"));
+        return imageIcon != null && imageIcon.equals(defaultImageIcon);
+    }
+
+    public void registerHandlers() {
+        String[] placeholders = {
+            "USERNAME", "PASSWORD", "EMAIL", "CONFIRM PASSWORD",
+            "SECRET ANSWER", "SECRET QUESTION", "CONTACT"
+        };
+        JComponent[] components = {
+            username, password, email, cpassword, answer, secret, contact
+        };
+
+        for (int i = 0; i < components.length; i++) {
+            components[i].putClientProperty(FlatClientProperties.PLACEHOLDER_TEXT, placeholders[i]);
+            components[i].putClientProperty(FlatClientProperties.TEXT_FIELD_SHOW_CLEAR_BUTTON, true);
+        }
+
+        create.setFocusable(false);
+        remove.setFocusable(false);
+        type.setFocusable(false);
+        back.setFocusable(false);
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

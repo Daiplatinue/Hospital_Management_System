@@ -1,8 +1,7 @@
 package Forms;
 
-import Charts.ModelChart;
-import java.awt.Color;
-import java.awt.geom.RoundRectangle2D;
+import Charts.*;
+import java.awt.*;
 
 public class Form_1 extends javax.swing.JPanel {
 

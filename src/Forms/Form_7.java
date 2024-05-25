@@ -1,39 +1,21 @@
 package Forms;
 
-import Database.DBConnection;
-import Database.xternal_db;
-import com.formdev.flatlaf.FlatClientProperties;
-import java.awt.Color;
-import java.awt.Cursor;
-import java.awt.Image;
-import java.awt.Rectangle;
-import java.awt.event.MouseEvent;
-import java.io.File;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import javax.swing.Icon;
-import javax.swing.ImageIcon;
-import javax.swing.JOptionPane;
-import javax.swing.UIManager;
-import javax.swing.table.TableModel;
-import jnafilechooser.api.JnaFileChooser;
+import Database.*;
+import Functions.Checkers;
+import com.formdev.flatlaf.*;
+import java.awt.*;
+import java.awt.event.*;
+import java.sql.*;
+import javax.swing.*;
+import javax.swing.table.*;
 import net.proteanit.sql.DbUtils;
 
-public class Form_7 extends javax.swing.JPanel {
-
-    private String path2 = null;
+public final class Form_7 extends javax.swing.JPanel {
 
     public Form_7() {
         initComponents();
         displayData();
-
-        search.putClientProperty(FlatClientProperties.TEXT_FIELD_SHOW_CLEAR_BUTTON, true);
-        search.putClientProperty(FlatClientProperties.PLACEHOLDER_TEXT, "SEARCH BAR");
-
-        dp.setFocusable(false);
-        approve.setFocusable(false);
+        Highlightable();
     }
 
     @SuppressWarnings("unchecked")
@@ -489,7 +471,7 @@ public class Form_7 extends javax.swing.JPanel {
     private void acceptAccount() {
         int rowIndex = ac_pending.getSelectedRow();
         if (rowIndex < 0) {
-            errorMessage("PLEASE SELECT AN INDEX!");
+            Checkers.unsuccessfullFieldChecker("PLEASE SELECT AN INDEX!");
         } else {
             try {
                 TableModel tbl = ac_pending.getModel();
@@ -501,7 +483,7 @@ public class Form_7 extends javax.swing.JPanel {
                 ps.setString(1, accountId);
                 ps.executeUpdate();
 
-                successMessage("ACCOUNT APPROVED SUCCESSFULLY!!");
+                Checkers.successFieldChecker("ACCOUNTS HAS BEEN APPROVED SUCCESSFULLY!");
 
                 xternal_db xdb = xternal_db.getInstance();
                 PreparedStatement logs = cn.prepareStatement("INSERT INTO ac_logs (lg_email,lg_username,lg_actions)"
@@ -518,7 +500,7 @@ public class Form_7 extends javax.swing.JPanel {
     private void declineAccount() {
         int rowIndex = ac_pending.getSelectedRow();
         if (rowIndex < 0) {
-            errorMessage("PLEASE SELECT AN INDEX!");
+            Checkers.unsuccessfullFieldChecker("PLEASE SELECT AN INDEX!");
         } else {
             try {
 
@@ -531,7 +513,7 @@ public class Form_7 extends javax.swing.JPanel {
                 ps.setString(1, accountId);
                 ps.executeUpdate();
 
-                successMessage("ACCOUNT APPROVED SUCCESSFULLY!!");
+                Checkers.successFieldChecker("ACCOUNTS HAS BEEN DISAPPROVED!");
 
                 xternal_db xdb = xternal_db.getInstance();
                 PreparedStatement logs = cn.prepareStatement("INSERT INTO ac_logs (lg_email,lg_username,lg_actions)"
@@ -545,20 +527,19 @@ public class Form_7 extends javax.swing.JPanel {
         }
     }
 
-    private void errorMessage(String message) {
-        JOptionPane.showMessageDialog(this, message, "ERROR!", JOptionPane.ERROR_MESSAGE);
-    }
-
-    private void successMessage(String message) {
-        JOptionPane.showMessageDialog(this, message, "SUCCESS!", JOptionPane.INFORMATION_MESSAGE);
-    }
-
     public ImageIcon ResizeImage(String imagePath) {
         ImageIcon MyImage = new ImageIcon(imagePath);
         Image img = MyImage.getImage();
         Image newImg = img.getScaledInstance(picture1.getHeight(), picture1.getHeight(), Image.SCALE_SMOOTH);
         ImageIcon image = new ImageIcon(newImg);
         return image;
+    }
+
+    public void Highlightable() {
+        dp.setFocusable(false);
+        approve.setFocusable(false);
+        search.putClientProperty(FlatClientProperties.TEXT_FIELD_SHOW_CLEAR_BUTTON, true);
+        search.putClientProperty(FlatClientProperties.PLACEHOLDER_TEXT, "SEARCH BAR");
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

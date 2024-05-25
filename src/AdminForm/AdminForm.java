@@ -1,23 +1,15 @@
 package AdminForm;
 
 import Components.*;
-import Database.DBConnection;
-import Database.xternal_db;
-import Events.*;
 import Forms.*;
-import LoginForm.LoginDashboard;
+import LoginForm.*;
 import Swing.*;
-import com.formdev.flatlaf.FlatLightLaf;
+import com.formdev.flatlaf.*;
 import java.awt.*;
 import java.awt.event.*;
-import java.awt.geom.RoundRectangle2D;
+import java.awt.geom.*;
 import java.io.IOException;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.*;
-import javax.swing.table.TableModel;
 import net.miginfocom.swing.*;
 import org.jdesktop.animation.timing.*;
 
@@ -99,52 +91,56 @@ public class AdminForm extends javax.swing.JFrame {
                 }
             }
         });
-        main.addEventMenu(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent ae) {
-                if (!animator.isRunning()) {
-                    if (!menu.isShow()) {
-                        menu.setVisible(true);
-                        animator.start();
-                    }
+        main.addEventMenu((ActionEvent ae) -> {
+            if (!animator.isRunning()) {
+                if (!menu.isShow()) {
+                    menu.setVisible(true);
+                    animator.start();
                 }
             }
         });
 
-        menu.getMenu().addEventMenuSelected(new EventMenuSelected() {
-            @Override
-            public void selected(int index) {
-                if (index == 0) {
+        menu.getMenu().addEventMenuSelected((int index) -> {
+            switch (index) {
+                case 0:
                     main.show(new Form_1());
-                } else if (index == 1) {
+                    break;
+                case 1:
                     main.show(new Form_2());
-                } else if (index == 2) {
+                    break;
+                case 2:
                     try {
                         main.show(new Form_3());
                     } catch (IOException ex) {
-                        Logger.getLogger(AdminForm.class.getName()).log(Level.SEVERE, null, ex);
+                        System.out.println(ex.getMessage());
                     }
-                } else if (index == 3) {
+                    break;
+                case 3:
                     main.show(new Form_4());
-                } else if (index == 4) {
+                    break;
+                case 4:
                     main.show(new Form_7());
-                } else if (index == 5) {
+                    break;
+                case 5:
                     main.show(new Form_8());
-                } else if (index == 6) {
+                    break;
+                case 6:
                     main.show(new Form_9());
-                } else if (index == 7) {
+                    break;
+                case 7:
                     UIManager.put("OptionPane.background", Color.white);
                     UIManager.put("Panel.background", Color.white);
-                    Icon customIcon = new javax.swing.ImageIcon(getClass().getResource("/Images/alert.gif"));
+                    Icon customIcon = new javax.swing.ImageIcon(AdminForm.this.getClass().getResource("/Images/alert.gif"));
                     int option = JOptionPane.showOptionDialog(null, "ARE YOU SURE YOU WANT TO LOGOUT?", "WARNING", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE, customIcon, new String[]{"Yes", "No"}, "Yes");
-
                     if (option == JOptionPane.YES_OPTION) {
                         new LoginDashboard().setVisible(true);
                         dispose();
                     } else {
 
                     }
-                }
+                    break;
+                default:
+                    break;
             }
         });
     }

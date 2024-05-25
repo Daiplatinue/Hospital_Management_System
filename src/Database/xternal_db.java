@@ -7,18 +7,9 @@ public class xternal_db {
     private static xternal_db instance;
     private String id, username, email, password, sq, sa, type, status, contact;
     private byte[] pic;
-    private ImageIcon image;
 
     private xternal_db() {
 
-    }
-
-    public ImageIcon getImage() {
-        return new ImageIcon(pic);
-    }
-
-    public void setImage(ImageIcon image) {
-        this.image = image;
     }
 
     public String getSq() {
