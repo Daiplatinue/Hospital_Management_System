@@ -13,37 +13,15 @@ import java.security.NoSuchAlgorithmException;
 import java.sql.*;
 import javax.swing.*;
 
-public class LoginDSB extends javax.swing.JPanel {
+public final class LoginDSB extends javax.swing.JPanel {
 
     private boolean isEyeHidden = false;
 
     public LoginDSB() {
         initComponents();
-        exit.setFocusable(false);
-        remember.setFocusable(false);
-
-        login.setFocusable(false);
-        register.setFocusable(false);
-
-        username.putClientProperty(FlatClientProperties.PLACEHOLDER_TEXT, "LAST NAME");
-        password.putClientProperty(FlatClientProperties.PLACEHOLDER_TEXT, "PASSWORD");
-
-        login.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke(KeyEvent.VK_ENTER, 0), "login");
-        login.getActionMap().put("login", new AbstractAction() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                loginActionPerformed(e);
-            }
-        });
-
-        exit.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke(KeyEvent.VK_ESCAPE, 0), "exit");
-        exit.getActionMap().put("exit", new AbstractAction() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                exitActionPerformed(e);
-            }
-        });
-
+        placeHolders();
+        focus();
+        keyMapping();
     }
 
     @SuppressWarnings("unchecked")
@@ -89,6 +67,12 @@ public class LoginDSB extends javax.swing.JPanel {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jLabel1MouseClicked(evt);
             }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                jLabel1MouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                jLabel1MouseExited(evt);
+            }
         });
         jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(760, 280, 30, 30));
 
@@ -122,6 +106,11 @@ public class LoginDSB extends javax.swing.JPanel {
                 usernameMouseEntered(evt);
             }
         });
+        username.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                usernameKeyTyped(evt);
+            }
+        });
         jPanel1.add(username, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 240, 330, 32));
 
         password.setHorizontalAlignment(javax.swing.JTextField.CENTER);
@@ -136,6 +125,11 @@ public class LoginDSB extends javax.swing.JPanel {
             }
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 passwordMouseEntered(evt);
+            }
+        });
+        password.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                passwordKeyTyped(evt);
             }
         });
         jPanel1.add(password, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 280, 330, 30));
@@ -237,52 +231,32 @@ public class LoginDSB extends javax.swing.JPanel {
         try {
 
             if (username.getText().isEmpty() && password.getText().isEmpty()) {
-                username.putClientProperty("JComponent.outline", "warning");
-                password.putClientProperty("JComponent.outline", "warning");
+                username.setBorder(BorderFactory.createLineBorder(new Color(255, 189, 46)));
+                password.setBorder(BorderFactory.createLineBorder(new Color(255, 189, 46)));
                 Checkers.emptyFieldChecker();
                 return;
             }
 
             String hashedPass = Hasher.passwordHasher(password.getText());
             if (loginDB(username.getText(), hashedPass)) {
-
-                if (xstatus.equalsIgnoreCase("pending")) {
-                    errorMessage("WAIT FOR ADMIN APPROVAL!");
-                } else if (xstatus.equalsIgnoreCase("declined")) {
-                    errorMessage("YOUR ACCOUNT HAS BEEN DECLINED!");
-                } else if (xstatus.equalsIgnoreCase("inactive")) {
-                    errorMessage("YOUR ACCOUNT IS IN-ACTIVE!");
-                } else if (!xstatus.equalsIgnoreCase("active")) {
-                    errorMessage("INVALID TYPE!");
-                } else {
-                    if (xtype.equalsIgnoreCase("PATIENT")) {
-                        username.setBorder(BorderFactory.createLineBorder(Color.GREEN));
-                        password.setBorder(BorderFactory.createLineBorder(Color.GREEN));
-                        Checkers.successFieldChecker();
-                        new PatientDSB().setVisible(true);
-                        dispose();
-                    } else if (xtype.equalsIgnoreCase("ADMIN")) {
-                        username.setBorder(BorderFactory.createLineBorder(Color.GREEN));
-                        password.setBorder(BorderFactory.createLineBorder(Color.GREEN));
-                        Checkers.successFieldChecker();
-                        new AdminForm().setVisible(true);
-                        dispose();
-                    } else {
-                        username.setBorder(BorderFactory.createLineBorder(Color.RED));
-                        password.setBorder(BorderFactory.createLineBorder(Color.RED));
-                        Checkers.unsuccessfullFieldChecker();
-                        username.setText("");
-                        password.setText("");
-                        username.requestFocus();
-                    }
+                switch (xstatus.toLowerCase()) {
+                    case "pending":
+                        Checkers.errorMessage("WAIT FOR ADMIN APPROVAL!");
+                        break;
+                    case "declined":
+                        Checkers.errorMessage("YOUR ACCOUNT HAS BEEN DECLINED!");
+                        break;
+                    case "inactive":
+                        Checkers.errorMessage("YOUR ACCOUNT IS IN-ACTIVE!");
+                        break;
+                    case "active":
+                        handleUserType(xtype);
+                        break;
+                    default:
+                        Checkers.errorMessage("INVALID TYPE!");
                 }
             } else {
-                UIManager.put("OptionPane.background", Color.white);
-                UIManager.put("Panel.background", Color.white);
-                username.putClientProperty("JComponent.outline", "error");
-                password.putClientProperty("JComponent.outline", "error");
-                Icon customIcon = new javax.swing.ImageIcon(getClass().getResource("/Images/alert.gif"));
-                JOptionPane.showMessageDialog(null, "ACCOUNT NOT FOUND!", "WARNING", JOptionPane.WARNING_MESSAGE, customIcon);
+                setErrorState();
             }
         } catch (SQLException | NoSuchAlgorithmException er) {
             System.out.println("ERROR: " + er.getMessage());
@@ -334,11 +308,11 @@ public class LoginDSB extends javax.swing.JPanel {
     }//GEN-LAST:event_passwordMouseClicked
 
     private void fpass3MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_fpass3MouseEntered
-        // TODO add your handling code here:
+        mouseEntered(evt);
     }//GEN-LAST:event_fpass3MouseEntered
 
     private void fpass3MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_fpass3MouseExited
-        // TODO add your handling code here:
+        mouseExited(evt);
     }//GEN-LAST:event_fpass3MouseExited
 
     private void jLabel1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel1MouseClicked
@@ -352,6 +326,28 @@ public class LoginDSB extends javax.swing.JPanel {
             isEyeHidden = true;
         }
     }//GEN-LAST:event_jLabel1MouseClicked
+
+    private void jLabel1MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel1MouseEntered
+        mouseEntered(evt);
+    }//GEN-LAST:event_jLabel1MouseEntered
+
+    private void jLabel1MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel1MouseExited
+        mouseExited(evt);
+    }//GEN-LAST:event_jLabel1MouseExited
+
+    private void usernameKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_usernameKeyTyped
+        String currentText = username.getText();
+        if ((currentText + evt.getKeyChar()).length() > 35) {
+            evt.consume();
+        }
+    }//GEN-LAST:event_usernameKeyTyped
+
+    private void passwordKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_passwordKeyTyped
+        String currentTextt = password.getText();
+        if ((currentTextt + evt.getKeyChar()).length() > 45) {
+            evt.consume();
+        }
+    }//GEN-LAST:event_passwordKeyTyped
 
     private static String xstatus, xtype;
 
@@ -376,20 +372,12 @@ public class LoginDSB extends javax.swing.JPanel {
         }
     }
 
-    private void errorMessage(String message) {
-        JOptionPane.showMessageDialog(this, message, "ERROR!", JOptionPane.ERROR_MESSAGE);
-    }
-
-    private void successMessage(String message) {
-        JOptionPane.showMessageDialog(this, message, "SUCCESS!", JOptionPane.INFORMATION_MESSAGE);
-    }
-
     public void dispose() {
         JFrame parent = (JFrame) this.getTopLevelAncestor();
         parent.dispose();
     }
 
-    public void mouseEntered(MouseEvent me) {
+    private void mouseEntered(MouseEvent me) {
         int x = getWidth() - 30;
         if (new Rectangle(x, 0, 30, 30).contains(me.getPoint())) {
             setCursor(new Cursor(Cursor.HAND_CURSOR));
@@ -398,7 +386,7 @@ public class LoginDSB extends javax.swing.JPanel {
         }
     }
 
-    public void mouseExited(MouseEvent me) {
+    private void mouseExited(MouseEvent me) {
         int x = getWidth() - 30;
         if (new Rectangle(x, 0, 30, 30).contains(me.getPoint())) {
             setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
@@ -413,6 +401,61 @@ public class LoginDSB extends javax.swing.JPanel {
 
     public void addEventRegister(ActionListener event) {
         register.addActionListener(event);
+    }
+
+    private void placeHolders() {
+        username.putClientProperty(FlatClientProperties.PLACEHOLDER_TEXT, "LAST NAME");
+        password.putClientProperty(FlatClientProperties.PLACEHOLDER_TEXT, "PASSWORD");
+    }
+
+    private void focus() {
+        exit.setFocusable(false);
+        remember.setFocusable(false);
+        login.setFocusable(false);
+        register.setFocusable(false);
+    }
+
+    private void keyMapping() {
+        login.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke(KeyEvent.VK_ENTER, 0), "login");
+        login.getActionMap().put("login", new AbstractAction() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                loginActionPerformed(e);
+            }
+        });
+
+        exit.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke(KeyEvent.VK_ESCAPE, 0), "exit");
+        exit.getActionMap().put("exit", new AbstractAction() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                exitActionPerformed(e);
+            }
+        });
+    }
+
+    private void handleUserType(String xtype) {
+        if (xtype.equalsIgnoreCase("patient") || xtype.equalsIgnoreCase("admin")) {
+            username.setBorder(BorderFactory.createLineBorder(Color.GREEN));
+            password.setBorder(BorderFactory.createLineBorder(Color.GREEN));
+            Checkers.successFieldChecker();
+            if (xtype.equalsIgnoreCase("patient")) {
+                new PatientDSB().setVisible(true);
+            } else {
+                new AdminForm().setVisible(true);
+            }
+            dispose();
+        } else {
+            setErrorState();
+        }
+    }
+
+    private void setErrorState() {
+        username.setBorder(BorderFactory.createLineBorder(Color.RED));
+        password.setBorder(BorderFactory.createLineBorder(Color.RED));
+        Checkers.unsuccessfullFieldChecker();
+        username.setText("");
+        password.setText("");
+        username.requestFocus();
     }
 
 

@@ -9,10 +9,9 @@ public class Form_1 extends javax.swing.JPanel {
     public Form_1() {
         initComponents();
         init();
-        scroll.getVerticalScrollBar().setUnitIncrement(16);
-        gaugeChart1.setValueWithAnimation(92);
-        gaugeChart2.setValueWithAnimation(52);
-        gaugeChart3.setValueWithAnimation(78);
+        gaugeChart4.setValueWithAnimation(92);
+        gaugeChart5.setValueWithAnimation(52);
+        gaugeChart6.setValueWithAnimation(78);
     }
 
     @SuppressWarnings("unchecked")
@@ -20,267 +19,248 @@ public class Form_1 extends javax.swing.JPanel {
     private void initComponents() {
 
         jPanel8 = new javax.swing.JPanel();
-        scroll = new javax.swing.JScrollPane();
-        jPanel9 = new javax.swing.JPanel();
-        gaugeChart1 = new Charts.GaugeChart();
-        gaugeChart2 = new Charts.GaugeChart();
-        gaugeChart3 = new Charts.GaugeChart();
-        BarChart = new Charts.Chart();
-        LineChart = new Charts.LineChart();
-        jLabel1 = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
-        jLabel3 = new javax.swing.JLabel();
-        jLabel4 = new javax.swing.JLabel();
-        jLabel5 = new javax.swing.JLabel();
-        jLabel6 = new javax.swing.JLabel();
-        jLabel7 = new javax.swing.JLabel();
-        jLabel8 = new javax.swing.JLabel();
-        jLabel9 = new javax.swing.JLabel();
-        jLabel10 = new javax.swing.JLabel();
-        jLabel11 = new javax.swing.JLabel();
-        jLabel12 = new javax.swing.JLabel();
-        jLabel13 = new javax.swing.JLabel();
-        jLabel14 = new javax.swing.JLabel();
-        jLabel15 = new javax.swing.JLabel();
-        jLabel16 = new javax.swing.JLabel();
-        jLabel17 = new javax.swing.JLabel();
-        jLabel18 = new javax.swing.JLabel();
-        jLabel19 = new javax.swing.JLabel();
-        jLabel20 = new javax.swing.JLabel();
-        jLabel21 = new javax.swing.JLabel();
-        jLabel22 = new javax.swing.JLabel();
-        jLabel23 = new javax.swing.JLabel();
-        jLabel24 = new javax.swing.JLabel();
-        jLabel25 = new javax.swing.JLabel();
-        jLabel26 = new javax.swing.JLabel();
-        jLabel27 = new javax.swing.JLabel();
-        jLabel28 = new javax.swing.JLabel();
+        gaugeChart4 = new Charts.GaugeChart();
+        gaugeChart5 = new Charts.GaugeChart();
+        gaugeChart6 = new Charts.GaugeChart();
+        BarChart1 = new Charts.Chart();
+        LineChart1 = new Charts.LineChart();
+        jLabel29 = new javax.swing.JLabel();
+        jLabel30 = new javax.swing.JLabel();
+        jLabel31 = new javax.swing.JLabel();
+        jLabel32 = new javax.swing.JLabel();
+        jLabel33 = new javax.swing.JLabel();
+        jLabel34 = new javax.swing.JLabel();
+        jLabel35 = new javax.swing.JLabel();
+        jLabel36 = new javax.swing.JLabel();
+        jLabel37 = new javax.swing.JLabel();
+        jLabel38 = new javax.swing.JLabel();
+        jLabel39 = new javax.swing.JLabel();
+        jLabel40 = new javax.swing.JLabel();
+        jLabel41 = new javax.swing.JLabel();
+        jLabel42 = new javax.swing.JLabel();
+        jLabel43 = new javax.swing.JLabel();
+        jLabel44 = new javax.swing.JLabel();
+        jLabel45 = new javax.swing.JLabel();
+        jLabel46 = new javax.swing.JLabel();
+        jLabel47 = new javax.swing.JLabel();
+        jLabel48 = new javax.swing.JLabel();
+        jLabel49 = new javax.swing.JLabel();
+        jLabel50 = new javax.swing.JLabel();
+        jLabel51 = new javax.swing.JLabel();
+        jLabel52 = new javax.swing.JLabel();
+        jLabel53 = new javax.swing.JLabel();
+        jLabel54 = new javax.swing.JLabel();
+        jLabel55 = new javax.swing.JLabel();
+        jLabel56 = new javax.swing.JLabel();
+        jPanel2 = new javax.swing.JPanel();
 
-        jPanel9.setBackground(new java.awt.Color(255, 255, 255));
-        jPanel9.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+        setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        gaugeChart1.setFont(new java.awt.Font("Yu Gothic", 0, 15)); // NOI18N
-        jPanel9.add(gaugeChart1, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 90, 130, 130));
+        jPanel8.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel8.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        gaugeChart2.setFont(new java.awt.Font("Yu Gothic", 0, 15)); // NOI18N
-        jPanel9.add(gaugeChart2, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 90, 130, 130));
+        gaugeChart4.setFont(new java.awt.Font("Yu Gothic", 0, 15)); // NOI18N
+        jPanel8.add(gaugeChart4, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 40, 130, 130));
 
-        gaugeChart3.setFont(new java.awt.Font("Yu Gothic", 0, 15)); // NOI18N
-        jPanel9.add(gaugeChart3, new org.netbeans.lib.awtextra.AbsoluteConstraints(830, 90, 130, 130));
-        jPanel9.add(BarChart, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 380, -1, -1));
-        jPanel9.add(LineChart, new org.netbeans.lib.awtextra.AbsoluteConstraints(650, 380, -1, -1));
+        gaugeChart5.setFont(new java.awt.Font("Yu Gothic", 0, 15)); // NOI18N
+        jPanel8.add(gaugeChart5, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 40, 130, 130));
 
-        jLabel1.setFont(new java.awt.Font("Yu Gothic", 0, 12)); // NOI18N
-        jLabel1.setText("SEPTEMBER");
-        jPanel9.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 180, -1, -1));
+        gaugeChart6.setFont(new java.awt.Font("Yu Gothic", 0, 15)); // NOI18N
+        jPanel8.add(gaugeChart6, new org.netbeans.lib.awtextra.AbsoluteConstraints(820, 40, 130, 130));
+        jPanel8.add(BarChart1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 350, -1, -1));
+        jPanel8.add(LineChart1, new org.netbeans.lib.awtextra.AbsoluteConstraints(630, 350, -1, -1));
 
-        jLabel2.setFont(new java.awt.Font("Yu Gothic", 0, 15)); // NOI18N
-        jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel2.setText("OVERALL BREAKDOWN");
-        jPanel9.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 270, 1110, -1));
+        jLabel29.setFont(new java.awt.Font("Yu Gothic", 0, 12)); // NOI18N
+        jLabel29.setText("SEPTEMBER");
+        jPanel8.add(jLabel29, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 130, -1, -1));
 
-        jLabel3.setFont(new java.awt.Font("Yu Gothic", 0, 12)); // NOI18N
-        jLabel3.setForeground(new java.awt.Color(0, 204, 0));
-        jLabel3.setText("+ ₱658,225");
-        jPanel9.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 180, -1, -1));
+        jLabel30.setFont(new java.awt.Font("Yu Gothic", 0, 15)); // NOI18N
+        jLabel30.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel30.setText("OVERALL BREAKDOWN");
+        jPanel8.add(jLabel30, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 240, 1110, -1));
 
-        jLabel4.setFont(new java.awt.Font("Yu Gothic", 0, 12)); // NOI18N
-        jLabel4.setText("JULY");
-        jPanel9.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 140, -1, -1));
+        jLabel31.setFont(new java.awt.Font("Yu Gothic", 0, 12)); // NOI18N
+        jLabel31.setForeground(new java.awt.Color(0, 204, 0));
+        jLabel31.setText("+ ₱658,225");
+        jPanel8.add(jLabel31, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 130, -1, -1));
 
-        jLabel5.setFont(new java.awt.Font("Yu Gothic", 0, 12)); // NOI18N
-        jLabel5.setText("AUGUST");
-        jPanel9.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 160, -1, -1));
+        jLabel32.setFont(new java.awt.Font("Yu Gothic", 0, 12)); // NOI18N
+        jLabel32.setText("JULY");
+        jPanel8.add(jLabel32, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 90, -1, -1));
 
-        jLabel6.setFont(new java.awt.Font("Yu Gothic", 0, 12)); // NOI18N
-        jLabel6.setText("JUNE");
-        jPanel9.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 120, -1, -1));
+        jLabel33.setFont(new java.awt.Font("Yu Gothic", 0, 12)); // NOI18N
+        jLabel33.setText("AUGUST");
+        jPanel8.add(jLabel33, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 110, -1, -1));
 
-        jLabel7.setFont(new java.awt.Font("Yu Gothic", 0, 12)); // NOI18N
-        jLabel7.setForeground(new java.awt.Color(0, 204, 0));
-        jLabel7.setText("+ ₱258,756 ");
-        jPanel9.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 120, -1, -1));
+        jLabel34.setFont(new java.awt.Font("Yu Gothic", 0, 12)); // NOI18N
+        jLabel34.setText("JUNE");
+        jPanel8.add(jLabel34, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 70, -1, -1));
 
-        jLabel8.setFont(new java.awt.Font("Yu Gothic", 0, 12)); // NOI18N
-        jLabel8.setForeground(new java.awt.Color(0, 204, 0));
-        jLabel8.setText("+ ₱756,056 ");
-        jPanel9.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 140, -1, -1));
+        jLabel35.setFont(new java.awt.Font("Yu Gothic", 0, 12)); // NOI18N
+        jLabel35.setForeground(new java.awt.Color(0, 204, 0));
+        jLabel35.setText("+ ₱258,756 ");
+        jPanel8.add(jLabel35, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 70, -1, -1));
 
-        jLabel9.setFont(new java.awt.Font("Yu Gothic", 0, 12)); // NOI18N
-        jLabel9.setForeground(new java.awt.Color(204, 0, 51));
-        jLabel9.setText("-  ₱100,875");
-        jPanel9.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 160, -1, -1));
+        jLabel36.setFont(new java.awt.Font("Yu Gothic", 0, 12)); // NOI18N
+        jLabel36.setForeground(new java.awt.Color(0, 204, 0));
+        jLabel36.setText("+ ₱756,056 ");
+        jPanel8.add(jLabel36, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 90, -1, -1));
 
-        jLabel10.setFont(new java.awt.Font("Yu Gothic", 0, 12)); // NOI18N
-        jLabel10.setText("TOTAL SALES");
-        jPanel9.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(650, 80, -1, -1));
+        jLabel37.setFont(new java.awt.Font("Yu Gothic", 0, 12)); // NOI18N
+        jLabel37.setForeground(new java.awt.Color(204, 0, 51));
+        jLabel37.setText("-  ₱100,875");
+        jPanel8.add(jLabel37, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 110, -1, -1));
 
-        jLabel11.setFont(new java.awt.Font("Yu Gothic", 0, 12)); // NOI18N
-        jLabel11.setText("SEPTEMBER");
-        jPanel9.add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(590, 120, -1, -1));
+        jLabel38.setFont(new java.awt.Font("Yu Gothic", 0, 12)); // NOI18N
+        jLabel38.setText("TOTAL SALES");
+        jPanel8.add(jLabel38, new org.netbeans.lib.awtextra.AbsoluteConstraints(640, 30, -1, -1));
 
-        jLabel12.setFont(new java.awt.Font("Yu Gothic", 0, 12)); // NOI18N
-        jLabel12.setForeground(new java.awt.Color(204, 0, 51));
-        jLabel12.setText("-  ₱175,203 ");
-        jPanel9.add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(720, 120, -1, -1));
+        jLabel39.setFont(new java.awt.Font("Yu Gothic", 0, 12)); // NOI18N
+        jLabel39.setText("SEPTEMBER");
+        jPanel8.add(jLabel39, new org.netbeans.lib.awtextra.AbsoluteConstraints(580, 70, -1, -1));
 
-        jLabel13.setFont(new java.awt.Font("Yu Gothic", 0, 12)); // NOI18N
-        jLabel13.setForeground(new java.awt.Color(0, 204, 0));
-        jLabel13.setText("+ ₱456,358");
-        jPanel9.add(jLabel13, new org.netbeans.lib.awtextra.AbsoluteConstraints(720, 140, -1, -1));
+        jLabel40.setFont(new java.awt.Font("Yu Gothic", 0, 12)); // NOI18N
+        jLabel40.setForeground(new java.awt.Color(204, 0, 51));
+        jLabel40.setText("-  ₱175,203 ");
+        jPanel8.add(jLabel40, new org.netbeans.lib.awtextra.AbsoluteConstraints(710, 70, -1, -1));
 
-        jLabel14.setFont(new java.awt.Font("Yu Gothic", 0, 12)); // NOI18N
-        jLabel14.setText("DECEMBER");
-        jPanel9.add(jLabel14, new org.netbeans.lib.awtextra.AbsoluteConstraints(590, 140, -1, -1));
+        jLabel41.setFont(new java.awt.Font("Yu Gothic", 0, 12)); // NOI18N
+        jLabel41.setForeground(new java.awt.Color(0, 204, 0));
+        jLabel41.setText("+ ₱456,358");
+        jPanel8.add(jLabel41, new org.netbeans.lib.awtextra.AbsoluteConstraints(710, 90, -1, -1));
 
-        jLabel15.setFont(new java.awt.Font("Yu Gothic", 0, 12)); // NOI18N
-        jLabel15.setText("MAY");
-        jPanel9.add(jLabel15, new org.netbeans.lib.awtextra.AbsoluteConstraints(590, 160, -1, -1));
+        jLabel42.setFont(new java.awt.Font("Yu Gothic", 0, 12)); // NOI18N
+        jLabel42.setText("DECEMBER");
+        jPanel8.add(jLabel42, new org.netbeans.lib.awtextra.AbsoluteConstraints(580, 90, -1, -1));
 
-        jLabel16.setFont(new java.awt.Font("Yu Gothic", 0, 12)); // NOI18N
-        jLabel16.setText("AUGUST");
-        jPanel9.add(jLabel16, new org.netbeans.lib.awtextra.AbsoluteConstraints(590, 180, -1, -1));
+        jLabel43.setFont(new java.awt.Font("Yu Gothic", 0, 12)); // NOI18N
+        jLabel43.setText("MAY");
+        jPanel8.add(jLabel43, new org.netbeans.lib.awtextra.AbsoluteConstraints(580, 110, -1, -1));
 
-        jLabel17.setFont(new java.awt.Font("Yu Gothic", 0, 12)); // NOI18N
-        jLabel17.setForeground(new java.awt.Color(204, 0, 51));
-        jLabel17.setText("-  ₱100,875");
-        jPanel9.add(jLabel17, new org.netbeans.lib.awtextra.AbsoluteConstraints(720, 160, -1, -1));
+        jLabel44.setFont(new java.awt.Font("Yu Gothic", 0, 12)); // NOI18N
+        jLabel44.setText("AUGUST");
+        jPanel8.add(jLabel44, new org.netbeans.lib.awtextra.AbsoluteConstraints(580, 130, -1, -1));
 
-        jLabel18.setFont(new java.awt.Font("Yu Gothic", 0, 12)); // NOI18N
-        jLabel18.setForeground(new java.awt.Color(0, 204, 0));
-        jLabel18.setText("+ ₱158,954");
-        jPanel9.add(jLabel18, new org.netbeans.lib.awtextra.AbsoluteConstraints(720, 180, -1, -1));
+        jLabel45.setFont(new java.awt.Font("Yu Gothic", 0, 12)); // NOI18N
+        jLabel45.setForeground(new java.awt.Color(204, 0, 51));
+        jLabel45.setText("-  ₱100,875");
+        jPanel8.add(jLabel45, new org.netbeans.lib.awtextra.AbsoluteConstraints(710, 110, -1, -1));
 
-        jLabel19.setFont(new java.awt.Font("Yu Gothic", 0, 12)); // NOI18N
-        jLabel19.setText("TOTAL INCOME");
-        jPanel9.add(jLabel19, new org.netbeans.lib.awtextra.AbsoluteConstraints(1040, 80, -1, -1));
+        jLabel46.setFont(new java.awt.Font("Yu Gothic", 0, 12)); // NOI18N
+        jLabel46.setForeground(new java.awt.Color(0, 204, 0));
+        jLabel46.setText("+ ₱158,954");
+        jPanel8.add(jLabel46, new org.netbeans.lib.awtextra.AbsoluteConstraints(710, 130, -1, -1));
 
-        jLabel20.setFont(new java.awt.Font("Yu Gothic", 0, 12)); // NOI18N
-        jLabel20.setText("JULY");
-        jPanel9.add(jLabel20, new org.netbeans.lib.awtextra.AbsoluteConstraints(980, 120, -1, -1));
+        jLabel47.setFont(new java.awt.Font("Yu Gothic", 0, 12)); // NOI18N
+        jLabel47.setText("TOTAL INCOME");
+        jPanel8.add(jLabel47, new org.netbeans.lib.awtextra.AbsoluteConstraints(1030, 30, -1, -1));
 
-        jLabel21.setFont(new java.awt.Font("Yu Gothic", 0, 12)); // NOI18N
-        jLabel21.setForeground(new java.awt.Color(0, 204, 0));
-        jLabel21.setText("+  ₱1,175,203 ");
-        jPanel9.add(jLabel21, new org.netbeans.lib.awtextra.AbsoluteConstraints(1110, 120, -1, -1));
+        jLabel48.setFont(new java.awt.Font("Yu Gothic", 0, 12)); // NOI18N
+        jLabel48.setText("JULY");
+        jPanel8.add(jLabel48, new org.netbeans.lib.awtextra.AbsoluteConstraints(970, 70, -1, -1));
 
-        jLabel22.setFont(new java.awt.Font("Yu Gothic", 0, 12)); // NOI18N
-        jLabel22.setForeground(new java.awt.Color(204, 0, 51));
-        jLabel22.setText("-   ₱3,456,358");
-        jPanel9.add(jLabel22, new org.netbeans.lib.awtextra.AbsoluteConstraints(1110, 140, -1, -1));
+        jLabel49.setFont(new java.awt.Font("Yu Gothic", 0, 12)); // NOI18N
+        jLabel49.setForeground(new java.awt.Color(0, 204, 0));
+        jLabel49.setText("+  ₱1,175,203 ");
+        jPanel8.add(jLabel49, new org.netbeans.lib.awtextra.AbsoluteConstraints(1100, 70, -1, -1));
 
-        jLabel23.setFont(new java.awt.Font("Yu Gothic", 0, 12)); // NOI18N
-        jLabel23.setForeground(new java.awt.Color(204, 0, 51));
-        jLabel23.setText("-   ₱584,875");
-        jPanel9.add(jLabel23, new org.netbeans.lib.awtextra.AbsoluteConstraints(1110, 160, -1, -1));
+        jLabel50.setFont(new java.awt.Font("Yu Gothic", 0, 12)); // NOI18N
+        jLabel50.setForeground(new java.awt.Color(204, 0, 51));
+        jLabel50.setText("-   ₱3,456,358");
+        jPanel8.add(jLabel50, new org.netbeans.lib.awtextra.AbsoluteConstraints(1100, 90, -1, -1));
 
-        jLabel24.setFont(new java.awt.Font("Yu Gothic", 0, 12)); // NOI18N
-        jLabel24.setForeground(new java.awt.Color(0, 204, 0));
-        jLabel24.setText("+  ₱601,071");
-        jPanel9.add(jLabel24, new org.netbeans.lib.awtextra.AbsoluteConstraints(1110, 180, -1, -1));
+        jLabel51.setFont(new java.awt.Font("Yu Gothic", 0, 12)); // NOI18N
+        jLabel51.setForeground(new java.awt.Color(204, 0, 51));
+        jLabel51.setText("-   ₱584,875");
+        jPanel8.add(jLabel51, new org.netbeans.lib.awtextra.AbsoluteConstraints(1100, 110, -1, -1));
 
-        jLabel25.setFont(new java.awt.Font("Yu Gothic", 0, 12)); // NOI18N
-        jLabel25.setText("OCTOBER");
-        jPanel9.add(jLabel25, new org.netbeans.lib.awtextra.AbsoluteConstraints(980, 180, -1, -1));
+        jLabel52.setFont(new java.awt.Font("Yu Gothic", 0, 12)); // NOI18N
+        jLabel52.setForeground(new java.awt.Color(0, 204, 0));
+        jLabel52.setText("+  ₱601,071");
+        jPanel8.add(jLabel52, new org.netbeans.lib.awtextra.AbsoluteConstraints(1100, 130, -1, -1));
 
-        jLabel26.setFont(new java.awt.Font("Yu Gothic", 0, 12)); // NOI18N
-        jLabel26.setText("NOVEMBER");
-        jPanel9.add(jLabel26, new org.netbeans.lib.awtextra.AbsoluteConstraints(980, 160, -1, -1));
+        jLabel53.setFont(new java.awt.Font("Yu Gothic", 0, 12)); // NOI18N
+        jLabel53.setText("OCTOBER");
+        jPanel8.add(jLabel53, new org.netbeans.lib.awtextra.AbsoluteConstraints(970, 130, -1, -1));
 
-        jLabel27.setFont(new java.awt.Font("Yu Gothic", 0, 12)); // NOI18N
-        jLabel27.setText("JUNE");
-        jPanel9.add(jLabel27, new org.netbeans.lib.awtextra.AbsoluteConstraints(980, 140, -1, -1));
+        jLabel54.setFont(new java.awt.Font("Yu Gothic", 0, 12)); // NOI18N
+        jLabel54.setText("NOVEMBER");
+        jPanel8.add(jLabel54, new org.netbeans.lib.awtextra.AbsoluteConstraints(970, 110, -1, -1));
 
-        jLabel28.setFont(new java.awt.Font("Yu Gothic", 0, 12)); // NOI18N
-        jLabel28.setText("TOTAL PROFIT");
-        jPanel9.add(jLabel28, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 80, -1, -1));
+        jLabel55.setFont(new java.awt.Font("Yu Gothic", 0, 12)); // NOI18N
+        jLabel55.setText("JUNE");
+        jPanel8.add(jLabel55, new org.netbeans.lib.awtextra.AbsoluteConstraints(970, 90, -1, -1));
 
-        scroll.setViewportView(jPanel9);
+        jLabel56.setFont(new java.awt.Font("Yu Gothic", 0, 12)); // NOI18N
+        jLabel56.setText("TOTAL PROFIT");
+        jPanel8.add(jLabel56, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 30, -1, -1));
 
-        javax.swing.GroupLayout jPanel8Layout = new javax.swing.GroupLayout(jPanel8);
-        jPanel8.setLayout(jPanel8Layout);
-        jPanel8Layout.setHorizontalGroup(
-            jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(scroll)
-        );
-        jPanel8Layout.setVerticalGroup(
-            jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(scroll, javax.swing.GroupLayout.DEFAULT_SIZE, 800, Short.MAX_VALUE)
-        );
+        jPanel2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+        jPanel8.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, -10, -1, -1));
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
-        this.setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel8, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel8, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-        );
+        add(jPanel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(4, 0, 1240, 800));
     }// </editor-fold>//GEN-END:initComponents
 
     private void init() {
-        BarChart.addLegend("Income", new Color(12, 84, 175), new Color(0, 108, 247));
-        BarChart.addLegend("Expense", new Color(54, 4, 143), new Color(104, 49, 200));
-        BarChart.addLegend("Profit", new Color(5, 125, 0), new Color(95, 209, 69));
-        BarChart.addLegend("Cost", new Color(186, 37, 37), new Color(241, 100, 120));
-        BarChart.addData(new ModelChart("January", new double[]{500, 200, 80, 89}));
-        BarChart.addData(new ModelChart("February", new double[]{600, 750, 90, 150}));
-        BarChart.addData(new ModelChart("March", new double[]{200, 350, 460, 900}));
-        BarChart.addData(new ModelChart("April", new double[]{480, 150, 750, 700}));
-        BarChart.addData(new ModelChart("May", new double[]{350, 540, 300, 150}));
-        BarChart.addData(new ModelChart("June", new double[]{190, 280, 81, 200}));
-        BarChart.start();
-        LineChart.addLegend("Income", new Color(12, 84, 175), new Color(0, 108, 247));
-        LineChart.addLegend("Expense", new Color(54, 4, 143), new Color(104, 49, 200));
-        LineChart.addLegend("Profit", new Color(5, 125, 0), new Color(95, 209, 69));
-        LineChart.addLegend("Cost", new Color(186, 37, 37), new Color(241, 100, 120));
-        LineChart.addData(new ModelChart("January", new double[]{500, 200, 80, 89}));
-        LineChart.addData(new ModelChart("February", new double[]{600, 750, 90, 150}));
-        LineChart.addData(new ModelChart("March", new double[]{200, 350, 460, 900}));
-        LineChart.addData(new ModelChart("April", new double[]{480, 150, 750, 700}));
-        LineChart.addData(new ModelChart("May", new double[]{350, 540, 300, 150}));
-        LineChart.addData(new ModelChart("June", new double[]{190, 280, 81, 200}));
-        LineChart.start();
+        BarChart1.addLegend("Income", new Color(12, 84, 175), new Color(0, 108, 247));
+        BarChart1.addLegend("Expense", new Color(54, 4, 143), new Color(104, 49, 200));
+        BarChart1.addLegend("Profit", new Color(5, 125, 0), new Color(95, 209, 69));
+        BarChart1.addLegend("Cost", new Color(186, 37, 37), new Color(241, 100, 120));
+        BarChart1.addData(new ModelChart("January", new double[]{500, 200, 80, 89}));
+        BarChart1.addData(new ModelChart("February", new double[]{600, 750, 90, 150}));
+        BarChart1.addData(new ModelChart("March", new double[]{200, 350, 460, 900}));
+        BarChart1.addData(new ModelChart("April", new double[]{480, 150, 750, 700}));
+        BarChart1.addData(new ModelChart("May", new double[]{350, 540, 300, 150}));
+        BarChart1.addData(new ModelChart("June", new double[]{190, 280, 81, 200}));
+        BarChart1.start();
+        LineChart1.addLegend("Income", new Color(12, 84, 175), new Color(0, 108, 247));
+        LineChart1.addLegend("Expense", new Color(54, 4, 143), new Color(104, 49, 200));
+        LineChart1.addLegend("Profit", new Color(5, 125, 0), new Color(95, 209, 69));
+        LineChart1.addLegend("Cost", new Color(186, 37, 37), new Color(241, 100, 120));
+        LineChart1.addData(new ModelChart("January", new double[]{500, 200, 80, 89}));
+        LineChart1.addData(new ModelChart("February", new double[]{600, 750, 90, 150}));
+        LineChart1.addData(new ModelChart("March", new double[]{200, 350, 460, 900}));
+        LineChart1.addData(new ModelChart("April", new double[]{480, 150, 750, 700}));
+        LineChart1.addData(new ModelChart("May", new double[]{350, 540, 300, 150}));
+        LineChart1.addData(new ModelChart("June", new double[]{190, 280, 81, 200}));
+        LineChart1.start();
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private Charts.Chart BarChart;
-    private Charts.LineChart LineChart;
-    private Charts.GaugeChart gaugeChart1;
-    private Charts.GaugeChart gaugeChart2;
-    private Charts.GaugeChart gaugeChart3;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel10;
-    private javax.swing.JLabel jLabel11;
-    private javax.swing.JLabel jLabel12;
-    private javax.swing.JLabel jLabel13;
-    private javax.swing.JLabel jLabel14;
-    private javax.swing.JLabel jLabel15;
-    private javax.swing.JLabel jLabel16;
-    private javax.swing.JLabel jLabel17;
-    private javax.swing.JLabel jLabel18;
-    private javax.swing.JLabel jLabel19;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel20;
-    private javax.swing.JLabel jLabel21;
-    private javax.swing.JLabel jLabel22;
-    private javax.swing.JLabel jLabel23;
-    private javax.swing.JLabel jLabel24;
-    private javax.swing.JLabel jLabel25;
-    private javax.swing.JLabel jLabel26;
-    private javax.swing.JLabel jLabel27;
-    private javax.swing.JLabel jLabel28;
-    private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel5;
-    private javax.swing.JLabel jLabel6;
-    private javax.swing.JLabel jLabel7;
-    private javax.swing.JLabel jLabel8;
-    private javax.swing.JLabel jLabel9;
+    private Charts.Chart BarChart1;
+    private Charts.LineChart LineChart1;
+    private Charts.GaugeChart gaugeChart4;
+    private Charts.GaugeChart gaugeChart5;
+    private Charts.GaugeChart gaugeChart6;
+    private javax.swing.JLabel jLabel29;
+    private javax.swing.JLabel jLabel30;
+    private javax.swing.JLabel jLabel31;
+    private javax.swing.JLabel jLabel32;
+    private javax.swing.JLabel jLabel33;
+    private javax.swing.JLabel jLabel34;
+    private javax.swing.JLabel jLabel35;
+    private javax.swing.JLabel jLabel36;
+    private javax.swing.JLabel jLabel37;
+    private javax.swing.JLabel jLabel38;
+    private javax.swing.JLabel jLabel39;
+    private javax.swing.JLabel jLabel40;
+    private javax.swing.JLabel jLabel41;
+    private javax.swing.JLabel jLabel42;
+    private javax.swing.JLabel jLabel43;
+    private javax.swing.JLabel jLabel44;
+    private javax.swing.JLabel jLabel45;
+    private javax.swing.JLabel jLabel46;
+    private javax.swing.JLabel jLabel47;
+    private javax.swing.JLabel jLabel48;
+    private javax.swing.JLabel jLabel49;
+    private javax.swing.JLabel jLabel50;
+    private javax.swing.JLabel jLabel51;
+    private javax.swing.JLabel jLabel52;
+    private javax.swing.JLabel jLabel53;
+    private javax.swing.JLabel jLabel54;
+    private javax.swing.JLabel jLabel55;
+    private javax.swing.JLabel jLabel56;
+    private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel8;
-    private javax.swing.JPanel jPanel9;
-    private javax.swing.JScrollPane scroll;
     // End of variables declaration//GEN-END:variables
 }
