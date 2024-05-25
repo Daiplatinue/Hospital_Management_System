@@ -292,7 +292,7 @@ public final class Form_9 extends javax.swing.JPanel {
                 int rowsAffected = pst.executeUpdate();
                 if (rowsAffected > 0) {
                     Checkers.successFieldChecker("ACCOUNT HAS BEEN DELETED!");
-                    new LoginDSB().setVisible(true);
+                    new LoginDashboard().setVisible(true);
                     dispose();
                 } else {
                     Checkers.noAccountFieldChecker("NO ACCOUNT FOUND!");
