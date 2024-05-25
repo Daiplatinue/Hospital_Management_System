@@ -3,9 +3,7 @@ package Forms;
 import Database.DBConnection;
 import Database.xternal_db;
 import Functions.Hasher;
-import LoginForm.LoginDashboard;
 import com.formdev.flatlaf.FlatClientProperties;
-import com.formdev.flatlaf.FlatLightLaf;
 import java.awt.Color;
 import java.awt.Image;
 import java.awt.event.ActionEvent;
@@ -24,7 +22,6 @@ import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import javax.swing.Timer;
 import javax.swing.UIManager;
-import javax.swing.filechooser.FileNameExtensionFilter;
 import jnafilechooser.api.JnaFileChooser;
 
 public class Form_2 extends javax.swing.JPanel {

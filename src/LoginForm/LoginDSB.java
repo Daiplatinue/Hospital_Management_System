@@ -3,6 +3,7 @@ package LoginForm;
 import AdminForm.*;
 import Database.DBConnection;
 import Database.xternal_db;
+import Functions.Checkers;
 import Functions.Hasher;
 import PatientsForm.PatientDSB;
 import com.formdev.flatlaf.*;
@@ -14,19 +15,18 @@ import javax.swing.*;
 
 public class LoginDSB extends javax.swing.JPanel {
 
+    private boolean isEyeHidden = false;
+
     public LoginDSB() {
         initComponents();
         exit.setFocusable(false);
         remember.setFocusable(false);
 
         login.setFocusable(false);
-        google.setFocusable(false);
         register.setFocusable(false);
 
-        username.putClientProperty(FlatClientProperties.PLACEHOLDER_TEXT, "USERNAME");
+        username.putClientProperty(FlatClientProperties.PLACEHOLDER_TEXT, "LAST NAME");
         password.putClientProperty(FlatClientProperties.PLACEHOLDER_TEXT, "PASSWORD");
-        username.putClientProperty(FlatClientProperties.TEXT_FIELD_SHOW_CLEAR_BUTTON, true);
-        password.putClientProperty(FlatClientProperties.TEXT_FIELD_SHOW_CLEAR_BUTTON, true);
 
         login.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke(KeyEvent.VK_ENTER, 0), "login");
         login.getActionMap().put("login", new AbstractAction() {
@@ -53,18 +53,22 @@ public class LoginDSB extends javax.swing.JPanel {
         jLayeredPane1 = new javax.swing.JLayeredPane();
         buttonGroup1 = new javax.swing.ButtonGroup();
         jPanel1 = new javax.swing.JPanel();
+        jLabel1 = new javax.swing.JLabel();
+        jLabel6 = new javax.swing.JLabel();
+        jSeparator1 = new javax.swing.JSeparator();
+        jSeparator2 = new javax.swing.JSeparator();
+        jLabel7 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         username = new javax.swing.JTextField();
         password = new javax.swing.JPasswordField();
         login = new javax.swing.JButton();
         fpass2 = new javax.swing.JLabel();
-        jSeparator1 = new javax.swing.JSeparator();
-        jLabel5 = new javax.swing.JLabel();
-        jSeparator2 = new javax.swing.JSeparator();
-        google = new javax.swing.JButton();
         register = new javax.swing.JButton();
         exit = new javax.swing.JButton();
         remember = new javax.swing.JCheckBox();
+        jSeparator3 = new javax.swing.JSeparator();
+        fpass3 = new javax.swing.JLabel();
+        jSeparator4 = new javax.swing.JSeparator();
 
         javax.swing.GroupLayout jLayeredPane1Layout = new javax.swing.GroupLayout(jLayeredPane1);
         jLayeredPane1.setLayout(jLayeredPane1Layout);
@@ -80,9 +84,29 @@ public class LoginDSB extends javax.swing.JPanel {
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
+        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/eye.png"))); // NOI18N
+        jLabel1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel1MouseClicked(evt);
+            }
+        });
+        jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(760, 280, 30, 30));
+
+        jLabel6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/lock (1).png"))); // NOI18N
+        jPanel1.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 280, 40, 30));
+
+        jSeparator1.setOrientation(javax.swing.SwingConstants.VERTICAL);
+        jPanel1.add(jSeparator1, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 282, 60, 26));
+
+        jSeparator2.setOrientation(javax.swing.SwingConstants.VERTICAL);
+        jPanel1.add(jSeparator2, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 242, 60, 30));
+
+        jLabel7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/samot.png"))); // NOI18N
+        jPanel1.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(468, 241, 30, 30));
+
         jLabel2.setFont(new java.awt.Font("Yu Gothic", 0, 20)); // NOI18N
         jLabel2.setText("SIGN IN");
-        jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(570, 180, -1, -1));
+        jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(590, 190, -1, -1));
 
         username.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         username.addFocusListener(new java.awt.event.FocusAdapter() {
@@ -98,7 +122,7 @@ public class LoginDSB extends javax.swing.JPanel {
                 usernameMouseEntered(evt);
             }
         });
-        jPanel1.add(username, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 230, 329, 32));
+        jPanel1.add(username, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 240, 330, 32));
 
         password.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         password.addFocusListener(new java.awt.event.FocusAdapter() {
@@ -114,9 +138,9 @@ public class LoginDSB extends javax.swing.JPanel {
                 passwordMouseEntered(evt);
             }
         });
-        jPanel1.add(password, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 280, 329, 30));
+        jPanel1.add(password, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 280, 330, 30));
 
-        login.setFont(new java.awt.Font("Yu Gothic", 0, 11)); // NOI18N
+        login.setFont(new java.awt.Font("Segoe UI", 0, 11)); // NOI18N
         login.setText("LOGIN");
         login.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseEntered(java.awt.event.MouseEvent evt) {
@@ -131,10 +155,10 @@ public class LoginDSB extends javax.swing.JPanel {
                 loginActionPerformed(evt);
             }
         });
-        jPanel1.add(login, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 320, 329, 30));
+        jPanel1.add(login, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 330, 329, 30));
 
         fpass2.setFont(new java.awt.Font("Yu Gothic", 0, 11)); // NOI18N
-        fpass2.setText("FORGOT PASSWORD");
+        fpass2.setText("OR");
         fpass2.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 fpass2MouseEntered(evt);
@@ -143,32 +167,9 @@ public class LoginDSB extends javax.swing.JPanel {
                 fpass2MouseExited(evt);
             }
         });
-        jPanel1.add(fpass2, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 360, -1, -1));
-        jPanel1.add(jSeparator1, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 490, 270, 20));
+        jPanel1.add(fpass2, new org.netbeans.lib.awtextra.AbsoluteConstraints(620, 452, -1, -1));
 
-        jLabel5.setFont(new java.awt.Font("Yu Gothic", 0, 11)); // NOI18N
-        jLabel5.setText("OR");
-        jPanel1.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(600, 480, -1, -1));
-        jPanel1.add(jSeparator2, new org.netbeans.lib.awtextra.AbsoluteConstraints(640, 490, 270, 20));
-
-        google.setFont(new java.awt.Font("Yu Gothic", 0, 11)); // NOI18N
-        google.setText("SIGN IN WITH CONTACT NUMBER");
-        google.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                googleMouseEntered(evt);
-            }
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                googleMouseExited(evt);
-            }
-        });
-        google.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                googleActionPerformed(evt);
-            }
-        });
-        jPanel1.add(google, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 530, 329, 30));
-
-        register.setFont(new java.awt.Font("Yu Gothic", 0, 11)); // NOI18N
+        register.setFont(new java.awt.Font("Segoe UI", 0, 11)); // NOI18N
         register.setText("CREATE AN ACCOUNT");
         register.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseEntered(java.awt.event.MouseEvent evt) {
@@ -183,7 +184,7 @@ public class LoginDSB extends javax.swing.JPanel {
                 registerActionPerformed(evt);
             }
         });
-        jPanel1.add(register, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 430, 329, 30));
+        jPanel1.add(register, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 530, 329, 30));
 
         exit.setText("EXIT");
         exit.addActionListener(new java.awt.event.ActionListener() {
@@ -196,7 +197,21 @@ public class LoginDSB extends javax.swing.JPanel {
         remember.setBackground(new java.awt.Color(255, 255, 255));
         remember.setFont(new java.awt.Font("Yu Gothic", 0, 11)); // NOI18N
         remember.setText("REMEMBER ME");
-        jPanel1.add(remember, new org.netbeans.lib.awtextra.AbsoluteConstraints(665, 358, -1, -1));
+        jPanel1.add(remember, new org.netbeans.lib.awtextra.AbsoluteConstraints(690, 370, -1, -1));
+        jPanel1.add(jSeparator3, new org.netbeans.lib.awtextra.AbsoluteConstraints(650, 460, 300, 20));
+
+        fpass3.setFont(new java.awt.Font("Yu Gothic", 0, 11)); // NOI18N
+        fpass3.setText("FORGOT PASSWORD");
+        fpass3.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                fpass3MouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                fpass3MouseExited(evt);
+            }
+        });
+        jPanel1.add(fpass3, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 370, -1, -1));
+        jPanel1.add(jSeparator4, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 460, 300, 20));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -222,12 +237,10 @@ public class LoginDSB extends javax.swing.JPanel {
         try {
 
             if (username.getText().isEmpty() && password.getText().isEmpty()) {
-                UIManager.put("OptionPane.background", Color.white);
-                UIManager.put("Panel.background", Color.white);
                 username.putClientProperty("JComponent.outline", "warning");
                 password.putClientProperty("JComponent.outline", "warning");
-                Icon customIcon = new javax.swing.ImageIcon(getClass().getResource("/Images/alert.gif"));
-                JOptionPane.showMessageDialog(null, "PLEASE FILL OUT BOTH USERNAME AND PASSWORD FIELDS!", "WARNING", JOptionPane.WARNING_MESSAGE, customIcon);
+                Checkers.emptyFieldChecker();
+                return;
             }
 
             String hashedPass = Hasher.passwordHasher(password.getText());
@@ -243,35 +256,24 @@ public class LoginDSB extends javax.swing.JPanel {
                     errorMessage("INVALID TYPE!");
                 } else {
                     if (xtype.equalsIgnoreCase("PATIENT")) {
-                        UIManager.put("OptionPane.background", Color.white);
-                        UIManager.put("Panel.background", Color.white);
-                        username.putClientProperty("JComponent.outline", "success");
-                        password.putClientProperty("JComponent.outline", "success");
-                        Icon customIcon = new javax.swing.ImageIcon(getClass().getResource("/Images/sucess.png"));
-                        JOptionPane.showMessageDialog(null, "WELCOME TO AURORA WELLNESS PAVILION!", "SUCCESS", JOptionPane.WARNING_MESSAGE, customIcon);
-
-                        new PatientDSB().setVisible(true);
-                        dispose();
-
-                    } else if (xtype.equalsIgnoreCase("admin")) {
-                        UIManager.put("OptionPane.background", Color.white);
-                        UIManager.put("Panel.background", Color.white);
-                        username.putClientProperty("JComponent.outline", "success");
-                        password.putClientProperty("JComponent.outline", "success");
-                        Icon customIcon = new javax.swing.ImageIcon(getClass().getResource("/Images/sucess.png"));
                         username.setBorder(BorderFactory.createLineBorder(Color.GREEN));
                         password.setBorder(BorderFactory.createLineBorder(Color.GREEN));
-                        JOptionPane.showMessageDialog(null, "WELCOME TO AURORA WELLNESS PAVILION!", "SUCCESS", JOptionPane.WARNING_MESSAGE, customIcon);
-
+                        Checkers.successFieldChecker();
+                        new PatientDSB().setVisible(true);
+                        dispose();
+                    } else if (xtype.equalsIgnoreCase("ADMIN")) {
+                        username.setBorder(BorderFactory.createLineBorder(Color.GREEN));
+                        password.setBorder(BorderFactory.createLineBorder(Color.GREEN));
+                        Checkers.successFieldChecker();
                         new AdminForm().setVisible(true);
                         dispose();
                     } else {
-                        UIManager.put("OptionPane.background", Color.white);
-                        UIManager.put("Panel.background", Color.white);
-                        username.putClientProperty("JComponent.outline", "error");
-                        password.putClientProperty("JComponent.outline", "error");
-                        Icon customIcon = new javax.swing.ImageIcon(getClass().getResource("/Images/alert.gif"));
-                        JOptionPane.showMessageDialog(null, "USERNAME OR PASSWORD IS INCORRECT!", "WARNING", JOptionPane.WARNING_MESSAGE, customIcon);
+                        username.setBorder(BorderFactory.createLineBorder(Color.RED));
+                        password.setBorder(BorderFactory.createLineBorder(Color.RED));
+                        Checkers.unsuccessfullFieldChecker();
+                        username.setText("");
+                        password.setText("");
+                        username.requestFocus();
                     }
                 }
             } else {
@@ -305,17 +307,6 @@ public class LoginDSB extends javax.swing.JPanel {
         username.setText("");
     }//GEN-LAST:event_usernameMouseClicked
 
-    private void googleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_googleActionPerformed
-    }//GEN-LAST:event_googleActionPerformed
-
-    private void googleMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_googleMouseExited
-        mouseExited(evt);
-    }//GEN-LAST:event_googleMouseExited
-
-    private void googleMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_googleMouseEntered
-        mouseEntered(evt);
-    }//GEN-LAST:event_googleMouseEntered
-
     private void registerMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_registerMouseEntered
         mouseEntered(evt);
     }//GEN-LAST:event_registerMouseEntered
@@ -341,6 +332,26 @@ public class LoginDSB extends javax.swing.JPanel {
     private void passwordMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_passwordMouseClicked
         password.setText("");
     }//GEN-LAST:event_passwordMouseClicked
+
+    private void fpass3MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_fpass3MouseEntered
+        // TODO add your handling code here:
+    }//GEN-LAST:event_fpass3MouseEntered
+
+    private void fpass3MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_fpass3MouseExited
+        // TODO add your handling code here:
+    }//GEN-LAST:event_fpass3MouseExited
+
+    private void jLabel1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel1MouseClicked
+        if (isEyeHidden) {
+            jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/eye.png")));
+            password.setEchoChar('•');
+            isEyeHidden = false;
+        } else {
+            jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/eye_hide.png")));
+            password.setEchoChar((char) 0);
+            isEyeHidden = true;
+        }
+    }//GEN-LAST:event_jLabel1MouseClicked
 
     private static String xstatus, xtype;
 
@@ -409,13 +420,17 @@ public class LoginDSB extends javax.swing.JPanel {
     private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.JButton exit;
     private javax.swing.JLabel fpass2;
-    private javax.swing.JButton google;
+    private javax.swing.JLabel fpass3;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
     private javax.swing.JLayeredPane jLayeredPane1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator2;
+    private javax.swing.JSeparator jSeparator3;
+    private javax.swing.JSeparator jSeparator4;
     private javax.swing.JButton login;
     private javax.swing.JPasswordField password;
     private javax.swing.JButton register;
