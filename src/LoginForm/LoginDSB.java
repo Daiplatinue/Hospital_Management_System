@@ -22,11 +22,6 @@ public final class LoginDSB extends javax.swing.JPanel {
         initComponents();
         focusAndPlaceholderHandlers();
         keyMapping();
-
-        back.addActionListener(e -> {
-            SeperatorAnimation animation = new SeperatorAnimation();
-            animation.animatePanelHorizontally(LoginDashboard.selection, LoginDashboard.selection.getX() - 132);
-        });
     }
 
     @SuppressWarnings("unchecked")
@@ -47,7 +42,6 @@ public final class LoginDSB extends javax.swing.JPanel {
         login = new javax.swing.JButton();
         fpass2 = new javax.swing.JLabel();
         register = new javax.swing.JButton();
-        back = new javax.swing.JButton();
         remember = new javax.swing.JCheckBox();
         jSeparator3 = new javax.swing.JSeparator();
         fpass3 = new javax.swing.JLabel();
@@ -185,14 +179,6 @@ public final class LoginDSB extends javax.swing.JPanel {
         });
         jPanel1.add(register, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 530, 329, 30));
 
-        back.setText("BACK");
-        back.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                backActionPerformed(evt);
-            }
-        });
-        jPanel1.add(back, new org.netbeans.lib.awtextra.AbsoluteConstraints(1130, 40, 120, 30));
-
         remember.setBackground(new java.awt.Color(255, 255, 255));
         remember.setFont(new java.awt.Font("Yu Gothic", 0, 11)); // NOI18N
         remember.setText("REMEMBER ME");
@@ -297,10 +283,6 @@ public final class LoginDSB extends javax.swing.JPanel {
     private void registerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_registerActionPerformed
     }//GEN-LAST:event_registerActionPerformed
 
-    private void backActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backActionPerformed
-
-    }//GEN-LAST:event_backActionPerformed
-
     private void passwordFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_passwordFocusGained
         password.setText("");
     }//GEN-LAST:event_passwordFocusGained
@@ -404,14 +386,9 @@ public final class LoginDSB extends javax.swing.JPanel {
         username.grabFocus();
     }
 
-    public void addEventBackMain(ActionListener event) {
-        back.addActionListener(event);
-    }
-
     private void focusAndPlaceholderHandlers() {
         username.putClientProperty(FlatClientProperties.PLACEHOLDER_TEXT, "LAST NAME");
         password.putClientProperty(FlatClientProperties.PLACEHOLDER_TEXT, "PASSWORD");
-        back.setFocusable(false);
         remember.setFocusable(false);
         login.setFocusable(false);
         register.setFocusable(false);
@@ -454,7 +431,6 @@ public final class LoginDSB extends javax.swing.JPanel {
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton back;
     private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.JLabel fpass2;
     private javax.swing.JLabel fpass3;

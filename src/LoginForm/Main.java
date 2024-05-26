@@ -33,7 +33,9 @@ public final class Main extends javax.swing.JPanel {
             SeperatorAnimation animation = new SeperatorAnimation();
             animation.animatePanelHorizontally(LoginDashboard.selection, LoginDashboard.selection.getX() + 65);
         });
-
+        
+        signUp.setFocusable(false);
+        signIn.setFocusable(false);
     }
 
     public void addEventSignUp(ActionListener event) {
@@ -139,7 +141,7 @@ public final class Main extends javax.swing.JPanel {
         jLabel75 = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
         jPanel11 = new javax.swing.JPanel();
-        jLabel76 = new javax.swing.JLabel();
+        jLabel78 = new javax.swing.JLabel();
 
         setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
@@ -542,9 +544,9 @@ public final class Main extends javax.swing.JPanel {
         jPanel11.setBackground(new java.awt.Color(255, 255, 255));
         jPanel2.add(jPanel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 5270, 1230, 80));
 
-        jLabel76.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
-        jLabel76.setText("SERENITY WELLNESS HOSPITAL");
-        jPanel2.add(jLabel76, new org.netbeans.lib.awtextra.AbsoluteConstraints(36, 151, -1, -1));
+        jLabel78.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
+        jLabel78.setText("SERENITY WELLNESS HOSPITAL");
+        jPanel2.add(jLabel78, new org.netbeans.lib.awtextra.AbsoluteConstraints(36, 151, -1, -1));
 
         jScrollPane1.setViewportView(jPanel2);
 
@@ -693,7 +695,7 @@ public final class Main extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel73;
     private javax.swing.JLabel jLabel74;
     private javax.swing.JLabel jLabel75;
-    private javax.swing.JLabel jLabel76;
+    private javax.swing.JLabel jLabel78;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel10;

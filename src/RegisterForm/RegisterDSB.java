@@ -23,11 +23,6 @@ public final class RegisterDSB extends javax.swing.JPanel {
         initComponents();
         actionListeners();
         registerHandlers();
-        
-        back.addActionListener(e -> {
-            SeperatorAnimation animation = new SeperatorAnimation();
-            animation.animatePanelHorizontally(LoginDashboard.selection, LoginDashboard.selection.getX() - 65);
-        });
     }
 
     @SuppressWarnings("unchecked")
@@ -38,7 +33,6 @@ public final class RegisterDSB extends javax.swing.JPanel {
         jLabel2 = new javax.swing.JLabel();
         email = new javax.swing.JTextField();
         create = new javax.swing.JButton();
-        back = new javax.swing.JButton();
         type = new javax.swing.JComboBox<>();
         remove = new javax.swing.JButton();
         secret = new javax.swing.JTextField();
@@ -82,15 +76,6 @@ public final class RegisterDSB extends javax.swing.JPanel {
             }
         });
         jPanel1.add(create, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 590, 302, 30));
-
-        back.setFont(new java.awt.Font("Yu Gothic", 0, 11)); // NOI18N
-        back.setText("BACK");
-        back.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                backActionPerformed(evt);
-            }
-        });
-        jPanel1.add(back, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 590, 302, 30));
 
         type.setFont(new java.awt.Font("Yu Gothic", 0, 12)); // NOI18N
         type.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "PATIENT", "DOCTOR", "ADMIN", "RECEPTIONIST" }));
@@ -173,7 +158,7 @@ public final class RegisterDSB extends javax.swing.JPanel {
                 clearActionPerformed(evt);
             }
         });
-        jPanel1.add(clear, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 550, 302, 30));
+        jPanel1.add(clear, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 590, 302, 30));
 
         picture.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/defaultImage.png"))); // NOI18N
         picture.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -258,10 +243,6 @@ public final class RegisterDSB extends javax.swing.JPanel {
             System.out.println(ex.getMessage());
         } 
     }//GEN-LAST:event_createActionPerformed
-
-    private void backActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backActionPerformed
-
-    }//GEN-LAST:event_backActionPerformed
 
     private void removeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_removeActionPerformed
         picture.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/iring.jpg")));
@@ -372,11 +353,6 @@ public final class RegisterDSB extends javax.swing.JPanel {
 //    }
     public void register() {
         email.grabFocus();
-    }
-
-    public void addEventBackMain(ActionListener event) {
-        back.addActionListener(event);
-        
     }
 
     public void progress() {
@@ -516,12 +492,10 @@ public final class RegisterDSB extends javax.swing.JPanel {
         create.setFocusable(false);
         remove.setFocusable(false);
         type.setFocusable(false);
-        back.setFocusable(false);
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTextField answer;
-    private javax.swing.JButton back;
     private javax.swing.JButton clear;
     private javax.swing.JTextField contact;
     private javax.swing.JPasswordField cpassword;

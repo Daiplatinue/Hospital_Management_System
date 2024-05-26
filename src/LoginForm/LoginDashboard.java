@@ -1,5 +1,6 @@
 package LoginForm;
 
+import Functions.SeperatorAnimation;
 import RegisterForm.*;
 import Regulations.Rules;
 import com.formdev.flatlaf.*;
@@ -22,15 +23,6 @@ public class LoginDashboard extends javax.swing.JFrame {
 
         slide.init(mn, login, register);
 
-        login.addEventBackMain((ActionEvent ae) -> {
-            slide.show(0);
-            register.register();
-        });
-
-        register.addEventBackMain((ActionEvent ae) -> {
-            slide.show(0);
-        });
-
         mn.addEventSignUp((ActionEvent ae) -> {
             slide.show(2);
         });
@@ -39,6 +31,7 @@ public class LoginDashboard extends javax.swing.JFrame {
             slide.show(1);
         });
 
+        jButton1.setFocusable(false);
     }
 
     @SuppressWarnings("unchecked")
@@ -52,6 +45,9 @@ public class LoginDashboard extends javax.swing.JFrame {
         jLabel22 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         selection = new javax.swing.JPanel();
+        jLabel12 = new javax.swing.JLabel();
+        jButton1 = new javax.swing.JButton();
+        jLabel4 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBackground(new java.awt.Color(255, 255, 255));
@@ -79,19 +75,30 @@ public class LoginDashboard extends javax.swing.JFrame {
 
         jLabel9.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
         jLabel9.setText("Home");
+        jLabel9.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel9MouseClicked(evt);
+            }
+        });
         jPanel1.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 20, -1, -1));
 
         jLabel10.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
-        jLabel10.setText("Sign Up");
-        jPanel1.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(560, 20, -1, -1));
+        jLabel10.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/logod (1).png"))); // NOI18N
+        jPanel1.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 15, -1, -1));
 
         jLabel22.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
         jLabel22.setText("Sign In");
+        jLabel22.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel22MouseClicked(evt);
+            }
+        });
         jPanel1.add(jLabel22, new org.netbeans.lib.awtextra.AbsoluteConstraints(630, 20, -1, -1));
 
         jLabel3.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
-        jLabel3.setText("Donate");
-        jPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(690, 20, -1, -1));
+        jLabel3.setForeground(new java.awt.Color(102, 102, 102));
+        jLabel3.setText("Sign In");
+        jPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(1130, 23, -1, -1));
 
         selection.setBackground(new java.awt.Color(0, 87, 255));
 
@@ -108,6 +115,24 @@ public class LoginDashboard extends javax.swing.JFrame {
 
         jPanel1.add(selection, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 50, 60, 5));
 
+        jLabel12.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
+        jLabel12.setText("Sign Up");
+        jLabel12.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel12MouseClicked(evt);
+            }
+        });
+        jPanel1.add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(560, 20, -1, -1));
+
+        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/cart-minus (1).png"))); // NOI18N
+        jButton1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(153, 153, 153)));
+        jButton1.setOpaque(false);
+        jPanel1.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(1200, 15, 50, 40));
+
+        jLabel4.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
+        jLabel4.setText("Donate");
+        jPanel1.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(690, 20, -1, -1));
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -122,6 +147,24 @@ public class LoginDashboard extends javax.swing.JFrame {
         pack();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
+
+    private void jLabel12MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel12MouseClicked
+    }//GEN-LAST:event_jLabel12MouseClicked
+
+    private void jLabel22MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel22MouseClicked
+    }//GEN-LAST:event_jLabel22MouseClicked
+
+    private void jLabel9MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel9MouseClicked
+        SeperatorAnimation animation = new SeperatorAnimation();
+
+        if (selection.getX() == 65) {
+            animation.animatePanelHorizontally(selection, +490);
+        } else {
+            animation.animatePanelHorizontally(selection, +490);
+        }
+
+        slide.show(0);
+    }//GEN-LAST:event_jLabel9MouseClicked
     public static void main(String args[]) {
         FlatLightLaf.setup();
         java.awt.EventQueue.invokeLater(new Runnable() {
@@ -133,9 +176,12 @@ public class LoginDashboard extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel10;
+    private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel22;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     public static javax.swing.JPanel selection;
