@@ -1,6 +1,7 @@
 package LoginForm;
 
 import RegisterForm.*;
+import Regulations.Rules;
 import com.formdev.flatlaf.*;
 import java.awt.event.*;
 import java.awt.geom.*;
@@ -16,18 +17,27 @@ public class LoginDashboard extends javax.swing.JFrame {
 
         LoginDSB login = new LoginDSB();
         RegisterDSB register = new RegisterDSB();
+        Main mn = new Main();
         slide.setAnimate(20);
 
-        slide.init(login, register);
+        slide.init(mn, login, register);
 
-        login.addEventRegister((ActionEvent ae) -> {
-            slide.show(1);
+        login.addEventBackMain((ActionEvent ae) -> {
+            slide.show(0);
             register.register();
         });
 
-        register.addEventBackLogin((ActionEvent ae) -> {
+        register.addEventBackMain((ActionEvent ae) -> {
             slide.show(0);
-            login.login();
+
+        });
+
+        mn.addEventSignUp((ActionEvent ae) -> {
+            slide.show(2);
+        });
+
+        mn.addEventSignIn((ActionEvent ae) -> {
+            slide.show(1);
         });
 
     }
@@ -76,7 +86,6 @@ public class LoginDashboard extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
     public static void main(String args[]) {
-        FlatLightLaf.registerCustomDefaultsSource("Style");
         FlatLightLaf.setup();
         java.awt.EventQueue.invokeLater(new Runnable() {
             @Override

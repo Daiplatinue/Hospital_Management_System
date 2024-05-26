@@ -41,7 +41,7 @@ public final class LoginDSB extends javax.swing.JPanel {
         login = new javax.swing.JButton();
         fpass2 = new javax.swing.JLabel();
         register = new javax.swing.JButton();
-        exit = new javax.swing.JButton();
+        back = new javax.swing.JButton();
         remember = new javax.swing.JCheckBox();
         jSeparator3 = new javax.swing.JSeparator();
         fpass3 = new javax.swing.JLabel();
@@ -179,13 +179,13 @@ public final class LoginDSB extends javax.swing.JPanel {
         });
         jPanel1.add(register, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 530, 329, 30));
 
-        exit.setText("EXIT");
-        exit.addActionListener(new java.awt.event.ActionListener() {
+        back.setText("BACK");
+        back.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                exitActionPerformed(evt);
+                backActionPerformed(evt);
             }
         });
-        jPanel1.add(exit, new org.netbeans.lib.awtextra.AbsoluteConstraints(1130, 40, 120, 30));
+        jPanel1.add(back, new org.netbeans.lib.awtextra.AbsoluteConstraints(1130, 40, 120, 30));
 
         remember.setBackground(new java.awt.Color(255, 255, 255));
         remember.setFont(new java.awt.Font("Yu Gothic", 0, 11)); // NOI18N
@@ -291,9 +291,9 @@ public final class LoginDSB extends javax.swing.JPanel {
     private void registerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_registerActionPerformed
     }//GEN-LAST:event_registerActionPerformed
 
-    private void exitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_exitActionPerformed
-        System.exit(0);
-    }//GEN-LAST:event_exitActionPerformed
+    private void backActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backActionPerformed
+       
+    }//GEN-LAST:event_backActionPerformed
 
     private void passwordFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_passwordFocusGained
         password.setText("");
@@ -398,14 +398,14 @@ public final class LoginDSB extends javax.swing.JPanel {
         username.grabFocus();
     }
 
-    public void addEventRegister(ActionListener event) {
-        register.addActionListener(event);
+    public void addEventBackMain(ActionListener event) {
+        back.addActionListener(event);
     }
 
     private void focusAndPlaceholderHandlers() {
         username.putClientProperty(FlatClientProperties.PLACEHOLDER_TEXT, "LAST NAME");
         password.putClientProperty(FlatClientProperties.PLACEHOLDER_TEXT, "PASSWORD");
-        exit.setFocusable(false);
+        back.setFocusable(false);
         remember.setFocusable(false);
         login.setFocusable(false);
         register.setFocusable(false);
@@ -417,14 +417,6 @@ public final class LoginDSB extends javax.swing.JPanel {
             @Override
             public void actionPerformed(ActionEvent e) {
                 loginActionPerformed(e);
-            }
-        });
-
-        exit.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke(KeyEvent.VK_ESCAPE, 0), "exit");
-        exit.getActionMap().put("exit", new AbstractAction() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                exitActionPerformed(e);
             }
         });
     }
@@ -456,8 +448,8 @@ public final class LoginDSB extends javax.swing.JPanel {
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton back;
     private javax.swing.ButtonGroup buttonGroup1;
-    private javax.swing.JButton exit;
     private javax.swing.JLabel fpass2;
     private javax.swing.JLabel fpass3;
     private javax.swing.JLabel jLabel1;

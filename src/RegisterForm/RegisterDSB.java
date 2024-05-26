@@ -369,7 +369,7 @@ public final class RegisterDSB extends javax.swing.JPanel {
         email.grabFocus();
     }
 
-    public void addEventBackLogin(ActionListener event) {
+    public void addEventBackMain(ActionListener event) {
         back.addActionListener(event);
     }
 
