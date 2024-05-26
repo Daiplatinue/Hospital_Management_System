@@ -161,7 +161,7 @@ public final class Main extends javax.swing.JPanel {
         signIn.setText("Sign In");
         signIn.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(45, 117, 255)));
         signIn.setOpaque(false);
-        jPanel2.add(signIn, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 310, 100, 30));
+        jPanel2.add(signIn, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 310, 100, 30));
 
         signUp.setBackground(new java.awt.Color(0, 87, 255));
         signUp.setForeground(new java.awt.Color(255, 255, 255));

@@ -19,9 +19,10 @@ public class LoginDashboard extends javax.swing.JFrame {
         LoginDSB login = new LoginDSB();
         RegisterDSB register = new RegisterDSB();
         Main mn = new Main();
+        Donation dn = new Donation();
         slide.setAnimate(20);
 
-        slide.init(mn, login, register);
+        slide.init(mn, login, register, dn);
 
         mn.addEventSignUp((ActionEvent ae) -> {
             slide.show(2);
@@ -131,6 +132,11 @@ public class LoginDashboard extends javax.swing.JFrame {
 
         jLabel4.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
         jLabel4.setText("Donate");
+        jLabel4.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel4MouseClicked(evt);
+            }
+        });
         jPanel1.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(690, 20, -1, -1));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -165,6 +171,17 @@ public class LoginDashboard extends javax.swing.JFrame {
 
         slide.show(0);
     }//GEN-LAST:event_jLabel9MouseClicked
+
+    private void jLabel4MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel4MouseClicked
+        if (selection.getX() == 685) {
+            System.out.println(selection.getX());
+        } else {
+            SeperatorAnimation animation = new SeperatorAnimation();
+            animation.animatePanelHorizontally(selection, selection.getX() + 195);
+            System.out.println(selection.getX());
+            slide.show(3);
+        }
+    }//GEN-LAST:event_jLabel4MouseClicked
     public static void main(String args[]) {
         FlatLightLaf.setup();
         java.awt.EventQueue.invokeLater(new Runnable() {
