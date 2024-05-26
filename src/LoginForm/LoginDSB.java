@@ -5,6 +5,7 @@ import Database.DBConnection;
 import Database.xternal_db;
 import Functions.Checkers;
 import Functions.Hasher;
+import Functions.SeperatorAnimation;
 import PatientsForm.PatientDSB;
 import com.formdev.flatlaf.*;
 import java.awt.*;
@@ -21,6 +22,11 @@ public final class LoginDSB extends javax.swing.JPanel {
         initComponents();
         focusAndPlaceholderHandlers();
         keyMapping();
+
+        back.addActionListener(e -> {
+            SeperatorAnimation animation = new SeperatorAnimation();
+            animation.animatePanelHorizontally(LoginDashboard.selection, LoginDashboard.selection.getX() - 132);
+        });
     }
 
     @SuppressWarnings("unchecked")
@@ -292,7 +298,7 @@ public final class LoginDSB extends javax.swing.JPanel {
     }//GEN-LAST:event_registerActionPerformed
 
     private void backActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backActionPerformed
-       
+
     }//GEN-LAST:event_backActionPerformed
 
     private void passwordFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_passwordFocusGained

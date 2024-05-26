@@ -29,7 +29,6 @@ public class LoginDashboard extends javax.swing.JFrame {
 
         register.addEventBackMain((ActionEvent ae) -> {
             slide.show(0);
-
         });
 
         mn.addEventSignUp((ActionEvent ae) -> {
@@ -52,7 +51,7 @@ public class LoginDashboard extends javax.swing.JFrame {
         jLabel10 = new javax.swing.JLabel();
         jLabel22 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
-        selection = new javax.swing.JSeparator();
+        selection = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBackground(new java.awt.Color(255, 255, 255));
@@ -94,9 +93,20 @@ public class LoginDashboard extends javax.swing.JFrame {
         jLabel3.setText("Donate");
         jPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(690, 20, -1, -1));
 
-        selection.setForeground(new java.awt.Color(51, 51, 51));
-        selection.setOpaque(true);
-        jPanel1.add(selection, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 50, 60, 10));
+        selection.setBackground(new java.awt.Color(0, 87, 255));
+
+        javax.swing.GroupLayout selectionLayout = new javax.swing.GroupLayout(selection);
+        selection.setLayout(selectionLayout);
+        selectionLayout.setHorizontalGroup(
+            selectionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 60, Short.MAX_VALUE)
+        );
+        selectionLayout.setVerticalGroup(
+            selectionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 5, Short.MAX_VALUE)
+        );
+
+        jPanel1.add(selection, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 50, 60, 5));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -128,7 +138,7 @@ public class LoginDashboard extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JSeparator selection;
+    public static javax.swing.JPanel selection;
     public static Swing.SlidePanel slide;
     // End of variables declaration//GEN-END:variables
 }

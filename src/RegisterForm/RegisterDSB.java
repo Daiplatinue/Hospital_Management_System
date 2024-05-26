@@ -23,6 +23,11 @@ public final class RegisterDSB extends javax.swing.JPanel {
         initComponents();
         actionListeners();
         registerHandlers();
+        
+        back.addActionListener(e -> {
+            SeperatorAnimation animation = new SeperatorAnimation();
+            animation.animatePanelHorizontally(LoginDashboard.selection, LoginDashboard.selection.getX() - 65);
+        });
     }
 
     @SuppressWarnings("unchecked")
@@ -371,6 +376,7 @@ public final class RegisterDSB extends javax.swing.JPanel {
 
     public void addEventBackMain(ActionListener event) {
         back.addActionListener(event);
+        
     }
 
     public void progress() {
