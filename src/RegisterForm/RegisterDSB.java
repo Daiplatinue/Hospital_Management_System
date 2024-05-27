@@ -17,12 +17,31 @@ public final class RegisterDSB extends javax.swing.JPanel {
     String path2 = null;
     boolean isEyeHidden;
     String path;
-    String destination;
+    String oldPath;
+    String destination = "src/MyImages/default.png";
+    File selectedFile;
 
     public RegisterDSB() {
         initComponents();
         actionListeners();
         registerHandlers();
+
+        email.getDocument().addDocumentListener(new DocumentListener() {
+            @Override
+            public void insertUpdate(DocumentEvent e) {
+                isValidEmail();
+            }
+
+            @Override
+            public void removeUpdate(DocumentEvent e) {
+                isValidEmail();
+            }
+
+            @Override
+            public void changedUpdate(DocumentEvent e) {
+                isValidEmail();
+            }
+        });
 
         password.getDocument().addDocumentListener(new DocumentListener() {
             @Override
@@ -81,6 +100,8 @@ public final class RegisterDSB extends javax.swing.JPanel {
         jLabel12 = new javax.swing.JLabel();
         jLabel13 = new javax.swing.JLabel();
         jLabel15 = new javax.swing.JLabel();
+        emailChecker = new javax.swing.JLabel();
+        contactChecker = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jLabel14 = new javax.swing.JLabel();
         jLabel18 = new javax.swing.JLabel();
@@ -131,7 +152,7 @@ public final class RegisterDSB extends javax.swing.JPanel {
         });
         jPanel10.add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 0, 20, 28));
 
-        panelRound1.add(jPanel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(488, 292, 40, 25));
+        panelRound1.add(jPanel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(485, 382, 40, 25));
 
         jPanel9.setBackground(new java.awt.Color(255, 255, 255));
         jPanel9.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -139,7 +160,7 @@ public final class RegisterDSB extends javax.swing.JPanel {
         jLabel10.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/pass (1).png"))); // NOI18N
         jPanel9.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 0, 20, 28));
 
-        panelRound1.add(jPanel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(52, 292, 40, 25));
+        panelRound1.add(jPanel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(52, 382, 40, 25));
 
         jPanel8.setBackground(new java.awt.Color(255, 255, 255));
         jPanel8.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -147,7 +168,7 @@ public final class RegisterDSB extends javax.swing.JPanel {
         jLabel9.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/phone (1).png"))); // NOI18N
         jPanel8.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 0, 20, 28));
 
-        panelRound1.add(jPanel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(52, 252, 40, 28));
+        panelRound1.add(jPanel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(52, 302, 40, 28));
 
         jPanel7.setBackground(new java.awt.Color(255, 255, 255));
         jPanel7.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -155,7 +176,7 @@ public final class RegisterDSB extends javax.swing.JPanel {
         jLabel8.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/answer-alt (1).png"))); // NOI18N
         jPanel7.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 0, 20, 28));
 
-        panelRound1.add(jPanel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(302, 212, 40, 28));
+        panelRound1.add(jPanel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(302, 252, 40, 28));
 
         jPanel6.setBackground(new java.awt.Color(255, 255, 255));
         jPanel6.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -163,7 +184,7 @@ public final class RegisterDSB extends javax.swing.JPanel {
         jLabel7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/question (1).png"))); // NOI18N
         jPanel6.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 0, 20, 28));
 
-        panelRound1.add(jPanel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(52, 212, 40, 28));
+        panelRound1.add(jPanel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(52, 252, 40, 28));
 
         jPanel5.setBackground(new java.awt.Color(255, 255, 255));
         jPanel5.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -231,22 +252,21 @@ public final class RegisterDSB extends javax.swing.JPanel {
                 passwordKeyTyped(evt);
             }
         });
-        panelRound1.add(password, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 290, 480, 30));
+        panelRound1.add(password, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 380, 480, 30));
 
         strength.setFont(new java.awt.Font("Yu Gothic", 0, 12)); // NOI18N
-        strength.setForeground(new java.awt.Color(255, 255, 255));
         strength.setText("STRENGTH");
-        panelRound1.add(strength, new org.netbeans.lib.awtextra.AbsoluteConstraints(48, 322, 480, -1));
+        panelRound1.add(strength, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 420, 480, -1));
 
         type.setFont(new java.awt.Font("Yu Gothic", 0, 10)); // NOI18N
         type.setForeground(new java.awt.Color(51, 51, 51));
         type.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "PATIENT", "DOCTOR", "ADMIN", "RECEPTIONIST" }));
-        panelRound1.add(type, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 360, 232, 30));
+        panelRound1.add(type, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 450, 232, 30));
 
         type1.setFont(new java.awt.Font("Yu Gothic", 0, 10)); // NOI18N
         type1.setForeground(new java.awt.Color(51, 51, 51));
         type1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "MALE", "FEMALE", "OTHERS" }));
-        panelRound1.add(type1, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 360, 240, 30));
+        panelRound1.add(type1, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 450, 240, 30));
 
         secret.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         secret.addFocusListener(new java.awt.event.FocusAdapter() {
@@ -259,7 +279,7 @@ public final class RegisterDSB extends javax.swing.JPanel {
                 secretMouseClicked(evt);
             }
         });
-        panelRound1.add(secret, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 210, 230, 32));
+        panelRound1.add(secret, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 250, 230, 32));
 
         answer.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         answer.addFocusListener(new java.awt.event.FocusAdapter() {
@@ -272,7 +292,7 @@ public final class RegisterDSB extends javax.swing.JPanel {
                 answerMouseClicked(evt);
             }
         });
-        panelRound1.add(answer, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 210, 230, 32));
+        panelRound1.add(answer, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 250, 230, 32));
 
         contact.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         contact.addFocusListener(new java.awt.event.FocusAdapter() {
@@ -285,7 +305,7 @@ public final class RegisterDSB extends javax.swing.JPanel {
                 contactMouseClicked(evt);
             }
         });
-        panelRound1.add(contact, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 250, 480, 32));
+        panelRound1.add(contact, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 300, 480, 32));
 
         create.setBackground(new java.awt.Color(255, 255, 255));
         create.setFont(new java.awt.Font("Yu Gothic", 0, 11)); // NOI18N
@@ -318,6 +338,14 @@ public final class RegisterDSB extends javax.swing.JPanel {
         jLabel15.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
         jLabel15.setText("related emails, including updates on new features and promotions, and important notifications.");
         panelRound1.add(jLabel15, new org.netbeans.lib.awtextra.AbsoluteConstraints(35, 640, -1, 30));
+
+        emailChecker.setFont(new java.awt.Font("Yu Gothic", 0, 12)); // NOI18N
+        emailChecker.setText("STRENGTH");
+        panelRound1.add(emailChecker, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 210, 480, -1));
+
+        contactChecker.setFont(new java.awt.Font("Yu Gothic", 0, 12)); // NOI18N
+        contactChecker.setText("STRENGTH");
+        panelRound1.add(contactChecker, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 340, 480, -1));
 
         jPanel1.add(panelRound1, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 10, 570, 680));
 
@@ -416,62 +444,66 @@ public final class RegisterDSB extends javax.swing.JPanel {
 
     private void createActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_createActionPerformed
         try {
-            if (path2 == null || path2.isEmpty()) {
-                UIManager.put("OptionPane.background", Color.white);
-                UIManager.put("Panel.background", Color.white);
-                Icon customIcon = new javax.swing.ImageIcon(getClass().getResource("/Images/alert.gif"));
-                JOptionPane.showMessageDialog(null, "PLEASE INSERT AN IMAGE FIRST!", "WARNING", JOptionPane.WARNING_MESSAGE, customIcon);
-            } else {
+            String ls = lastname.getText().trim();
+            String fn = firstname.getText().trim();
+            String user = username.getText().trim();
+            String emails = email.getText().trim();
+            String hashedPass = Hasher.passwordHasher(this.password.getText());
+            String secretQuestion = secret.getText();
+            String secretAnswer = answer.getText();
+            String status = "Pending";
+            String contacts = contact.getText();
+            String types = (String) type.getSelectedItem();
+            String xgender = (String) type1.getSelectedItem();
 
-                String user = username.getText();
-                String emails = this.email.getText();
-                String hashedPass = Hasher.passwordHasher(this.password.getText());
-                String secretQuestion = secret.getText();
-                String secretAnswer = answer.getText();
-                String status = "Pending";
-                String contacts = contact.getText();
-                String types = (String) type.getSelectedItem();
-
-                Connection cn = new DBConnection().getConnection();
-                PreparedStatement pst = cn.prepareStatement("insert into ac_table (ac_username,ac_email,ac_password,ac_sq,ac_sa,ac_type,ac_status,"
-                        + "ac_contact,ac_image) values (?,?,?,?,?,?,?,?,?)");
-
-                pst.setString(1, user);
-                pst.setString(2, emails);
-                pst.setString(3, hashedPass);
-                pst.setString(4, secretQuestion);
-                pst.setString(5, secretAnswer);
-                pst.setString(6, types);
-                pst.setString(7, status);
-                pst.setString(8, contacts);
-
-                InputStream is = new FileInputStream(new File(path2));
-                pst.setBlob(9, is);
-                pst.execute();
-
-                UIManager.put("OptionPane.background", Color.white);
-                UIManager.put("Panel.background", Color.white);
-                Icon customIcon = new javax.swing.ImageIcon(getClass().getResource("/Images/sucess.png"));
-                JOptionPane.showMessageDialog(null, "ACCOUNT CREATED SUCCESSFULLY!", "SUCCESS", JOptionPane.WARNING_MESSAGE, customIcon);
-
-                username.setText("");
-                email.setText("");
-                password.setText("");
-                secret.setText("");
-                answer.setText("");
-                contact.setText("");
-                lastname.setText("");
-                firstname.setText("");
-                jProgressBar1.setValue(0);
-
-                JTextField[] components = {lastname, firstname, username, email, password, secret, answer, contact};
-                BorderColorManager borderFieldReset = new BorderColorManager(components);
-                borderFieldReset.resetBorderColor();
-
-                LoginDashboard.slide.show(0);
+            if (ls.isEmpty() || fn.isEmpty() || user.isEmpty() || emails.isEmpty() || hashedPass.isEmpty() || secretQuestion.isEmpty() || secretAnswer.isEmpty() || contacts.isEmpty()) {
+                Checkers.emptyFieldChecker("PLEASE FILL ALL THE REQUIRED FIELDS!");
+                return;
+            } else if (!isStrongPassword(password.getText())) {
+                Checkers.unsuccessfullFieldChecker("PASSWORD MUST BE STRONG!");
+                return;
             }
 
-        } catch (SQLException | NoSuchAlgorithmException | FileNotFoundException ex) {
+            Connection cn = new DBConnection().getConnection();
+            PreparedStatement pst = cn.prepareStatement("insert into ac_table (ac_username, ac_email, ac_password, ac_sq, ac_sa, "
+                    + "ac_type, ac_status, ac_contact, ac_lastname, ac_firstname, ac_gender,ac_images) "
+                    + "values (?,?,?,?,?,?,?,?,?,?,?,?)");
+
+            pst.setString(1, user);
+            pst.setString(2, emails);
+            pst.setString(3, hashedPass);
+            pst.setString(4, secretQuestion);
+            pst.setString(5, secretAnswer);
+            pst.setString(6, types);
+            pst.setString(7, status);
+            pst.setString(8, contacts);
+            pst.setString(9, ls);
+            pst.setString(10, fn);
+            pst.setString(11, xgender);
+            pst.setString(12, destination);
+            pst.execute();
+
+            Checkers.successFieldChecker("ACCOUNT HAS BEEN CREATED SUCCESSFULLY!");
+
+            lastname.setText("");
+            firstname.setText("");
+            username.setText("");
+            email.setText("");
+            password.setText("");
+            secret.setText("");
+            answer.setText("");
+            contact.setText("");
+            lastname.setText("");
+            firstname.setText("");
+            jProgressBar1.setValue(0);
+
+            JTextField[] components = {lastname, firstname, username, email, password, secret, answer, contact};
+            BorderColorManager borderFieldReset = new BorderColorManager(components);
+            borderFieldReset.resetBorderColor();
+
+            LoginDashboard.slide.show(0);
+
+        } catch (SQLException | NoSuchAlgorithmException ex) {
             System.out.println(ex.getMessage());
         }
     }//GEN-LAST:event_createActionPerformed
@@ -624,6 +656,7 @@ public final class RegisterDSB extends javax.swing.JPanel {
         secret.getDocument().addDocumentListener(documentListener);
         answer.getDocument().addDocumentListener(documentListener);
         contact.getDocument().addDocumentListener(documentListener);
+
     }
 
     class SimpleDocumentListener implements DocumentListener {
@@ -745,16 +778,91 @@ public final class RegisterDSB extends javax.swing.JPanel {
         }
     }
 
+    private void isValidEmail() {
+        String xcontactChecker = contactChecker.getText().trim();
+
+        if (xcontactChecker.isEmpty()) {
+            contactChecker.setText("");
+            contactChecker.setForeground(Color.WHITE);
+        }
+
+        int atIndex = xcontactChecker.indexOf('@');
+        if (atIndex == -1 || atIndex != xcontactChecker.lastIndexOf('@')) {
+            contactChecker.setText("Invalid email address format");
+            contactChecker.setForeground(Color.RED);
+        }
+
+        String domainPart = xcontactChecker.substring(atIndex + 1);
+
+        if (domainPart.endsWith("@gmail.com") || domainPart.endsWith("@yahoo.com") || domainPart.endsWith("@hotmail.com")) {
+            contactChecker.setText("Email address is valid");
+            contactChecker.setForeground(Color.GREEN);
+        } else {
+            contactChecker.setText("Only Gmail, Yahoo, and Hotmail domains are allowed");
+            contactChecker.setForeground(Color.RED);
+        }
+    }
+
+    private boolean isStrongPassword(String password) {
+        if (password == null || password.isEmpty()) {
+            return false;
+        }
+
+        if (password.length() < 8) {
+            return false;
+        }
+
+        boolean hasUpperCase = false;
+        boolean hasLowerCase = false;
+        boolean hasDigit = false;
+        boolean hasSpecialChar = false;
+
+        boolean hasSequentialChars = false;
+        boolean hasRepeatedChars = false;
+
+        char prevChar = '\0';
+
+        for (char ch : password.toCharArray()) {
+            if (Character.isUpperCase(ch)) {
+                hasUpperCase = true;
+            } else if (Character.isLowerCase(ch)) {
+                hasLowerCase = true;
+            } else if (Character.isDigit(ch)) {
+                hasDigit = true;
+            } else if (isSpecialChar(ch)) {
+                hasSpecialChar = true;
+            }
+
+            if (prevChar != '\0' && (prevChar + 1 == ch || prevChar - 1 == ch)) {
+                hasSequentialChars = true;
+            }
+
+            if (prevChar != '\0' && prevChar == ch) {
+                hasRepeatedChars = true;
+            }
+
+            prevChar = ch;
+        }
+
+        return hasUpperCase && hasLowerCase && hasDigit && hasSpecialChar && !hasSequentialChars && !hasRepeatedChars;
+    }
+
     private boolean isSpecialChar(char ch) {
         String specialChars = "!@#$%^&*()-_+=<>?";
         return specialChars.contains(Character.toString(ch));
     }
 
+//    private boolean usernameChecker(){
+//        
+//    }
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTextField answer;
     private javax.swing.JTextField contact;
+    private javax.swing.JLabel contactChecker;
     private javax.swing.JButton create;
     private javax.swing.JTextField email;
+    private javax.swing.JLabel emailChecker;
     private javax.swing.JTextField firstname;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
