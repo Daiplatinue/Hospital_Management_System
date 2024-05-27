@@ -9,6 +9,8 @@ import java.awt.event.*;
 import java.io.*;
 import java.security.*;
 import java.sql.*;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import javax.swing.*;
 import javax.swing.event.*;
 
@@ -26,23 +28,6 @@ public final class RegisterDSB extends javax.swing.JPanel {
         actionListeners();
         registerHandlers();
 
-        email.getDocument().addDocumentListener(new DocumentListener() {
-            @Override
-            public void insertUpdate(DocumentEvent e) {
-                isValidEmail();
-            }
-
-            @Override
-            public void removeUpdate(DocumentEvent e) {
-                isValidEmail();
-            }
-
-            @Override
-            public void changedUpdate(DocumentEvent e) {
-                isValidEmail();
-            }
-        });
-
         password.getDocument().addDocumentListener(new DocumentListener() {
             @Override
             public void insertUpdate(DocumentEvent e) {
@@ -59,6 +44,40 @@ public final class RegisterDSB extends javax.swing.JPanel {
                 updateStrengthLabel();
             }
         });
+
+        email.getDocument().addDocumentListener(new DocumentListener() {
+            @Override
+            public void insertUpdate(DocumentEvent e) {
+                isValidEmail();
+            }
+
+            @Override
+            public void removeUpdate(DocumentEvent e) {
+                isValidEmail();
+            }
+
+            @Override
+            public void changedUpdate(DocumentEvent e) {
+            }
+        });
+
+        contact.getDocument().addDocumentListener(new DocumentListener() {
+            @Override
+            public void insertUpdate(DocumentEvent e) {
+                isContactValid(contact.getText().trim());
+            }
+
+            @Override
+            public void removeUpdate(DocumentEvent e) {
+                isContactValid(contact.getText().trim());
+            }
+
+            @Override
+            public void changedUpdate(DocumentEvent e) {
+                isContactValid(contact.getText().trim());
+            }
+        });
+
     }
 
     @SuppressWarnings("unchecked")
@@ -243,6 +262,11 @@ public final class RegisterDSB extends javax.swing.JPanel {
                 emailMouseClicked(evt);
             }
         });
+        email.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                emailKeyTyped(evt);
+            }
+        });
         panelRound1.add(email, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 170, 480, 32));
 
         password.setFont(new java.awt.Font("Yu Gothic", 0, 12)); // NOI18N
@@ -255,6 +279,7 @@ public final class RegisterDSB extends javax.swing.JPanel {
         panelRound1.add(password, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 380, 480, 30));
 
         strength.setFont(new java.awt.Font("Yu Gothic", 0, 12)); // NOI18N
+        strength.setForeground(new java.awt.Color(255, 255, 255));
         strength.setText("STRENGTH");
         panelRound1.add(strength, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 420, 480, -1));
 
@@ -340,6 +365,7 @@ public final class RegisterDSB extends javax.swing.JPanel {
         panelRound1.add(jLabel15, new org.netbeans.lib.awtextra.AbsoluteConstraints(35, 640, -1, 30));
 
         emailChecker.setFont(new java.awt.Font("Yu Gothic", 0, 12)); // NOI18N
+        emailChecker.setForeground(new java.awt.Color(255, 255, 255));
         emailChecker.setText("STRENGTH");
         panelRound1.add(emailChecker, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 210, 480, -1));
 
@@ -462,6 +488,9 @@ public final class RegisterDSB extends javax.swing.JPanel {
             } else if (!isStrongPassword(password.getText())) {
                 Checkers.unsuccessfullFieldChecker("PASSWORD MUST BE STRONG!");
                 return;
+            } else if (!isValidEmail()) {
+                Checkers.unsuccessfullFieldChecker("EMAIL MUST BE VALID!");
+                return;
             }
 
             Connection cn = new DBConnection().getConnection();
@@ -558,6 +587,9 @@ public final class RegisterDSB extends javax.swing.JPanel {
 
     private void passwordKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_passwordKeyTyped
     }//GEN-LAST:event_passwordKeyTyped
+
+    private void emailKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_emailKeyTyped
+    }//GEN-LAST:event_emailKeyTyped
 
     public static void main(String args[]) {
         FlatLightLaf.registerCustomDefaultsSource("Style");
@@ -778,29 +810,36 @@ public final class RegisterDSB extends javax.swing.JPanel {
         }
     }
 
-    private void isValidEmail() {
-        String xcontactChecker = contactChecker.getText().trim();
+    private boolean isValidEmails(String email) {
+        String regex = "^[a-zA-Z0-9_+&*-]+(?:\\.[a-zA-Z0-9_+&*-]+)*@(?:[a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,7}$";
 
-        if (xcontactChecker.isEmpty()) {
-            contactChecker.setText("");
-            contactChecker.setForeground(Color.WHITE);
+        Pattern pattern = Pattern.compile(regex);
+
+        Matcher matcher = pattern.matcher(email);
+
+        return matcher.matches();
+    }
+
+    private boolean isValidEmail() {
+        String xemailChecker = email.getText().trim();
+
+        if (xemailChecker.isEmpty()) {
+            emailChecker.setText("");
+            emailChecker.setForeground(Color.WHITE);
+            return false;
         }
 
-        int atIndex = xcontactChecker.indexOf('@');
-        if (atIndex == -1 || atIndex != xcontactChecker.lastIndexOf('@')) {
-            contactChecker.setText("Invalid email address format");
-            contactChecker.setForeground(Color.RED);
-        }
+        boolean isValid = isValidEmails(xemailChecker);
 
-        String domainPart = xcontactChecker.substring(atIndex + 1);
-
-        if (domainPart.endsWith("@gmail.com") || domainPart.endsWith("@yahoo.com") || domainPart.endsWith("@hotmail.com")) {
-            contactChecker.setText("Email address is valid");
-            contactChecker.setForeground(Color.GREEN);
+        if (isValid) {
+            emailChecker.setText("Email is valid");
+            emailChecker.setForeground(Color.GREEN);
         } else {
-            contactChecker.setText("Only Gmail, Yahoo, and Hotmail domains are allowed");
-            contactChecker.setForeground(Color.RED);
+            emailChecker.setText("Invalid, We only accept gmail, yahoo, hotmail domains!");
+            emailChecker.setForeground(Color.RED);
         }
+
+        return isValid;
     }
 
     private boolean isStrongPassword(String password) {
@@ -852,9 +891,32 @@ public final class RegisterDSB extends javax.swing.JPanel {
         return specialChars.contains(Character.toString(ch));
     }
 
-//    private boolean usernameChecker(){
-//        
-//    }
+    private boolean isContactValid(String contact) {
+        if (contact == null || contact.isEmpty()) {
+            contactChecker.setText("");
+            contactChecker.setForeground(Color.WHITE);
+            return false;
+        }
+
+        String digitsOnly = contact.replaceAll("\\D", "");
+
+        if (digitsOnly.length() != 11) {
+            contactChecker.setText("Contact must be exactly 11 digits!");
+            contactChecker.setForeground(Color.RED);
+            return false;
+        }
+
+        if (!contact.startsWith("63") && !contact.startsWith("09")) {
+            contactChecker.setText("Contact must start with '63' or '09'!");
+            contactChecker.setForeground(Color.RED);
+            return false;
+        }
+
+        contactChecker.setText("Contact is valid!");
+        contactChecker.setForeground(Color.GREEN);
+        return true;
+    }
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTextField answer;
