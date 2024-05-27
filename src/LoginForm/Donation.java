@@ -74,20 +74,20 @@ public final class Donation extends javax.swing.JPanel {
 
         jLabel3.setFont(new java.awt.Font("Segoe UI", 0, 20)); // NOI18N
         jLabel3.setText("Here is the Layout of your Receipt");
-        jPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 180, -1, -1));
+        jPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(455, 170, -1, -1));
 
         jLabel6.setFont(new java.awt.Font("Yu Gothic", 1, 30)); // NOI18N
-        jLabel6.setForeground(new java.awt.Color(135, 209, 71));
+        jLabel6.setForeground(new java.awt.Color(0, 87, 255));
         jLabel6.setText(" Generous Donation");
-        jPanel1.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(880, 80, -1, -1));
+        jPanel1.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(860, 80, -1, -1));
 
         jLabel7.setFont(new java.awt.Font("Yu Gothic", 1, 30)); // NOI18N
         jLabel7.setText("We Deeply Appreciate Your ");
-        jPanel1.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 80, -1, -1));
+        jPanel1.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(455, 80, -1, -1));
 
         jLabel4.setFont(new java.awt.Font("Segoe UI", 0, 20)); // NOI18N
         jLabel4.setText("Every Contribution, No Matter The Size, Can Save Lives. Thank You For Your Support");
-        jPanel1.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 130, -1, -1));
+        jPanel1.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(455, 130, -1, -1));
         jPanel1.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 240, 790, 450));
 
         add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1310, 810));
