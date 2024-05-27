@@ -16,11 +16,30 @@ public final class RegisterDSB extends javax.swing.JPanel {
 
     String path2 = null;
     boolean isEyeHidden;
+    String path;
+    String destination;
 
     public RegisterDSB() {
         initComponents();
         actionListeners();
         registerHandlers();
+
+        password.getDocument().addDocumentListener(new DocumentListener() {
+            @Override
+            public void insertUpdate(DocumentEvent e) {
+                updateStrengthLabel();
+            }
+
+            @Override
+            public void removeUpdate(DocumentEvent e) {
+                updateStrengthLabel();
+            }
+
+            @Override
+            public void changedUpdate(DocumentEvent e) {
+                updateStrengthLabel();
+            }
+        });
     }
 
     @SuppressWarnings("unchecked")
@@ -28,7 +47,6 @@ public final class RegisterDSB extends javax.swing.JPanel {
     private void initComponents() {
 
         jPanel1 = new javax.swing.JPanel();
-        remove = new javax.swing.JButton();
         panelRound1 = new test.PanelRound();
         jPanel10 = new javax.swing.JPanel();
         jLabel11 = new javax.swing.JLabel();
@@ -51,32 +69,42 @@ public final class RegisterDSB extends javax.swing.JPanel {
         username = new javax.swing.JTextField();
         email = new javax.swing.JTextField();
         password = new javax.swing.JPasswordField();
-        jLabel4 = new javax.swing.JLabel();
+        strength = new javax.swing.JLabel();
         type = new javax.swing.JComboBox<>();
         type1 = new javax.swing.JComboBox<>();
         secret = new javax.swing.JTextField();
         answer = new javax.swing.JTextField();
         contact = new javax.swing.JTextField();
-        clear = new javax.swing.JButton();
         create = new javax.swing.JButton();
         firstname = new javax.swing.JTextField();
         lastname = new javax.swing.JTextField();
+        jLabel12 = new javax.swing.JLabel();
+        jLabel13 = new javax.swing.JLabel();
+        jLabel15 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
+        jLabel14 = new javax.swing.JLabel();
+        jLabel18 = new javax.swing.JLabel();
+        jLabel19 = new javax.swing.JLabel();
+        jLabel20 = new javax.swing.JLabel();
+        jLabel21 = new javax.swing.JLabel();
+        jLabel22 = new javax.swing.JLabel();
+        jLabel23 = new javax.swing.JLabel();
+        jLabel24 = new javax.swing.JLabel();
+        jLabel27 = new javax.swing.JLabel();
+        jLabel28 = new javax.swing.JLabel();
+        jLabel29 = new javax.swing.JLabel();
+        jLabel31 = new javax.swing.JLabel();
+        jLabel32 = new javax.swing.JLabel();
+        jLabel33 = new javax.swing.JLabel();
+        jLabel34 = new javax.swing.JLabel();
+        jLabel35 = new javax.swing.JLabel();
+        jLabel36 = new javax.swing.JLabel();
 
         setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
         jPanel1.setPreferredSize(new java.awt.Dimension(1300, 800));
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-
-        remove.setFont(new java.awt.Font("Yu Gothic", 0, 12)); // NOI18N
-        remove.setText("REMOVE");
-        remove.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                removeActionPerformed(evt);
-            }
-        });
-        jPanel1.add(remove, new org.netbeans.lib.awtextra.AbsoluteConstraints(830, 590, 302, 30));
 
         panelRound1.setBackground(new java.awt.Color(255, 255, 255));
         panelRound1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(153, 153, 153)));
@@ -198,22 +226,27 @@ public final class RegisterDSB extends javax.swing.JPanel {
 
         password.setFont(new java.awt.Font("Yu Gothic", 0, 12)); // NOI18N
         password.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        password.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                passwordKeyTyped(evt);
+            }
+        });
         panelRound1.add(password, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 290, 480, 30));
 
-        jLabel4.setFont(new java.awt.Font("Yu Gothic", 0, 20)); // NOI18N
-        jLabel4.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel4.setText("SIGN UP");
-        panelRound1.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 50, 480, -1));
+        strength.setFont(new java.awt.Font("Yu Gothic", 0, 12)); // NOI18N
+        strength.setForeground(new java.awt.Color(255, 255, 255));
+        strength.setText("STRENGTH");
+        panelRound1.add(strength, new org.netbeans.lib.awtextra.AbsoluteConstraints(48, 322, 480, -1));
 
         type.setFont(new java.awt.Font("Yu Gothic", 0, 10)); // NOI18N
         type.setForeground(new java.awt.Color(51, 51, 51));
         type.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "PATIENT", "DOCTOR", "ADMIN", "RECEPTIONIST" }));
-        panelRound1.add(type, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 350, 232, 30));
+        panelRound1.add(type, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 360, 232, 30));
 
         type1.setFont(new java.awt.Font("Yu Gothic", 0, 10)); // NOI18N
         type1.setForeground(new java.awt.Color(51, 51, 51));
         type1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "MALE", "FEMALE", "OTHERS" }));
-        panelRound1.add(type1, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 350, 240, 30));
+        panelRound1.add(type1, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 360, 240, 30));
 
         secret.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         secret.addFocusListener(new java.awt.event.FocusAdapter() {
@@ -254,29 +287,18 @@ public final class RegisterDSB extends javax.swing.JPanel {
         });
         panelRound1.add(contact, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 250, 480, 32));
 
-        clear.setFont(new java.awt.Font("Yu Gothic", 0, 11)); // NOI18N
-        clear.setForeground(new java.awt.Color(0, 87, 255));
-        clear.setText("CLEAR ALL FIELDS");
-        clear.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 87, 255)));
-        clear.setOpaque(false);
-        clear.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                clearActionPerformed(evt);
-            }
-        });
-        panelRound1.add(clear, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 620, 480, 30));
-
-        create.setBackground(new java.awt.Color(0, 87, 255));
+        create.setBackground(new java.awt.Color(255, 255, 255));
         create.setFont(new java.awt.Font("Yu Gothic", 0, 11)); // NOI18N
-        create.setForeground(new java.awt.Color(255, 255, 255));
+        create.setForeground(new java.awt.Color(0, 87, 255));
         create.setText("CREATE ACCOUNT");
         create.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 87, 255)));
+        create.setOpaque(false);
         create.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 createActionPerformed(evt);
             }
         });
-        panelRound1.add(create, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 570, 480, 30));
+        panelRound1.add(create, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 580, 480, 30));
 
         firstname.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         panelRound1.add(firstname, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 90, 230, 32));
@@ -284,13 +306,102 @@ public final class RegisterDSB extends javax.swing.JPanel {
         lastname.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         panelRound1.add(lastname, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 90, 230, 32));
 
+        jLabel12.setFont(new java.awt.Font("Yu Gothic", 0, 20)); // NOI18N
+        jLabel12.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel12.setText("SIGN UP");
+        panelRound1.add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 50, 480, -1));
+
+        jLabel13.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
+        jLabel13.setText("By creating an account, you agree to the Terms of Service. We'll ocassionaly send your account");
+        panelRound1.add(jLabel13, new org.netbeans.lib.awtextra.AbsoluteConstraints(35, 620, -1, 30));
+
+        jLabel15.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
+        jLabel15.setText("related emails, including updates on new features and promotions, and important notifications.");
+        panelRound1.add(jLabel15, new org.netbeans.lib.awtextra.AbsoluteConstraints(35, 640, -1, 30));
+
         jPanel1.add(panelRound1, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 10, 570, 680));
 
         jLabel3.setFont(new java.awt.Font("Yu Gothic", 0, 20)); // NOI18N
         jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/logod (1).png"))); // NOI18N
-        jLabel3.setText("SERENITY WELLNESS HOSPITAL");
-        jPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(750, 160, 480, -1));
+        jLabel3.setText("SERENITY WELLNESS");
+        jPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(640, 20, 230, -1));
+
+        jLabel14.setFont(new java.awt.Font("Yu Gothic", 0, 20)); // NOI18N
+        jLabel14.setForeground(new java.awt.Color(0, 87, 255));
+        jLabel14.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel14.setText(" HOSPITAL");
+        jPanel1.add(jLabel14, new org.netbeans.lib.awtextra.AbsoluteConstraints(855, 20, 120, -1));
+
+        jLabel18.setFont(new java.awt.Font("Yu Gothic", 1, 45)); // NOI18N
+        jLabel18.setText("COMMENCE YOUR DAY");
+        jPanel1.add(jLabel18, new org.netbeans.lib.awtextra.AbsoluteConstraints(650, 60, -1, -1));
+
+        jLabel19.setFont(new java.awt.Font("Yu Gothic", 1, 45)); // NOI18N
+        jLabel19.setText("WITH A");
+        jPanel1.add(jLabel19, new org.netbeans.lib.awtextra.AbsoluteConstraints(650, 120, -1, -1));
+
+        jLabel20.setFont(new java.awt.Font("Yu Gothic", 1, 45)); // NOI18N
+        jLabel20.setForeground(new java.awt.Color(5, 142, 230));
+        jLabel20.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/1p (1).png"))); // NOI18N
+        jPanel1.add(jLabel20, new org.netbeans.lib.awtextra.AbsoluteConstraints(650, 590, -1, -1));
+
+        jLabel21.setFont(new java.awt.Font("Yu Gothic", 0, 20)); // NOI18N
+        jLabel21.setForeground(new java.awt.Color(2, 116, 249));
+        jLabel21.setText("Core Security");
+        jPanel1.add(jLabel21, new org.netbeans.lib.awtextra.AbsoluteConstraints(770, 570, -1, -1));
+
+        jLabel22.setFont(new java.awt.Font("Yu Gothic", 1, 45)); // NOI18N
+        jLabel22.setForeground(new java.awt.Color(5, 142, 230));
+        jLabel22.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/colge (1).png"))); // NOI18N
+        jPanel1.add(jLabel22, new org.netbeans.lib.awtextra.AbsoluteConstraints(660, 220, -1, -1));
+
+        jLabel23.setFont(new java.awt.Font("Yu Gothic", 1, 45)); // NOI18N
+        jLabel23.setForeground(new java.awt.Color(5, 142, 230));
+        jLabel23.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/reduce (1).png"))); // NOI18N
+        jPanel1.add(jLabel23, new org.netbeans.lib.awtextra.AbsoluteConstraints(1150, 400, -1, -1));
+
+        jLabel24.setFont(new java.awt.Font("Yu Gothic", 1, 45)); // NOI18N
+        jLabel24.setForeground(new java.awt.Color(5, 142, 230));
+        jLabel24.setText("CLEAN BEGINNING");
+        jPanel1.add(jLabel24, new org.netbeans.lib.awtextra.AbsoluteConstraints(822, 120, -1, -1));
+
+        jLabel27.setFont(new java.awt.Font("Yu Gothic", 0, 20)); // NOI18N
+        jLabel27.setForeground(new java.awt.Color(226, 128, 134));
+        jLabel27.setText("Soothing Confidence");
+        jPanel1.add(jLabel27, new org.netbeans.lib.awtextra.AbsoluteConstraints(780, 200, -1, -1));
+
+        jLabel28.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
+        jLabel28.setText("ensuring accessible healthcare for all");
+        jPanel1.add(jLabel28, new org.netbeans.lib.awtextra.AbsoluteConstraints(890, 450, -1, -1));
+
+        jLabel29.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
+        jLabel29.setText("leaving a steadfast assurance in the quality of our work");
+        jPanel1.add(jLabel29, new org.netbeans.lib.awtextra.AbsoluteConstraints(780, 300, -1, -1));
+
+        jLabel31.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
+        jLabel31.setText("safeguarding systems from potential threats with unparalleled efficiency");
+        jPanel1.add(jLabel31, new org.netbeans.lib.awtextra.AbsoluteConstraints(770, 640, -1, -1));
+
+        jLabel32.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
+        jLabel32.setText("Affordable Remedies offers quality medications  at low prices,");
+        jPanel1.add(jLabel32, new org.netbeans.lib.awtextra.AbsoluteConstraints(720, 420, -1, -1));
+
+        jLabel33.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
+        jLabel33.setText("Soothing Confidence prevails,  eliminating doubt and ");
+        jPanel1.add(jLabel33, new org.netbeans.lib.awtextra.AbsoluteConstraints(780, 270, -1, -1));
+
+        jLabel34.setFont(new java.awt.Font("Yu Gothic", 0, 20)); // NOI18N
+        jLabel34.setForeground(new java.awt.Color(249, 172, 0));
+        jLabel34.setText("Affordable Remedies");
+        jPanel1.add(jLabel34, new org.netbeans.lib.awtextra.AbsoluteConstraints(940, 380, -1, -1));
+
+        jLabel35.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
+        jLabel35.setText("With our team's meticulous attention to detail,");
+        jPanel1.add(jLabel35, new org.netbeans.lib.awtextra.AbsoluteConstraints(780, 240, -1, -1));
+
+        jLabel36.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
+        jLabel36.setText("Core Security establishes a robust defense framework, ");
+        jPanel1.add(jLabel36, new org.netbeans.lib.awtextra.AbsoluteConstraints(770, 610, -1, -1));
 
         add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, 800));
     }// </editor-fold>//GEN-END:initComponents
@@ -351,7 +462,6 @@ public final class RegisterDSB extends javax.swing.JPanel {
                 contact.setText("");
                 lastname.setText("");
                 firstname.setText("");
-//                picture.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/defaultImage.png")));
                 jProgressBar1.setValue(0);
 
                 JTextField[] components = {lastname, firstname, username, email, password, secret, answer, contact};
@@ -365,10 +475,6 @@ public final class RegisterDSB extends javax.swing.JPanel {
             System.out.println(ex.getMessage());
         }
     }//GEN-LAST:event_createActionPerformed
-
-    private void removeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_removeActionPerformed
-//        picture.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/iring.jpg")));
-    }//GEN-LAST:event_removeActionPerformed
 
     private void secretFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_secretFocusGained
     }//GEN-LAST:event_secretFocusGained
@@ -394,23 +500,6 @@ public final class RegisterDSB extends javax.swing.JPanel {
     private void usernameMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_usernameMouseClicked
     }//GEN-LAST:event_usernameMouseClicked
 
-    private void clearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_clearActionPerformed
-        username.setText("");
-        email.setText("");
-        password.setText("");
-        secret.setText("");
-        answer.setText("");
-        contact.setText("");
-        lastname.setText("");
-        firstname.setText("");
-//        picture.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/defaultImage.png")));
-        jProgressBar1.setValue(0);
-
-        JTextField[] components = {lastname, firstname, username, email, password, secret, answer, contact};
-        BorderColorManager borderFieldReset = new BorderColorManager(components);
-        borderFieldReset.resetBorderColor();
-    }//GEN-LAST:event_clearActionPerformed
-
     private void jLabel11MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel11MouseClicked
         if (isEyeHidden) {
             jLabel11.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/eye.png")));
@@ -435,6 +524,9 @@ public final class RegisterDSB extends javax.swing.JPanel {
         }
     }//GEN-LAST:event_jPanel10MouseClicked
 
+    private void passwordKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_passwordKeyTyped
+    }//GEN-LAST:event_passwordKeyTyped
+
     public static void main(String args[]) {
         FlatLightLaf.registerCustomDefaultsSource("Style");
         FlatLightLaf.setup();
@@ -446,45 +538,6 @@ public final class RegisterDSB extends javax.swing.JPanel {
         });
     }
 
-//    Validation Hasb't Implemented Yet!, Design Muna   
-//    private String xemail, xusername; 
-//
-//    private boolean duplicateChecker() throws SQLException {
-//        ResultSet rs = new DBConnection().getData("select * from ac_table where ac_email = '" + email.getText() + "' or ac_username = '" + username.getText() + "'");
-//
-//        if (rs.next()) {
-//            xemail = rs.getString("ac_email");
-//            if (xemail.equals(email.getText())) {
-//                JOptionPane.showMessageDialog(this, "EMAIL HAS BEEN USED!", "OH NO!", ERROR_MESSAGE);
-//            }
-//
-//            xusername = rs.getString("ac_username");
-//            if (xusername.equals(username.getText())) {
-//                JOptionPane.showMessageDialog(this, "USERNAME HAS BEEN USED!", "OH NO!", ERROR_MESSAGE);
-//            }
-//            return true;
-//        } else {
-//            return false;
-//        }
-//    }
-//    private boolean validationChecker() {
-//        if (username.getText().isEmpty() || password.getText().isEmpty()
-//                || cpassword.getText().isEmpty() || email.getText().isEmpty() || contact.getText().isEmpty()) {
-//            Checkers.emptyFieldChecker("FILL ALL THE REQUIREMENTS!");
-//            return false;
-//        } else if (password.getText().length() < 8) {
-//            errorMessage("PASSWORD MUST BE AT LEAST 8 CHARACTERS!");
-//            return false;
-//        } else if (!password.getText().equals(cpassword.getText())) {
-//            errorMessage("PASSWORDS DO NOT MATCH!");
-//            return false;
-//        } else if (!contact.getText().matches("\\d+")) {
-//            errorMessage("CONTACT MUST CONTAIN ONLY DIGITS!");
-//            return false;
-//        } else {
-//            return true;
-//        }
-//    }
     public void register() {
         email.grabFocus();
     }
@@ -618,21 +671,87 @@ public final class RegisterDSB extends javax.swing.JPanel {
         }
 
         create.setFocusable(false);
-        remove.setFocusable(false);
         type.setFocusable(false);
     }
 
-//    public ImageIcon ResizeImage(String imagePath) {
-//        ImageIcon MyImage = new ImageIcon(imagePath);
-//        Image img = MyImage.getImage();
-//        Image newImg = img.getScaledInstance(picture.getHeight(), picture.getHeight(), Image.SCALE_SMOOTH);
-//        ImageIcon image = new ImageIcon(newImg);
-//        return image;
-//    }
+    private void updateStrengthLabel() {
+        String xpassword = password.getText();
+
+        if (xpassword == null || xpassword.isEmpty()) {
+            strength.setText("");
+            strength.setForeground(Color.WHITE);
+            return;
+        }
+
+        if (xpassword.length() < 8) {
+            strength.setText("Too Weak: Password must be at least 8 characters long");
+            strength.setForeground(Color.RED);
+            return;
+        }
+
+        boolean hasUpperCase = false;
+        boolean hasLowerCase = false;
+        boolean hasDigit = false;
+        boolean hasSpecialChar = false;
+
+        boolean hasSequentialChars = false;
+        boolean hasRepeatedChars = false;
+
+        char prevChar = '\0';
+
+        for (char ch : xpassword.toCharArray()) {
+            if (Character.isUpperCase(ch)) {
+                hasUpperCase = true;
+            } else if (Character.isLowerCase(ch)) {
+                hasLowerCase = true;
+            } else if (Character.isDigit(ch)) {
+                hasDigit = true;
+            } else if (isSpecialChar(ch)) {
+                hasSpecialChar = true;
+            }
+
+            if (prevChar != '\0' && (prevChar + 1 == ch || prevChar - 1 == ch)) {
+                hasSequentialChars = true;
+            }
+
+            if (prevChar != '\0' && prevChar == ch) {
+                hasRepeatedChars = true;
+            }
+
+            prevChar = ch;
+        }
+
+        if (hasUpperCase && hasLowerCase && hasDigit && hasSpecialChar && !hasSequentialChars && !hasRepeatedChars) {
+            strength.setText("Strong");
+            strength.setForeground(Color.GREEN);
+        } else if (!hasUpperCase) {
+            strength.setText("Too Weak: Password lacks uppercase characters");
+            strength.setForeground(Color.RED);
+        } else if (!hasLowerCase) {
+            strength.setText("Too Weak: Password lacks lowercase characters");
+            strength.setForeground(Color.RED);
+        } else if (!hasDigit) {
+            strength.setText("Too Weak: Password lacks digits");
+            strength.setForeground(Color.RED);
+        } else if (!hasSpecialChar) {
+            strength.setText("Too Weak: Password lacks special characters");
+            strength.setForeground(Color.RED);
+        } else if (hasSequentialChars || hasRepeatedChars) {
+            strength.setText("Too Weak: Password contains sequential or repeated characters");
+            strength.setForeground(Color.RED);
+        } else {
+            strength.setText("Mid Strength");
+            strength.setForeground(Color.YELLOW);
+        }
+    }
+
+    private boolean isSpecialChar(char ch) {
+        String specialChars = "!@#$%^&*()-_+=<>?";
+        return specialChars.contains(Character.toString(ch));
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTextField answer;
-    private javax.swing.JButton clear;
     private javax.swing.JTextField contact;
     private javax.swing.JButton create;
     private javax.swing.JTextField email;
@@ -640,9 +759,28 @@ public final class RegisterDSB extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
+    private javax.swing.JLabel jLabel12;
+    private javax.swing.JLabel jLabel13;
+    private javax.swing.JLabel jLabel14;
+    private javax.swing.JLabel jLabel15;
+    private javax.swing.JLabel jLabel18;
+    private javax.swing.JLabel jLabel19;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel20;
+    private javax.swing.JLabel jLabel21;
+    private javax.swing.JLabel jLabel22;
+    private javax.swing.JLabel jLabel23;
+    private javax.swing.JLabel jLabel24;
+    private javax.swing.JLabel jLabel27;
+    private javax.swing.JLabel jLabel28;
+    private javax.swing.JLabel jLabel29;
     private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel31;
+    private javax.swing.JLabel jLabel32;
+    private javax.swing.JLabel jLabel33;
+    private javax.swing.JLabel jLabel34;
+    private javax.swing.JLabel jLabel35;
+    private javax.swing.JLabel jLabel36;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
@@ -662,8 +800,8 @@ public final class RegisterDSB extends javax.swing.JPanel {
     private javax.swing.JTextField lastname;
     private test.PanelRound panelRound1;
     private javax.swing.JPasswordField password;
-    private javax.swing.JButton remove;
     private javax.swing.JTextField secret;
+    private javax.swing.JLabel strength;
     private javax.swing.JComboBox<String> type;
     private javax.swing.JComboBox<String> type1;
     private javax.swing.JTextField username;
