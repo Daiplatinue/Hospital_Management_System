@@ -1,6 +1,8 @@
 package LoginForm;
 
 import Functions.SeperatorAnimation;
+import static LoginForm.LoginDashboard.jLabel9;
+import java.awt.Color;
 import java.awt.Desktop;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -27,13 +29,17 @@ public final class Main extends javax.swing.JPanel {
         signIn.addActionListener(e -> {
             SeperatorAnimation animation = new SeperatorAnimation();
             animation.animatePanelHorizontally(LoginDashboard.selection, LoginDashboard.selection.getX() + 132);
+            LoginDashboard.jLabel22.setForeground(Color.BLACK);
+            LoginDashboard.jLabel9.setForeground(new Color(153, 153, 153));
         });
 
         signUp.addActionListener(e -> {
             SeperatorAnimation animation = new SeperatorAnimation();
             animation.animatePanelHorizontally(LoginDashboard.selection, LoginDashboard.selection.getX() + 65);
+            LoginDashboard.jLabel12.setForeground(Color.BLACK);
+            LoginDashboard.jLabel9.setForeground(new Color(153, 153, 153));
         });
-        
+
         signUp.setFocusable(false);
         signIn.setFocusable(false);
         jButton2.setFocusable(false);
@@ -173,7 +179,7 @@ public final class Main extends javax.swing.JPanel {
         signIn.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(45, 117, 255)));
         signIn.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         signIn.setOpaque(false);
-        jPanel2.add(signIn, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 310, 100, 30));
+        jPanel2.add(signIn, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 310, 100, 30));
 
         signUp.setBackground(new java.awt.Color(0, 87, 255));
         signUp.setForeground(new java.awt.Color(255, 255, 255));
