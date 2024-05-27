@@ -9,15 +9,13 @@ import java.awt.event.*;
 import java.io.*;
 import java.security.*;
 import java.sql.*;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.*;
 import javax.swing.event.*;
-import jnafilechooser.api.*;
 
 public final class RegisterDSB extends javax.swing.JPanel {
 
     String path2 = null;
+    boolean isEyeHidden;
 
     public RegisterDSB() {
         initComponents();
@@ -31,13 +29,29 @@ public final class RegisterDSB extends javax.swing.JPanel {
 
         jPanel1 = new javax.swing.JPanel();
         remove = new javax.swing.JButton();
-        picture = new javax.swing.JLabel();
         panelRound1 = new test.PanelRound();
-        lastname = new javax.swing.JTextField();
-        firstname = new javax.swing.JTextField();
-        middlename = new javax.swing.JPasswordField();
+        jPanel10 = new javax.swing.JPanel();
+        jLabel11 = new javax.swing.JLabel();
+        jPanel9 = new javax.swing.JPanel();
+        jLabel10 = new javax.swing.JLabel();
+        jPanel8 = new javax.swing.JPanel();
+        jLabel9 = new javax.swing.JLabel();
+        jPanel7 = new javax.swing.JPanel();
+        jLabel8 = new javax.swing.JLabel();
+        jPanel6 = new javax.swing.JPanel();
+        jLabel7 = new javax.swing.JLabel();
+        jPanel5 = new javax.swing.JPanel();
+        jLabel6 = new javax.swing.JLabel();
+        jPanel4 = new javax.swing.JPanel();
+        jLabel5 = new javax.swing.JLabel();
+        jPanel3 = new javax.swing.JPanel();
+        jLabel2 = new javax.swing.JLabel();
+        jPanel2 = new javax.swing.JPanel();
+        jLabel1 = new javax.swing.JLabel();
+        username = new javax.swing.JTextField();
+        email = new javax.swing.JTextField();
+        password = new javax.swing.JPasswordField();
         jLabel4 = new javax.swing.JLabel();
-        cpassword = new javax.swing.JPasswordField();
         type = new javax.swing.JComboBox<>();
         type1 = new javax.swing.JComboBox<>();
         secret = new javax.swing.JTextField();
@@ -45,6 +59,8 @@ public final class RegisterDSB extends javax.swing.JPanel {
         contact = new javax.swing.JTextField();
         clear = new javax.swing.JButton();
         create = new javax.swing.JButton();
+        firstname = new javax.swing.JTextField();
+        lastname = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
 
         setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -62,14 +78,6 @@ public final class RegisterDSB extends javax.swing.JPanel {
         });
         jPanel1.add(remove, new org.netbeans.lib.awtextra.AbsoluteConstraints(830, 590, 302, 30));
 
-        picture.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/defaultImage.png"))); // NOI18N
-        picture.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                pictureMouseClicked(evt);
-            }
-        });
-        jPanel1.add(picture, new org.netbeans.lib.awtextra.AbsoluteConstraints(810, 210, -1, -1));
-
         panelRound1.setBackground(new java.awt.Color(255, 255, 255));
         panelRound1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(153, 153, 153)));
         panelRound1.setRoundBottomLeft(50);
@@ -77,54 +85,135 @@ public final class RegisterDSB extends javax.swing.JPanel {
         panelRound1.setRoundTopLeft(50);
         panelRound1.setRoundTopRight(50);
         panelRound1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jPanel10.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel10.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jPanel10MouseClicked(evt);
+            }
+        });
+        jPanel10.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jLabel11.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/eye.png"))); // NOI18N
+        jLabel11.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jLabel11.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel11MouseClicked(evt);
+            }
+        });
+        jPanel10.add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 0, 20, 28));
+
+        panelRound1.add(jPanel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(488, 292, 40, 25));
+
+        jPanel9.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel9.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jLabel10.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/pass (1).png"))); // NOI18N
+        jPanel9.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 0, 20, 28));
+
+        panelRound1.add(jPanel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(52, 292, 40, 25));
+
+        jPanel8.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel8.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jLabel9.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/phone (1).png"))); // NOI18N
+        jPanel8.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 0, 20, 28));
+
+        panelRound1.add(jPanel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(52, 252, 40, 28));
+
+        jPanel7.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel7.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jLabel8.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/answer-alt (1).png"))); // NOI18N
+        jPanel7.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 0, 20, 28));
+
+        panelRound1.add(jPanel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(302, 212, 40, 28));
+
+        jPanel6.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel6.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jLabel7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/question (1).png"))); // NOI18N
+        jPanel6.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 0, 20, 28));
+
+        panelRound1.add(jPanel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(52, 212, 40, 28));
+
+        jPanel5.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel5.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jLabel6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/envelope-plus (1).png"))); // NOI18N
+        jPanel5.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 0, 20, 28));
+
+        panelRound1.add(jPanel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(52, 172, 40, 28));
+
+        jPanel4.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel4.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jLabel5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/user (1).png"))); // NOI18N
+        jPanel4.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 0, 20, 28));
+
+        panelRound1.add(jPanel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(52, 132, 40, 28));
+
+        jPanel3.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel3.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/user-last (1).png"))); // NOI18N
+        jPanel3.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 0, 20, 28));
+
+        panelRound1.add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(303, 92, 40, 28));
+
+        jPanel2.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/user-add (1).png"))); // NOI18N
+        jPanel2.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 0, 20, 28));
+
+        panelRound1.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(53, 92, 40, 28));
         panelRound1.add(jProgressBar1, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 30, 480, -1));
 
-        lastname.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        lastname.addFocusListener(new java.awt.event.FocusAdapter() {
+        username.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        username.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
-                lastnameFocusGained(evt);
+                usernameFocusGained(evt);
             }
         });
-        lastname.addMouseListener(new java.awt.event.MouseAdapter() {
+        username.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                lastnameMouseClicked(evt);
+                usernameMouseClicked(evt);
             }
         });
-        panelRound1.add(lastname, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 110, 230, 32));
+        panelRound1.add(username, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 130, 480, 32));
 
-        firstname.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        firstname.addFocusListener(new java.awt.event.FocusAdapter() {
+        email.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        email.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
-                firstnameFocusGained(evt);
+                emailFocusGained(evt);
             }
         });
-        firstname.addMouseListener(new java.awt.event.MouseAdapter() {
+        email.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                firstnameMouseClicked(evt);
+                emailMouseClicked(evt);
             }
         });
-        panelRound1.add(firstname, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 110, 230, 32));
+        panelRound1.add(email, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 170, 480, 32));
 
-        middlename.setFont(new java.awt.Font("Yu Gothic", 0, 12)); // NOI18N
-        middlename.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        panelRound1.add(middlename, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 160, 480, 30));
+        password.setFont(new java.awt.Font("Yu Gothic", 0, 12)); // NOI18N
+        password.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        panelRound1.add(password, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 290, 480, 30));
 
         jLabel4.setFont(new java.awt.Font("Yu Gothic", 0, 20)); // NOI18N
         jLabel4.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel4.setText("SIGN UP");
         panelRound1.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 50, 480, -1));
 
-        cpassword.setFont(new java.awt.Font("Yu Gothic", 0, 12)); // NOI18N
-        cpassword.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        panelRound1.add(cpassword, new org.netbeans.lib.awtextra.AbsoluteConstraints(302, 205, 230, 30));
-
-        type.setFont(new java.awt.Font("Yu Gothic", 0, 12)); // NOI18N
+        type.setFont(new java.awt.Font("Yu Gothic", 0, 10)); // NOI18N
+        type.setForeground(new java.awt.Color(51, 51, 51));
         type.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "PATIENT", "DOCTOR", "ADMIN", "RECEPTIONIST" }));
-        panelRound1.add(type, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 250, 232, 30));
+        panelRound1.add(type, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 350, 232, 30));
 
-        type1.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
+        type1.setFont(new java.awt.Font("Yu Gothic", 0, 10)); // NOI18N
+        type1.setForeground(new java.awt.Color(51, 51, 51));
         type1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "MALE", "FEMALE", "OTHERS" }));
-        panelRound1.add(type1, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 205, 232, 30));
+        panelRound1.add(type1, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 350, 240, 30));
 
         secret.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         secret.addFocusListener(new java.awt.event.FocusAdapter() {
@@ -137,7 +226,7 @@ public final class RegisterDSB extends javax.swing.JPanel {
                 secretMouseClicked(evt);
             }
         });
-        panelRound1.add(secret, new org.netbeans.lib.awtextra.AbsoluteConstraints(302, 250, 230, 32));
+        panelRound1.add(secret, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 210, 230, 32));
 
         answer.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         answer.addFocusListener(new java.awt.event.FocusAdapter() {
@@ -150,7 +239,7 @@ public final class RegisterDSB extends javax.swing.JPanel {
                 answerMouseClicked(evt);
             }
         });
-        panelRound1.add(answer, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 300, 480, 32));
+        panelRound1.add(answer, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 210, 230, 32));
 
         contact.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         contact.addFocusListener(new java.awt.event.FocusAdapter() {
@@ -163,7 +252,7 @@ public final class RegisterDSB extends javax.swing.JPanel {
                 contactMouseClicked(evt);
             }
         });
-        panelRound1.add(contact, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 350, 480, 32));
+        panelRound1.add(contact, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 250, 480, 32));
 
         clear.setFont(new java.awt.Font("Yu Gothic", 0, 11)); // NOI18N
         clear.setForeground(new java.awt.Color(0, 87, 255));
@@ -189,6 +278,12 @@ public final class RegisterDSB extends javax.swing.JPanel {
         });
         panelRound1.add(create, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 570, 480, 30));
 
+        firstname.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        panelRound1.add(firstname, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 90, 230, 32));
+
+        lastname.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        panelRound1.add(lastname, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 90, 230, 32));
+
         jPanel1.add(panelRound1, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 10, 570, 680));
 
         jLabel3.setFont(new java.awt.Font("Yu Gothic", 0, 20)); // NOI18N
@@ -200,13 +295,13 @@ public final class RegisterDSB extends javax.swing.JPanel {
         add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, 800));
     }// </editor-fold>//GEN-END:initComponents
 
-    private void firstnameFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_firstnameFocusGained
-        firstname.setFocusable(true);
-    }//GEN-LAST:event_firstnameFocusGained
+    private void emailFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_emailFocusGained
+        email.setFocusable(true);
+    }//GEN-LAST:event_emailFocusGained
 
-    private void firstnameMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_firstnameMouseClicked
-        firstname.setFocusable(true);
-    }//GEN-LAST:event_firstnameMouseClicked
+    private void emailMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_emailMouseClicked
+        email.setFocusable(true);
+    }//GEN-LAST:event_emailMouseClicked
 
     private void createActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_createActionPerformed
         try {
@@ -217,9 +312,9 @@ public final class RegisterDSB extends javax.swing.JPanel {
                 JOptionPane.showMessageDialog(null, "PLEASE INSERT AN IMAGE FIRST!", "WARNING", JOptionPane.WARNING_MESSAGE, customIcon);
             } else {
 
-                String user = lastname.getText();
-                String emails = this.firstname.getText();
-                String hashedPass = Hasher.passwordHasher(this.middlename.getText());
+                String user = username.getText();
+                String emails = this.email.getText();
+                String hashedPass = Hasher.passwordHasher(this.password.getText());
                 String secretQuestion = secret.getText();
                 String secretAnswer = answer.getText();
                 String status = "Pending";
@@ -248,33 +343,31 @@ public final class RegisterDSB extends javax.swing.JPanel {
                 Icon customIcon = new javax.swing.ImageIcon(getClass().getResource("/Images/sucess.png"));
                 JOptionPane.showMessageDialog(null, "ACCOUNT CREATED SUCCESSFULLY!", "SUCCESS", JOptionPane.WARNING_MESSAGE, customIcon);
 
-                lastname.setText("");
-                firstname.setText("");
-                middlename.setText("");
-                cpassword.setText("");
+                username.setText("");
+                email.setText("");
+                password.setText("");
                 secret.setText("");
                 answer.setText("");
                 contact.setText("");
-                picture.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/iring.jpg")));
+                lastname.setText("");
+                firstname.setText("");
+//                picture.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/defaultImage.png")));
+                jProgressBar1.setValue(0);
 
-                lastname.setBorder(BorderFactory.createLineBorder(Color.LIGHT_GRAY));
-                firstname.setBorder(BorderFactory.createLineBorder(Color.LIGHT_GRAY));
-                middlename.setBorder(BorderFactory.createLineBorder(Color.LIGHT_GRAY));
-                cpassword.setBorder(BorderFactory.createLineBorder(Color.LIGHT_GRAY));
-                secret.setBorder(BorderFactory.createLineBorder(Color.LIGHT_GRAY));
-                answer.setBorder(BorderFactory.createLineBorder(Color.LIGHT_GRAY));
-                contact.setBorder(BorderFactory.createLineBorder(Color.LIGHT_GRAY));
+                JTextField[] components = {lastname, firstname, username, email, password, secret, answer, contact};
+                BorderColorManager borderFieldReset = new BorderColorManager(components);
+                borderFieldReset.resetBorderColor();
 
                 LoginDashboard.slide.show(0);
             }
 
         } catch (SQLException | NoSuchAlgorithmException | FileNotFoundException ex) {
             System.out.println(ex.getMessage());
-        } 
+        }
     }//GEN-LAST:event_createActionPerformed
 
     private void removeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_removeActionPerformed
-        picture.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/iring.jpg")));
+//        picture.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/iring.jpg")));
     }//GEN-LAST:event_removeActionPerformed
 
     private void secretFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_secretFocusGained
@@ -295,40 +388,52 @@ public final class RegisterDSB extends javax.swing.JPanel {
     private void answerMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_answerMouseClicked
     }//GEN-LAST:event_answerMouseClicked
 
-    private void lastnameFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_lastnameFocusGained
-    }//GEN-LAST:event_lastnameFocusGained
+    private void usernameFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_usernameFocusGained
+    }//GEN-LAST:event_usernameFocusGained
 
-    private void lastnameMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lastnameMouseClicked
-    }//GEN-LAST:event_lastnameMouseClicked
-
-    private void pictureMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_pictureMouseClicked
-        JnaFileChooser ch = new JnaFileChooser();
-        boolean action = ch.showOpenDialog(new NewJFrames());
-        if (action) {
-            File selectedFile = ch.getSelectedFile();
-            String path = selectedFile.getAbsolutePath();
-            picture.setIcon(ResizeImage(path));
-            path2 = path;
-        } else {
-            Checkers.unsuccessfullFieldChecker("IMAGE ALREADY EXIST OR DOES NOT EXIST!");
-        }
-    }//GEN-LAST:event_pictureMouseClicked
+    private void usernameMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_usernameMouseClicked
+    }//GEN-LAST:event_usernameMouseClicked
 
     private void clearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_clearActionPerformed
-        lastname.setText("");
-        firstname.setText("");
-        middlename.setText("");
-        cpassword.setText("");
+        username.setText("");
+        email.setText("");
+        password.setText("");
         secret.setText("");
         answer.setText("");
         contact.setText("");
-        picture.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/defaultImage.png")));
+        lastname.setText("");
+        firstname.setText("");
+//        picture.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/defaultImage.png")));
         jProgressBar1.setValue(0);
 
-        JTextField[] components = {lastname, firstname, middlename, secret, answer, contact, cpassword};
+        JTextField[] components = {lastname, firstname, username, email, password, secret, answer, contact};
         BorderColorManager borderFieldReset = new BorderColorManager(components);
         borderFieldReset.resetBorderColor();
     }//GEN-LAST:event_clearActionPerformed
+
+    private void jLabel11MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel11MouseClicked
+        if (isEyeHidden) {
+            jLabel11.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/eye.png")));
+            password.setEchoChar('•');
+            isEyeHidden = false;
+        } else {
+            jLabel11.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/eye_hide.png")));
+            password.setEchoChar((char) 0);
+            isEyeHidden = true;
+        }
+    }//GEN-LAST:event_jLabel11MouseClicked
+
+    private void jPanel10MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel10MouseClicked
+        if (isEyeHidden) {
+            jLabel11.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/eye.png")));
+            password.setEchoChar('•');
+            isEyeHidden = false;
+        } else {
+            jLabel11.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/eye_hide.png")));
+            password.setEchoChar((char) 0);
+            isEyeHidden = true;
+        }
+    }//GEN-LAST:event_jPanel10MouseClicked
 
     public static void main(String args[]) {
         FlatLightLaf.registerCustomDefaultsSource("Style");
@@ -381,7 +486,7 @@ public final class RegisterDSB extends javax.swing.JPanel {
 //        }
 //    }
     public void register() {
-        firstname.grabFocus();
+        email.grabFocus();
     }
 
     public void progress() {
@@ -406,8 +511,8 @@ public final class RegisterDSB extends javax.swing.JPanel {
     public int calculateProgress() {
         int progress = 0;
 
-        JTextField[] fields = {lastname, firstname, middlename, cpassword, secret, answer, contact};
-        int[] scores = {5, 5, 10, 5, 7, 7, 5};
+        JTextField[] fields = {lastname, firstname, username, email, password, secret, answer, contact};
+        int[] scores = {5, 5, 5, 10, 5, 7, 7, 5};
         Color[] colors = {Color.RED, Color.GREEN};
 
         for (int i = 0; i < fields.length; i++) {
@@ -442,36 +547,30 @@ public final class RegisterDSB extends javax.swing.JPanel {
         parent.dispose();
     }
 
-    public ImageIcon ResizeImage(String imagePath) {
-        ImageIcon MyImage = new ImageIcon(imagePath);
-        Image img = MyImage.getImage();
-        Image newImg = img.getScaledInstance(picture.getHeight(), picture.getHeight(), Image.SCALE_SMOOTH);
-        ImageIcon image = new ImageIcon(newImg);
-        return image;
-    }
-
     public void actionListeners() {
         ProgressBarAnimator animator = new ProgressBarAnimator();
-        animator.setUsername(lastname);
-        animator.setEmail(firstname);
-        animator.setPassword(middlename);
-        animator.setCpassword(cpassword);
+        animator.setLastname(lastname);
+        animator.setFirstname(firstname);
+        animator.setUsername(username);
+        animator.setEmail(email);
+        animator.setPassword(password);
         animator.setSecret(secret);
         animator.setAnswer(answer);
         animator.setContact(contact);
         animator.setType(type);
         animator.setProgressBar(jProgressBar1);
+
         type.addActionListener(e -> animator.calculateProgress());
 
-        DocumentListener documentListener = new RegisterDSB.SimpleDocumentListener(() -> animator.calculateProgress());
+        DocumentListener documentListener = new SimpleDocumentListener(() -> animator.calculateProgress());
         lastname.getDocument().addDocumentListener(documentListener);
         firstname.getDocument().addDocumentListener(documentListener);
-        middlename.getDocument().addDocumentListener(documentListener);
-        cpassword.getDocument().addDocumentListener(documentListener);
+        username.getDocument().addDocumentListener(documentListener);
+        email.getDocument().addDocumentListener(documentListener);
+        password.getDocument().addDocumentListener(documentListener);
         secret.getDocument().addDocumentListener(documentListener);
         answer.getDocument().addDocumentListener(documentListener);
         contact.getDocument().addDocumentListener(documentListener);
-
     }
 
     class SimpleDocumentListener implements DocumentListener {
@@ -506,11 +605,11 @@ public final class RegisterDSB extends javax.swing.JPanel {
 
     public void registerHandlers() {
         String[] placeholders = {
-            "USERNAME", "PASSWORD", "EMAIL", "CONFIRM PASSWORD",
+            "LAST NAME", "FIRST NAME", "USERNAME", "PASSWORD", "EMAIL",
             "SECRET ANSWER", "SECRET QUESTION", "CONTACT"
         };
         JComponent[] components = {
-            lastname, middlename, firstname, cpassword, answer, secret, contact
+            lastname, firstname, username, password, email, answer, secret, contact
         };
 
         for (int i = 0; i < components.length; i++) {
@@ -523,24 +622,50 @@ public final class RegisterDSB extends javax.swing.JPanel {
         type.setFocusable(false);
     }
 
+//    public ImageIcon ResizeImage(String imagePath) {
+//        ImageIcon MyImage = new ImageIcon(imagePath);
+//        Image img = MyImage.getImage();
+//        Image newImg = img.getScaledInstance(picture.getHeight(), picture.getHeight(), Image.SCALE_SMOOTH);
+//        ImageIcon image = new ImageIcon(newImg);
+//        return image;
+//    }
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTextField answer;
     private javax.swing.JButton clear;
     private javax.swing.JTextField contact;
-    private javax.swing.JPasswordField cpassword;
     private javax.swing.JButton create;
+    private javax.swing.JTextField email;
     private javax.swing.JTextField firstname;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel10;
+    private javax.swing.JLabel jLabel11;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel10;
+    private javax.swing.JPanel jPanel2;
+    private javax.swing.JPanel jPanel3;
+    private javax.swing.JPanel jPanel4;
+    private javax.swing.JPanel jPanel5;
+    private javax.swing.JPanel jPanel6;
+    private javax.swing.JPanel jPanel7;
+    private javax.swing.JPanel jPanel8;
+    private javax.swing.JPanel jPanel9;
     public final javax.swing.JProgressBar jProgressBar1 = new javax.swing.JProgressBar();
     private javax.swing.JTextField lastname;
-    private javax.swing.JPasswordField middlename;
     private test.PanelRound panelRound1;
-    public javax.swing.JLabel picture;
+    private javax.swing.JPasswordField password;
     private javax.swing.JButton remove;
     private javax.swing.JTextField secret;
     private javax.swing.JComboBox<String> type;
     private javax.swing.JComboBox<String> type1;
+    private javax.swing.JTextField username;
     // End of variables declaration//GEN-END:variables
 }

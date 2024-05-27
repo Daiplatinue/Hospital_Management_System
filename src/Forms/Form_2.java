@@ -274,7 +274,7 @@ public final class Form_2 extends javax.swing.JPanel {
 
         } catch (SQLException | NoSuchAlgorithmException | FileNotFoundException ex) {
             System.out.println(ex.getMessage());
-        } 
+        }
     }//GEN-LAST:event_createActionPerformed
 
     private void pictureMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_pictureMouseClicked
@@ -389,7 +389,6 @@ public final class Form_2 extends javax.swing.JPanel {
         animator.setUsername(username);
         animator.setEmail(email);
         animator.setPassword(password);
-        animator.setCpassword(cpassword);
         animator.setSecret(secret);
         animator.setAnswer(answer);
         animator.setContact(contact);

@@ -11,15 +11,15 @@ public final class ProgressBarAnimator {
     private static final int ANIMATION_STEP = 1;
     private static final int ANIMATION_DELAY = 10;
 
-    private JTextField username, email, password, cpassword, secret, answer, contact;
+    private JTextField username, email, password, secret, answer, contact, lastname, firstname;
     private JComboBox<String> type;
     private JProgressBar jProgressBar1;
 
     public int calculateProgress() {
         final int[] targetProgress = {0};
 
-        JTextField[] fields = {username, email, password, cpassword, secret, answer, contact};
-        int[] scores = {5, 5, 10, 5, 7, 7, 5};
+        JTextField[] fields = {lastname, firstname, username, email, password, secret, answer, contact};
+        int[] scores = {5, 5, 5, 10, 5, 7, 7, 5};
         Color[] colors = {Color.RED, Color.GREEN};
 
         for (int i = 0; i < fields.length; i++) {
@@ -69,6 +69,14 @@ public final class ProgressBarAnimator {
         return targetProgress[0];
     }
 
+    public void setLastname(JTextField lastname) {
+        this.lastname = lastname;
+    }
+
+    public void setFirstname(JTextField firstname) {
+        this.firstname = firstname;
+    }
+
     public void setUsername(JTextField username) {
         this.username = username;
     }
@@ -79,10 +87,6 @@ public final class ProgressBarAnimator {
 
     public void setPassword(JTextField password) {
         this.password = password;
-    }
-
-    public void setCpassword(JTextField cpassword) {
-        this.cpassword = cpassword;
     }
 
     public void setSecret(JTextField secret) {
