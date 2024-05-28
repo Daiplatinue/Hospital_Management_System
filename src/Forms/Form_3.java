@@ -7,6 +7,10 @@ import java.awt.*;
 import java.awt.event.*;
 import java.awt.print.*;
 import java.io.*;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.nio.file.StandardCopyOption;
 import java.sql.*;
 import java.text.*;
 import java.util.*;
@@ -23,7 +27,17 @@ public final class Form_3 extends javax.swing.JPanel {
     private final Map<JPanel, Timer> enterTimers;
     private final Map<JPanel, Timer> exitTimers;
     private final int step = 5;
-    String destination = "src/MyImages/default.png";
+    String destination = "";
+    File selectedFile;
+    String path;
+    String oldpath;
+
+    File coverSelection;
+    String pathCover;
+    String oldpathCover;
+    String coverDestination = "";
+
+    private boolean isVisible = false;
 
     public Form_3() throws IOException {
         this.enterTimers = new HashMap<>();
@@ -37,12 +51,20 @@ public final class Form_3 extends javax.swing.JPanel {
         acquireData();
         scroll1.getVerticalScrollBar().setUnitIncrement(16);
         jScrollPane2.getVerticalScrollBar().setUnitIncrement(20);
+        remove.setEnabled(false);
+
+        question.setVisible(false);
+        answer.setVisible(false);
     }
 
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        ViewAccount = new javax.swing.JPopupMenu();
+        Delete_Account = new javax.swing.JMenuItem();
+        Exit = new javax.swing.JMenuItem();
+        jMenuItem1 = new javax.swing.JMenuItem();
         jPanel11 = new javax.swing.JPanel();
         jPanel5 = new javax.swing.JPanel();
         pane = new javax.swing.JTabbedPane();
@@ -135,43 +157,63 @@ public final class Form_3 extends javax.swing.JPanel {
         uid12 = new javax.swing.JLabel();
         printableTable = new javax.swing.JButton();
         jPanel3 = new javax.swing.JPanel();
+        searchBar = new javax.swing.JTextField();
         scroll = new javax.swing.JScrollPane();
         jPanel1 = new javax.swing.JPanel();
         jScrollPane2 = new javax.swing.JScrollPane();
         jPanel4 = new javax.swing.JPanel();
-        password = new javax.swing.JPasswordField();
         username = new javax.swing.JTextField();
         email = new javax.swing.JTextField();
-        answer = new javax.swing.JTextField();
         picture1 = new javax.swing.JLabel();
         remove = new javax.swing.JButton();
-        secret = new javax.swing.JTextField();
         type = new javax.swing.JComboBox<>();
         status = new javax.swing.JComboBox<>();
         contact = new javax.swing.JTextField();
         id = new javax.swing.JTextField();
-        clear = new javax.swing.JButton();
-        delete = new javax.swing.JButton();
         update = new javax.swing.JButton();
         add2 = new javax.swing.JButton();
-        jSeparator1 = new javax.swing.JSeparator();
-        jSeparator2 = new javax.swing.JSeparator();
         cover = new javax.swing.JLabel();
         firstname = new javax.swing.JTextField();
         lastname = new javax.swing.JTextField();
+        gender = new javax.swing.JComboBox<>();
+        answer = new javax.swing.JTextField();
+        question = new javax.swing.JTextField();
+        jButton1 = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
         changeView = new javax.swing.JButton();
         search = new javax.swing.JTextField();
         jLabel1 = new javax.swing.JLabel();
         print = new javax.swing.JButton();
-        jLabel8 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
         jLabel9 = new javax.swing.JLabel();
-        jLabel4 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         ac_db = new javax.swing.JTable();
+
+        Delete_Account.setText("Delete Account");
+        Delete_Account.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                Delete_AccountActionPerformed(evt);
+            }
+        });
+        ViewAccount.add(Delete_Account);
+
+        Exit.setText("Exit System");
+        Exit.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ExitActionPerformed(evt);
+            }
+        });
+        ViewAccount.add(Exit);
+
+        jMenuItem1.setText("Remove Cover Photo");
+        jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem1ActionPerformed(evt);
+            }
+        });
+        ViewAccount.add(jMenuItem1);
 
         setMinimumSize(new java.awt.Dimension(1310, 770));
 
@@ -184,14 +226,14 @@ public final class Form_3 extends javax.swing.JPanel {
         jPanel5.setLayout(jPanel5Layout);
         jPanel5Layout.setHorizontalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 1310, Short.MAX_VALUE)
+            .addGap(0, 1340, Short.MAX_VALUE)
         );
         jPanel5Layout.setVerticalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 50, Short.MAX_VALUE)
         );
 
-        jPanel11.add(jPanel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, -40, 1310, 50));
+        jPanel11.add(jPanel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, -40, 1340, 50));
 
         scroll1.setBackground(new java.awt.Color(255, 255, 255));
         scroll1.setFont(new java.awt.Font("Yu Gothic", 0, 11)); // NOI18N
@@ -711,7 +753,7 @@ public final class Form_3 extends javax.swing.JPanel {
                 printableTableActionPerformed(evt);
             }
         });
-        scrols.add(printableTable, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 50, 1160, 30));
+        scrols.add(printableTable, new org.netbeans.lib.awtextra.AbsoluteConstraints(1010, 50, 210, 30));
 
         jPanel3.setBackground(new java.awt.Color(255, 255, 255));
 
@@ -728,6 +770,19 @@ public final class Form_3 extends javax.swing.JPanel {
 
         scrols.add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 1310, 1160, 50));
 
+        searchBar.setText("SEARCH");
+        searchBar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                searchBarActionPerformed(evt);
+            }
+        });
+        searchBar.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                searchBarKeyReleased(evt);
+            }
+        });
+        scrols.add(searchBar, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 30, 470, 30));
+
         scroll1.setViewportView(scrols);
 
         pane.addTab("tab3", scroll1);
@@ -741,14 +796,17 @@ public final class Form_3 extends javax.swing.JPanel {
         jScrollPane2.setBackground(new java.awt.Color(255, 255, 255));
 
         jPanel4.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel4.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseReleased(java.awt.event.MouseEvent evt) {
+                jPanel4MouseReleased(evt);
+            }
+        });
         jPanel4.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        password.setFont(new java.awt.Font("Yu Gothic", 0, 12)); // NOI18N
-        password.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        jPanel4.add(password, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 2660, 302, 30));
-
-        username.setFont(new java.awt.Font("Arial", 1, 20)); // NOI18N
-        username.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        username.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
+        username.setForeground(new java.awt.Color(153, 153, 153));
+        username.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        username.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(153, 153, 153), 1, true));
         username.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
                 usernameFocusGained(evt);
@@ -759,9 +817,17 @@ public final class Form_3 extends javax.swing.JPanel {
                 usernameMouseClicked(evt);
             }
         });
-        jPanel4.add(username, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 360, 660, 32));
+        username.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                usernameActionPerformed(evt);
+            }
+        });
+        jPanel4.add(username, new org.netbeans.lib.awtextra.AbsoluteConstraints(970, 380, 270, 32));
 
+        email.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
+        email.setForeground(new java.awt.Color(153, 153, 153));
         email.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        email.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(153, 153, 153), 1, true));
         email.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
                 emailFocusGained(evt);
@@ -772,20 +838,12 @@ public final class Form_3 extends javax.swing.JPanel {
                 emailMouseClicked(evt);
             }
         });
-        jPanel4.add(email, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 770, 302, 32));
-
-        answer.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        answer.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusGained(java.awt.event.FocusEvent evt) {
-                answerFocusGained(evt);
+        email.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                emailActionPerformed(evt);
             }
         });
-        answer.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                answerMouseClicked(evt);
-            }
-        });
-        jPanel4.add(answer, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 2510, 302, 32));
+        jPanel4.add(email, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 450, 270, 32));
 
         picture1.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -795,36 +853,32 @@ public final class Form_3 extends javax.swing.JPanel {
         jPanel4.add(picture1, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 220, 180, 190));
 
         remove.setFont(new java.awt.Font("Yu Gothic", 0, 12)); // NOI18N
-        remove.setText("REMOVE");
+        remove.setText("Remove");
+        remove.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(155, 155, 155), 1, true));
+        remove.setOpaque(false);
         remove.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 removeActionPerformed(evt);
             }
         });
-        jPanel4.add(remove, new org.netbeans.lib.awtextra.AbsoluteConstraints(870, 2690, 352, 30));
+        jPanel4.add(remove, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 430, 180, 30));
 
-        secret.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        secret.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusGained(java.awt.event.FocusEvent evt) {
-                secretFocusGained(evt);
-            }
-        });
-        secret.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                secretMouseClicked(evt);
-            }
-        });
-        jPanel4.add(secret, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 2720, 302, 32));
-
-        type.setFont(new java.awt.Font("Yu Gothic", 0, 12)); // NOI18N
+        type.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
+        type.setForeground(new java.awt.Color(153, 153, 153));
         type.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "PATIENT", "DOCTOR", "ADMIN", "RECEPTIONIST" }));
-        jPanel4.add(type, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 2770, 303, 30));
+        type.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(153, 153, 153), 1, true));
+        jPanel4.add(type, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 520, 275, 30));
 
-        status.setFont(new java.awt.Font("Yu Gothic", 0, 12)); // NOI18N
+        status.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
+        status.setForeground(new java.awt.Color(153, 153, 153));
         status.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "PENDING", "ACTIVE", "IN-ACTIVE", "DELETED" }));
-        jPanel4.add(status, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 2820, 303, 30));
+        status.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(153, 153, 153), 1, true));
+        jPanel4.add(status, new org.netbeans.lib.awtextra.AbsoluteConstraints(640, 520, 275, 30));
 
+        contact.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
+        contact.setForeground(new java.awt.Color(153, 153, 153));
         contact.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        contact.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(153, 153, 153), 1, true));
         contact.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
                 contactFocusGained(evt);
@@ -835,10 +889,13 @@ public final class Form_3 extends javax.swing.JPanel {
                 contactMouseClicked(evt);
             }
         });
-        jPanel4.add(contact, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 2720, 302, 32));
+        jPanel4.add(contact, new org.netbeans.lib.awtextra.AbsoluteConstraints(640, 450, 270, 32));
 
         id.setEditable(false);
+        id.setForeground(new java.awt.Color(153, 153, 153));
         id.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        id.setBorder(null);
+        id.setOpaque(false);
         id.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
                 idFocusGained(evt);
@@ -849,55 +906,43 @@ public final class Form_3 extends javax.swing.JPanel {
                 idMouseClicked(evt);
             }
         });
-        jPanel4.add(id, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 2770, 302, 32));
+        jPanel4.add(id, new org.netbeans.lib.awtextra.AbsoluteConstraints(1200, 20, 90, 32));
 
-        clear.setFont(new java.awt.Font("Yu Gothic", 0, 11)); // NOI18N
-        clear.setText("CLEAR");
-        clear.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                clearActionPerformed(evt);
-            }
-        });
-        jPanel4.add(clear, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 2820, 302, 30));
-
-        delete.setFont(new java.awt.Font("Yu Gothic", 0, 11)); // NOI18N
-        delete.setText("DELETE");
-        delete.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                deleteActionPerformed(evt);
-            }
-        });
-        jPanel4.add(delete, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 2860, 302, 30));
-
-        update.setFont(new java.awt.Font("Yu Gothic", 0, 11)); // NOI18N
-        update.setText("UPDATE ACCOUNT");
+        update.setBackground(new java.awt.Color(12, 135, 254));
+        update.setFont(new java.awt.Font("Segoe UI", 0, 11)); // NOI18N
+        update.setForeground(new java.awt.Color(255, 255, 255));
+        update.setText("Save Changes");
+        update.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(153, 153, 153), 1, true));
         update.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 updateActionPerformed(evt);
             }
         });
-        jPanel4.add(update, new org.netbeans.lib.awtextra.AbsoluteConstraints(810, 2820, 302, 30));
+        jPanel4.add(update, new org.netbeans.lib.awtextra.AbsoluteConstraints(1112, 630, 130, 32));
 
-        add2.setFont(new java.awt.Font("Yu Gothic", 0, 12)); // NOI18N
-        add2.setText("CANCEL");
+        add2.setFont(new java.awt.Font("Segoe UI", 0, 11)); // NOI18N
+        add2.setText("Cancel");
+        add2.setBorder(null);
+        add2.setOpaque(false);
         add2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 add2ActionPerformed(evt);
             }
         });
-        jPanel4.add(add2, new org.netbeans.lib.awtextra.AbsoluteConstraints(810, 2860, 300, -1));
-
-        jSeparator1.setForeground(new java.awt.Color(0, 0, 0));
-        jPanel4.add(jSeparator1, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 310, 1050, 20));
-
-        jSeparator2.setForeground(new java.awt.Color(0, 0, 0));
-        jPanel4.add(jSeparator2, new org.netbeans.lib.awtextra.AbsoluteConstraints(-10, 310, 90, 30));
+        jPanel4.add(add2, new org.netbeans.lib.awtextra.AbsoluteConstraints(1025, 630, 80, 32));
 
         cover.setOpaque(true);
-        jPanel4.add(cover, new org.netbeans.lib.awtextra.AbsoluteConstraints(-10, 0, 1320, 310));
+        cover.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                coverMouseClicked(evt);
+            }
+        });
+        jPanel4.add(cover, new org.netbeans.lib.awtextra.AbsoluteConstraints(-30, 0, 1330, 310));
 
-        firstname.setFont(new java.awt.Font("Arial", 1, 25)); // NOI18N
-        firstname.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        firstname.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
+        firstname.setForeground(new java.awt.Color(153, 153, 153));
+        firstname.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        firstname.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(153, 153, 153), 1, true));
         firstname.setDisabledTextColor(new java.awt.Color(255, 255, 255));
         firstname.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
@@ -914,10 +959,12 @@ public final class Form_3 extends javax.swing.JPanel {
                 firstnameActionPerformed(evt);
             }
         });
-        jPanel4.add(firstname, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 400, 660, 32));
+        jPanel4.add(firstname, new org.netbeans.lib.awtextra.AbsoluteConstraints(640, 380, 270, 32));
 
-        lastname.setFont(new java.awt.Font("Arial", 1, 25)); // NOI18N
-        lastname.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        lastname.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
+        lastname.setForeground(new java.awt.Color(153, 153, 153));
+        lastname.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        lastname.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(153, 153, 153), 1, true));
         lastname.setDisabledTextColor(new java.awt.Color(255, 255, 255));
         lastname.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
@@ -929,7 +976,33 @@ public final class Form_3 extends javax.swing.JPanel {
                 lastnameMouseClicked(evt);
             }
         });
-        jPanel4.add(lastname, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 320, 660, 32));
+        jPanel4.add(lastname, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 380, 270, 32));
+
+        gender.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
+        gender.setForeground(new java.awt.Color(153, 153, 153));
+        gender.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "MALE", "FEMALE", "OTHERS" }));
+        gender.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(153, 153, 153), 1, true));
+        jPanel4.add(gender, new org.netbeans.lib.awtextra.AbsoluteConstraints(970, 440, 270, 30));
+
+        answer.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
+        answer.setForeground(new java.awt.Color(153, 153, 153));
+        answer.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        answer.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(153, 153, 153), 1, true));
+        jPanel4.add(answer, new org.netbeans.lib.awtextra.AbsoluteConstraints(640, 620, 275, 30));
+
+        question.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
+        question.setForeground(new java.awt.Color(153, 153, 153));
+        question.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        question.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(153, 153, 153), 1, true));
+        jPanel4.add(question, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 620, 275, 30));
+
+        jButton1.setText("Change Question & Answer");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+        jPanel4.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 570, 275, 30));
 
         jScrollPane2.setViewportView(jPanel4);
 
@@ -977,18 +1050,6 @@ public final class Form_3 extends javax.swing.JPanel {
             }
         });
         jPanel2.add(print, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 163, 130, 30));
-
-        jLabel8.setFont(new java.awt.Font("Yu Gothic", 0, 12)); // NOI18N
-        jLabel8.setText("PHARMACIST");
-        jLabel8.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                jLabel8MouseEntered(evt);
-            }
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                jLabel8MouseExited(evt);
-            }
-        });
-        jPanel2.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(610, 150, -1, -1));
 
         jLabel5.setFont(new java.awt.Font("Yu Gothic", 0, 12)); // NOI18N
         jLabel5.setText("ALL");
@@ -1038,18 +1099,6 @@ public final class Form_3 extends javax.swing.JPanel {
         });
         jPanel2.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(700, 150, -1, -1));
 
-        jLabel4.setFont(new java.awt.Font("Yu Gothic", 0, 12)); // NOI18N
-        jLabel4.setText("PATIENTS");
-        jLabel4.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                jLabel4MouseEntered(evt);
-            }
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                jLabel4MouseExited(evt);
-            }
-        });
-        jPanel2.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(770, 150, -1, -1));
-
         ac_db.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
@@ -1081,7 +1130,7 @@ public final class Form_3 extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void panel1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_panel1MouseClicked
-        dataRetriever(1, id1, name1, status1, uid1, type1, picture1, pane);
+        dataRetriever(1, id1, name1, status1, uid1, type1, picture1, cover, pane);
     }//GEN-LAST:event_panel1MouseClicked
 
     private void printableTableActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_printableTableActionPerformed
@@ -1101,12 +1150,6 @@ public final class Form_3 extends javax.swing.JPanel {
     private void searchMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_searchMouseExited
         search.setFocusable(false);
     }//GEN-LAST:event_searchMouseExited
-
-    private void jLabel8MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel8MouseEntered
-    }//GEN-LAST:event_jLabel8MouseEntered
-
-    private void jLabel8MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel8MouseExited
-    }//GEN-LAST:event_jLabel8MouseExited
 
     private void jLabel5MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel5MouseEntered
     }//GEN-LAST:event_jLabel5MouseEntered
@@ -1132,34 +1175,28 @@ public final class Form_3 extends javax.swing.JPanel {
     private void jLabel9MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel9MouseExited
     }//GEN-LAST:event_jLabel9MouseExited
 
-    private void jLabel4MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel4MouseEntered
-    }//GEN-LAST:event_jLabel4MouseEntered
-
-    private void jLabel4MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel4MouseExited
-    }//GEN-LAST:event_jLabel4MouseExited
-
     private void panel2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_panel2MouseClicked
-        dataRetriever(1, id2, name2, status2, uid2, type2, picture1, pane);
+        dataRetriever(1, id2, name2, status2, uid2, type2, picture1, cover, pane);
     }//GEN-LAST:event_panel2MouseClicked
 
     private void panel3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_panel3MouseClicked
-        dataRetriever(1, id3, name3, status3, uid3, type3, picture1, pane);
+        dataRetriever(1, id3, name3, status3, uid3, type3, picture1, cover, pane);
     }//GEN-LAST:event_panel3MouseClicked
 
     private void panel4MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_panel4MouseClicked
-        dataRetriever(1, id4, name4, status4, uid4, type4, picture1, pane);
+        dataRetriever(1, id4, name4, status4, uid4, type4, picture1, cover, pane);
     }//GEN-LAST:event_panel4MouseClicked
 
     private void panel5MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_panel5MouseClicked
-        dataRetriever(1, id5, name5, status5, uid5, type5, picture1, pane);
+        dataRetriever(1, id5, name5, status5, uid5, type5, picture1, cover, pane);
     }//GEN-LAST:event_panel5MouseClicked
 
     private void panel6MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_panel6MouseClicked
-        dataRetriever(1, id6, name6, status6, uid6, type6, picture1, pane);
+        dataRetriever(1, id6, name6, status6, uid6, type6, picture1, cover, pane);
     }//GEN-LAST:event_panel6MouseClicked
 
     private void panel7MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_panel7MouseClicked
-        dataRetriever(1, id7, name7, status7, uid7, type7, picture1, pane);
+        dataRetriever(1, id7, name7, status7, uid7, type7, picture1, cover, pane);
     }//GEN-LAST:event_panel7MouseClicked
 
     private void panel8MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_panel8MouseEntered
@@ -1167,11 +1204,11 @@ public final class Form_3 extends javax.swing.JPanel {
     }//GEN-LAST:event_panel8MouseEntered
 
     private void panel9MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_panel9MouseClicked
-        dataRetriever(1, id9, name9, status9, uid9, type9, picture1, pane);
+        dataRetriever(1, id9, name9, status9, uid9, type9, picture1, cover, pane);
     }//GEN-LAST:event_panel9MouseClicked
 
     private void panel10MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_panel10MouseClicked
-        dataRetriever(1, id10, name10, status10, uid10, type10, picture1, pane);
+        dataRetriever(1, id10, name10, status10, uid10, type10, picture1, cover, pane);
     }//GEN-LAST:event_panel10MouseClicked
 
     private void panel11MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_panel11MouseEntered
@@ -1183,15 +1220,15 @@ public final class Form_3 extends javax.swing.JPanel {
     }//GEN-LAST:event_panel12MouseEntered
 
     private void panel12MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_panel12MouseClicked
-        dataRetriever(1, id12, name12, status12, uid12, type12, picture1, pane);
+        dataRetriever(1, id12, name12, status12, uid12, type12, picture1, cover, pane);
     }//GEN-LAST:event_panel12MouseClicked
 
     private void panel11MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_panel11MouseClicked
-        dataRetriever(1, id11, name11, status11, uid11, type11, picture1, pane);
+        dataRetriever(1, id11, name11, status11, uid11, type11, picture1, cover, pane);
     }//GEN-LAST:event_panel11MouseClicked
 
     private void panel8MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_panel8MouseClicked
-        dataRetriever(1, id8, name8, status8, uid8, type8, picture1, pane);
+        dataRetriever(1, id8, name8, status8, uid8, type8, picture1, cover, pane);
     }//GEN-LAST:event_panel8MouseClicked
 
     private void printActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_printActionPerformed
@@ -1302,34 +1339,20 @@ public final class Form_3 extends javax.swing.JPanel {
 
     private void updateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_updateActionPerformed
         try {
-            String user = username.getText().trim();
-            String emails = email.getText().trim();
-            String secretQuestion = secret.getText().trim();
-            String secretAnswer = answer.getText().trim();
-            String contacts = contact.getText().trim();
-            String types = (String) type.getSelectedItem();
-            String stats = (String) status.getSelectedItem();
-            String photoPath = path2 != null ? path2.trim() : "";
-            String idText = id.getText().trim();
+            String photoPath = (destination != null) ? destination.trim() : "";
 
-            // Debugging
-            System.out.println("User: [" + user + "]");
-            System.out.println("Email: [" + emails + "]");
-            System.out.println("Secret Question: [" + secretQuestion + "]");
-            System.out.println("Secret Answer: [" + secretAnswer + "]");
-            System.out.println("Contact: [" + contacts + "]");
-            System.out.println("Photo Path: [" + photoPath + "]");
-            System.out.println("ID: [" + idText + "]");
+            boolean fieldsEmpty = username.getText().trim().isEmpty() || email.getText().trim().isEmpty()
+                    || contact.getText().trim().isEmpty() || id.getText().trim().isEmpty()
+                    || lastname.getText().trim().isEmpty() || firstname.getText().trim().isEmpty();
 
-            if (user.isEmpty() || emails.isEmpty() || secretQuestion.isEmpty() || secretAnswer.isEmpty()
-                    || contacts.isEmpty() || idText.isEmpty()) {
+            if (fieldsEmpty || photoPath.isEmpty() || coverSelection == null) {
                 UIManager.put("OptionPane.background", Color.white);
                 UIManager.put("Panel.background", Color.white);
                 Icon customIcon = new javax.swing.ImageIcon(getClass().getResource("/Images/alert.gif"));
                 JOptionPane.showMessageDialog(null, "PLEASE FILL ALL FIELDS AND INSERT AN IMAGE!", "WARNING", JOptionPane.WARNING_MESSAGE, customIcon);
 
                 if (photoPath.isEmpty()) {
-                    System.out.println("Image file path is empty.");
+                    System.out.println("IMAGE FILE PATH IS EMPTY!");
                 } else {
                     File photoFile = new File(photoPath);
                     if (!photoFile.exists() || !photoFile.isFile()) {
@@ -1340,98 +1363,61 @@ public final class Form_3 extends javax.swing.JPanel {
                     }
                 }
             } else {
-                Connection cn = new DBConnection().getConnection();
-                PreparedStatement pst = cn.prepareStatement(
-                        "UPDATE ac_table SET ac_username = ?, ac_email = ?, ac_sq = ?, ac_sa = ?, ac_type = ?, ac_status = ?, ac_contact = ? "
-                        + (!photoPath.isEmpty() ? ", ac_image = ? " : "")
-                        + "WHERE ac_id = ?");
+                try (Connection connection = new DBConnection().getConnection()) {
+                    String updateQuery = "UPDATE ac_table SET ac_username = ?, ac_email = ?, ac_type = ?, ac_status = ?, "
+                            + "ac_contact = ?, ac_lastname = ?, ac_firstname = ?, ac_gender = ?, ac_images = ?, ac_coverphoto = ?, ac_sq = ?, ac_sa = ? "
+                            + "WHERE ac_id = ?";
+                    try (PreparedStatement pstmt = connection.prepareStatement(updateQuery)) {
+                        pstmt.setString(1, username.getText());
+                        pstmt.setString(2, email.getText());
+                        pstmt.setString(3, (String) type.getSelectedItem());
+                        pstmt.setString(4, (String) status.getSelectedItem());
+                        pstmt.setString(5, contact.getText());
+                        pstmt.setString(6, lastname.getText());
+                        pstmt.setString(7, firstname.getText());
+                        pstmt.setString(8, (String) gender.getSelectedItem());
+                        pstmt.setString(9, destination);
+                        pstmt.setString(10, coverDestination);
+                        pstmt.setString(11, question.getText());
+                        pstmt.setString(12, answer.getText());
+                        pstmt.setString(13, id.getText());
 
-                pst.setString(1, user);
-                pst.setString(2, emails);
-                pst.setString(3, secretQuestion);
-                pst.setString(4, secretAnswer);
-                pst.setString(5, types);
-                pst.setString(6, stats);
-                pst.setString(7, contacts);
+                        pstmt.executeUpdate();
+                    }
 
-                int parameterIndex = 8;
-                if (!photoPath.isEmpty()) {
-                    InputStream is = new FileInputStream(new File(photoPath));
-                    pst.setBlob(parameterIndex++, is);
+                    System.out.println(coverSelection);
+                    System.out.println(destination);
+
+                    if (destination == null || coverSelection == null) {
+                        Checkers.unsuccessfullFieldChecker("PLEASE INSERT AN IMAGE");
+                    } else {
+                        Files.copy(selectedFile.toPath(), new File(destination).toPath(), StandardCopyOption.REPLACE_EXISTING);
+                        Files.copy(coverSelection.toPath(), new File(coverDestination).toPath(), StandardCopyOption.REPLACE_EXISTING);
+
+                        JOptionPane.showMessageDialog(null, "ACCOUNT SUCCESSFULLY UPDATED!", "SUCCESS", JOptionPane.INFORMATION_MESSAGE);
+
+                        xternal_db xdb = xternal_db.getInstance();
+                        String logQuery = "INSERT INTO ac_logs (lg_email, lg_username, lg_actions) VALUES (?, ?, ?)";
+                        try (PreparedStatement logStmt = connection.prepareStatement(logQuery)) {
+                            logStmt.setString(1, xdb.getEmail());
+                            logStmt.setString(2, xdb.getUsername());
+                            logStmt.setString(3, "JUST UPDATED AN ACCOUNT ID = " + id.getText());
+
+                            logStmt.executeUpdate();
+                        }
+
+                        pane.setSelectedIndex(0);
+                        acquireData();
+                    }
+
+                } catch (SQLException | IOException ex) {
+                    System.out.println("Error: " + ex.getMessage());
                 }
-
-                pst.setString(parameterIndex, idText);
-
-                pst.executeUpdate();
-
-                JOptionPane.showMessageDialog(null, "ACCOUNT SUCCESSFULLY UPDATED!", "SUCCESS", JOptionPane.INFORMATION_MESSAGE);
-
-                xternal_db xdb = xternal_db.getInstance();
-                PreparedStatement logs = cn.prepareStatement("INSERT INTO ac_logs (lg_email,lg_username,lg_actions)"
-                        + " VALUES ('" + xdb.getEmail() + "', '" + xdb.getUsername() + "', 'JUST UPDATED AN ACCOUNT ID =  " + id.getText() + "')");
-                logs.execute();
-
-                pane.setSelectedIndex(0);
-
-                acquireData();
-
             }
-        } catch (SQLException | FileNotFoundException ex) {
-            System.out.println("Error: " + ex.getMessage());
+        } catch (HeadlessException ex) {
+            System.out.println("Unexpected Error: " + ex.getMessage());
         }
     }//GEN-LAST:event_updateActionPerformed
-
-    private void deleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteActionPerformed
-        try {
-            String idText = id.getText().trim();
-            if (idText.isEmpty()) {
-                System.out.println("Error ID omg");
-            } else {
-                Connection cn = new DBConnection().getConnection();
-                PreparedStatement pst = cn.prepareStatement("UPDATE ac_table SET ac_status = 'DELETED' WHERE ac_id = ?");
-                pst.setString(1, idText);
-                int rowsAffected = pst.executeUpdate();
-                if (rowsAffected > 0) {
-                    JOptionPane.showMessageDialog(null, "ACCOUNT STATUS UPDATED TO 'DELETED'!", "SUCCESS", JOptionPane.INFORMATION_MESSAGE);
-
-                    xternal_db xdb = xternal_db.getInstance();
-                    PreparedStatement logs = cn.prepareStatement("INSERT INTO ac_logs (lg_email,lg_username,lg_actions)"
-                            + " VALUES ('" + xdb.getEmail() + "', '" + xdb.getUsername() + "', 'JUST DELETED AN ACCOUNT, ID = " + id.getText() + "')");
-                    logs.execute();
-
-                    acquireData();
-                    pane.setSelectedIndex(0);
-
-                } else {
-                    JOptionPane.showMessageDialog(null, "NO ACCOUNT FOUND WITH ID: " + idText, "WARNING", JOptionPane.WARNING_MESSAGE);
-                }
-            }
-        } catch (SQLException ex) {
-            System.out.println("Error: " + ex.getMessage());
-        }
-    }//GEN-LAST:event_deleteActionPerformed
-
-    private void clearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_clearActionPerformed
-        username.setText("");
-        email.setText("");
-        password.setText("");
-        secret.setText("");
-        answer.setText("");
-        contact.setText("");
-        picture1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/iring.jpg")));
-
-        JTextField[] components = {username, email, password, secret, answer, contact};
-        BorderColorManager borderReset = new BorderColorManager(components);
-        borderReset.resetBorderColor();
-    }//GEN-LAST:event_clearActionPerformed
-
-    private void idMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_idMouseClicked
-
-    }//GEN-LAST:event_idMouseClicked
-
-    private void idFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_idFocusGained
-
-    }//GEN-LAST:event_idFocusGained
 
     private void contactMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_contactMouseClicked
 
@@ -1441,38 +1427,34 @@ public final class Form_3 extends javax.swing.JPanel {
 
     }//GEN-LAST:event_contactFocusGained
 
-    private void secretMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_secretMouseClicked
-
-    }//GEN-LAST:event_secretMouseClicked
-
-    private void secretFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_secretFocusGained
-
-    }//GEN-LAST:event_secretFocusGained
-
     private void removeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_removeActionPerformed
-        picture1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/iring.jpg")));
+        destination = "";
+        path = "";
+        picture1.setIcon(null);
+        oldpath = "";
     }//GEN-LAST:event_removeActionPerformed
 
     private void picture1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_picture1MouseClicked
         JnaFileChooser ch = new JnaFileChooser();
         boolean action = ch.showOpenDialog(new NewJFrame());
         if (action) {
-            File selectedFile = ch.getSelectedFile();
-            String path = selectedFile.getAbsolutePath();
-            picture1.setIcon(ResizeImage(path));
-            path2 = path;
+            selectedFile = ch.getSelectedFile();
+            path = selectedFile.getAbsolutePath();
+            destination = "src/All_Images/" + selectedFile.getName();
+
+            if (FileExistenceChecker(path) == 1) {
+                Checkers.unsuccessfullFieldChecker("FILE ALREADY EXIST!");
+                destination = "";
+                path = "";
+            } else {
+                picture1.setIcon(ResizeImage(path));
+                remove.setEnabled(true);
+            }
+
         } else {
             System.out.println("nabanhaw ng image wama kiti");
         }
     }//GEN-LAST:event_picture1MouseClicked
-
-    private void answerMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_answerMouseClicked
-
-    }//GEN-LAST:event_answerMouseClicked
-
-    private void answerFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_answerFocusGained
-
-    }//GEN-LAST:event_answerFocusGained
 
     private void emailMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_emailMouseClicked
         email.setFocusable(true);
@@ -1510,10 +1492,147 @@ public final class Form_3 extends javax.swing.JPanel {
         // TODO add your handling code here:
     }//GEN-LAST:event_firstnameActionPerformed
 
+    private void usernameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_usernameActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_usernameActionPerformed
+
+    private void idMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_idMouseClicked
+
+    }//GEN-LAST:event_idMouseClicked
+
+    private void idFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_idFocusGained
+
+    }//GEN-LAST:event_idFocusGained
+
+    private void emailActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_emailActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_emailActionPerformed
+
+    private void jPanel4MouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel4MouseReleased
+
+        if (evt.isPopupTrigger()) {
+            ViewAccount.show(this, evt.getX(), evt.getY());
+        }
+
+    }//GEN-LAST:event_jPanel4MouseReleased
+
+    private void Delete_AccountActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Delete_AccountActionPerformed
+        try {
+            String idText = id.getText().trim();
+            if (idText.isEmpty()) {
+                System.out.println("Error ID omg");
+            } else {
+                Connection cn = new DBConnection().getConnection();
+                PreparedStatement pst = cn.prepareStatement("UPDATE ac_table SET ac_status = 'DELETED' WHERE ac_id = ?");
+                pst.setString(1, idText);
+                int rowsAffected = pst.executeUpdate();
+                if (rowsAffected > 0) {
+                    JOptionPane.showMessageDialog(null, "ACCOUNT STATUS UPDATED TO 'DELETED'!", "SUCCESS", JOptionPane.INFORMATION_MESSAGE);
+
+                    xternal_db xdb = xternal_db.getInstance();
+                    PreparedStatement logs = cn.prepareStatement("INSERT INTO ac_logs (lg_email,lg_username,lg_actions)"
+                            + " VALUES ('" + xdb.getEmail() + "', '" + xdb.getUsername() + "', 'JUST DELETED AN ACCOUNT, ID = " + id.getText() + "')");
+                    logs.execute();
+
+                    acquireData();
+                    pane.setSelectedIndex(0);
+
+                } else {
+                    JOptionPane.showMessageDialog(null, "NO ACCOUNT FOUND WITH ID: " + idText, "WARNING", JOptionPane.WARNING_MESSAGE);
+                }
+            }
+        } catch (SQLException ex) {
+            System.out.println("Error: " + ex.getMessage());
+        }
+    }//GEN-LAST:event_Delete_AccountActionPerformed
+
+    private void ExitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ExitActionPerformed
+        System.exit(0);
+    }//GEN-LAST:event_ExitActionPerformed
+
+    private void coverMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_coverMouseClicked
+        JnaFileChooser ch = new JnaFileChooser();
+        boolean action = ch.showOpenDialog(new NewJFrame());
+        if (action) {
+            coverSelection = ch.getSelectedFile();
+            pathCover = coverSelection.getAbsolutePath();
+            coverDestination = "src/Cover_Images/" + coverSelection.getName();
+
+            if (FileExistenceChecker(pathCover) == 1) {
+                Checkers.unsuccessfullFieldChecker("FILE ALREADY EXIST!");
+                coverDestination = "";
+                pathCover = "";
+            } else {
+                cover.setIcon(ResizeImageCover(pathCover));
+                remove.setEnabled(true);
+            }
+
+        } else {
+            System.out.println("nabanhaw ng image wama kiti");
+        }
+    }//GEN-LAST:event_coverMouseClicked
+
+    private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
+        pathCover = "";
+        oldpathCover = "";
+        coverDestination = "";
+        cover.setIcon(null);
+    }//GEN-LAST:event_jMenuItem1ActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        isVisible = !isVisible;
+
+        question.setVisible(isVisible);
+        answer.setVisible(isVisible);
+    }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void searchBarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_searchBarActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_searchBarActionPerformed
+
+    private void searchBarKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_searchBarKeyReleased
+
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+    }//GEN-LAST:event_searchBarKeyReleased
+
     public ImageIcon ResizeImage(String imagePath) {
         ImageIcon MyImage = new ImageIcon(imagePath);
         Image img = MyImage.getImage();
         Image newImg = img.getScaledInstance(picture1.getHeight(), picture1.getHeight(), Image.SCALE_SMOOTH);
+        ImageIcon image = new ImageIcon(newImg);
+        return image;
+    }
+
+    public ImageIcon ResizeImageCover(String imagePath) {
+        ImageIcon MyImage = new ImageIcon(imagePath);
+        Image img = MyImage.getImage();
+        Image newImg = img.getScaledInstance(1340, 310, Image.SCALE_SMOOTH);
         ImageIcon image = new ImageIcon(newImg);
         return image;
     }
@@ -1588,7 +1707,7 @@ public final class Form_3 extends javax.swing.JPanel {
     public int progress() {
         int progress = 0;
 
-        JTextField[] fields = {username, email, password, secret, answer, contact};
+        JTextField[] fields = {username, email, contact};
         int[] scores = {5, 5, 10, 5, 7, 7, 5};
         Color[] colors = {Color.RED, Color.GREEN};
 
@@ -1681,11 +1800,11 @@ public final class Form_3 extends javax.swing.JPanel {
 
     public void form3Handlers() {
         String[] placeholders = {
-            "ID", "USERNAME", "PASSWORD", "EMAIL",
+            "ID", "USERNAME", "EMAIL",
             "SECRET ANSWER", "SECRET QUESTION", "CONTACT", "SEARCH BAR"
         };
         JComponent[] components = {
-            id, username, password, email, answer, secret, contact, search
+            id, username, email, contact, search
         };
 
         for (int i = 0; i < components.length; i++) {
@@ -1693,10 +1812,8 @@ public final class Form_3 extends javax.swing.JPanel {
             components[i].putClientProperty(FlatClientProperties.TEXT_FIELD_SHOW_CLEAR_BUTTON, true);
         }
 
-        clear.setFocusable(false);
         update.setFocusable(false);
         remove.setFocusable(false);
-        delete.setFocusable(false);
         type.setFocusable(false);
         add2.setFocusable(false);
         printableTable.setFocusable(false);
@@ -1704,7 +1821,10 @@ public final class Form_3 extends javax.swing.JPanel {
         changeView.setFocusable(false);
     }
 
-    public void dataRetriever(int index, JLabel userID, JLabel nameLabel, JLabel statusLabel, JLabel idLabel, JLabel typeLabel, JLabel pictureLabel, JTabbedPane pane) {
+    Border activeBorder = BorderFactory.createLineBorder(Color.GREEN, 2);
+    Border inactiveBorder = BorderFactory.createLineBorder(Color.RED, 2);
+
+    public void dataRetriever(int index, JLabel userID, JLabel nameLabel, JLabel statusLabel, JLabel idLabel, JLabel typeLabel, JLabel pictureLabel, JLabel coverPictureLabel, JTabbedPane pane) {
         JLabel[] labels = {userID, nameLabel, statusLabel, idLabel, typeLabel};
         if (Arrays.stream(labels).allMatch(label -> !label.getText().isEmpty())) {
             pane.setSelectedIndex(index);
@@ -1713,22 +1833,40 @@ public final class Form_3 extends javax.swing.JPanel {
                 if (rs.next()) {
                     id.setText(String.valueOf(rs.getInt("ac_id")));
                     email.setText(rs.getString("ac_email"));
-                    username.setText("'" + rs.getString("ac_username") + "'");
-                    password.setText(rs.getString("ac_password"));
-                    secret.setText(rs.getString("ac_sq"));
-                    answer.setText(rs.getString("ac_sa"));
+                    username.setText(rs.getString("ac_username"));
                     contact.setText(rs.getString("ac_contact"));
                     type.setSelectedItem(rs.getString("ac_type"));
                     status.setSelectedItem(rs.getString("ac_status"));
                     lastname.setText(rs.getString("ac_lastname"));
                     firstname.setText(rs.getString("ac_firstname"));
+                    question.setText(rs.getString("ac_sq"));
+                    answer.setText(rs.getString("ac_sa"));
+
+                    if (rs.getString("ac_status").equalsIgnoreCase("active")) {
+                        picture1.setBorder(activeBorder);
+                    } else {
+                        picture1.setBorder(inactiveBorder);
+                    }
 
                     String img = rs.getString("ac_images");
-                    ImageIcon image = new ImageIcon(img);
-                    Image im = image.getImage();
-                    Image im2 = im.getScaledInstance(180, 190, Image.SCALE_SMOOTH);
-                    ImageIcon newImage = new ImageIcon(im2);
-                    pictureLabel.setIcon(newImage);
+                    setScaledImage(img, pictureLabel, 180, 190);
+                    destination = rs.getString("ac_images");
+                    path = rs.getString("ac_images");
+                    oldpath = rs.getString("ac_images");
+
+                    if (pictureLabel.getIcon() == null) {
+                        remove.setEnabled(false);
+                    } else {
+                        remove.setEnabled(true);
+                    }
+
+                    String coverImg = rs.getString("ac_coverphoto");
+                    setScaledImage(coverImg, coverPictureLabel, 1330, 310);
+                    pathCover = rs.getString("ac_coverphoto");
+                    oldpathCover = rs.getString("ac_coverphoto");
+                    coverDestination = rs.getString("ac_coverphoto");
+
+                    coverSelection = new File(coverImg);
                 }
             } catch (SQLException er) {
                 System.out.println("ERROR: " + er.getMessage());
@@ -1738,8 +1876,19 @@ public final class Form_3 extends javax.swing.JPanel {
         }
     }
 
+    private void setScaledImage(String imgPath, JLabel label, int width, int height) {
+        if (imgPath != null && !imgPath.isEmpty()) {
+            ImageIcon imageIcon = new ImageIcon(imgPath);
+            Image image = imageIcon.getImage();
+            Image scaledImage = image.getScaledInstance(width, height, Image.SCALE_SMOOTH);
+            label.setIcon(new ImageIcon(scaledImage));
+        } else {
+            label.setIcon(null);
+        }
+    }
+
     public void addKeyListener() {
-        Component[] components = {username, email, password, secret, answer, contact};
+        Component[] components = {username, email, contact};
         for (Component component : components) {
             component.addKeyListener(new KeyListener() {
                 @Override
@@ -1760,18 +1909,34 @@ public final class Form_3 extends javax.swing.JPanel {
         }
     }
 
+    public int FileExistenceChecker(String path) {
+        File file = new File(path);
+        String fileName = file.getName();
+
+        Path filePath = Paths.get("src/All_Images", fileName);
+        boolean fileExists = Files.exists(filePath);
+
+        if (fileExists) {
+            return 1;
+        } else {
+            return 0;
+        }
+
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JMenuItem Delete_Account;
+    private javax.swing.JMenuItem Exit;
+    private javax.swing.JPopupMenu ViewAccount;
     public static javax.swing.JTable ac_db;
     private javax.swing.JButton add2;
     private javax.swing.JTextField answer;
     private javax.swing.JButton changeView;
-    private javax.swing.JButton clear;
     private javax.swing.JTextField contact;
     private javax.swing.JLabel cover;
-    private javax.swing.JButton delete;
     private javax.swing.JTextField email;
     private javax.swing.JTextField firstname;
+    private javax.swing.JComboBox<String> gender;
     public static javax.swing.JLabel icon1;
     public static javax.swing.JLabel icon10;
     public static javax.swing.JLabel icon11;
@@ -1798,13 +1963,13 @@ public final class Form_3 extends javax.swing.JPanel {
     public javax.swing.JLabel id8;
     public javax.swing.JLabel id9;
     private Swing.ImageAvatar imageAvatar1;
+    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
-    private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
+    private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel11;
     private javax.swing.JPanel jPanel2;
@@ -1813,8 +1978,6 @@ public final class Form_3 extends javax.swing.JPanel {
     private javax.swing.JPanel jPanel5;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JSeparator jSeparator1;
-    private javax.swing.JSeparator jSeparator2;
     private javax.swing.JTextField lastname;
     public javax.swing.JLabel name1;
     public javax.swing.JLabel name10;
@@ -1841,16 +2004,16 @@ public final class Form_3 extends javax.swing.JPanel {
     private javax.swing.JPanel panel7;
     private javax.swing.JPanel panel8;
     private javax.swing.JPanel panel9;
-    private javax.swing.JPasswordField password;
     private javax.swing.JLabel picture1;
     private javax.swing.JButton print;
     private javax.swing.JButton printableTable;
+    private javax.swing.JTextField question;
     private javax.swing.JButton remove;
     private javax.swing.JScrollPane scroll;
     private javax.swing.JScrollPane scroll1;
     private javax.swing.JPanel scrols;
     private javax.swing.JTextField search;
-    private javax.swing.JTextField secret;
+    private javax.swing.JTextField searchBar;
     private javax.swing.JComboBox<String> status;
     public javax.swing.JLabel status1;
     public javax.swing.JLabel status10;
