@@ -24,14 +24,16 @@ public class Form_4 extends javax.swing.JPanel {
         print = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         logs = new javax.swing.JTable();
+        jLabel3 = new javax.swing.JLabel();
 
         setBackground(new java.awt.Color(250, 250, 250));
         setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jLabel2.setFont(new java.awt.Font("Yu Gothic", 0, 25)); // NOI18N
+        jLabel2.setFont(new java.awt.Font("Segoe UI", 1, 30)); // NOI18N
+        jLabel2.setForeground(new java.awt.Color(5, 142, 230));
         jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel2.setText("ALL USER LOGS");
-        add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(530, 0, -1, -1));
+        jLabel2.setText("CURRENT DATE");
+        add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 10, -1, -1));
 
         print.setText("PRINT");
         print.addActionListener(new java.awt.event.ActionListener() {
@@ -39,8 +41,9 @@ public class Form_4 extends javax.swing.JPanel {
                 printActionPerformed(evt);
             }
         });
-        add(print, new org.netbeans.lib.awtextra.AbsoluteConstraints(1140, 620, 120, 30));
+        add(print, new org.netbeans.lib.awtextra.AbsoluteConstraints(1130, 650, 120, 30));
 
+        logs.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(153, 153, 153), 1, true));
         logs.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
@@ -51,7 +54,13 @@ public class Form_4 extends javax.swing.JPanel {
         ));
         jScrollPane1.setViewportView(logs);
 
-        add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 50, 1220, 560));
+        add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 120, 1220, 520));
+
+        jLabel3.setFont(new java.awt.Font("Segoe UI", 1, 30)); // NOI18N
+        jLabel3.setForeground(new java.awt.Color(5, 142, 230));
+        jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel3.setText("ALL USER LOGS");
+        add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(1040, 70, -1, -1));
     }// </editor-fold>//GEN-END:initComponents
 
     private void printActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_printActionPerformed
@@ -96,6 +105,7 @@ public class Form_4 extends javax.swing.JPanel {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable logs;
     private javax.swing.JButton print;
