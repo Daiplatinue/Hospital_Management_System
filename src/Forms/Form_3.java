@@ -180,16 +180,23 @@ public final class Form_3 extends javax.swing.JPanel {
         question = new javax.swing.JTextField();
         jButton1 = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
-        changeView = new javax.swing.JButton();
         search = new javax.swing.JTextField();
-        jLabel1 = new javax.swing.JLabel();
+        changeView = new javax.swing.JButton();
         print = new javax.swing.JButton();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        ac_db = new javax.swing.JTable();
+        jLabel2 = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
+        jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
+        jLabel8 = new javax.swing.JLabel();
+        jSeparator1 = new javax.swing.JSeparator();
         jLabel9 = new javax.swing.JLabel();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        ac_db = new javax.swing.JTable();
+        jLabel10 = new javax.swing.JLabel();
+        jLabel11 = new javax.swing.JLabel();
+        jLabel12 = new javax.swing.JLabel();
 
         Delete_Account.setText("Delete Account");
         Delete_Account.addActionListener(new java.awt.event.ActionListener() {
@@ -770,7 +777,7 @@ public final class Form_3 extends javax.swing.JPanel {
 
         scrols.add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 1310, 1160, 50));
 
-        searchBar.setText("SEARCH");
+        searchBar.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(153, 153, 153), 1, true));
         searchBar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 searchBarActionPerformed(evt);
@@ -1015,16 +1022,9 @@ public final class Form_3 extends javax.swing.JPanel {
         jPanel2.setBackground(new java.awt.Color(255, 255, 255));
         jPanel2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        changeView.setText("CHANGE VIEW");
-        changeView.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                changeViewActionPerformed(evt);
-            }
-        });
-        jPanel2.add(changeView, new org.netbeans.lib.awtextra.AbsoluteConstraints(1090, 163, 130, 30));
-
         search.setFont(new java.awt.Font("Yu Gothic", 0, 12)); // NOI18N
         search.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        search.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(153, 153, 153), 1, true));
         search.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 searchMouseClicked(evt);
@@ -1036,69 +1036,38 @@ public final class Form_3 extends javax.swing.JPanel {
                 searchMouseExited(evt);
             }
         });
-        jPanel2.add(search, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 110, 410, 30));
+        search.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                searchKeyReleased(evt);
+            }
+        });
+        jPanel2.add(search, new org.netbeans.lib.awtextra.AbsoluteConstraints(790, 20, 220, 30));
 
-        jLabel1.setFont(new java.awt.Font("Yu Gothic", 0, 20)); // NOI18N
-        jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel1.setText("VIEW ALL ACCOUNTS");
-        jPanel2.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 60, 410, -1));
+        changeView.setForeground(new java.awt.Color(153, 153, 153));
+        changeView.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/grid (1).png"))); // NOI18N
+        changeView.setText(" Change Grid");
+        changeView.setBorder(null);
+        changeView.setOpaque(false);
+        changeView.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                changeViewActionPerformed(evt);
+            }
+        });
+        jPanel2.add(changeView, new org.netbeans.lib.awtextra.AbsoluteConstraints(1090, 20, 140, 30));
 
-        print.setText("PRINT");
+        print.setForeground(new java.awt.Color(153, 153, 153));
+        print.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/print (1).png"))); // NOI18N
+        print.setText(" PRINT");
+        print.setBorder(null);
+        print.setOpaque(false);
         print.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 printActionPerformed(evt);
             }
         });
-        jPanel2.add(print, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 163, 130, 30));
+        jPanel2.add(print, new org.netbeans.lib.awtextra.AbsoluteConstraints(1000, 20, 130, 30));
 
-        jLabel5.setFont(new java.awt.Font("Yu Gothic", 0, 12)); // NOI18N
-        jLabel5.setText("ALL");
-        jLabel5.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                jLabel5MouseEntered(evt);
-            }
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                jLabel5MouseExited(evt);
-            }
-        });
-        jPanel2.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 150, -1, -1));
-
-        jLabel6.setFont(new java.awt.Font("Yu Gothic", 0, 12)); // NOI18N
-        jLabel6.setText("ADMIN");
-        jLabel6.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                jLabel6MouseEntered(evt);
-            }
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                jLabel6MouseExited(evt);
-            }
-        });
-        jPanel2.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 150, -1, -1));
-
-        jLabel7.setFont(new java.awt.Font("Yu Gothic", 0, 12)); // NOI18N
-        jLabel7.setText("RECEPTIONIST");
-        jLabel7.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                jLabel7MouseEntered(evt);
-            }
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                jLabel7MouseExited(evt);
-            }
-        });
-        jPanel2.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(510, 150, -1, -1));
-
-        jLabel9.setFont(new java.awt.Font("Yu Gothic", 0, 12)); // NOI18N
-        jLabel9.setText("DOCTOR");
-        jLabel9.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                jLabel9MouseEntered(evt);
-            }
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                jLabel9MouseExited(evt);
-            }
-        });
-        jPanel2.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(700, 150, -1, -1));
-
+        ac_db.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(153, 153, 153), 1, true));
         ac_db.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
@@ -1110,6 +1079,56 @@ public final class Form_3 extends javax.swing.JPanel {
         jScrollPane1.setViewportView(ac_db);
 
         jPanel2.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 200, 1150, 460));
+
+        jLabel2.setFont(new java.awt.Font("Segoe UI", 1, 35)); // NOI18N
+        jLabel2.setForeground(new java.awt.Color(5, 142, 230));
+        jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel2.setText("VIEW ALL ACCOUNTS");
+        jPanel2.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 10, 400, -1));
+
+        jLabel3.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
+        jLabel3.setText("IN-ACTIVE USERS");
+        jPanel2.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 85, 180, -1));
+
+        jLabel4.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
+        jLabel4.setText("10");
+        jPanel2.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 85, 180, -1));
+
+        jLabel5.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
+        jLabel5.setText("ADMIN ACCOUNTS");
+        jPanel2.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 110, 180, -1));
+
+        jLabel6.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
+        jLabel6.setText("RECEPTIONIST ACCOUNTS");
+        jPanel2.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 160, 180, -1));
+
+        jLabel7.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
+        jLabel7.setText("DOCTOR ACCOUNTS");
+        jPanel2.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 135, 180, -1));
+
+        jLabel8.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
+        jLabel8.setText("ACTIVE USERS");
+        jPanel2.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 60, 180, -1));
+
+        jSeparator1.setForeground(new java.awt.Color(204, 204, 204));
+        jSeparator1.setOrientation(javax.swing.SwingConstants.VERTICAL);
+        jPanel2.add(jSeparator1, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 60, 20, 120));
+
+        jLabel9.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
+        jLabel9.setText("10");
+        jPanel2.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 60, 180, -1));
+
+        jLabel10.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
+        jLabel10.setText("10");
+        jPanel2.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 110, 180, -1));
+
+        jLabel11.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
+        jLabel11.setText("10");
+        jPanel2.add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 135, 180, -1));
+
+        jLabel12.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
+        jLabel12.setText("10");
+        jPanel2.add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 160, 180, -1));
 
         pane.addTab("tab3", jPanel2);
 
@@ -1150,30 +1169,6 @@ public final class Form_3 extends javax.swing.JPanel {
     private void searchMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_searchMouseExited
         search.setFocusable(false);
     }//GEN-LAST:event_searchMouseExited
-
-    private void jLabel5MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel5MouseEntered
-    }//GEN-LAST:event_jLabel5MouseEntered
-
-    private void jLabel5MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel5MouseExited
-    }//GEN-LAST:event_jLabel5MouseExited
-
-    private void jLabel6MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel6MouseEntered
-    }//GEN-LAST:event_jLabel6MouseEntered
-
-    private void jLabel6MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel6MouseExited
-    }//GEN-LAST:event_jLabel6MouseExited
-
-    private void jLabel7MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel7MouseEntered
-    }//GEN-LAST:event_jLabel7MouseEntered
-
-    private void jLabel7MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel7MouseExited
-    }//GEN-LAST:event_jLabel7MouseExited
-
-    private void jLabel9MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel9MouseEntered
-    }//GEN-LAST:event_jLabel9MouseEntered
-
-    private void jLabel9MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel9MouseExited
-    }//GEN-LAST:event_jLabel9MouseExited
 
     private void panel2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_panel2MouseClicked
         dataRetriever(1, id2, name2, status2, uid2, type2, picture1, cover, pane);
@@ -1591,35 +1586,25 @@ public final class Form_3 extends javax.swing.JPanel {
     }//GEN-LAST:event_searchBarActionPerformed
 
     private void searchBarKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_searchBarKeyReleased
+        String searchTerm = searchBar.getText().trim().toLowerCase();
 
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
+        JLabel[] ids = {id1, id2, id3, id4, id5, id6, id7, id8, id9, id10, id11, id12};
+        JLabel[] names = {name1, name2, name3, name4, name5, name6, name7, name8, name9, name10, name11, name12};
+        JLabel[] types = {type1, type2, type3, type4, type5, type6, type7, type8, type9, type10, type11, type12};
+        JLabel[] statuses = {status1, status2, status3, status4, status5, status6, status7, status8, status9, status10, status11, status12};
+        JLabel[] icons = {icon1, icon2, icon3, icon4, icon5, icon6, icon7, icon8, icon9, icon10, icon11, icon12};
+        JPanel[] panels = {panel1, panel2, panel3, panel4, panel5, panel6, panel7, panel8, panel9, panel10, panel11, panel12};
+        JLabel[] uids = {uid1, uid2, uid3, uid4, uid5, uid6, uid7, uid8, uid9, uid10, uid11, uid12};
+
+        fetch(0, ids, names, types, statuses, uids, icons, panels, searchTerm);
     }//GEN-LAST:event_searchBarKeyReleased
+
+    private void searchKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_searchKeyReleased
+        DefaultTableModel tbl = (DefaultTableModel) ac_db.getModel();
+        TableRowSorter<DefaultTableModel> obj = new TableRowSorter<>(tbl);
+        ac_db.setRowSorter(obj);
+        obj.setRowFilter(RowFilter.regexFilter(search.getText()));
+    }//GEN-LAST:event_searchKeyReleased
 
     public ImageIcon ResizeImage(String imagePath) {
         ImageIcon MyImage = new ImageIcon(imagePath);
@@ -1647,22 +1632,26 @@ public final class Form_3 extends javax.swing.JPanel {
         }
     }
 
-    private void fetch(int index, JLabel[] ids, JLabel[] names, JLabel[] types, JLabel[] statuses, JLabel[] uids, JLabel[] icons, JPanel[] panels) {
+    private void fetch(int index, JLabel[] ids, JLabel[] names, JLabel[] types, JLabel[] statuses, JLabel[] uids, JLabel[] icons, JPanel[] panels, String searchTerm) {
         try {
             TableModel tbl = ac_db.getModel();
             if (tbl.getRowCount() > 0) {
                 xternal_db xdb = xternal_db.getInstance();
 
-                String query = "SELECT * FROM ac_table WHERE ac_id != ? AND ac_status IN ('active', 'in-active') LIMIT ?, ?";
+                String query = "SELECT * FROM ac_table WHERE ac_id != ? AND ac_status IN ('active', 'in-active') AND (ac_lastname LIKE ? OR ac_email LIKE ? OR ac_type LIKE ? OR ac_status LIKE ?) LIMIT ?, ?";
                 DBConnection dbConnection = new DBConnection();
                 PreparedStatement ps = dbConnection.getConnection().prepareStatement(query);
                 ps.setString(1, xdb.getId());
-                ps.setInt(2, index);
-                ps.setInt(3, Math.min(ids.length, Math.min(names.length, Math.min(types.length, Math.min(statuses.length, Math.min(icons.length, panels.length))))));
+                ps.setString(2, "%" + searchTerm + "%");
+                ps.setString(3, "%" + searchTerm + "%");
+                ps.setString(4, "%" + searchTerm + "%");
+                ps.setString(5, "%" + searchTerm + "%");
+                ps.setInt(6, index);
+                ps.setInt(7, Math.min(ids.length, Math.min(names.length, Math.min(types.length, Math.min(statuses.length, Math.min(icons.length, panels.length))))));
 
                 ResultSet rs = ps.executeQuery();
                 int i = 0;
-                while (rs.next() && i <= ids.length) {
+                while (rs.next() && i < ids.length) {
                     ids[i].setText(rs.getString("ac_lastname"));
                     names[i].setText(rs.getString("ac_email"));
                     types[i].setText(rs.getString("ac_type"));
@@ -1676,26 +1665,27 @@ public final class Form_3 extends javax.swing.JPanel {
                     }
 
                     String img = rs.getString("ac_images");
-
                     ImageIcon image = new ImageIcon(img);
                     Image im = image.getImage();
                     Image im2 = im.getScaledInstance(260, 170, Image.SCALE_SMOOTH);
                     ImageIcon newImage = new ImageIcon(im2);
                     icons[i].setIcon(newImage);
+
                     panels[i].setVisible(true);
                     panels[i].setBorder(new LineBorder(Color.BLACK, 2));
                     i++;
                 }
 
+                // Hide remaining panels if any
                 for (int j = i; j < panels.length; j++) {
-                    removePanel(icons[j]);
-                    removePanel(ids[j]);
-                    removePanel(types[j]);
-                    removePanel(names[j]);
-                    removePanel(statuses[j]);
+                    ids[j].setText("");
+                    names[j].setText("");
+                    types[j].setText("");
+                    statuses[j].setText("");
+                    uids[j].setText("");
+                    icons[j].setIcon(null);
                     panels[j].setVisible(false);
                 }
-
             } else {
                 System.out.println("Table is empty");
             }
@@ -1736,7 +1726,8 @@ public final class Form_3 extends javax.swing.JPanel {
         JLabel[] icons = {icon1, icon2, icon3, icon4, icon5, icon6, icon7, icon8, icon9, icon10, icon11, icon12};
         JPanel[] panels = {panel1, panel2, panel3, panel4, panel5, panel6, panel7, panel8, panel9, panel10, panel11, panel12};
         JLabel[] uids = {uid1, uid2, uid3, uid4, uid5, uid6, uid7, uid8, uid9, uid10, uid11, uid12};
-        fetch(0, ids, names, types, statuses, uids, icons, panels);
+
+        fetch(0, ids, names, types, statuses, uids, icons, panels, "");
         displayData();
         focusableButtonsSetter();
         form3Handlers();
@@ -1800,11 +1791,11 @@ public final class Form_3 extends javax.swing.JPanel {
 
     public void form3Handlers() {
         String[] placeholders = {
-            "ID", "USERNAME", "EMAIL",
+            "SEARCH BAR", "ID", "USERNAME", "EMAIL",
             "SECRET ANSWER", "SECRET QUESTION", "CONTACT", "SEARCH BAR"
         };
         JComponent[] components = {
-            id, username, email, contact, search
+            searchBar, id, username, email, contact, search
         };
 
         for (int i = 0; i < components.length; i++) {
@@ -1866,6 +1857,7 @@ public final class Form_3 extends javax.swing.JPanel {
                     oldpathCover = rs.getString("ac_coverphoto");
                     coverDestination = rs.getString("ac_coverphoto");
 
+                    selectedFile = new File(img);
                     coverSelection = new File(coverImg);
                 }
             } catch (SQLException er) {
@@ -1964,10 +1956,16 @@ public final class Form_3 extends javax.swing.JPanel {
     public javax.swing.JLabel id9;
     private Swing.ImageAvatar imageAvatar1;
     private javax.swing.JButton jButton1;
-    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel10;
+    private javax.swing.JLabel jLabel11;
+    private javax.swing.JLabel jLabel12;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JPanel jPanel1;
@@ -1978,6 +1976,7 @@ public final class Form_3 extends javax.swing.JPanel {
     private javax.swing.JPanel jPanel5;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JSeparator jSeparator1;
     private javax.swing.JTextField lastname;
     public javax.swing.JLabel name1;
     public javax.swing.JLabel name10;
