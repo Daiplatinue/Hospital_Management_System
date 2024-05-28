@@ -33,6 +33,9 @@ public class LoginDashboard extends javax.swing.JFrame {
         });
 
         jButton1.setFocusable(false);
+        if (jLabel3.getText().equalsIgnoreCase("sign in")) {
+            jButton1.setEnabled(false);
+        }
         jLabel9.setForeground(Color.BLACK);
     }
 

@@ -58,6 +58,7 @@ public final class Form_3 extends javax.swing.JPanel {
         name1 = new javax.swing.JLabel();
         type1 = new javax.swing.JLabel();
         id1 = new javax.swing.JLabel();
+        jButton1 = new javax.swing.JButton();
         panel2 = new javax.swing.JPanel();
         icon2 = new javax.swing.JLabel();
         id2 = new javax.swing.JLabel();
@@ -207,6 +208,8 @@ public final class Form_3 extends javax.swing.JPanel {
         status4.setFont(new java.awt.Font("Yu Gothic", 0, 12)); // NOI18N
         status4.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         panel4.add(status4, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 300, 260, 20));
+
+        icon4.setText("ICON");
         panel4.add(icon4, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 240, 160));
 
         scrols.add(panel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(960, 110, 260, 330));
@@ -223,23 +226,31 @@ public final class Form_3 extends javax.swing.JPanel {
             }
         });
         panel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        icon1.setText("ICON");
         panel1.add(icon1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 240, 160));
 
-        status1.setFont(new java.awt.Font("Yu Gothic", 0, 12)); // NOI18N
-        status1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        panel1.add(status1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 300, 260, 20));
+        status1.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
+        status1.setText("status");
+        panel1.add(status1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 230, 250, 20));
 
-        name1.setFont(new java.awt.Font("Yu Gothic", 0, 12)); // NOI18N
-        name1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        panel1.add(name1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 210, 260, 20));
+        name1.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
+        name1.setForeground(new java.awt.Color(70, 133, 255));
+        name1.setText("Email");
+        panel1.add(name1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 210, 250, 20));
 
-        type1.setFont(new java.awt.Font("Yu Gothic", 0, 12)); // NOI18N
-        type1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        panel1.add(type1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 270, 260, 20));
+        type1.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
+        type1.setForeground(new java.awt.Color(102, 102, 102));
+        type1.setText("type");
+        panel1.add(type1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 260, 250, 20));
 
-        id1.setFont(new java.awt.Font("Yu Gothic", 0, 12)); // NOI18N
-        id1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        panel1.add(id1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 190, 260, 20));
+        id1.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
+        id1.setForeground(new java.awt.Color(0, 87, 255));
+        id1.setText("lastname");
+        panel1.add(id1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 190, 250, 20));
+
+        jButton1.setText("jButton1");
+        panel1.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 290, 230, 30));
 
         scrols.add(panel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 110, 260, 330));
 
@@ -255,6 +266,8 @@ public final class Form_3 extends javax.swing.JPanel {
             }
         });
         panel2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        icon2.setText("ICON");
         panel2.add(icon2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 240, 160));
 
         id2.setFont(new java.awt.Font("Yu Gothic", 0, 12)); // NOI18N
@@ -291,6 +304,8 @@ public final class Form_3 extends javax.swing.JPanel {
         id3.setFont(new java.awt.Font("Yu Gothic", 0, 12)); // NOI18N
         id3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         panel3.add(id3, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 190, 260, 20));
+
+        icon3.setText("ICON");
         panel3.add(icon3, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 240, 160));
 
         type3.setFont(new java.awt.Font("Yu Gothic", 0, 12)); // NOI18N
@@ -1320,11 +1335,19 @@ public final class Form_3 extends javax.swing.JPanel {
                 ResultSet rs = ps.executeQuery();
                 int i = 0;
                 while (rs.next() && i <= ids.length) {
-                    ids[i].setText(rs.getString("ac_id"));
-                    names[i].setText(rs.getString("ac_username"));
+                    ids[i].setText(rs.getString("ac_lastname"));
+                    names[i].setText(rs.getString("ac_email"));
                     types[i].setText(rs.getString("ac_type"));
                     statuses[i].setText(rs.getString("ac_status"));
-                    byte[] img = rs.getBytes("ac_image");
+
+                    if (statuses[i].getText().equalsIgnoreCase("active")) {
+                        statuses[i].setForeground(new Color(66,202,197));
+                    } else {
+                        statuses[i].setForeground(Color.RED);
+                    }
+
+                    String img = rs.getString("ac_images");
+
                     ImageIcon image = new ImageIcon(img);
                     Image im = image.getImage();
                     Image im2 = im.getScaledInstance(260, 170, Image.SCALE_SMOOTH);
@@ -1375,35 +1398,6 @@ public final class Form_3 extends javax.swing.JPanel {
 
         return progress;
     }
-// Validations Hasn't Implemented Yet, Design Muna
-//    private boolean updateChecker() throws SQLException {
-//        ResultSet rs = new DBConnection().getData("select * from ac_table where (ac_username = '" + username.getText() + "' or ac_email = '" + email.getText() + "') and ac_id != '" + id.getText() + "'");
-//        if (rs.next()) {
-//            String xemail = rs.getString("ac_email");
-//            if (xemail.equalsIgnoreCase(email.getText())) {
-//                errorMessage("EMAIL HAS BEEN USED!");
-//            }
-//            String xusername = rs.getString("ac_username");
-//            if (xusername.equalsIgnoreCase(username.getText())) {
-//                errorMessage("USERNAME HAS BEEN USED!");
-//            }
-//            return true;
-//        } else {
-//            return false;
-//        }
-//    }
-//
-//    private boolean validationChecker() {
-//        if (username.getText().isEmpty() || email.getText().isEmpty() || contact.getText().isEmpty()) {
-//            errorMessage("FILL ALL THE REQUIREMENTS!");
-//            return false;
-//        } else if (!contact.getText().matches("\\d+")) {
-//            errorMessage("CONTACT MUST CONTAIN ONLY DIGITS!");
-//            return false;
-//        } else {
-//            return true;
-//        }
-//    }
 
     public void acquireData() {
         JLabel[] ids = {id1, id2, id3, id4, id5, id6, id7, id8, id9, id10, id11, id12};
@@ -1588,6 +1582,7 @@ public final class Form_3 extends javax.swing.JPanel {
     public javax.swing.JLabel id7;
     public javax.swing.JLabel id8;
     public javax.swing.JLabel id9;
+    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -1638,7 +1633,7 @@ public final class Form_3 extends javax.swing.JPanel {
     private javax.swing.JTextField search;
     private javax.swing.JTextField secret;
     private javax.swing.JComboBox<String> status;
-    public javax.swing.JLabel status1;
+    private javax.swing.JLabel status1;
     public javax.swing.JLabel status10;
     public javax.swing.JLabel status11;
     public javax.swing.JLabel status12;

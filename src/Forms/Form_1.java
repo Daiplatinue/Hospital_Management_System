@@ -8,9 +8,6 @@ public class Form_1 extends javax.swing.JPanel {
     public Form_1() {
         initComponents();
         init();
-        gaugeChart4.setValueWithAnimation(92);
-        gaugeChart5.setValueWithAnimation(52);
-        gaugeChart6.setValueWithAnimation(78);
     }
 
     @SuppressWarnings("unchecked")
@@ -18,184 +15,149 @@ public class Form_1 extends javax.swing.JPanel {
     private void initComponents() {
 
         jPanel8 = new javax.swing.JPanel();
-        gaugeChart4 = new Charts.GaugeChart();
-        gaugeChart5 = new Charts.GaugeChart();
-        gaugeChart6 = new Charts.GaugeChart();
         BarChart1 = new Charts.Chart();
         LineChart1 = new Charts.LineChart();
-        jLabel29 = new javax.swing.JLabel();
-        jLabel30 = new javax.swing.JLabel();
-        jLabel31 = new javax.swing.JLabel();
-        jLabel32 = new javax.swing.JLabel();
-        jLabel33 = new javax.swing.JLabel();
-        jLabel34 = new javax.swing.JLabel();
-        jLabel35 = new javax.swing.JLabel();
-        jLabel36 = new javax.swing.JLabel();
-        jLabel37 = new javax.swing.JLabel();
-        jLabel38 = new javax.swing.JLabel();
-        jLabel39 = new javax.swing.JLabel();
-        jLabel40 = new javax.swing.JLabel();
-        jLabel41 = new javax.swing.JLabel();
-        jLabel42 = new javax.swing.JLabel();
-        jLabel43 = new javax.swing.JLabel();
-        jLabel44 = new javax.swing.JLabel();
-        jLabel45 = new javax.swing.JLabel();
-        jLabel46 = new javax.swing.JLabel();
-        jLabel47 = new javax.swing.JLabel();
-        jLabel48 = new javax.swing.JLabel();
-        jLabel49 = new javax.swing.JLabel();
-        jLabel50 = new javax.swing.JLabel();
-        jLabel51 = new javax.swing.JLabel();
-        jLabel52 = new javax.swing.JLabel();
-        jLabel53 = new javax.swing.JLabel();
-        jLabel54 = new javax.swing.JLabel();
-        jLabel55 = new javax.swing.JLabel();
-        jLabel56 = new javax.swing.JLabel();
+        panelRound4 = new test.PanelRound();
+        jLabel4 = new javax.swing.JLabel();
+        jLabel71 = new javax.swing.JLabel();
+        jLabel72 = new javax.swing.JLabel();
+        jLabel73 = new javax.swing.JLabel();
+        panelRound3 = new test.PanelRound();
+        jLabel3 = new javax.swing.JLabel();
+        jLabel68 = new javax.swing.JLabel();
+        jLabel69 = new javax.swing.JLabel();
+        jLabel70 = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
+        panelRound2 = new test.PanelRound();
+        jLabel2 = new javax.swing.JLabel();
+        jLabel65 = new javax.swing.JLabel();
+        jLabel66 = new javax.swing.JLabel();
+        jLabel67 = new javax.swing.JLabel();
+        panelRound1 = new test.PanelRound();
+        jLabel1 = new javax.swing.JLabel();
+        jLabel62 = new javax.swing.JLabel();
+        jLabel63 = new javax.swing.JLabel();
+        jLabel64 = new javax.swing.JLabel();
+        jLabel61 = new javax.swing.JLabel();
 
         setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jPanel8.setBackground(new java.awt.Color(255, 255, 255));
         jPanel8.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-
-        gaugeChart4.setFont(new java.awt.Font("Yu Gothic", 0, 15)); // NOI18N
-        jPanel8.add(gaugeChart4, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 40, 130, 130));
-
-        gaugeChart5.setFont(new java.awt.Font("Yu Gothic", 0, 15)); // NOI18N
-        jPanel8.add(gaugeChart5, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 40, 130, 130));
-
-        gaugeChart6.setFont(new java.awt.Font("Yu Gothic", 0, 15)); // NOI18N
-        jPanel8.add(gaugeChart6, new org.netbeans.lib.awtextra.AbsoluteConstraints(820, 40, 130, 130));
         jPanel8.add(BarChart1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 350, -1, -1));
         jPanel8.add(LineChart1, new org.netbeans.lib.awtextra.AbsoluteConstraints(630, 350, -1, -1));
 
-        jLabel29.setFont(new java.awt.Font("Yu Gothic", 0, 12)); // NOI18N
-        jLabel29.setText("SEPTEMBER");
-        jPanel8.add(jLabel29, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 130, -1, -1));
+        panelRound4.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(204, 204, 204), 1, true));
+        panelRound4.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jLabel30.setFont(new java.awt.Font("Yu Gothic", 0, 15)); // NOI18N
-        jLabel30.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel30.setText("OVERALL BREAKDOWN");
-        jPanel8.add(jLabel30, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 240, 1110, -1));
+        jLabel4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/numpatients (1).png"))); // NOI18N
+        panelRound4.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(37, 30, 60, 50));
 
-        jLabel31.setFont(new java.awt.Font("Yu Gothic", 0, 12)); // NOI18N
-        jLabel31.setForeground(new java.awt.Color(0, 204, 0));
-        jLabel31.setText("+ ₱658,225");
-        jPanel8.add(jLabel31, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 130, -1, -1));
+        jLabel71.setFont(new java.awt.Font("Yu Gothic", 0, 14)); // NOI18N
+        jLabel71.setForeground(new java.awt.Color(102, 102, 102));
+        jLabel71.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel71.setText("RATING");
+        panelRound4.add(jLabel71, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 45, 150, -1));
 
-        jLabel32.setFont(new java.awt.Font("Yu Gothic", 0, 12)); // NOI18N
-        jLabel32.setText("JULY");
-        jPanel8.add(jLabel32, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 90, -1, -1));
+        jLabel72.setFont(new java.awt.Font("Yu Gothic", 1, 25)); // NOI18N
+        jLabel72.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel72.setText("2,000");
+        panelRound4.add(jLabel72, new org.netbeans.lib.awtextra.AbsoluteConstraints(-20, 100, 150, -1));
 
-        jLabel33.setFont(new java.awt.Font("Yu Gothic", 0, 12)); // NOI18N
-        jLabel33.setText("AUGUST");
-        jPanel8.add(jLabel33, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 110, -1, -1));
+        jLabel73.setFont(new java.awt.Font("Yu Gothic", 0, 14)); // NOI18N
+        jLabel73.setForeground(new java.awt.Color(66, 202, 197));
+        jLabel73.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel73.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/arrownasd (1).png"))); // NOI18N
+        jLabel73.setText("  10.2%");
+        panelRound4.add(jLabel73, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 107, 130, -1));
 
-        jLabel34.setFont(new java.awt.Font("Yu Gothic", 0, 12)); // NOI18N
-        jLabel34.setText("JUNE");
-        jPanel8.add(jLabel34, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 70, -1, -1));
+        jPanel8.add(panelRound4, new org.netbeans.lib.awtextra.AbsoluteConstraints(940, 30, 240, 150));
 
-        jLabel35.setFont(new java.awt.Font("Yu Gothic", 0, 12)); // NOI18N
-        jLabel35.setForeground(new java.awt.Color(0, 204, 0));
-        jLabel35.setText("+ ₱258,756 ");
-        jPanel8.add(jLabel35, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 70, -1, -1));
+        panelRound3.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(204, 204, 204), 1, true));
+        panelRound3.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jLabel36.setFont(new java.awt.Font("Yu Gothic", 0, 12)); // NOI18N
-        jLabel36.setForeground(new java.awt.Color(0, 204, 0));
-        jLabel36.setText("+ ₱756,056 ");
-        jPanel8.add(jLabel36, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 90, -1, -1));
+        jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/numpatients (1).png"))); // NOI18N
+        panelRound3.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(37, 30, 60, 50));
 
-        jLabel37.setFont(new java.awt.Font("Yu Gothic", 0, 12)); // NOI18N
-        jLabel37.setForeground(new java.awt.Color(204, 0, 51));
-        jLabel37.setText("-  ₱100,875");
-        jPanel8.add(jLabel37, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 110, -1, -1));
+        jLabel68.setFont(new java.awt.Font("Yu Gothic", 0, 14)); // NOI18N
+        jLabel68.setForeground(new java.awt.Color(102, 102, 102));
+        jLabel68.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel68.setText("ACCOUNTS");
+        panelRound3.add(jLabel68, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 45, 150, -1));
 
-        jLabel38.setFont(new java.awt.Font("Yu Gothic", 0, 12)); // NOI18N
-        jLabel38.setText("TOTAL SALES");
-        jPanel8.add(jLabel38, new org.netbeans.lib.awtextra.AbsoluteConstraints(640, 30, -1, -1));
+        jLabel69.setFont(new java.awt.Font("Yu Gothic", 1, 25)); // NOI18N
+        jLabel69.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel69.setText("2,000");
+        panelRound3.add(jLabel69, new org.netbeans.lib.awtextra.AbsoluteConstraints(-20, 100, 150, -1));
 
-        jLabel39.setFont(new java.awt.Font("Yu Gothic", 0, 12)); // NOI18N
-        jLabel39.setText("SEPTEMBER");
-        jPanel8.add(jLabel39, new org.netbeans.lib.awtextra.AbsoluteConstraints(580, 70, -1, -1));
+        jLabel70.setFont(new java.awt.Font("Yu Gothic", 0, 14)); // NOI18N
+        jLabel70.setForeground(new java.awt.Color(66, 202, 197));
+        jLabel70.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel70.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/arrownasd (1).png"))); // NOI18N
+        jLabel70.setText("  10.2%");
+        panelRound3.add(jLabel70, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 107, 130, -1));
 
-        jLabel40.setFont(new java.awt.Font("Yu Gothic", 0, 12)); // NOI18N
-        jLabel40.setForeground(new java.awt.Color(204, 0, 51));
-        jLabel40.setText("-  ₱175,203 ");
-        jPanel8.add(jLabel40, new org.netbeans.lib.awtextra.AbsoluteConstraints(710, 70, -1, -1));
-
-        jLabel41.setFont(new java.awt.Font("Yu Gothic", 0, 12)); // NOI18N
-        jLabel41.setForeground(new java.awt.Color(0, 204, 0));
-        jLabel41.setText("+ ₱456,358");
-        jPanel8.add(jLabel41, new org.netbeans.lib.awtextra.AbsoluteConstraints(710, 90, -1, -1));
-
-        jLabel42.setFont(new java.awt.Font("Yu Gothic", 0, 12)); // NOI18N
-        jLabel42.setText("DECEMBER");
-        jPanel8.add(jLabel42, new org.netbeans.lib.awtextra.AbsoluteConstraints(580, 90, -1, -1));
-
-        jLabel43.setFont(new java.awt.Font("Yu Gothic", 0, 12)); // NOI18N
-        jLabel43.setText("MAY");
-        jPanel8.add(jLabel43, new org.netbeans.lib.awtextra.AbsoluteConstraints(580, 110, -1, -1));
-
-        jLabel44.setFont(new java.awt.Font("Yu Gothic", 0, 12)); // NOI18N
-        jLabel44.setText("AUGUST");
-        jPanel8.add(jLabel44, new org.netbeans.lib.awtextra.AbsoluteConstraints(580, 130, -1, -1));
-
-        jLabel45.setFont(new java.awt.Font("Yu Gothic", 0, 12)); // NOI18N
-        jLabel45.setForeground(new java.awt.Color(204, 0, 51));
-        jLabel45.setText("-  ₱100,875");
-        jPanel8.add(jLabel45, new org.netbeans.lib.awtextra.AbsoluteConstraints(710, 110, -1, -1));
-
-        jLabel46.setFont(new java.awt.Font("Yu Gothic", 0, 12)); // NOI18N
-        jLabel46.setForeground(new java.awt.Color(0, 204, 0));
-        jLabel46.setText("+ ₱158,954");
-        jPanel8.add(jLabel46, new org.netbeans.lib.awtextra.AbsoluteConstraints(710, 130, -1, -1));
-
-        jLabel47.setFont(new java.awt.Font("Yu Gothic", 0, 12)); // NOI18N
-        jLabel47.setText("TOTAL INCOME");
-        jPanel8.add(jLabel47, new org.netbeans.lib.awtextra.AbsoluteConstraints(1030, 30, -1, -1));
-
-        jLabel48.setFont(new java.awt.Font("Yu Gothic", 0, 12)); // NOI18N
-        jLabel48.setText("JULY");
-        jPanel8.add(jLabel48, new org.netbeans.lib.awtextra.AbsoluteConstraints(970, 70, -1, -1));
-
-        jLabel49.setFont(new java.awt.Font("Yu Gothic", 0, 12)); // NOI18N
-        jLabel49.setForeground(new java.awt.Color(0, 204, 0));
-        jLabel49.setText("+  ₱1,175,203 ");
-        jPanel8.add(jLabel49, new org.netbeans.lib.awtextra.AbsoluteConstraints(1100, 70, -1, -1));
-
-        jLabel50.setFont(new java.awt.Font("Yu Gothic", 0, 12)); // NOI18N
-        jLabel50.setForeground(new java.awt.Color(204, 0, 51));
-        jLabel50.setText("-   ₱3,456,358");
-        jPanel8.add(jLabel50, new org.netbeans.lib.awtextra.AbsoluteConstraints(1100, 90, -1, -1));
-
-        jLabel51.setFont(new java.awt.Font("Yu Gothic", 0, 12)); // NOI18N
-        jLabel51.setForeground(new java.awt.Color(204, 0, 51));
-        jLabel51.setText("-   ₱584,875");
-        jPanel8.add(jLabel51, new org.netbeans.lib.awtextra.AbsoluteConstraints(1100, 110, -1, -1));
-
-        jLabel52.setFont(new java.awt.Font("Yu Gothic", 0, 12)); // NOI18N
-        jLabel52.setForeground(new java.awt.Color(0, 204, 0));
-        jLabel52.setText("+  ₱601,071");
-        jPanel8.add(jLabel52, new org.netbeans.lib.awtextra.AbsoluteConstraints(1100, 130, -1, -1));
-
-        jLabel53.setFont(new java.awt.Font("Yu Gothic", 0, 12)); // NOI18N
-        jLabel53.setText("OCTOBER");
-        jPanel8.add(jLabel53, new org.netbeans.lib.awtextra.AbsoluteConstraints(970, 130, -1, -1));
-
-        jLabel54.setFont(new java.awt.Font("Yu Gothic", 0, 12)); // NOI18N
-        jLabel54.setText("NOVEMBER");
-        jPanel8.add(jLabel54, new org.netbeans.lib.awtextra.AbsoluteConstraints(970, 110, -1, -1));
-
-        jLabel55.setFont(new java.awt.Font("Yu Gothic", 0, 12)); // NOI18N
-        jLabel55.setText("JUNE");
-        jPanel8.add(jLabel55, new org.netbeans.lib.awtextra.AbsoluteConstraints(970, 90, -1, -1));
-
-        jLabel56.setFont(new java.awt.Font("Yu Gothic", 0, 12)); // NOI18N
-        jLabel56.setText("TOTAL PROFIT");
-        jPanel8.add(jLabel56, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 30, -1, -1));
+        jPanel8.add(panelRound3, new org.netbeans.lib.awtextra.AbsoluteConstraints(650, 30, 240, 150));
 
         jPanel2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
         jPanel8.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, -10, -1, -1));
+
+        panelRound2.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(204, 204, 204), 1, true));
+        panelRound2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/numpatients (1).png"))); // NOI18N
+        panelRound2.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(37, 30, 60, 50));
+
+        jLabel65.setFont(new java.awt.Font("Yu Gothic", 0, 14)); // NOI18N
+        jLabel65.setForeground(new java.awt.Color(102, 102, 102));
+        jLabel65.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel65.setText("DOCTORS");
+        panelRound2.add(jLabel65, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 45, 150, -1));
+
+        jLabel66.setFont(new java.awt.Font("Yu Gothic", 1, 25)); // NOI18N
+        jLabel66.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel66.setText("2,000");
+        panelRound2.add(jLabel66, new org.netbeans.lib.awtextra.AbsoluteConstraints(-20, 100, 150, -1));
+
+        jLabel67.setFont(new java.awt.Font("Yu Gothic", 0, 14)); // NOI18N
+        jLabel67.setForeground(new java.awt.Color(66, 202, 197));
+        jLabel67.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel67.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/arrownasd (1).png"))); // NOI18N
+        jLabel67.setText("  10.2%");
+        panelRound2.add(jLabel67, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 107, 130, -1));
+
+        jPanel8.add(panelRound2, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 30, 240, 150));
+
+        panelRound1.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(204, 204, 204), 1, true));
+        panelRound1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/numpatients (1).png"))); // NOI18N
+        panelRound1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(37, 30, 60, 50));
+
+        jLabel62.setFont(new java.awt.Font("Yu Gothic", 0, 14)); // NOI18N
+        jLabel62.setForeground(new java.awt.Color(66, 202, 197));
+        jLabel62.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel62.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/arrownasd (1).png"))); // NOI18N
+        jLabel62.setText("  10.2%");
+        panelRound1.add(jLabel62, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 107, 130, -1));
+
+        jLabel63.setFont(new java.awt.Font("Yu Gothic", 1, 25)); // NOI18N
+        jLabel63.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel63.setText("2,000");
+        panelRound1.add(jLabel63, new org.netbeans.lib.awtextra.AbsoluteConstraints(-20, 100, 150, -1));
+
+        jLabel64.setFont(new java.awt.Font("Yu Gothic", 0, 14)); // NOI18N
+        jLabel64.setForeground(new java.awt.Color(102, 102, 102));
+        jLabel64.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel64.setText("PATIENTS");
+        panelRound1.add(jLabel64, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 45, 150, -1));
+
+        jPanel8.add(panelRound1, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 30, 240, 150));
+
+        jLabel61.setFont(new java.awt.Font("Yu Gothic", 0, 15)); // NOI18N
+        jLabel61.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel61.setText("OVERALL BREAKDOWN");
+        jPanel8.add(jLabel61, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 220, 1110, -1));
 
         add(jPanel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(4, 0, 1240, 800));
     }// </editor-fold>//GEN-END:initComponents
@@ -228,38 +190,28 @@ public class Form_1 extends javax.swing.JPanel {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private Charts.Chart BarChart1;
     private Charts.LineChart LineChart1;
-    private Charts.GaugeChart gaugeChart4;
-    private Charts.GaugeChart gaugeChart5;
-    private Charts.GaugeChart gaugeChart6;
-    private javax.swing.JLabel jLabel29;
-    private javax.swing.JLabel jLabel30;
-    private javax.swing.JLabel jLabel31;
-    private javax.swing.JLabel jLabel32;
-    private javax.swing.JLabel jLabel33;
-    private javax.swing.JLabel jLabel34;
-    private javax.swing.JLabel jLabel35;
-    private javax.swing.JLabel jLabel36;
-    private javax.swing.JLabel jLabel37;
-    private javax.swing.JLabel jLabel38;
-    private javax.swing.JLabel jLabel39;
-    private javax.swing.JLabel jLabel40;
-    private javax.swing.JLabel jLabel41;
-    private javax.swing.JLabel jLabel42;
-    private javax.swing.JLabel jLabel43;
-    private javax.swing.JLabel jLabel44;
-    private javax.swing.JLabel jLabel45;
-    private javax.swing.JLabel jLabel46;
-    private javax.swing.JLabel jLabel47;
-    private javax.swing.JLabel jLabel48;
-    private javax.swing.JLabel jLabel49;
-    private javax.swing.JLabel jLabel50;
-    private javax.swing.JLabel jLabel51;
-    private javax.swing.JLabel jLabel52;
-    private javax.swing.JLabel jLabel53;
-    private javax.swing.JLabel jLabel54;
-    private javax.swing.JLabel jLabel55;
-    private javax.swing.JLabel jLabel56;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel61;
+    private javax.swing.JLabel jLabel62;
+    private javax.swing.JLabel jLabel63;
+    private javax.swing.JLabel jLabel64;
+    private javax.swing.JLabel jLabel65;
+    private javax.swing.JLabel jLabel66;
+    private javax.swing.JLabel jLabel67;
+    private javax.swing.JLabel jLabel68;
+    private javax.swing.JLabel jLabel69;
+    private javax.swing.JLabel jLabel70;
+    private javax.swing.JLabel jLabel71;
+    private javax.swing.JLabel jLabel72;
+    private javax.swing.JLabel jLabel73;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel8;
+    private test.PanelRound panelRound1;
+    private test.PanelRound panelRound2;
+    private test.PanelRound panelRound3;
+    private test.PanelRound panelRound4;
     // End of variables declaration//GEN-END:variables
 }

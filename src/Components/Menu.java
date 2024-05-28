@@ -34,8 +34,6 @@ public class Menu extends javax.swing.JPanel {
         listMenu1.addItem(new Model_Menu("6", "Archives", Model_Menu.MenuType.MENU));
         listMenu1.addItem(new Model_Menu("7", "My Account", Model_Menu.MenuType.MENU));
         listMenu1.addItem(new Model_Menu("8", "Logout", Model_Menu.MenuType.MENU));
-        listMenu1.setForeground(Color.BLACK);
-        // yawa mani di ma black
     }
 
     @SuppressWarnings("unchecked")
@@ -67,7 +65,7 @@ public class Menu extends javax.swing.JPanel {
     protected void paintChildren(Graphics grphcs) {
         Graphics2D g2 = (Graphics2D) grphcs;
         g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
-        GradientPaint g = new GradientPaint(0, 0, Color.decode("#4F58AF"), 0, getHeight(), Color.decode("#92F0F4"));
+        GradientPaint g = new GradientPaint(0, 0, Color.decode("#25272A"), 0, getHeight(), Color.decode("#25272A"));
         int height = getHeight();
         Path2D.Float f = new Path2D.Float();
         f.moveTo(0, 0);
