@@ -9,6 +9,8 @@ import com.mysql.jdbc.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -43,8 +45,7 @@ public final class Form_9 extends javax.swing.JPanel {
 
     private boolean isVisible = false;
 
-    private Timer timer;
-    private float panelOpacity = 0.0f;
+    private JFrame passwordFrame;
 
     public Form_9() {
         initComponents();
@@ -83,6 +84,9 @@ public final class Form_9 extends javax.swing.JPanel {
                 isContactValid(contact.getText().trim());
             }
         });
+        
+        question.setVisible(false);
+        answer.setVisible(false);
     }
 
     @SuppressWarnings("unchecked")
@@ -561,8 +565,21 @@ public final class Form_9 extends javax.swing.JPanel {
     }//GEN-LAST:event_removeActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        new Password().setVisible(true);
-        dispose();
+        if (passwordFrame == null || !passwordFrame.isDisplayable()) {
+            passwordFrame = new newPass();
+            passwordFrame.setVisible(true);
+            this.setEnabled(false);
+
+            passwordFrame.addWindowListener(new WindowAdapter() {
+                @Override
+                public void windowClosed(WindowEvent e) {
+                    Form_9.this.setEnabled(true);
+                    passwordFrame = null;
+                }
+            });
+        } else {
+            passwordFrame.toFront();
+        }
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void deleteAccount() {
