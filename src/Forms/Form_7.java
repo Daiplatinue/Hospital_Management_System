@@ -43,6 +43,7 @@ public final class Form_7 extends javax.swing.JPanel {
         jPanel3 = new javax.swing.JPanel();
         jTabbedPane1 = new javax.swing.JTabbedPane();
         jPanel1 = new javax.swing.JPanel();
+        jButton2 = new javax.swing.JButton();
         search = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
         approve = new javax.swing.JButton();
@@ -100,11 +101,22 @@ public final class Form_7 extends javax.swing.JPanel {
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
+        jButton2.setBackground(new java.awt.Color(255, 255, 255));
+        jButton2.setText("Search");
+        jButton2.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(153, 153, 153), 1, true));
+        jButton2.setOpaque(false);
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
+        jPanel1.add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(920, 10, 80, 30));
+
         search.setFont(new java.awt.Font("Yu Gothic", 0, 12)); // NOI18N
         search.setForeground(new java.awt.Color(153, 153, 153));
         search.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         search.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(153, 153, 153), 1, true));
-        jPanel1.add(search, new org.netbeans.lib.awtextra.AbsoluteConstraints(800, 10, 200, 30));
+        jPanel1.add(search, new org.netbeans.lib.awtextra.AbsoluteConstraints(670, 10, 330, 30));
 
         jLabel2.setFont(new java.awt.Font("Segoe UI", 1, 35)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(5, 142, 230));
@@ -543,6 +555,9 @@ public final class Form_7 extends javax.swing.JPanel {
     private void jPanel4MouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel4MouseReleased
     }//GEN-LAST:event_jPanel4MouseReleased
 
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+    }//GEN-LAST:event_jButton2ActionPerformed
+
     private void setScaledImage(String imgPath, JLabel label, int width, int height) {
         if (imgPath != null && !imgPath.isEmpty()) {
             ImageIcon imageIcon = new ImageIcon(imgPath);
@@ -667,6 +682,7 @@ public final class Form_7 extends javax.swing.JPanel {
     private javax.swing.JComboBox<String> gender;
     private javax.swing.JTextField id;
     private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;

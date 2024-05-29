@@ -17,7 +17,7 @@ public final class Form_4 extends javax.swing.JPanel {
     public Form_4() {
         initComponents();
         print.setFocusable(false);
-        displayData();
+        displayUserlogs();
 
         LocalDateTime currentDateTime = LocalDateTime.now();
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MMMM-dd-HH-mm-ss");
@@ -25,6 +25,11 @@ public final class Form_4 extends javax.swing.JPanel {
         dataandtime1.setText(formattedDateTime);
         dataandtime2.setText(formattedDateTime);
         dataandtime3.setText(formattedDateTime);
+
+//        DefaultTableModel tbl = (DefaultTableModel) ac_archive.getModel();
+//        TableRowSorter<DefaultTableModel> obj = new TableRowSorter<>(tbl);
+//        ac_archive.setRowSorter(obj);
+//        obj.setRowFilter(RowFilter.regexFilter(search.getText()));
     }
 
     @SuppressWarnings("unchecked")
@@ -36,26 +41,33 @@ public final class Form_4 extends javax.swing.JPanel {
         jLabel5 = new javax.swing.JLabel();
         dataandtime1 = new javax.swing.JLabel();
         jScrollPane2 = new javax.swing.JScrollPane();
-        logs = new javax.swing.JTable();
+        userlogs = new javax.swing.JTable();
         jLabel6 = new javax.swing.JLabel();
         print1 = new javax.swing.JButton();
         print = new javax.swing.JButton();
+        jButton1 = new javax.swing.JButton();
+        search = new javax.swing.JTextField();
         jPanel2 = new javax.swing.JPanel();
         jLabel7 = new javax.swing.JLabel();
         dataandtime2 = new javax.swing.JLabel();
         jScrollPane3 = new javax.swing.JScrollPane();
-        logs2 = new javax.swing.JTable();
+        applogs = new javax.swing.JTable();
         jLabel8 = new javax.swing.JLabel();
         print2 = new javax.swing.JButton();
         print5 = new javax.swing.JButton();
+        print4 = new javax.swing.JButton();
+        jButton2 = new javax.swing.JButton();
+        search1 = new javax.swing.JTextField();
         jPanel3 = new javax.swing.JPanel();
         jLabel9 = new javax.swing.JLabel();
         dataandtime3 = new javax.swing.JLabel();
         jScrollPane4 = new javax.swing.JScrollPane();
-        logs3 = new javax.swing.JTable();
+        patientlogs = new javax.swing.JTable();
         jLabel10 = new javax.swing.JLabel();
         print3 = new javax.swing.JButton();
         print6 = new javax.swing.JButton();
+        jButton3 = new javax.swing.JButton();
+        search2 = new javax.swing.JTextField();
 
         setBackground(new java.awt.Color(250, 250, 250));
         setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -75,8 +87,8 @@ public final class Form_4 extends javax.swing.JPanel {
         dataandtime1.setText("CURRENT DATE AND TIME");
         jPanel1.add(dataandtime1, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 50, -1, -1));
 
-        logs.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(153, 153, 153), 1, true));
-        logs.setModel(new javax.swing.table.DefaultTableModel(
+        userlogs.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(153, 153, 153), 1, true));
+        userlogs.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
@@ -84,7 +96,7 @@ public final class Form_4 extends javax.swing.JPanel {
 
             }
         ));
-        jScrollPane2.setViewportView(logs);
+        jScrollPane2.setViewportView(userlogs);
 
         jPanel1.add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 120, 1220, 520));
 
@@ -117,6 +129,29 @@ public final class Form_4 extends javax.swing.JPanel {
         });
         jPanel1.add(print, new org.netbeans.lib.awtextra.AbsoluteConstraints(1110, 20, 80, 30));
 
+        jButton1.setBackground(new java.awt.Color(255, 255, 255));
+        jButton1.setText("Search");
+        jButton1.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(153, 153, 153), 1, true));
+        jButton1.setOpaque(false);
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+        jPanel1.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(580, 80, 80, 30));
+
+        search.setFont(new java.awt.Font("Yu Gothic", 0, 12)); // NOI18N
+        search.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        search.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                searchMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                searchMouseExited(evt);
+            }
+        });
+        jPanel1.add(search, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 80, 620, 30));
+
         jTabbedPane1.addTab("tab1", jPanel1);
 
         jPanel2.setBackground(new java.awt.Color(255, 255, 255));
@@ -134,8 +169,8 @@ public final class Form_4 extends javax.swing.JPanel {
         dataandtime2.setText("CURRENT DATE AND TIME");
         jPanel2.add(dataandtime2, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 50, -1, -1));
 
-        logs2.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(153, 153, 153), 1, true));
-        logs2.setModel(new javax.swing.table.DefaultTableModel(
+        applogs.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(153, 153, 153), 1, true));
+        applogs.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
@@ -143,7 +178,7 @@ public final class Form_4 extends javax.swing.JPanel {
 
             }
         ));
-        jScrollPane3.setViewportView(logs2);
+        jScrollPane3.setViewportView(applogs);
 
         jPanel2.add(jScrollPane3, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 120, 1220, 520));
 
@@ -162,11 +197,11 @@ public final class Form_4 extends javax.swing.JPanel {
                 print2ActionPerformed(evt);
             }
         });
-        jPanel2.add(print2, new org.netbeans.lib.awtextra.AbsoluteConstraints(1110, 20, 80, 30));
+        jPanel2.add(print2, new org.netbeans.lib.awtextra.AbsoluteConstraints(1105, 20, 80, 30));
 
         print5.setForeground(new java.awt.Color(153, 153, 153));
-        print5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/nexir (1).png"))); // NOI18N
-        print5.setText(" Next");
+        print5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/baksir (1).png"))); // NOI18N
+        print5.setText(" Back");
         print5.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
         print5.setOpaque(false);
         print5.addActionListener(new java.awt.event.ActionListener() {
@@ -174,7 +209,42 @@ public final class Form_4 extends javax.swing.JPanel {
                 print5ActionPerformed(evt);
             }
         });
-        jPanel2.add(print5, new org.netbeans.lib.awtextra.AbsoluteConstraints(1180, 20, 80, 30));
+        jPanel2.add(print5, new org.netbeans.lib.awtextra.AbsoluteConstraints(1030, 20, 80, 30));
+
+        print4.setForeground(new java.awt.Color(153, 153, 153));
+        print4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/nexir (1).png"))); // NOI18N
+        print4.setText(" Next");
+        print4.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
+        print4.setOpaque(false);
+        print4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                print4ActionPerformed(evt);
+            }
+        });
+        jPanel2.add(print4, new org.netbeans.lib.awtextra.AbsoluteConstraints(1180, 20, 80, 30));
+
+        jButton2.setBackground(new java.awt.Color(255, 255, 255));
+        jButton2.setText("Search");
+        jButton2.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(153, 153, 153), 1, true));
+        jButton2.setOpaque(false);
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
+        jPanel2.add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(580, 80, 80, 30));
+
+        search1.setFont(new java.awt.Font("Yu Gothic", 0, 12)); // NOI18N
+        search1.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        search1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                search1MouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                search1MouseExited(evt);
+            }
+        });
+        jPanel2.add(search1, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 80, 620, 30));
 
         jTabbedPane1.addTab("tab1", jPanel2);
 
@@ -193,8 +263,8 @@ public final class Form_4 extends javax.swing.JPanel {
         dataandtime3.setText("CURRENT DATE AND TIME");
         jPanel3.add(dataandtime3, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 50, -1, -1));
 
-        logs3.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(153, 153, 153), 1, true));
-        logs3.setModel(new javax.swing.table.DefaultTableModel(
+        patientlogs.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(153, 153, 153), 1, true));
+        patientlogs.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
@@ -202,7 +272,7 @@ public final class Form_4 extends javax.swing.JPanel {
 
             }
         ));
-        jScrollPane4.setViewportView(logs3);
+        jScrollPane4.setViewportView(patientlogs);
 
         jPanel3.add(jScrollPane4, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 120, 1220, 520));
 
@@ -235,6 +305,29 @@ public final class Form_4 extends javax.swing.JPanel {
         });
         jPanel3.add(print6, new org.netbeans.lib.awtextra.AbsoluteConstraints(1180, 20, 80, 30));
 
+        jButton3.setBackground(new java.awt.Color(255, 255, 255));
+        jButton3.setText("Search");
+        jButton3.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(153, 153, 153), 1, true));
+        jButton3.setOpaque(false);
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton3ActionPerformed(evt);
+            }
+        });
+        jPanel3.add(jButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(580, 80, 80, 30));
+
+        search2.setFont(new java.awt.Font("Yu Gothic", 0, 12)); // NOI18N
+        search2.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        search2.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                search2MouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                search2MouseExited(evt);
+            }
+        });
+        jPanel3.add(search2, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 80, 620, 30));
+
         jTabbedPane1.addTab("tab1", jPanel3);
 
         add(jTabbedPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1300, 800));
@@ -257,28 +350,68 @@ public final class Form_4 extends javax.swing.JPanel {
     }//GEN-LAST:event_printActionPerformed
 
     private void print5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_print5ActionPerformed
-        jTabbedPane1.setSelectedIndex(2);
+        jTabbedPane1.setSelectedIndex(0);
     }//GEN-LAST:event_print5ActionPerformed
 
     private void print6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_print6ActionPerformed
-        jTabbedPane1.setSelectedIndex(0);
+        jTabbedPane1.setSelectedIndex(1);
     }//GEN-LAST:event_print6ActionPerformed
 
-    private void displayData() {
+    private void print4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_print4ActionPerformed
+        jTabbedPane1.setSelectedIndex(2);
+    }//GEN-LAST:event_print4ActionPerformed
+
+    private void searchMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_searchMouseEntered
+        search.setFocusable(true);
+    }//GEN-LAST:event_searchMouseEntered
+
+    private void searchMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_searchMouseExited
+        search.setFocusable(false);
+    }//GEN-LAST:event_searchMouseExited
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+
+    }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void search1MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_search1MouseEntered
+        // TODO add your handling code here:
+    }//GEN-LAST:event_search1MouseEntered
+
+    private void search1MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_search1MouseExited
+        // TODO add your handling code here:
+    }//GEN-LAST:event_search1MouseExited
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void search2MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_search2MouseEntered
+        // TODO add your handling code here:
+    }//GEN-LAST:event_search2MouseEntered
+
+    private void search2MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_search2MouseExited
+        // TODO add your handling code here:
+    }//GEN-LAST:event_search2MouseExited
+
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton3ActionPerformed
+
+    private void displayUserlogs() {
         try {
             ResultSet rs = new DBConnection().getData("SELECT * FROM ac_logs");
-            logs.setModel(DbUtils.resultSetToTableModel(rs));
+            userlogs.setModel(DbUtils.resultSetToTableModel(rs));
 
             TableColumn column;
-            column = logs.getColumnModel().getColumn(3);
+            column = userlogs.getColumnModel().getColumn(3);
 
             column.setPreferredWidth(500);
 
-            ((DefaultTableCellRenderer) logs.getTableHeader().getDefaultRenderer())
+            ((DefaultTableCellRenderer) userlogs.getTableHeader().getDefaultRenderer())
                     .setHorizontalAlignment(SwingConstants.CENTER);
             DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
             centerRenderer.setHorizontalAlignment(SwingConstants.CENTER);
-            logs.setDefaultRenderer(Object.class, centerRenderer);
+            userlogs.setDefaultRenderer(Object.class, centerRenderer);
 
         } catch (SQLException e) {
             System.err.println("An error occurred while fetching data: " + e.getMessage());
@@ -286,9 +419,13 @@ public final class Form_4 extends javax.swing.JPanel {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JTable applogs;
     private javax.swing.JLabel dataandtime1;
     private javax.swing.JLabel dataandtime2;
     private javax.swing.JLabel dataandtime3;
+    private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton2;
+    private javax.swing.JButton jButton3;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
@@ -302,14 +439,17 @@ public final class Form_4 extends javax.swing.JPanel {
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JTabbedPane jTabbedPane1;
-    private javax.swing.JTable logs;
-    private javax.swing.JTable logs2;
-    private javax.swing.JTable logs3;
+    private javax.swing.JTable patientlogs;
     private javax.swing.JButton print;
     private javax.swing.JButton print1;
     private javax.swing.JButton print2;
     private javax.swing.JButton print3;
+    private javax.swing.JButton print4;
     private javax.swing.JButton print5;
     private javax.swing.JButton print6;
+    private javax.swing.JTextField search;
+    private javax.swing.JTextField search1;
+    private javax.swing.JTextField search2;
+    private javax.swing.JTable userlogs;
     // End of variables declaration//GEN-END:variables
 }
