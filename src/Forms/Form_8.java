@@ -1,9 +1,11 @@
 package Forms;
 
 import Database.*;
+import static Forms.Form_3.ac_db;
 import Functions.Checkers;
 import com.formdev.flatlaf.*;
 import java.sql.*;
+import javax.swing.RowFilter;
 import javax.swing.table.*;
 import net.proteanit.sql.*;
 
@@ -19,25 +21,49 @@ public final class Form_8 extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jPopupMenu1 = new javax.swing.JPopupMenu();
+        jMenuItem2 = new javax.swing.JMenuItem();
+        jMenuItem1 = new javax.swing.JMenuItem();
+        jButton1 = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
         search = new javax.swing.JTextField();
-        recover = new javax.swing.JButton();
-        jLabel5 = new javax.swing.JLabel();
-        jLabel6 = new javax.swing.JLabel();
-        jLabel7 = new javax.swing.JLabel();
-        jLabel8 = new javax.swing.JLabel();
-        jLabel9 = new javax.swing.JLabel();
-        jLabel4 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         ac_archive = new javax.swing.JTable();
+
+        jMenuItem2.setText("Recover Account");
+        jMenuItem2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem2ActionPerformed(evt);
+            }
+        });
+        jPopupMenu1.add(jMenuItem2);
+
+        jMenuItem1.setText("Delete Permanently");
+        jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem1ActionPerformed(evt);
+            }
+        });
+        jPopupMenu1.add(jMenuItem1);
 
         setBackground(new java.awt.Color(250, 250, 250));
         setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jLabel2.setFont(new java.awt.Font("Yu Gothic", 0, 20)); // NOI18N
+        jButton1.setBackground(new java.awt.Color(255, 255, 255));
+        jButton1.setText("Search");
+        jButton1.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(153, 153, 153), 1, true));
+        jButton1.setOpaque(false);
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+        add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(610, 160, 80, 30));
+
+        jLabel2.setFont(new java.awt.Font("Segoe UI", 1, 35)); // NOI18N
         jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel2.setText("ARCHIVES");
-        add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(401, 0, 410, -1));
+        add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 30, 170, -1));
 
         search.setFont(new java.awt.Font("Yu Gothic", 0, 12)); // NOI18N
         search.setHorizontalAlignment(javax.swing.JTextField.CENTER);
@@ -49,87 +75,7 @@ public final class Form_8 extends javax.swing.JPanel {
                 searchMouseExited(evt);
             }
         });
-        add(search, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 50, 410, 30));
-
-        recover.setText("RECOVER");
-        recover.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                recoverActionPerformed(evt);
-            }
-        });
-        add(recover, new org.netbeans.lib.awtextra.AbsoluteConstraints(1090, 160, 130, 30));
-
-        jLabel5.setFont(new java.awt.Font("Yu Gothic", 0, 12)); // NOI18N
-        jLabel5.setText("ALL");
-        jLabel5.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                jLabel5MouseEntered(evt);
-            }
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                jLabel5MouseExited(evt);
-            }
-        });
-        add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 90, -1, -1));
-
-        jLabel6.setFont(new java.awt.Font("Yu Gothic", 0, 12)); // NOI18N
-        jLabel6.setText("ADMIN");
-        jLabel6.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                jLabel6MouseEntered(evt);
-            }
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                jLabel6MouseExited(evt);
-            }
-        });
-        add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(435, 90, -1, -1));
-
-        jLabel7.setFont(new java.awt.Font("Yu Gothic", 0, 12)); // NOI18N
-        jLabel7.setText("RECEPTIONIST");
-        jLabel7.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                jLabel7MouseEntered(evt);
-            }
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                jLabel7MouseExited(evt);
-            }
-        });
-        add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 90, -1, -1));
-
-        jLabel8.setFont(new java.awt.Font("Yu Gothic", 0, 12)); // NOI18N
-        jLabel8.setText("PHARMACIST");
-        jLabel8.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                jLabel8MouseEntered(evt);
-            }
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                jLabel8MouseExited(evt);
-            }
-        });
-        add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(590, 90, -1, -1));
-
-        jLabel9.setFont(new java.awt.Font("Yu Gothic", 0, 12)); // NOI18N
-        jLabel9.setText("DOCTOR");
-        jLabel9.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                jLabel9MouseEntered(evt);
-            }
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                jLabel9MouseExited(evt);
-            }
-        });
-        add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(683, 90, -1, -1));
-
-        jLabel4.setFont(new java.awt.Font("Yu Gothic", 0, 12)); // NOI18N
-        jLabel4.setText("PATIENTS");
-        jLabel4.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                jLabel4MouseEntered(evt);
-            }
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                jLabel4MouseExited(evt);
-            }
-        });
-        add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(750, 90, -1, -1));
+        add(search, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 160, 620, 30));
 
         ac_archive.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -139,14 +85,18 @@ public final class Form_8 extends javax.swing.JPanel {
 
             }
         ));
+        ac_archive.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                ac_archiveMousePressed(evt);
+            }
+            public void mouseReleased(java.awt.event.MouseEvent evt) {
+                ac_archiveMouseReleased(evt);
+            }
+        });
         jScrollPane1.setViewportView(ac_archive);
 
-        add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 200, 1150, 490));
+        add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 200, 620, 490));
     }// </editor-fold>//GEN-END:initComponents
-
-    private void recoverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_recoverActionPerformed
-        recoverAccount();
-    }//GEN-LAST:event_recoverActionPerformed
 
     private void searchMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_searchMouseEntered
         search.setFocusable(true);
@@ -156,41 +106,38 @@ public final class Form_8 extends javax.swing.JPanel {
         search.setFocusable(false);
     }//GEN-LAST:event_searchMouseExited
 
-    private void jLabel5MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel5MouseEntered
-    }//GEN-LAST:event_jLabel5MouseEntered
+    private void ac_archiveMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ac_archiveMouseReleased
+        if (evt.isPopupTrigger()) {
+            // Add an offset to X to make the popup appear to the right of the cursor
+            int xOffset = 10; // Adjust this value as needed
+            int yOffset = 0;  // Adjust this value as needed
+            jPopupMenu1.show(evt.getComponent(), evt.getX() + xOffset, evt.getY() + yOffset);
+        }
+    }//GEN-LAST:event_ac_archiveMouseReleased
 
-    private void jLabel5MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel5MouseExited
-    }//GEN-LAST:event_jLabel5MouseExited
+    private void ac_archiveMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ac_archiveMousePressed
+        if (evt.isPopupTrigger()) {
+            // Add an offset to X to make the popup appear to the right of the cursor
+            int xOffset = 10; // Adjust this value as needed
+            int yOffset = 0;  // Adjust this value as needed
+            jPopupMenu1.show(evt.getComponent(), evt.getX() + xOffset, evt.getY() + yOffset);
+        }
+    }//GEN-LAST:event_ac_archiveMousePressed
 
-    private void jLabel6MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel6MouseEntered
-    }//GEN-LAST:event_jLabel6MouseEntered
+    private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
+        recoverAccount();
+    }//GEN-LAST:event_jMenuItem2ActionPerformed
 
-    private void jLabel6MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel6MouseExited
-    }//GEN-LAST:event_jLabel6MouseExited
+    private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
+        deleteAccount();
+    }//GEN-LAST:event_jMenuItem1ActionPerformed
 
-    private void jLabel7MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel7MouseEntered
-    }//GEN-LAST:event_jLabel7MouseEntered
-
-    private void jLabel7MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel7MouseExited
-    }//GEN-LAST:event_jLabel7MouseExited
-
-    private void jLabel8MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel8MouseEntered
-    }//GEN-LAST:event_jLabel8MouseEntered
-
-    private void jLabel8MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel8MouseExited
-    }//GEN-LAST:event_jLabel8MouseExited
-
-    private void jLabel9MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel9MouseEntered
-    }//GEN-LAST:event_jLabel9MouseEntered
-
-    private void jLabel9MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel9MouseExited
-    }//GEN-LAST:event_jLabel9MouseExited
-
-    private void jLabel4MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel4MouseEntered
-    }//GEN-LAST:event_jLabel4MouseEntered
-
-    private void jLabel4MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel4MouseExited
-    }//GEN-LAST:event_jLabel4MouseExited
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        DefaultTableModel tbl = (DefaultTableModel) ac_archive.getModel();
+        TableRowSorter<DefaultTableModel> obj = new TableRowSorter<>(tbl);
+        ac_archive.setRowSorter(obj);
+        obj.setRowFilter(RowFilter.regexFilter(search.getText()));
+    }//GEN-LAST:event_jButton1ActionPerformed
 
     private void displayData() {
         try {
@@ -234,20 +181,45 @@ public final class Form_8 extends javax.swing.JPanel {
     public void EmphasizableButtons() {
         search.putClientProperty(FlatClientProperties.TEXT_FIELD_SHOW_CLEAR_BUTTON, true);
         search.putClientProperty(FlatClientProperties.PLACEHOLDER_TEXT, "SEARCH BAR");
-        recover.setFocusable(false);
+    }
+
+    private void deleteAccount() {
+        int rowIndex = ac_archive.getSelectedRow();
+        if (rowIndex < 0) {
+            Checkers.unsuccessfullFieldChecker("PLEASE SELECT AN INDEX!");
+        } else {
+            try {
+                TableModel tbl = ac_archive.getModel();
+                String accountId = tbl.getValueAt(rowIndex, 0).toString();
+                String query = "UPDATE ac_table SET ac_status = 'PERMANENTLY DELETED' WHERE ac_id = ?";
+
+                Connection cn = new DBConnection().getConnection();
+                PreparedStatement ps = cn.prepareStatement(query);
+                ps.setString(1, accountId);
+                ps.executeUpdate();
+
+                Checkers.successFieldChecker("ACCOUNT HAS BEEN PERMANENTLY DELETED SUCCESSFULLY!!");
+
+                xternal_db xdb = xternal_db.getInstance();
+                PreparedStatement logs = cn.prepareStatement("INSERT INTO ac_logs (lg_email,lg_username,lg_actions)"
+                        + " VALUES ('" + xdb.getEmail() + "', '" + xdb.getUsername() + "', 'RECOVERED AN ACCOUNT, ID = " + accountId + "')");
+                logs.execute();
+
+                displayData();
+            } catch (SQLException er) {
+                System.out.println("ERROR: " + er.getMessage());
+            }
+        }
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTable ac_archive;
+    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel5;
-    private javax.swing.JLabel jLabel6;
-    private javax.swing.JLabel jLabel7;
-    private javax.swing.JLabel jLabel8;
-    private javax.swing.JLabel jLabel9;
+    private javax.swing.JMenuItem jMenuItem1;
+    private javax.swing.JMenuItem jMenuItem2;
+    private javax.swing.JPopupMenu jPopupMenu1;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JButton recover;
     private javax.swing.JTextField search;
     // End of variables declaration//GEN-END:variables
 }

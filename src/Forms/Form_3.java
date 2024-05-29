@@ -1087,7 +1087,7 @@ public final class Form_3 extends javax.swing.JPanel {
         jPanel2.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 10, 400, -1));
 
         jLabel3.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
-        jLabel3.setText("IN-ACTIVE USERS");
+        jLabel3.setText("In-active Users");
         jPanel2.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 85, 180, -1));
 
         jLabel4.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
@@ -1095,19 +1095,19 @@ public final class Form_3 extends javax.swing.JPanel {
         jPanel2.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 85, 180, -1));
 
         jLabel5.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
-        jLabel5.setText("ADMIN ACCOUNTS");
+        jLabel5.setText("Admin Accounts");
         jPanel2.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 110, 180, -1));
 
         jLabel6.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
-        jLabel6.setText("RECEPTIONIST ACCOUNTS");
+        jLabel6.setText("Receptionist Accounts");
         jPanel2.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 160, 180, -1));
 
         jLabel7.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
-        jLabel7.setText("DOCTOR ACCOUNTS");
+        jLabel7.setText("Doctor Accounts");
         jPanel2.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 135, 180, -1));
 
         jLabel8.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
-        jLabel8.setText("ACTIVE USERS");
+        jLabel8.setText("Active Users");
         jPanel2.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 60, 180, -1));
 
         jSeparator1.setForeground(new java.awt.Color(204, 204, 204));
@@ -1504,11 +1504,9 @@ public final class Form_3 extends javax.swing.JPanel {
     }//GEN-LAST:event_emailActionPerformed
 
     private void jPanel4MouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel4MouseReleased
-
         if (evt.isPopupTrigger()) {
             ViewAccount.show(this, evt.getX(), evt.getY());
         }
-
     }//GEN-LAST:event_jPanel4MouseReleased
 
     private void Delete_AccountActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Delete_AccountActionPerformed
@@ -2003,7 +2001,7 @@ public final class Form_3 extends javax.swing.JPanel {
     private javax.swing.JPanel panel7;
     private javax.swing.JPanel panel8;
     private javax.swing.JPanel panel9;
-    private javax.swing.JLabel picture1;
+    public javax.swing.JLabel picture1;
     private javax.swing.JButton print;
     private javax.swing.JButton printableTable;
     private javax.swing.JTextField question;
