@@ -15,6 +15,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import javax.swing.BorderFactory;
 import javax.swing.JComponent;
+import javax.swing.JFrame;
+import javax.swing.SwingUtilities;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 
@@ -154,7 +156,7 @@ public final class newPass extends javax.swing.JFrame {
 
         jLabel2.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
         jLabel2.setText("that you don't user elsewhere");
-        jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(45, 70, 320, -1));
+        jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(45, 75, 320, -1));
 
         jButton4.setBackground(new java.awt.Color(255, 255, 255));
         jButton4.setText("Cancel");
@@ -266,7 +268,11 @@ public final class newPass extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
-
+        SwingUtilities.invokeLater(() -> {
+            Form_9 form = new Form_9();
+            form.setVisible(true);
+            dispose();
+        });
     }//GEN-LAST:event_jButton4ActionPerformed
 
     private void newpassKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_newpassKeyTyped

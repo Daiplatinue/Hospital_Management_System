@@ -84,7 +84,7 @@ public final class Form_9 extends javax.swing.JPanel {
                 isContactValid(contact.getText().trim());
             }
         });
-        
+
         question.setVisible(false);
         answer.setVisible(false);
     }
@@ -93,6 +93,8 @@ public final class Form_9 extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jPopupMenu1 = new javax.swing.JPopupMenu();
+        jMenuItem1 = new javax.swing.JMenuItem();
         picture1 = new javax.swing.JLabel();
         cover = new javax.swing.JLabel();
         remove = new javax.swing.JButton();
@@ -110,12 +112,27 @@ public final class Form_9 extends javax.swing.JPanel {
         add2 = new javax.swing.JButton();
         update = new javax.swing.JButton();
         id = new javax.swing.JTextField();
-        delete = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
         emailChecker = new javax.swing.JLabel();
         contactChecker = new javax.swing.JLabel();
 
+        jMenuItem1.setText("Delete Account");
+        jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem1ActionPerformed(evt);
+            }
+        });
+        jPopupMenu1.add(jMenuItem1);
+
         setBackground(new java.awt.Color(250, 250, 250));
+        addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                formMousePressed(evt);
+            }
+            public void mouseReleased(java.awt.event.MouseEvent evt) {
+                formMouseReleased(evt);
+            }
+        });
         setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         picture1.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -321,17 +338,6 @@ public final class Form_9 extends javax.swing.JPanel {
         });
         add(id, new org.netbeans.lib.awtextra.AbsoluteConstraints(1200, 20, 90, 32));
 
-        delete.setBackground(new java.awt.Color(255, 255, 255));
-        delete.setText("Delete Account");
-        delete.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(153, 153, 153), 1, true));
-        delete.setOpaque(false);
-        delete.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                deleteActionPerformed(evt);
-            }
-        });
-        add(delete, new org.netbeans.lib.awtextra.AbsoluteConstraints(1040, 590, 210, 30));
-
         jButton2.setBackground(new java.awt.Color(255, 255, 255));
         jButton2.setText("Change Password");
         jButton2.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(153, 153, 153), 1, true));
@@ -462,10 +468,6 @@ public final class Form_9 extends javax.swing.JPanel {
 
     }//GEN-LAST:event_add2ActionPerformed
 
-    private void deleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteActionPerformed
-        deleteAccount();
-    }//GEN-LAST:event_deleteActionPerformed
-
     private void contactMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_contactMouseClicked
 
     }//GEN-LAST:event_contactMouseClicked
@@ -581,6 +583,28 @@ public final class Form_9 extends javax.swing.JPanel {
             passwordFrame.toFront();
         }
     }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void formMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_formMouseReleased
+        if (evt.isPopupTrigger()) {
+            // Add an offset to X to make the popup appear to the right of the cursor
+            int xOffset = 10; // Adjust this value as needed
+            int yOffset = 0;  // Adjust this value as needed
+            jPopupMenu1.show(evt.getComponent(), evt.getX() + xOffset, evt.getY() + yOffset);
+        }
+    }//GEN-LAST:event_formMouseReleased
+
+    private void formMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_formMousePressed
+        if (evt.isPopupTrigger()) {
+            // Add an offset to X to make the popup appear to the right of the cursor
+            int xOffset = 10; // Adjust this value as needed
+            int yOffset = 0;  // Adjust this value as needed
+            jPopupMenu1.show(evt.getComponent(), evt.getX() + xOffset, evt.getY() + yOffset);
+        }
+    }//GEN-LAST:event_formMousePressed
+
+    private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
+        deleteAccount();
+    }//GEN-LAST:event_jMenuItem1ActionPerformed
 
     private void deleteAccount() {
         try {
@@ -792,7 +816,6 @@ public final class Form_9 extends javax.swing.JPanel {
     private javax.swing.JTextField contact;
     private javax.swing.JLabel contactChecker;
     private javax.swing.JLabel cover;
-    private javax.swing.JButton delete;
     private javax.swing.JTextField email;
     private javax.swing.JLabel emailChecker;
     private javax.swing.JTextField firstname;
@@ -800,8 +823,10 @@ public final class Form_9 extends javax.swing.JPanel {
     private javax.swing.JTextField id;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
+    private javax.swing.JMenuItem jMenuItem1;
+    private javax.swing.JPopupMenu jPopupMenu1;
     private javax.swing.JTextField lastname;
-    private javax.swing.JLabel picture1;
+    public javax.swing.JLabel picture1;
     private javax.swing.JTextField question;
     private javax.swing.JButton remove;
     private javax.swing.JComboBox<String> status;

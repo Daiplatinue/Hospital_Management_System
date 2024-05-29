@@ -26,7 +26,7 @@ import jnafilechooser.api.*;
 import net.proteanit.sql.*;
 
 public final class Form_3 extends javax.swing.JPanel {
-    
+
     String path2 = null;
     private final Map<JPanel, Timer> enterTimers;
     private final Map<JPanel, Timer> exitTimers;
@@ -35,18 +35,18 @@ public final class Form_3 extends javax.swing.JPanel {
     File selectedFile;
     String path;
     String oldpath;
-    
+
     File coverSelection;
     String pathCover;
     String oldpathCover;
     String coverDestination = "";
-    
+
     private boolean isVisible = false;
-    
+
     public Form_3() throws IOException {
         this.enterTimers = new HashMap<>();
         this.exitTimers = new HashMap<>();
-        
+
         initComponents();
         displayData();
         focusableButtonsSetter();
@@ -54,45 +54,77 @@ public final class Form_3 extends javax.swing.JPanel {
         acquireData();
         scroll1.getVerticalScrollBar().setUnitIncrement(16);
         jScrollPane2.getVerticalScrollBar().setUnitIncrement(20);
-        
+
         email.getDocument().addDocumentListener(new DocumentListener() {
             @Override
             public void insertUpdate(DocumentEvent e) {
                 isValidEmail();
             }
-            
+
             @Override
             public void removeUpdate(DocumentEvent e) {
                 isValidEmail();
             }
-            
+
             @Override
             public void changedUpdate(DocumentEvent e) {
             }
         });
-        
+
         contact.getDocument().addDocumentListener(new DocumentListener() {
             @Override
             public void insertUpdate(DocumentEvent e) {
                 isContactValid(contact.getText().trim());
             }
-            
+
             @Override
             public void removeUpdate(DocumentEvent e) {
                 isContactValid(contact.getText().trim());
             }
-            
+
             @Override
             public void changedUpdate(DocumentEvent e) {
                 isContactValid(contact.getText().trim());
             }
         });
-        
+
         remove.setEnabled(false);
         question.setVisible(false);
         answer.setVisible(false);
+        deletephoto.setVisible(false);
+
+        type.setRenderer(new DefaultListCellRenderer() {
+            @Override
+            public Component getListCellRendererComponent(JList<?> list, Object value, int index,
+                    boolean isSelected, boolean cellHasFocus) {
+                JLabel renderer = (JLabel) super.getListCellRendererComponent(list, value, index, isSelected, cellHasFocus);
+                renderer.setHorizontalAlignment(SwingConstants.CENTER);
+                return renderer;
+            }
+        });
+
+        status.setRenderer(new DefaultListCellRenderer() {
+            @Override
+            public Component getListCellRendererComponent(JList<?> list, Object value, int index,
+                    boolean isSelected, boolean cellHasFocus) {
+                JLabel renderer = (JLabel) super.getListCellRendererComponent(list, value, index, isSelected, cellHasFocus);
+                renderer.setHorizontalAlignment(SwingConstants.CENTER);
+                return renderer;
+            }
+        });
+
+        gender.setRenderer(new DefaultListCellRenderer() {
+            @Override
+            public Component getListCellRendererComponent(JList<?> list, Object value, int index,
+                    boolean isSelected, boolean cellHasFocus) {
+                JLabel renderer = (JLabel) super.getListCellRendererComponent(list, value, index, isSelected, cellHasFocus);
+                renderer.setHorizontalAlignment(SwingConstants.CENTER);
+                return renderer;
+            }
+        });
+
     }
-    
+
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -217,8 +249,11 @@ public final class Form_3 extends javax.swing.JPanel {
         jButton1 = new javax.swing.JButton();
         emailChecker = new javax.swing.JLabel();
         contactChecker = new javax.swing.JLabel();
+        deletephoto = new javax.swing.JButton();
+        jSeparator2 = new javax.swing.JSeparator();
+        jSeparator3 = new javax.swing.JSeparator();
+        jLabel1 = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
-        jButton7 = new javax.swing.JButton();
         search = new javax.swing.JTextField();
         changeView = new javax.swing.JButton();
         print = new javax.swing.JButton();
@@ -1067,6 +1102,26 @@ public final class Form_3 extends javax.swing.JPanel {
         contactChecker.setText("STRENGTH");
         jPanel4.add(contactChecker, new org.netbeans.lib.awtextra.AbsoluteConstraints(640, 485, 270, -1));
 
+        deletephoto.setBackground(new java.awt.Color(255, 255, 255));
+        deletephoto.setText("Delete");
+        deletephoto.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(153, 153, 153), 1, true));
+        deletephoto.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                deletephotoActionPerformed(evt);
+            }
+        });
+        jPanel4.add(deletephoto, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 500, 180, 30));
+
+        jSeparator2.setForeground(new java.awt.Color(204, 204, 204));
+        jPanel4.add(jSeparator2, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 480, 70, 20));
+
+        jSeparator3.setForeground(new java.awt.Color(204, 204, 204));
+        jPanel4.add(jSeparator3, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 480, 70, 20));
+
+        jLabel1.setForeground(new java.awt.Color(204, 204, 204));
+        jLabel1.setText("OR");
+        jPanel4.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(162, 473, -1, -1));
+
         jScrollPane2.setViewportView(jPanel4);
 
         jPanel1.add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1330, 730));
@@ -1077,17 +1132,6 @@ public final class Form_3 extends javax.swing.JPanel {
 
         jPanel2.setBackground(new java.awt.Color(255, 255, 255));
         jPanel2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-
-        jButton7.setBackground(new java.awt.Color(255, 255, 255));
-        jButton7.setText("Search");
-        jButton7.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(153, 153, 153), 1, true));
-        jButton7.setOpaque(false);
-        jButton7.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton7ActionPerformed(evt);
-            }
-        });
-        jPanel2.add(jButton7, new org.netbeans.lib.awtextra.AbsoluteConstraints(960, 20, 80, 30));
 
         search.setFont(new java.awt.Font("Yu Gothic", 0, 12)); // NOI18N
         search.setHorizontalAlignment(javax.swing.JTextField.CENTER);
@@ -1108,7 +1152,7 @@ public final class Form_3 extends javax.swing.JPanel {
                 searchKeyReleased(evt);
             }
         });
-        jPanel2.add(search, new org.netbeans.lib.awtextra.AbsoluteConstraints(710, 20, 330, 30));
+        jPanel2.add(search, new org.netbeans.lib.awtextra.AbsoluteConstraints(800, 20, 240, 30));
 
         changeView.setForeground(new java.awt.Color(153, 153, 153));
         changeView.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/grid (1).png"))); // NOI18N
@@ -1284,14 +1328,14 @@ public final class Form_3 extends javax.swing.JPanel {
         MessageFormat footer = new MessageFormat("Page{0,number,integer}");
         try {
             ac_db.print(JTable.PrintMode.FIT_WIDTH, header, footer);
-            
+
             Connection cn = new DBConnection().getConnection();
-            
+
             xternal_db xdb = xternal_db.getInstance();
             PreparedStatement logs = cn.prepareStatement("INSERT INTO ac_logs (lg_email,lg_username,lg_actions)"
                     + " VALUES ('" + xdb.getEmail() + "', '" + xdb.getUsername() + "', 'JUST PRINTED A TABLE ON FORM_3')");
             logs.execute();
-            
+
         } catch (PrinterException | SQLException er) {
             System.out.println("" + er.getMessage());
         }
@@ -1388,17 +1432,17 @@ public final class Form_3 extends javax.swing.JPanel {
     private void updateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_updateActionPerformed
         try {
             String photoPath = (destination != null) ? destination.trim() : "";
-            
+
             boolean fieldsEmpty = username.getText().trim().isEmpty() || email.getText().trim().isEmpty()
                     || contact.getText().trim().isEmpty() || id.getText().trim().isEmpty()
                     || lastname.getText().trim().isEmpty() || firstname.getText().trim().isEmpty();
-            
+
             if (fieldsEmpty || photoPath.isEmpty() || coverSelection == null) {
                 UIManager.put("OptionPane.background", Color.white);
                 UIManager.put("Panel.background", Color.white);
                 Icon customIcon = new javax.swing.ImageIcon(getClass().getResource("/Images/alert.gif"));
                 JOptionPane.showMessageDialog(null, "PLEASE FILL ALL FIELDS AND INSERT AN IMAGE!", "WARNING", JOptionPane.WARNING_MESSAGE, customIcon);
-                
+
                 if (photoPath.isEmpty()) {
                     System.out.println("IMAGE FILE PATH IS EMPTY!");
                 } else {
@@ -1429,35 +1473,35 @@ public final class Form_3 extends javax.swing.JPanel {
                         pstmt.setString(11, question.getText());
                         pstmt.setString(12, answer.getText());
                         pstmt.setString(13, id.getText());
-                        
+
                         pstmt.executeUpdate();
                     }
-                    
+
                     System.out.println(coverSelection);
                     System.out.println(destination);
-                    
+
                     if (destination == null || coverSelection == null) {
                         Checkers.unsuccessfullFieldChecker("PLEASE INSERT AN IMAGE");
                     } else {
                         Files.copy(selectedFile.toPath(), new File(destination).toPath(), StandardCopyOption.REPLACE_EXISTING);
                         Files.copy(coverSelection.toPath(), new File(coverDestination).toPath(), StandardCopyOption.REPLACE_EXISTING);
-                        
+
                         JOptionPane.showMessageDialog(null, "ACCOUNT SUCCESSFULLY UPDATED!", "SUCCESS", JOptionPane.INFORMATION_MESSAGE);
-                        
+
                         xternal_db xdb = xternal_db.getInstance();
                         String logQuery = "INSERT INTO ac_logs (lg_email, lg_username, lg_actions) VALUES (?, ?, ?)";
                         try (PreparedStatement logStmt = connection.prepareStatement(logQuery)) {
                             logStmt.setString(1, xdb.getEmail());
                             logStmt.setString(2, xdb.getUsername());
                             logStmt.setString(3, "JUST UPDATED AN ACCOUNT ID = " + id.getText());
-                            
+
                             logStmt.executeUpdate();
                         }
-                        
+
                         pane.setSelectedIndex(0);
                         acquireData();
                     }
-                    
+
                 } catch (SQLException | IOException ex) {
                     System.out.println("Error: " + ex.getMessage());
                 }
@@ -1489,7 +1533,7 @@ public final class Form_3 extends javax.swing.JPanel {
             selectedFile = ch.getSelectedFile();
             path = selectedFile.getAbsolutePath();
             destination = "src/All_Images/" + selectedFile.getName();
-            
+
             if (FileExistenceChecker(path) == 1) {
                 Checkers.unsuccessfullFieldChecker("FILE ALREADY EXIST!");
                 destination = "";
@@ -1497,8 +1541,9 @@ public final class Form_3 extends javax.swing.JPanel {
             } else {
                 picture1.setIcon(ResizeImage(path));
                 remove.setEnabled(true);
+                deletephoto.setEnabled(true);
             }
-            
+
         } else {
             System.out.println("nabanhaw ng image wama kiti");
         }
@@ -1574,15 +1619,15 @@ public final class Form_3 extends javax.swing.JPanel {
                 int rowsAffected = pst.executeUpdate();
                 if (rowsAffected > 0) {
                     JOptionPane.showMessageDialog(null, "ACCOUNT STATUS UPDATED TO 'DELETED'!", "SUCCESS", JOptionPane.INFORMATION_MESSAGE);
-                    
+
                     xternal_db xdb = xternal_db.getInstance();
                     PreparedStatement logs = cn.prepareStatement("INSERT INTO ac_logs (lg_email,lg_username,lg_actions)"
                             + " VALUES ('" + xdb.getEmail() + "', '" + xdb.getUsername() + "', 'JUST DELETED AN ACCOUNT, ID = " + id.getText() + "')");
                     logs.execute();
-                    
+
                     acquireData();
                     pane.setSelectedIndex(0);
-                    
+
                 } else {
                     JOptionPane.showMessageDialog(null, "NO ACCOUNT FOUND WITH ID: " + idText, "WARNING", JOptionPane.WARNING_MESSAGE);
                 }
@@ -1603,7 +1648,7 @@ public final class Form_3 extends javax.swing.JPanel {
             coverSelection = ch.getSelectedFile();
             pathCover = coverSelection.getAbsolutePath();
             coverDestination = "src/Cover_Images/" + coverSelection.getName();
-            
+
             if (FileExistenceChecker(pathCover) == 1) {
                 Checkers.unsuccessfullFieldChecker("FILE ALREADY EXIST!");
                 coverDestination = "";
@@ -1612,7 +1657,7 @@ public final class Form_3 extends javax.swing.JPanel {
                 cover.setIcon(ResizeImageCover(pathCover));
                 remove.setEnabled(true);
             }
-            
+
         } else {
             System.out.println("nabanhaw ng image wama kiti");
         }
@@ -1627,7 +1672,7 @@ public final class Form_3 extends javax.swing.JPanel {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         isVisible = !isVisible;
-        
+
         question.setVisible(isVisible);
         answer.setVisible(isVisible);
     }//GEN-LAST:event_jButton1ActionPerformed
@@ -1638,7 +1683,7 @@ public final class Form_3 extends javax.swing.JPanel {
 
     private void searchBarKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_searchBarKeyReleased
         String searchTerm = searchBar.getText().trim().toLowerCase();
-        
+
         JLabel[] ids = {id1, id2, id3, id4, id5, id6, id7, id8, id9, id10, id11, id12};
         JLabel[] names = {name1, name2, name3, name4, name5, name6, name7, name8, name9, name10, name11, name12};
         JLabel[] types = {type1, type2, type3, type4, type5, type6, type7, type8, type9, type10, type11, type12};
@@ -1646,7 +1691,7 @@ public final class Form_3 extends javax.swing.JPanel {
         JLabel[] icons = {icon1, icon2, icon3, icon4, icon5, icon6, icon7, icon8, icon9, icon10, icon11, icon12};
         JPanel[] panels = {panel1, panel2, panel3, panel4, panel5, panel6, panel7, panel8, panel9, panel10, panel11, panel12};
         JLabel[] uids = {uid1, uid2, uid3, uid4, uid5, uid6, uid7, uid8, uid9, uid10, uid11, uid12};
-        
+
         fetch(0, ids, names, types, statuses, uids, icons, panels, searchTerm);
     }//GEN-LAST:event_searchBarKeyReleased
 
@@ -1673,9 +1718,38 @@ public final class Form_3 extends javax.swing.JPanel {
 
     }//GEN-LAST:event_searchMouseClicked
 
-    private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
-    }//GEN-LAST:event_jButton7ActionPerformed
-    
+    private void deletephotoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deletephotoActionPerformed
+        if (selectedFile != null && selectedFile.exists()) {
+            boolean sourceDeleted = selectedFile.delete();
+            boolean destinationDeleted = false;
+
+            File destinationFile = new File(destination);
+            if (destinationFile.exists()) {
+                destinationDeleted = destinationFile.delete();
+            }
+
+            if (sourceDeleted && destinationDeleted) {
+                picture1.setIcon(null);
+                selectedFile = null;
+                path = "";
+                destination = "";
+                remove.setEnabled(false);
+                System.out.println("File deleted successfully from both source and destination.");
+            } else if (sourceDeleted) {
+                picture1.setIcon(null);
+                selectedFile = null;
+                path = "";
+                destination = "";
+                remove.setEnabled(false);
+                System.out.println("File deleted successfully from source, but failed to delete from destination.");
+            } else {
+                System.out.println("Failed to delete the file from source.");
+            }
+        } else {
+            System.out.println("No file selected or file does not exist.");
+        }
+    }//GEN-LAST:event_deletephotoActionPerformed
+
     public ImageIcon ResizeImage(String imagePath) {
         ImageIcon MyImage = new ImageIcon(imagePath);
         Image img = MyImage.getImage();
@@ -1683,7 +1757,7 @@ public final class Form_3 extends javax.swing.JPanel {
         ImageIcon image = new ImageIcon(newImg);
         return image;
     }
-    
+
     public ImageIcon ResizeImageCover(String imagePath) {
         ImageIcon MyImage = new ImageIcon(imagePath);
         Image img = MyImage.getImage();
@@ -1691,59 +1765,77 @@ public final class Form_3 extends javax.swing.JPanel {
         ImageIcon image = new ImageIcon(newImg);
         return image;
     }
-    
+
     private void displayData() {
         try {
             xternal_db xdb = xternal_db.getInstance();
             ResultSet rs = new DBConnection().getData("select ac_id,ac_email,ac_username,ac_contact,ac_type,ac_status from ac_table where ac_status in ('active', 'in-active') and ac_id != '" + xdb.getId() + "'");
             ac_db.setModel(DbUtils.resultSetToTableModel(rs));
 
-            // Counting total admin accounts
+            TableColumn column0, column1, column2, column3, column4;
+
+            column0 = ac_db.getColumnModel().getColumn(0);
+            column0.setPreferredWidth(50);
+
+            column1 = ac_db.getColumnModel().getColumn(1);
+            column1.setPreferredWidth(50);
+
+            column2 = ac_db.getColumnModel().getColumn(2);
+            column2.setPreferredWidth(50);
+
+            column3 = ac_db.getColumnModel().getColumn(3);
+            column3.setPreferredWidth(50);
+
+            column4 = ac_db.getColumnModel().getColumn(4);
+            column4.setPreferredWidth(50);
+
+            ((DefaultTableCellRenderer) ac_db.getTableHeader().getDefaultRenderer())
+                    .setHorizontalAlignment(SwingConstants.CENTER);
+            DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
+            centerRenderer.setHorizontalAlignment(SwingConstants.CENTER);
+            ac_db.setDefaultRenderer(Object.class, centerRenderer);
+
             ResultSet adminCountRS = new DBConnection().getData("select count(*) as admin_count from ac_table where ac_type = 'admin'");
             if (adminCountRS.next()) {
                 int adminCount = adminCountRS.getInt("admin_count");
                 admin.setText(String.valueOf(adminCount));
             }
 
-            // Counting total active accounts
             ResultSet activeCountRS = new DBConnection().getData("select count(*) as active_count from ac_table where ac_status = 'active'");
             if (activeCountRS.next()) {
                 int activeCount = activeCountRS.getInt("active_count");
                 active.setText(String.valueOf(activeCount));
             }
 
-            // Counting total inactive accounts
             ResultSet inactiveCountRS = new DBConnection().getData("select count(*) as inactive_count from ac_table where ac_status = 'in-active'");
             if (inactiveCountRS.next()) {
                 int inactiveCount = inactiveCountRS.getInt("inactive_count");
                 inactive.setText(String.valueOf(inactiveCount));
             }
 
-            // Counting total doctor accounts
             ResultSet doctorCountRS = new DBConnection().getData("select count(*) as doctor_count from ac_table where ac_type = 'doctor'");
             if (doctorCountRS.next()) {
                 int doctorCount = doctorCountRS.getInt("doctor_count");
                 doctor.setText(String.valueOf(doctorCount));
             }
 
-            // Counting total receptionist accounts
             ResultSet recepCountRS = new DBConnection().getData("select count(*) as recep_count from ac_table where ac_type = 'receptionist'");
             if (recepCountRS.next()) {
                 int recepCount = recepCountRS.getInt("recep_count");
                 recep.setText(String.valueOf(recepCount));
             }
-            
+
         } catch (SQLException e) {
             System.err.println("An error occurred while fetching data: " + e.getMessage());
         }
     }
-    
+
     private void fetch(int index, JLabel[] ids, JLabel[] names, JLabel[] types, JLabel[] statuses, JLabel[] uids, JLabel[] icons, JPanel[] panels, String searchTerm) {
         try {
             TableModel tbl = ac_db.getModel();
             if (tbl.getRowCount() > 0) {
                 xternal_db xdb = xternal_db.getInstance();
-                
+
                 String query = "SELECT * FROM ac_table WHERE ac_id != ? AND ac_status IN ('active', 'in-active') AND (ac_lastname LIKE ? OR ac_email LIKE ? OR ac_type LIKE ? OR ac_status LIKE ?) LIMIT ?, ?";
                 DBConnection dbConnection = new DBConnection();
                 PreparedStatement ps = dbConnection.getConnection().prepareStatement(query);
@@ -1754,7 +1846,7 @@ public final class Form_3 extends javax.swing.JPanel {
                 ps.setString(5, "%" + searchTerm + "%");
                 ps.setInt(6, index);
                 ps.setInt(7, Math.min(ids.length, Math.min(names.length, Math.min(types.length, Math.min(statuses.length, Math.min(icons.length, panels.length))))));
-                
+
                 ResultSet rs = ps.executeQuery();
                 int i = 0;
                 while (rs.next() && i < ids.length) {
@@ -1763,20 +1855,20 @@ public final class Form_3 extends javax.swing.JPanel {
                     types[i].setText(rs.getString("ac_type"));
                     statuses[i].setText(rs.getString("ac_status"));
                     uids[i].setText(rs.getString("ac_id"));
-                    
+
                     if (statuses[i].getText().equalsIgnoreCase("active")) {
                         statuses[i].setForeground(new Color(66, 202, 197));
                     } else {
                         statuses[i].setForeground(Color.RED);
                     }
-                    
+
                     String img = rs.getString("ac_images");
                     ImageIcon image = new ImageIcon(img);
                     Image im = image.getImage();
                     Image im2 = im.getScaledInstance(260, 170, Image.SCALE_SMOOTH);
                     ImageIcon newImage = new ImageIcon(im2);
                     icons[i].setIcon(newImage);
-                    
+
                     panels[i].setVisible(true);
                     panels[i].setBorder(new LineBorder(Color.BLACK, 2));
                     i++;
@@ -1799,14 +1891,14 @@ public final class Form_3 extends javax.swing.JPanel {
             System.out.println("ERROR: " + er.getMessage());
         }
     }
-    
+
     public int progress() {
         int progress = 0;
-        
+
         JTextField[] fields = {username, email, contact};
         int[] scores = {5, 5, 10, 5, 7, 7, 5};
         Color[] colors = {Color.RED, Color.GREEN};
-        
+
         for (int i = 0; i < fields.length; i++) {
             if (!fields[i].getText().equals("")) {
                 progress += scores[i];
@@ -1816,14 +1908,14 @@ public final class Form_3 extends javax.swing.JPanel {
                 fields[i].setBorder(BorderFactory.createLineBorder(colors[0]));
             }
         }
-        
+
         if (type.getSelectedIndex() != -1) {
             progress += 60;
         }
-        
+
         return progress;
     }
-    
+
     public void acquireData() {
         JLabel[] ids = {id1, id2, id3, id4, id5, id6, id7, id8, id9, id10, id11, id12};
         JLabel[] names = {name1, name2, name3, name4, name5, name6, name7, name8, name9, name10, name11, name12};
@@ -1832,13 +1924,13 @@ public final class Form_3 extends javax.swing.JPanel {
         JLabel[] icons = {icon1, icon2, icon3, icon4, icon5, icon6, icon7, icon8, icon9, icon10, icon11, icon12};
         JPanel[] panels = {panel1, panel2, panel3, panel4, panel5, panel6, panel7, panel8, panel9, panel10, panel11, panel12};
         JLabel[] uids = {uid1, uid2, uid3, uid4, uid5, uid6, uid7, uid8, uid9, uid10, uid11, uid12};
-        
+
         fetch(0, ids, names, types, statuses, uids, icons, panels, "");
         displayData();
         focusableButtonsSetter();
         form3Handlers();
     }
-    
+
     private void removePanel(JLabel panel) {
         if (panel != null) {
             panel.setIcon(null);
@@ -1846,24 +1938,24 @@ public final class Form_3 extends javax.swing.JPanel {
             panel.setVisible(false);
         }
     }
-    
+
     public void dispose() {
         JFrame parent = (JFrame) this.getTopLevelAncestor();
         parent.dispose();
     }
-    
+
     public void animatePanels(JPanel[] panels, int[] targetYs) {
         for (int i = 0; i < panels.length; i++) {
             JPanel panel = panels[i];
             int targetY = targetYs[i];
-            
+
             if (enterTimers.containsKey(panel) && enterTimers.get(panel).isRunning()) {
                 enterTimers.get(panel).stop();
             }
             if (exitTimers.containsKey(panel) && exitTimers.get(panel).isRunning()) {
                 exitTimers.get(panel).stop();
             }
-            
+
             Timer timer = new Timer(10, (ActionEvent e) -> {
                 int currentY = panel.getY();
                 if (currentY < targetY) {
@@ -1871,28 +1963,28 @@ public final class Form_3 extends javax.swing.JPanel {
                 } else if (currentY > targetY) {
                     panel.setLocation(panel.getX(), Math.max(currentY - step, targetY));
                 }
-                
+
                 if (currentY == targetY) {
                     ((Timer) e.getSource()).stop();
                 }
             });
-            
+
             if (targetY == 100) {
                 enterTimers.put(panel, timer);
             } else {
                 exitTimers.put(panel, timer);
             }
-            
+
             timer.start();
         }
     }
-    
+
     public void focusableButtonsSetter() {
         search.setFocusable(false);
         print.setFocusable(false);
         changeView.setFocusable(false);
     }
-    
+
     public void form3Handlers() {
         String[] placeholders = {
             "SEARCH BAR", "ID", "USERNAME", "EMAIL",
@@ -1901,12 +1993,12 @@ public final class Form_3 extends javax.swing.JPanel {
         JComponent[] components = {
             searchBar, id, username, email, contact, search
         };
-        
+
         for (int i = 0; i < components.length; i++) {
             components[i].putClientProperty(FlatClientProperties.PLACEHOLDER_TEXT, placeholders[i]);
             components[i].putClientProperty(FlatClientProperties.TEXT_FIELD_SHOW_CLEAR_BUTTON, true);
         }
-        
+
         update.setFocusable(false);
         remove.setFocusable(false);
         type.setFocusable(false);
@@ -1914,10 +2006,10 @@ public final class Form_3 extends javax.swing.JPanel {
         print.setFocusable(false);
         changeView.setFocusable(false);
     }
-    
+
     Border activeBorder = BorderFactory.createLineBorder(Color.GREEN, 2);
     Border inactiveBorder = BorderFactory.createLineBorder(Color.RED, 2);
-    
+
     public void dataRetriever(int index, JLabel userID, JLabel nameLabel, JLabel statusLabel, JLabel idLabel, JLabel typeLabel, JLabel pictureLabel, JLabel coverPictureLabel, JTabbedPane pane) {
         JLabel[] labels = {userID, nameLabel, statusLabel, idLabel, typeLabel};
         if (Arrays.stream(labels).allMatch(label -> !label.getText().isEmpty())) {
@@ -1935,31 +2027,31 @@ public final class Form_3 extends javax.swing.JPanel {
                     firstname.setText(rs.getString("ac_firstname"));
                     question.setText(rs.getString("ac_sq"));
                     answer.setText(rs.getString("ac_sa"));
-                    
+
                     if (rs.getString("ac_status").equalsIgnoreCase("active")) {
                         picture1.setBorder(activeBorder);
                     } else {
                         picture1.setBorder(inactiveBorder);
                     }
-                    
+
                     String img = rs.getString("ac_images");
                     setScaledImage(img, pictureLabel, 180, 190);
                     destination = rs.getString("ac_images");
                     path = rs.getString("ac_images");
                     oldpath = rs.getString("ac_images");
-                    
+
                     if (pictureLabel.getIcon() == null) {
                         remove.setEnabled(false);
                     } else {
                         remove.setEnabled(true);
                     }
-                    
+
                     String coverImg = rs.getString("ac_coverphoto");
                     setScaledImage(coverImg, coverPictureLabel, 1330, 310);
                     pathCover = rs.getString("ac_coverphoto");
                     oldpathCover = rs.getString("ac_coverphoto");
                     coverDestination = rs.getString("ac_coverphoto");
-                    
+
                     selectedFile = new File(img);
                     coverSelection = new File(coverImg);
                 }
@@ -1970,7 +2062,7 @@ public final class Form_3 extends javax.swing.JPanel {
             System.out.println("Panel Is Empty!");
         }
     }
-    
+
     private void setScaledImage(String imgPath, JLabel label, int width, int height) {
         if (imgPath != null && !imgPath.isEmpty()) {
             ImageIcon imageIcon = new ImageIcon(imgPath);
@@ -1981,33 +2073,33 @@ public final class Form_3 extends javax.swing.JPanel {
             label.setIcon(null);
         }
     }
-    
+
     public int FileExistenceChecker(String path) {
         File file = new File(path);
         String fileName = file.getName();
-        
+
         Path filePath = Paths.get("src/All_Images", fileName);
         boolean fileExists = Files.exists(filePath);
-        
+
         if (fileExists) {
             return 1;
         } else {
             return 0;
         }
-        
+
     }
-    
+
     private boolean isValidEmail() {
         String xemailChecker = email.getText().trim();
-        
+
         if (xemailChecker.isEmpty()) {
             emailChecker.setText("");
             emailChecker.setForeground(Color.WHITE);
             return false;
         }
-        
+
         boolean isValid = isValidEmails(xemailChecker);
-        
+
         if (isValid) {
             emailChecker.setText("Email is valid");
             emailChecker.setForeground(Color.GREEN);
@@ -2017,43 +2109,43 @@ public final class Form_3 extends javax.swing.JPanel {
             emailChecker.setForeground(Color.RED);
             email.setBorder(BorderFactory.createLineBorder(Color.RED));
         }
-        
+
         return isValid;
     }
-    
+
     private boolean isValidEmails(String email) {
         String regex = "^[a-zA-Z0-9_+&*-]+(?:\\.[a-zA-Z0-9_+&*-]+)*@(?:gmail\\.com|yahoo\\.com|hotmail\\.com)$";
-        
+
         Pattern pattern = Pattern.compile(regex);
-        
+
         Matcher matcher = pattern.matcher(email);
-        
+
         return matcher.matches();
     }
-    
+
     private boolean isContactValid(String contacts) {
         if (contacts == null || contacts.isEmpty()) {
             contactChecker.setText("");
             contactChecker.setForeground(Color.WHITE);
             return false;
         }
-        
+
         String digitsOnly = contacts.replaceAll("\\D", "");
-        
+
         if (digitsOnly.length() != 11) {
             contactChecker.setText("Contact must be exactly 11 digits!");
             contactChecker.setForeground(Color.RED);
             contact.setBorder(BorderFactory.createLineBorder(Color.RED));
             return false;
         }
-        
+
         if (!contacts.startsWith("63") && !contacts.startsWith("09")) {
             contactChecker.setText("Contact must start with '63' or '09'!");
             contactChecker.setForeground(Color.RED);
             contact.setBorder(BorderFactory.createLineBorder(Color.RED));
             return false;
         }
-        
+
         contactChecker.setText("Contact is valid!");
         contactChecker.setForeground(Color.GREEN);
         contact.setBorder(BorderFactory.createLineBorder(Color.GREEN));
@@ -2075,6 +2167,7 @@ public final class Form_3 extends javax.swing.JPanel {
     private javax.swing.JTextField contact;
     private javax.swing.JLabel contactChecker;
     private javax.swing.JLabel cover;
+    private javax.swing.JButton deletephoto;
     private javax.swing.JLabel doctor;
     private javax.swing.JTextField email;
     private javax.swing.JLabel emailChecker;
@@ -2108,12 +2201,7 @@ public final class Form_3 extends javax.swing.JPanel {
     private Swing.ImageAvatar imageAvatar1;
     private javax.swing.JLabel inactive;
     private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
-    private javax.swing.JButton jButton4;
-    private javax.swing.JButton jButton5;
-    private javax.swing.JButton jButton6;
-    private javax.swing.JButton jButton7;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel5;
@@ -2130,6 +2218,8 @@ public final class Form_3 extends javax.swing.JPanel {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JSeparator jSeparator1;
+    private javax.swing.JSeparator jSeparator2;
+    private javax.swing.JSeparator jSeparator3;
     private javax.swing.JTextField lastname;
     public javax.swing.JLabel name1;
     public javax.swing.JLabel name10;

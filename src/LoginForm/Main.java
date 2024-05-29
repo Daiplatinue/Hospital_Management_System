@@ -499,7 +499,7 @@ public final class Main extends javax.swing.JPanel {
         jPanel2.add(jLabel65, new org.netbeans.lib.awtextra.AbsoluteConstraints(442, 2400, -1, -1));
 
         jLabel66.setFont(new java.awt.Font("Yu Gothic", 1, 30)); // NOI18N
-        jLabel66.setText("Discover our Newly Stocked Medications!");
+        jLabel66.setText("Let Us Welcome Our Newest Doctors!");
         jPanel2.add(jLabel66, new org.netbeans.lib.awtextra.AbsoluteConstraints(159, 3660, -1, -1));
 
         jLabel67.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
