@@ -4,6 +4,7 @@ import Database.*;
 import Functions.BorderColorManager;
 import Functions.Checkers;
 import LoginForm.*;
+import Swing.ImageAvatar;
 import com.formdev.flatlaf.*;
 import com.mysql.jdbc.*;
 import java.awt.*;
@@ -95,8 +96,6 @@ public final class Form_9 extends javax.swing.JPanel {
 
         jPopupMenu1 = new javax.swing.JPopupMenu();
         jMenuItem1 = new javax.swing.JMenuItem();
-        picture1 = new javax.swing.JLabel();
-        cover = new javax.swing.JLabel();
         remove = new javax.swing.JButton();
         lastname = new javax.swing.JTextField();
         firstname = new javax.swing.JTextField();
@@ -115,6 +114,8 @@ public final class Form_9 extends javax.swing.JPanel {
         jButton2 = new javax.swing.JButton();
         emailChecker = new javax.swing.JLabel();
         contactChecker = new javax.swing.JLabel();
+        picture1 = new Swing.ImageAvatar();
+        cover = new javax.swing.JLabel();
 
         jMenuItem1.setText("Delete Account");
         jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
@@ -134,21 +135,6 @@ public final class Form_9 extends javax.swing.JPanel {
             }
         });
         setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-
-        picture1.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                picture1MouseClicked(evt);
-            }
-        });
-        add(picture1, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 220, 180, 190));
-
-        cover.setOpaque(true);
-        cover.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                coverMouseClicked(evt);
-            }
-        });
-        add(cover, new org.netbeans.lib.awtextra.AbsoluteConstraints(-30, 0, 1330, 310));
 
         remove.setFont(new java.awt.Font("Yu Gothic", 0, 12)); // NOI18N
         remove.setText("Remove");
@@ -358,6 +344,14 @@ public final class Form_9 extends javax.swing.JPanel {
         contactChecker.setForeground(new java.awt.Color(255, 255, 255));
         contactChecker.setText("STRENGTH");
         add(contactChecker, new org.netbeans.lib.awtextra.AbsoluteConstraints(640, 485, 270, -1));
+
+        picture1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                picture1MouseClicked(evt);
+            }
+        });
+        add(picture1, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 220, 180, 190));
+        add(cover, new org.netbeans.lib.awtextra.AbsoluteConstraints(-32, 0, 1320, 330));
     }// </editor-fold>//GEN-END:initComponents
 
     private void idFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_idFocusGained
@@ -515,50 +509,6 @@ public final class Form_9 extends javax.swing.JPanel {
         // TODO add your handling code here:
     }//GEN-LAST:event_lastnameFocusGained
 
-    private void picture1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_picture1MouseClicked
-        JnaFileChooser ch = new JnaFileChooser();
-        boolean action = ch.showOpenDialog(new NewJFrame());
-        if (action) {
-            selectedFile = ch.getSelectedFile();
-            path = selectedFile.getAbsolutePath();
-            destination = "src/All_Images/" + selectedFile.getName();
-
-            if (FileExistenceChecker(path) == 1) {
-                Checkers.unsuccessfullFieldChecker("FILE ALREADY EXIST!");
-                destination = "";
-                path = "";
-            } else {
-                picture1.setIcon(ResizeImage(path));
-                remove.setEnabled(true);
-            }
-
-        } else {
-            System.out.println("nabanhaw ng image wama kiti");
-        }
-    }//GEN-LAST:event_picture1MouseClicked
-
-    private void coverMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_coverMouseClicked
-        JnaFileChooser ch = new JnaFileChooser();
-        boolean action = ch.showOpenDialog(new NewJFrame());
-        if (action) {
-            coverSelection = ch.getSelectedFile();
-            pathCover = coverSelection.getAbsolutePath();
-            coverDestination = "src/Cover_Images/" + coverSelection.getName();
-
-            if (FileExistenceChecker(pathCover) == 1) {
-                Checkers.unsuccessfullFieldChecker("FILE ALREADY EXIST!");
-                coverDestination = "";
-                pathCover = "";
-            } else {
-                cover.setIcon(ResizeImageCover(pathCover));
-                remove.setEnabled(true);
-            }
-
-        } else {
-            System.out.println("nabanhaw ng image wama kiti");
-        }
-    }//GEN-LAST:event_coverMouseClicked
-
     private void removeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_removeActionPerformed
         destination = "";
         path = "";
@@ -605,6 +555,28 @@ public final class Form_9 extends javax.swing.JPanel {
     private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
         deleteAccount();
     }//GEN-LAST:event_jMenuItem1ActionPerformed
+
+    private void picture1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_picture1MouseClicked
+        JnaFileChooser ch = new JnaFileChooser();
+        boolean action = ch.showOpenDialog(new NewJFrame());
+        if (action) {
+            selectedFile = ch.getSelectedFile();
+            path = selectedFile.getAbsolutePath();
+            destination = "src/All_Images/" + selectedFile.getName();
+
+            if (FileExistenceChecker(path) == 1) {
+                Checkers.unsuccessfullFieldChecker("FILE ALREADY EXIST!");
+                destination = "";
+                path = "";
+            } else {
+                picture1.setIcon(ResizeImage(path));
+                remove.setEnabled(true);
+            }
+
+        } else {
+            System.out.println("nabanhaw ng image wama kiti");
+        }
+    }//GEN-LAST:event_picture1MouseClicked
 
     private void deleteAccount() {
         try {
@@ -655,14 +627,8 @@ public final class Form_9 extends javax.swing.JPanel {
                 question.setText(rs.getString("ac_sq"));
                 answer.setText(rs.getString("ac_sa"));
 
-                if (rs.getString("ac_status").equalsIgnoreCase("active")) {
-                    picture1.setBorder(activeBorder);
-                } else {
-                    picture1.setBorder(inactiveBorder);
-                }
-
                 String img = rs.getString("ac_images");
-                setScaledImage(img, picture1, 180, 190);
+                setScaledImagePP(img, picture1, 180, 190);
                 destination = rs.getString("ac_images");
                 path = rs.getString("ac_images");
                 oldpath = rs.getString("ac_images");
@@ -674,14 +640,13 @@ public final class Form_9 extends javax.swing.JPanel {
                 }
 
                 String coverImg = rs.getString("ac_coverphoto");
-                setScaledImage(coverImg, cover, 1330, 310);
+                setScaledImageCover(coverImg, cover, 1330, 310);
                 pathCover = rs.getString("ac_coverphoto");
                 oldpathCover = rs.getString("ac_coverphoto");
                 coverDestination = rs.getString("ac_coverphoto");
 
                 selectedFile = new File(img);
                 coverSelection = new File(coverImg);
-
             }
         } catch (SQLException er) {
             System.out.println("ERROR: " + er.getMessage());
@@ -728,7 +693,18 @@ public final class Form_9 extends javax.swing.JPanel {
 
     }
 
-    private void setScaledImage(String imgPath, JLabel label, int width, int height) {
+    private void setScaledImagePP(String imgPath, ImageAvatar avatar, int width, int height) {
+        if (imgPath != null && !imgPath.isEmpty()) {
+            ImageIcon imageIcon = new ImageIcon(imgPath);
+            Image image = imageIcon.getImage();
+            Image scaledImage = image.getScaledInstance(width, height, Image.SCALE_SMOOTH);
+            avatar.setIcon(new ImageIcon(scaledImage));
+        } else {
+            avatar.setIcon(null);
+        }
+    }
+
+    private void setScaledImageCover(String imgPath, JLabel label, int width, int height) {
         if (imgPath != null && !imgPath.isEmpty()) {
             ImageIcon imageIcon = new ImageIcon(imgPath);
             Image image = imageIcon.getImage();
@@ -826,7 +802,7 @@ public final class Form_9 extends javax.swing.JPanel {
     private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JPopupMenu jPopupMenu1;
     private javax.swing.JTextField lastname;
-    public javax.swing.JLabel picture1;
+    private Swing.ImageAvatar picture1;
     private javax.swing.JTextField question;
     private javax.swing.JButton remove;
     private javax.swing.JComboBox<String> status;
