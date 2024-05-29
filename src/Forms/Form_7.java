@@ -7,6 +7,8 @@ import java.awt.*;
 import java.awt.event.*;
 import java.io.File;
 import java.sql.*;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import javax.swing.*;
 import javax.swing.border.Border;
 import javax.swing.table.*;
@@ -29,7 +31,7 @@ public final class Form_7 extends javax.swing.JPanel {
         initComponents();
         displayData();
         Highlightable();
-        
+
         question.setVisible(false);
         answer.setVisible(false);
     }
@@ -51,10 +53,11 @@ public final class Form_7 extends javax.swing.JPanel {
         ac_pending = new javax.swing.JTable();
         dp1 = new javax.swing.JButton();
         jLabel8 = new javax.swing.JLabel();
-        jLabel9 = new javax.swing.JLabel();
+        pending = new javax.swing.JLabel();
         jSeparator1 = new javax.swing.JSeparator();
         jPanel2 = new javax.swing.JPanel();
         jPanel4 = new javax.swing.JPanel();
+        emailChecker = new javax.swing.JLabel();
         username = new javax.swing.JTextField();
         email = new javax.swing.JTextField();
         picture1 = new javax.swing.JLabel();
@@ -71,6 +74,7 @@ public final class Form_7 extends javax.swing.JPanel {
         answer = new javax.swing.JTextField();
         question = new javax.swing.JTextField();
         jButton1 = new javax.swing.JButton();
+        contactChecker = new javax.swing.JLabel();
 
         jMenuItem1.setText("View Account");
         jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
@@ -93,10 +97,10 @@ public final class Form_7 extends javax.swing.JPanel {
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 50, Short.MAX_VALUE)
+            .addGap(0, 30, Short.MAX_VALUE)
         );
 
-        add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, -20, 1300, 50));
+        add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, -20, 1300, 30));
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -172,9 +176,9 @@ public final class Form_7 extends javax.swing.JPanel {
         jLabel8.setText("Pending Accounts");
         jPanel1.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 60, 180, -1));
 
-        jLabel9.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
-        jLabel9.setText("10");
-        jPanel1.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 60, 180, -1));
+        pending.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
+        pending.setText("10");
+        jPanel1.add(pending, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 60, 180, -1));
 
         jSeparator1.setForeground(new java.awt.Color(204, 204, 204));
         jSeparator1.setOrientation(javax.swing.SwingConstants.VERTICAL);
@@ -192,6 +196,11 @@ public final class Form_7 extends javax.swing.JPanel {
             }
         });
         jPanel4.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        emailChecker.setFont(new java.awt.Font("Yu Gothic", 0, 12)); // NOI18N
+        emailChecker.setForeground(new java.awt.Color(255, 255, 255));
+        emailChecker.setText("STRENGTH");
+        jPanel4.add(emailChecker, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 490, 270, -1));
 
         username.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
         username.setForeground(new java.awt.Color(153, 153, 153));
@@ -376,13 +385,20 @@ public final class Form_7 extends javax.swing.JPanel {
         question.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(153, 153, 153), 1, true));
         jPanel4.add(question, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 620, 275, 30));
 
+        jButton1.setBackground(new java.awt.Color(255, 255, 255));
         jButton1.setText("Change Question & Answer");
+        jButton1.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(153, 153, 153), 1, true));
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton1ActionPerformed(evt);
             }
         });
         jPanel4.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 570, 275, 30));
+
+        contactChecker.setFont(new java.awt.Font("Yu Gothic", 0, 12)); // NOI18N
+        contactChecker.setForeground(new java.awt.Color(255, 255, 255));
+        contactChecker.setText("STRENGTH");
+        jPanel4.add(contactChecker, new org.netbeans.lib.awtextra.AbsoluteConstraints(640, 490, 270, -1));
 
         jPanel2.add(jPanel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
 
@@ -591,6 +607,14 @@ public final class Form_7 extends javax.swing.JPanel {
         try {
             ResultSet rs = new DBConnection().getData("select ac_id,ac_email,ac_username,ac_type from ac_table where ac_status = 'PENDING'");
             ac_pending.setModel(DbUtils.resultSetToTableModel(rs));
+
+            // Counting total pending accounts
+            ResultSet pendingCountRS = new DBConnection().getData("select count(*) as pending_count from ac_table where ac_status = 'PENDING'");
+            if (pendingCountRS.next()) {
+                int pendingCount = pendingCountRS.getInt("pending_count");
+                pending.setText(String.valueOf(pendingCount));
+            }
+
         } catch (SQLException e) {
             System.err.println("An error occurred while fetching data: " + e.getMessage());
         }
@@ -669,15 +693,80 @@ public final class Form_7 extends javax.swing.JPanel {
         search.putClientProperty(FlatClientProperties.PLACEHOLDER_TEXT, "SEARCH BAR");
     }
 
+    private boolean isValidEmail() {
+        String xemailChecker = email.getText().trim();
+
+        if (xemailChecker.isEmpty()) {
+            emailChecker.setText("");
+            emailChecker.setForeground(Color.WHITE);
+            return false;
+        }
+
+        boolean isValid = isValidEmails(xemailChecker);
+
+        if (isValid) {
+            emailChecker.setText("Email is valid");
+            emailChecker.setForeground(Color.GREEN);
+            email.setBorder(BorderFactory.createLineBorder(Color.GREEN));
+        } else {
+            emailChecker.setText("Only gmail, yahoo, hotmail domains!");
+            emailChecker.setForeground(Color.RED);
+            email.setBorder(BorderFactory.createLineBorder(Color.RED));
+        }
+
+        return isValid;
+    }
+
+    private boolean isValidEmails(String email) {
+        String regex = "^[a-zA-Z0-9_+&*-]+(?:\\.[a-zA-Z0-9_+&*-]+)*@(?:gmail\\.com|yahoo\\.com|hotmail\\.com)$";
+
+        Pattern pattern = Pattern.compile(regex);
+
+        Matcher matcher = pattern.matcher(email);
+
+        return matcher.matches();
+    }
+
+    private boolean isContactValid(String contacts) {
+        if (contacts == null || contacts.isEmpty()) {
+            contactChecker.setText("");
+            contactChecker.setForeground(Color.WHITE);
+            return false;
+        }
+
+        String digitsOnly = contacts.replaceAll("\\D", "");
+
+        if (digitsOnly.length() != 11) {
+            contactChecker.setText("Contact must be exactly 11 digits!");
+            contactChecker.setForeground(Color.RED);
+            contact.setBorder(BorderFactory.createLineBorder(Color.RED));
+            return false;
+        }
+
+        if (!contacts.startsWith("63") && !contacts.startsWith("09")) {
+            contactChecker.setText("Contact must start with '63' or '09'!");
+            contactChecker.setForeground(Color.RED);
+            contact.setBorder(BorderFactory.createLineBorder(Color.RED));
+            return false;
+        }
+
+        contactChecker.setText("Contact is valid!");
+        contactChecker.setForeground(Color.GREEN);
+        contact.setBorder(BorderFactory.createLineBorder(Color.GREEN));
+        return true;
+    }
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTable ac_pending;
     private javax.swing.JButton add2;
     private javax.swing.JTextField answer;
     private javax.swing.JButton approve;
     private javax.swing.JTextField contact;
+    private javax.swing.JLabel contactChecker;
     private javax.swing.JLabel cover;
     private javax.swing.JButton dp1;
     private javax.swing.JTextField email;
+    private javax.swing.JLabel emailChecker;
     private javax.swing.JTextField firstname;
     private javax.swing.JComboBox<String> gender;
     private javax.swing.JTextField id;
@@ -685,7 +774,6 @@ public final class Form_7 extends javax.swing.JPanel {
     private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel8;
-    private javax.swing.JLabel jLabel9;
     private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
@@ -696,6 +784,7 @@ public final class Form_7 extends javax.swing.JPanel {
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JTextField lastname;
+    private javax.swing.JLabel pending;
     public javax.swing.JLabel picture1;
     private javax.swing.JTextField question;
     private javax.swing.JTextField search;

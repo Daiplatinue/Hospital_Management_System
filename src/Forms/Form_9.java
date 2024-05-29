@@ -7,6 +7,8 @@ import LoginForm.*;
 import com.formdev.flatlaf.*;
 import com.mysql.jdbc.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -17,8 +19,12 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import javax.swing.*;
 import javax.swing.border.Border;
+import javax.swing.event.DocumentEvent;
+import javax.swing.event.DocumentListener;
 import javax.swing.table.TableModel;
 import jnafilechooser.api.*;
 
@@ -37,10 +43,46 @@ public final class Form_9 extends javax.swing.JPanel {
 
     private boolean isVisible = false;
 
+    private Timer timer;
+    private float panelOpacity = 0.0f;
+
     public Form_9() {
         initComponents();
         MyInfo();
         customizeFormFields();
+
+        email.getDocument().addDocumentListener(new DocumentListener() {
+            @Override
+            public void insertUpdate(DocumentEvent e) {
+                isValidEmail();
+            }
+
+            @Override
+            public void removeUpdate(DocumentEvent e) {
+                isValidEmail();
+            }
+
+            @Override
+            public void changedUpdate(DocumentEvent e) {
+            }
+        });
+
+        contact.getDocument().addDocumentListener(new DocumentListener() {
+            @Override
+            public void insertUpdate(DocumentEvent e) {
+                isContactValid(contact.getText().trim());
+            }
+
+            @Override
+            public void removeUpdate(DocumentEvent e) {
+                isContactValid(contact.getText().trim());
+            }
+
+            @Override
+            public void changedUpdate(DocumentEvent e) {
+                isContactValid(contact.getText().trim());
+            }
+        });
     }
 
     @SuppressWarnings("unchecked")
@@ -65,6 +107,9 @@ public final class Form_9 extends javax.swing.JPanel {
         update = new javax.swing.JButton();
         id = new javax.swing.JTextField();
         delete = new javax.swing.JButton();
+        jButton2 = new javax.swing.JButton();
+        emailChecker = new javax.swing.JLabel();
+        contactChecker = new javax.swing.JLabel();
 
         setBackground(new java.awt.Color(250, 250, 250));
         setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -202,33 +247,35 @@ public final class Form_9 extends javax.swing.JPanel {
         type.setForeground(new java.awt.Color(153, 153, 153));
         type.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "PATIENT", "DOCTOR", "ADMIN", "RECEPTIONIST" }));
         type.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(153, 153, 153), 1, true));
-        add(type, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 520, 275, 30));
+        add(type, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 520, 270, 30));
 
         status.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
         status.setForeground(new java.awt.Color(153, 153, 153));
         status.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "PENDING", "ACTIVE", "IN-ACTIVE", "DELETED" }));
         status.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(153, 153, 153), 1, true));
-        add(status, new org.netbeans.lib.awtextra.AbsoluteConstraints(640, 520, 275, 30));
+        add(status, new org.netbeans.lib.awtextra.AbsoluteConstraints(640, 520, 270, 30));
 
+        jButton1.setBackground(new java.awt.Color(255, 255, 255));
         jButton1.setText("Change Question & Answer");
+        jButton1.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(153, 153, 153), 1, true));
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton1ActionPerformed(evt);
             }
         });
-        add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 570, 275, 30));
+        add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 570, 270, 30));
 
         question.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
         question.setForeground(new java.awt.Color(153, 153, 153));
         question.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         question.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(153, 153, 153), 1, true));
-        add(question, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 620, 275, 30));
+        add(question, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 620, 270, 30));
 
         answer.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
         answer.setForeground(new java.awt.Color(153, 153, 153));
         answer.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         answer.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(153, 153, 153), 1, true));
-        add(answer, new org.netbeans.lib.awtextra.AbsoluteConstraints(640, 620, 275, 30));
+        add(answer, new org.netbeans.lib.awtextra.AbsoluteConstraints(640, 620, 270, 30));
 
         add2.setFont(new java.awt.Font("Segoe UI", 0, 11)); // NOI18N
         add2.setText("Cancel");
@@ -280,120 +327,48 @@ public final class Form_9 extends javax.swing.JPanel {
             }
         });
         add(delete, new org.netbeans.lib.awtextra.AbsoluteConstraints(1040, 590, 210, 30));
+
+        jButton2.setBackground(new java.awt.Color(255, 255, 255));
+        jButton2.setText("Change Password");
+        jButton2.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(153, 153, 153), 1, true));
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
+        add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(640, 570, 270, 30));
+
+        emailChecker.setBackground(new java.awt.Color(255, 255, 255));
+        emailChecker.setFont(new java.awt.Font("Yu Gothic", 0, 12)); // NOI18N
+        emailChecker.setForeground(new java.awt.Color(255, 255, 255));
+        emailChecker.setText("STRENGTH");
+        add(emailChecker, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 485, 270, -1));
+
+        contactChecker.setFont(new java.awt.Font("Yu Gothic", 0, 12)); // NOI18N
+        contactChecker.setForeground(new java.awt.Color(255, 255, 255));
+        contactChecker.setText("STRENGTH");
+        add(contactChecker, new org.netbeans.lib.awtextra.AbsoluteConstraints(640, 485, 270, -1));
     }// </editor-fold>//GEN-END:initComponents
 
-    private void picture1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_picture1MouseClicked
-        JnaFileChooser ch = new JnaFileChooser();
-        boolean action = ch.showOpenDialog(new NewJFrame());
-        if (action) {
-            selectedFile = ch.getSelectedFile();
-            path = selectedFile.getAbsolutePath();
-            destination = "src/All_Images/" + selectedFile.getName();
+    private void idFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_idFocusGained
 
-            if (FileExistenceChecker(path) == 1) {
-                Checkers.unsuccessfullFieldChecker("FILE ALREADY EXIST!");
-                destination = "";
-                path = "";
-            } else {
-                picture1.setIcon(ResizeImage(path));
-                remove.setEnabled(true);
-            }
+    }//GEN-LAST:event_idFocusGained
 
-        } else {
-            System.out.println("nabanhaw ng image wama kiti");
-        }
-    }//GEN-LAST:event_picture1MouseClicked
+    private void idMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_idMouseClicked
 
-    private void coverMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_coverMouseClicked
-        JnaFileChooser ch = new JnaFileChooser();
-        boolean action = ch.showOpenDialog(new NewJFrame());
-        if (action) {
-            coverSelection = ch.getSelectedFile();
-            pathCover = coverSelection.getAbsolutePath();
-            coverDestination = "src/Cover_Images/" + coverSelection.getName();
-
-            if (FileExistenceChecker(pathCover) == 1) {
-                Checkers.unsuccessfullFieldChecker("FILE ALREADY EXIST!");
-                coverDestination = "";
-                pathCover = "";
-            } else {
-                cover.setIcon(ResizeImageCover(pathCover));
-                remove.setEnabled(true);
-            }
-
-        } else {
-            System.out.println("nabanhaw ng image wama kiti");
-        }
-    }//GEN-LAST:event_coverMouseClicked
-
-    private void removeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_removeActionPerformed
-        destination = "";
-        path = "";
-        picture1.setIcon(null);
-        oldpath = "";
-    }//GEN-LAST:event_removeActionPerformed
-
-    private void lastnameFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_lastnameFocusGained
-        // TODO add your handling code here:
-    }//GEN-LAST:event_lastnameFocusGained
-
-    private void lastnameMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lastnameMouseClicked
-        // TODO add your handling code here:
-    }//GEN-LAST:event_lastnameMouseClicked
-
-    private void firstnameFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_firstnameFocusGained
-        // TODO add your handling code here:
-    }//GEN-LAST:event_firstnameFocusGained
-
-    private void firstnameMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_firstnameMouseClicked
-        // TODO add your handling code here:
-    }//GEN-LAST:event_firstnameMouseClicked
-
-    private void firstnameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_firstnameActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_firstnameActionPerformed
-
-    private void usernameFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_usernameFocusGained
-
-    }//GEN-LAST:event_usernameFocusGained
-
-    private void usernameMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_usernameMouseClicked
-
-    }//GEN-LAST:event_usernameMouseClicked
+    }//GEN-LAST:event_idMouseClicked
 
     private void usernameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_usernameActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_usernameActionPerformed
 
-    private void contactFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_contactFocusGained
+    private void usernameMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_usernameMouseClicked
 
-    }//GEN-LAST:event_contactFocusGained
+    }//GEN-LAST:event_usernameMouseClicked
 
-    private void contactMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_contactMouseClicked
+    private void usernameFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_usernameFocusGained
 
-    }//GEN-LAST:event_contactMouseClicked
-
-    private void emailFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_emailFocusGained
-        email.setFocusable(true);
-    }//GEN-LAST:event_emailFocusGained
-
-    private void emailMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_emailMouseClicked
-        email.setFocusable(true);
-    }//GEN-LAST:event_emailMouseClicked
-
-    private void emailActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_emailActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_emailActionPerformed
-
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        isVisible = !isVisible;
-
-        question.setVisible(isVisible);
-        answer.setVisible(isVisible);
-    }//GEN-LAST:event_jButton1ActionPerformed
-
-    private void add2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_add2ActionPerformed
-    }//GEN-LAST:event_add2ActionPerformed
+    }//GEN-LAST:event_usernameFocusGained
 
     private void updateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_updateActionPerformed
         try {
@@ -479,17 +454,116 @@ public final class Form_9 extends javax.swing.JPanel {
         }
     }//GEN-LAST:event_updateActionPerformed
 
-    private void idFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_idFocusGained
+    private void add2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_add2ActionPerformed
 
-    }//GEN-LAST:event_idFocusGained
-
-    private void idMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_idMouseClicked
-
-    }//GEN-LAST:event_idMouseClicked
+    }//GEN-LAST:event_add2ActionPerformed
 
     private void deleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteActionPerformed
         deleteAccount();
     }//GEN-LAST:event_deleteActionPerformed
+
+    private void contactMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_contactMouseClicked
+
+    }//GEN-LAST:event_contactMouseClicked
+
+    private void contactFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_contactFocusGained
+
+    }//GEN-LAST:event_contactFocusGained
+
+    private void firstnameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_firstnameActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_firstnameActionPerformed
+
+    private void firstnameMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_firstnameMouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_firstnameMouseClicked
+
+    private void firstnameFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_firstnameFocusGained
+        // TODO add your handling code here:
+    }//GEN-LAST:event_firstnameFocusGained
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        isVisible = !isVisible;
+
+        question.setVisible(isVisible);
+        answer.setVisible(isVisible);
+    }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void emailActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_emailActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_emailActionPerformed
+
+    private void emailMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_emailMouseClicked
+        email.setFocusable(true);
+    }//GEN-LAST:event_emailMouseClicked
+
+    private void emailFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_emailFocusGained
+        email.setFocusable(true);
+    }//GEN-LAST:event_emailFocusGained
+
+    private void lastnameMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lastnameMouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_lastnameMouseClicked
+
+    private void lastnameFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_lastnameFocusGained
+        // TODO add your handling code here:
+    }//GEN-LAST:event_lastnameFocusGained
+
+    private void picture1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_picture1MouseClicked
+        JnaFileChooser ch = new JnaFileChooser();
+        boolean action = ch.showOpenDialog(new NewJFrame());
+        if (action) {
+            selectedFile = ch.getSelectedFile();
+            path = selectedFile.getAbsolutePath();
+            destination = "src/All_Images/" + selectedFile.getName();
+
+            if (FileExistenceChecker(path) == 1) {
+                Checkers.unsuccessfullFieldChecker("FILE ALREADY EXIST!");
+                destination = "";
+                path = "";
+            } else {
+                picture1.setIcon(ResizeImage(path));
+                remove.setEnabled(true);
+            }
+
+        } else {
+            System.out.println("nabanhaw ng image wama kiti");
+        }
+    }//GEN-LAST:event_picture1MouseClicked
+
+    private void coverMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_coverMouseClicked
+        JnaFileChooser ch = new JnaFileChooser();
+        boolean action = ch.showOpenDialog(new NewJFrame());
+        if (action) {
+            coverSelection = ch.getSelectedFile();
+            pathCover = coverSelection.getAbsolutePath();
+            coverDestination = "src/Cover_Images/" + coverSelection.getName();
+
+            if (FileExistenceChecker(pathCover) == 1) {
+                Checkers.unsuccessfullFieldChecker("FILE ALREADY EXIST!");
+                coverDestination = "";
+                pathCover = "";
+            } else {
+                cover.setIcon(ResizeImageCover(pathCover));
+                remove.setEnabled(true);
+            }
+
+        } else {
+            System.out.println("nabanhaw ng image wama kiti");
+        }
+    }//GEN-LAST:event_coverMouseClicked
+
+    private void removeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_removeActionPerformed
+        destination = "";
+        path = "";
+        picture1.setIcon(null);
+        oldpath = "";
+    }//GEN-LAST:event_removeActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        new Password().setVisible(true);
+        dispose();
+    }//GEN-LAST:event_jButton2ActionPerformed
 
     private void deleteAccount() {
         try {
@@ -632,19 +706,85 @@ public final class Form_9 extends javax.swing.JPanel {
         return image;
     }
 
+    private boolean isValidEmail() {
+        String xemailChecker = email.getText().trim();
+
+        if (xemailChecker.isEmpty()) {
+            emailChecker.setText("");
+            emailChecker.setForeground(Color.WHITE);
+            return false;
+        }
+
+        boolean isValid = isValidEmails(xemailChecker);
+
+        if (isValid) {
+            emailChecker.setText("Email is valid");
+            emailChecker.setForeground(Color.GREEN);
+            email.setBorder(BorderFactory.createLineBorder(Color.GREEN));
+        } else {
+            emailChecker.setText("Only gmail, yahoo, hotmail domains!");
+            emailChecker.setForeground(Color.RED);
+            email.setBorder(BorderFactory.createLineBorder(Color.RED));
+        }
+
+        return isValid;
+    }
+
+    private boolean isValidEmails(String email) {
+        String regex = "^[a-zA-Z0-9_+&*-]+(?:\\.[a-zA-Z0-9_+&*-]+)*@(?:gmail\\.com|yahoo\\.com|hotmail\\.com)$";
+
+        Pattern pattern = Pattern.compile(regex);
+
+        Matcher matcher = pattern.matcher(email);
+
+        return matcher.matches();
+    }
+
+    private boolean isContactValid(String contacts) {
+        if (contacts == null || contacts.isEmpty()) {
+            contactChecker.setText("");
+            contactChecker.setForeground(Color.WHITE);
+            return false;
+        }
+
+        String digitsOnly = contacts.replaceAll("\\D", "");
+
+        if (digitsOnly.length() != 11) {
+            contactChecker.setText("Contact must be exactly 11 digits!");
+            contactChecker.setForeground(Color.RED);
+            contact.setBorder(BorderFactory.createLineBorder(Color.RED));
+            return false;
+        }
+
+        if (!contacts.startsWith("63") && !contacts.startsWith("09")) {
+            contactChecker.setText("Contact must start with '63' or '09'!");
+            contactChecker.setForeground(Color.RED);
+            contact.setBorder(BorderFactory.createLineBorder(Color.RED));
+            return false;
+        }
+
+        contactChecker.setText("Contact is valid!");
+        contactChecker.setForeground(Color.GREEN);
+        contact.setBorder(BorderFactory.createLineBorder(Color.GREEN));
+        return true;
+    }
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton add2;
     private javax.swing.JTextField answer;
     private javax.swing.JTextField contact;
+    private javax.swing.JLabel contactChecker;
     private javax.swing.JLabel cover;
     private javax.swing.JButton delete;
     private javax.swing.JTextField email;
+    private javax.swing.JLabel emailChecker;
     private javax.swing.JTextField firstname;
     private javax.swing.JComboBox<String> gender;
     private javax.swing.JTextField id;
     private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton2;
     private javax.swing.JTextField lastname;
-    public javax.swing.JLabel picture1;
+    private javax.swing.JLabel picture1;
     private javax.swing.JTextField question;
     private javax.swing.JButton remove;
     private javax.swing.JComboBox<String> status;
