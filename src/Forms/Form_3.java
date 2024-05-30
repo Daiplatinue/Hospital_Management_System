@@ -843,6 +843,7 @@ public final class Form_3 extends javax.swing.JPanel {
 
         scrols.add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 1310, 1160, 50));
 
+        searchBar.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         searchBar.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(153, 153, 153), 1, true));
         searchBar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -854,7 +855,7 @@ public final class Form_3 extends javax.swing.JPanel {
                 searchBarKeyReleased(evt);
             }
         });
-        scrols.add(searchBar, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 50, 260, 30));
+        scrols.add(searchBar, new org.netbeans.lib.awtextra.AbsoluteConstraints(840, 20, 260, 30));
 
         changeView1.setForeground(new java.awt.Color(153, 153, 153));
         changeView1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/grid (1).png"))); // NOI18N

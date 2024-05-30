@@ -194,6 +194,12 @@ public class AdminForm extends javax.swing.JFrame {
         });
     }
 
+    public void showForm(JPanel form) {
+        this.setContentPane(form);
+        this.revalidate();
+        this.repaint();
+    }
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLayeredPane mainPanel;
     // End of variables declaration//GEN-END:variables

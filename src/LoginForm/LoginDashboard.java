@@ -6,6 +6,7 @@ import com.formdev.flatlaf.*;
 import java.awt.Color;
 import java.awt.event.*;
 import java.awt.geom.*;
+import javax.swing.JFrame;
 
 public class LoginDashboard extends javax.swing.JFrame {
 
@@ -37,6 +38,7 @@ public class LoginDashboard extends javax.swing.JFrame {
             jButton1.setEnabled(false);
         }
         jLabel9.setForeground(Color.BLACK);
+        
     }
 
     @SuppressWarnings("unchecked")

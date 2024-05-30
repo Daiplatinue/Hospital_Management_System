@@ -3,20 +3,16 @@ package Forms;
 import Database.*;
 import Functions.*;
 import LoginForm.LoginDashboard;
-import RegisterForm.RegisterDSB;
 import com.formdev.flatlaf.*;
 import java.awt.*;
 import java.awt.event.*;
 import java.io.*;
 import java.security.*;
 import java.sql.*;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import javax.swing.*;
 import javax.swing.event.*;
-import jnafilechooser.api.*;
 
 public final class Form_2 extends javax.swing.JPanel {
 
@@ -81,6 +77,25 @@ public final class Form_2 extends javax.swing.JPanel {
                 isContactValid(contact.getText().trim());
             }
         });
+
+        type.addActionListener(e -> {
+            String selectedItem = (String) type.getSelectedItem();
+            System.out.println("Selected item: " + selectedItem);
+
+            if ("PATIENT".equals(selectedItem) || "DOCTOR".equals(selectedItem)) {
+                username.setVisible(false);
+                jPanel4.setVisible(false);
+                username.setEnabled(false);
+            } else if ("ADMIN".equals(selectedItem)) {
+                username.setVisible(true);
+                jPanel4.setVisible(true);
+                username.setEnabled(true);
+            }
+
+            jPanel4.getParent().revalidate();
+            jPanel4.getParent().repaint();
+        });
+
     }
 
     @SuppressWarnings("unchecked")
@@ -289,7 +304,7 @@ public final class Form_2 extends javax.swing.JPanel {
 
         type.setFont(new java.awt.Font("Yu Gothic", 0, 10)); // NOI18N
         type.setForeground(new java.awt.Color(51, 51, 51));
-        type.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "PATIENT", "DOCTOR", "ADMIN", "RECEPTIONIST" }));
+        type.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "ADMIN", "PATIENT", "DOCTOR" }));
         panelRound1.add(type, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 450, 232, 30));
 
         type1.setFont(new java.awt.Font("Yu Gothic", 0, 10)); // NOI18N
@@ -594,7 +609,7 @@ public final class Form_2 extends javax.swing.JPanel {
             lastname.setText("");
             firstname.setText("");
             jProgressBar1.setValue(0);
-            
+
             JTextField[] components = {lastname, firstname, username, email, password, secret, answer, contact};
             BorderColorManager borderFieldReset = new BorderColorManager(components);
             borderFieldReset.resetBorderColor();

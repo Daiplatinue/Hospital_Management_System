@@ -6,6 +6,9 @@ import java.awt.Color;
 import java.awt.Desktop;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseMotionAdapter;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URISyntaxException;
@@ -14,6 +17,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.Timer;
 
@@ -43,6 +47,7 @@ public final class Main extends javax.swing.JPanel {
         signUp.setFocusable(false);
         signIn.setFocusable(false);
         jButton2.setFocusable(false);
+        
     }
 
     public void addEventSignUp(ActionListener event) {
@@ -693,6 +698,8 @@ public final class Main extends javax.swing.JPanel {
         moveTimers.put(panel, timer);
         timer.start();
     }
+    
+   
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
