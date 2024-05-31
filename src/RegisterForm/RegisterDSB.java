@@ -20,8 +20,9 @@ public final class RegisterDSB extends javax.swing.JPanel {
     boolean isEyeHidden;
     String path;
     String oldPath;
-    String destination = "src/MyImages/default.png";
+    String destination = "src/com/imported/profile/images/default.png";
     File selectedFile;
+    String default_cover_destination = "src/com/imported/cover/images/defaultCover.png";
 
     public RegisterDSB() {
         initComponents();
@@ -494,9 +495,9 @@ public final class RegisterDSB extends javax.swing.JPanel {
             }
 
             Connection cn = new DBConnection().getConnection();
-            PreparedStatement pst = cn.prepareStatement("insert into ac_table (ac_username, ac_email, ac_password, ac_sq, ac_sa, "
-                    + "ac_type, ac_status, ac_contact, ac_lastname, ac_firstname, ac_gender,ac_images) "
-                    + "values (?,?,?,?,?,?,?,?,?,?,?,?)");
+            PreparedStatement pst = cn.prepareStatement("INSERT INTO u_tbl (u_username, u_email, u_password, u_question, u_answer, "
+                    + "u_type, u_status, u_contact, u_lastname, u_firstname, u_gender, u_profile, u_cover) "
+                    + "VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?)");
 
             pst.setString(1, user);
             pst.setString(2, emails);
@@ -510,6 +511,7 @@ public final class RegisterDSB extends javax.swing.JPanel {
             pst.setString(10, fn);
             pst.setString(11, xgender);
             pst.setString(12, destination);
+            pst.setString(13, default_cover_destination);
             pst.execute();
 
             Checkers.successFieldChecker("ACCOUNT HAS BEEN CREATED SUCCESSFULLY!");
@@ -522,8 +524,6 @@ public final class RegisterDSB extends javax.swing.JPanel {
             secret.setText("");
             answer.setText("");
             contact.setText("");
-            lastname.setText("");
-            firstname.setText("");
             jProgressBar1.setValue(0);
 
             JTextField[] components = {lastname, firstname, username, email, password, secret, answer, contact};

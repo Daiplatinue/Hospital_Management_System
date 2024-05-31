@@ -8,7 +8,7 @@ public class DBConnection {
     final private Connection cn;
 
     public DBConnection() throws SQLException {
-        cn = (Connection) DriverManager.getConnection("jdbc:mysql://localhost:3306/hms", "root", "");
+        cn = (Connection) DriverManager.getConnection("jdbc:mysql://localhost:3306/hospital", "root", "");
     }
 
     public ResultSet getData(String sql) throws SQLException {

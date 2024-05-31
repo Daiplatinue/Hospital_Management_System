@@ -130,6 +130,7 @@ public final class Form_9 extends javax.swing.JPanel {
         jScrollPane2 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
         jPanel5 = new javax.swing.JPanel();
+        id1 = new javax.swing.JTextField();
         jPanel2 = new javax.swing.JPanel();
         remove = new javax.swing.JButton();
         lastname = new javax.swing.JTextField();
@@ -199,9 +200,9 @@ public final class Form_9 extends javax.swing.JPanel {
         cover1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         jPanel4.add(cover1, new org.netbeans.lib.awtextra.AbsoluteConstraints(-32, 0, 1320, 330));
 
-        jLabel1.setFont(new java.awt.Font("Segoe UI", 0, 25)); // NOI18N
+        jLabel1.setFont(new java.awt.Font("Segoe UI", 0, 20)); // NOI18N
         jLabel1.setText("Gender");
-        jPanel4.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 720, -1, -1));
+        jPanel4.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 610, -1, -1));
 
         jLabel2.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
         jLabel2.setText("Status");
@@ -235,17 +236,17 @@ public final class Form_9 extends javax.swing.JPanel {
         jLabel6.setText("Description");
         jPanel4.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 530, -1, -1));
 
-        jLabel7.setFont(new java.awt.Font("Segoe UI", 0, 25)); // NOI18N
+        jLabel7.setFont(new java.awt.Font("Segoe UI", 0, 20)); // NOI18N
         jLabel7.setText("Contact#");
-        jPanel4.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 640, -1, -1));
+        jPanel4.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 610, -1, -1));
 
         jLabel8.setFont(new java.awt.Font("Segoe UI", 1, 30)); // NOI18N
         jLabel8.setText("Firstname");
         jPanel4.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 350, -1, -1));
 
-        jLabel9.setFont(new java.awt.Font("Segoe UI", 0, 25)); // NOI18N
+        jLabel9.setFont(new java.awt.Font("Segoe UI", 0, 20)); // NOI18N
         jLabel9.setText("Email");
-        jPanel4.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 680, -1, -1));
+        jPanel4.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 610, -1, -1));
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -257,14 +258,31 @@ public final class Form_9 extends javax.swing.JPanel {
         ));
         jScrollPane2.setViewportView(jTable1);
 
-        jPanel4.add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 650, 1030, 250));
+        jPanel4.add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 650, 1190, 310));
 
         jPanel5.setBackground(new java.awt.Color(255, 255, 255));
-        jPanel4.add(jPanel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 910, 1220, 30));
+        jPanel4.add(jPanel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 970, 1220, 30));
+
+        id1.setEditable(false);
+        id1.setForeground(new java.awt.Color(153, 153, 153));
+        id1.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        id1.setBorder(null);
+        id1.setOpaque(false);
+        id1.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                id1FocusGained(evt);
+            }
+        });
+        id1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                id1MouseClicked(evt);
+            }
+        });
+        jPanel4.add(id1, new org.netbeans.lib.awtextra.AbsoluteConstraints(1200, 20, 90, 32));
 
         yawa.setViewportView(jPanel4);
 
-        jPanel3.add(yawa, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1320, 690));
+        jPanel3.add(yawa, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1320, 740));
 
         jTabbedPane1.addTab("tab2", jPanel3);
 
@@ -511,7 +529,7 @@ public final class Form_9 extends javax.swing.JPanel {
 
         jTabbedPane1.addTab("tab3", jPanel2);
 
-        add(jTabbedPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(-15, 0, 1370, 730));
+        add(jTabbedPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(-15, 0, 1370, 760));
     }// </editor-fold>//GEN-END:initComponents
 
     private void formMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_formMouseReleased
@@ -569,7 +587,7 @@ public final class Form_9 extends javax.swing.JPanel {
     }//GEN-LAST:event_updateActionPerformed
 
     private void add2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_add2ActionPerformed
-jTabbedPane1.setSelectedIndex(0);
+        jTabbedPane1.setSelectedIndex(0);
     }//GEN-LAST:event_add2ActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
@@ -647,6 +665,14 @@ jTabbedPane1.setSelectedIndex(0);
     private void update1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_update1ActionPerformed
         jTabbedPane1.setSelectedIndex(1);
     }//GEN-LAST:event_update1ActionPerformed
+
+    private void id1FocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_id1FocusGained
+        // TODO add your handling code here:
+    }//GEN-LAST:event_id1FocusGained
+
+    private void id1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_id1MouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_id1MouseClicked
     
     private void deleteAccount() {
         try {
@@ -869,6 +895,7 @@ jTabbedPane1.setSelectedIndex(0);
     private javax.swing.JTextField firstname;
     private javax.swing.JComboBox<String> gender;
     private javax.swing.JTextField id;
+    private javax.swing.JTextField id1;
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
     private javax.swing.JLabel jLabel1;

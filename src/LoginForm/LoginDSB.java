@@ -355,20 +355,21 @@ public final class LoginDSB extends javax.swing.JPanel {
     private static String xstatus, xtype;
 
     private boolean loginDB(String username, String pass) throws SQLException {
-        ResultSet rs = new DBConnection().getData("select * from ac_table where ac_lastname = '" + username + "' and ac_password = '" + pass + "'");
+        ResultSet rs = new DBConnection().getData("select * from u_tbl where u_lastname = '" + username + "' "
+                + "and u_password = '" + pass + "'");
         if (rs.next()) {
-            xstatus = rs.getString("ac_status");
-            xtype = rs.getString("ac_type");
+            xstatus = rs.getString("u_status");
+            xtype = rs.getString("u_type");
             xternal_db xdb = xternal_db.getInstance();
-            xdb.setId(rs.getString("ac_id"));
-            xdb.setEmail(rs.getString("ac_email"));
-            xdb.setUsername(rs.getString("ac_username"));
-            xdb.setPassword(rs.getString("ac_password"));
-            xdb.setContact(rs.getString("ac_contact"));
-            xdb.setType(rs.getString("ac_type"));
-            xdb.setStatus(rs.getString("ac_status"));
-            xdb.setSq(rs.getString("ac_sq"));
-            xdb.setSa(rs.getString("ac_sa"));
+            xdb.setId(rs.getString("u_id"));
+            xdb.setEmail(rs.getString("u_email"));
+            xdb.setUsername(rs.getString("u_username"));
+            xdb.setPassword(rs.getString("u_password"));
+            xdb.setContact(rs.getString("u_contact"));
+            xdb.setType(rs.getString("u_type"));
+            xdb.setStatus(rs.getString("u_status"));
+            xdb.setSq(rs.getString("u_question"));
+            xdb.setSa(rs.getString("u_answer"));
             return true;
         } else {
             return false;
@@ -431,10 +432,10 @@ public final class LoginDSB extends javax.swing.JPanel {
 
         try (Connection connection = new DBConnection().getConnection();
                 Statement statement = connection.createStatement();
-                ResultSet resultSet = statement.executeQuery("SELECT ls_image FROM ac_loginslideshow")) {
+                ResultSet resultSet = statement.executeQuery("SELECT l_images FROM l_slideshow")) {
 
             while (resultSet.next()) {
-                imgList.add(resultSet.getString("ls_image"));
+                imgList.add(resultSet.getString("l_images"));
             }
 
         } catch (SQLException e) {
@@ -445,7 +446,7 @@ public final class LoginDSB extends javax.swing.JPanel {
     }
 
     public void showImage(Integer index) {
-        Image img = new ImageIcon(getImagesList().get(index)).getImage().getScaledInstance(690, 660, Image.SCALE_SMOOTH);
+        Image img = new ImageIcon(getImagesList().get(index)).getImage().getScaledInstance(680, 580, Image.SCALE_SMOOTH);
         images.setIcon(new ImageIcon(img));
     }
 
