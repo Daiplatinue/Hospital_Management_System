@@ -1,14 +1,11 @@
 package Database;
 
-import javax.swing.ImageIcon;
-
 public class xternal_db {
 
     private static xternal_db instance;
     private String id, username, email, password, sq, sa, type, status, contact;
-    private byte[] pic;
 
-    private xternal_db() {
+    public xternal_db() {
 
     }
 
