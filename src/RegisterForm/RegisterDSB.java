@@ -9,6 +9,8 @@ import java.awt.event.*;
 import java.io.*;
 import java.security.*;
 import java.sql.*;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import javax.swing.*;
@@ -515,6 +517,34 @@ public final class RegisterDSB extends javax.swing.JPanel {
             pst.execute();
 
             Checkers.successFieldChecker("ACCOUNT HAS BEEN CREATED SUCCESSFULLY!");
+
+            PreparedStatement tlogs;
+
+            LocalDateTime currentDateTime = LocalDateTime.now();
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+            DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("hh:mm:ss a"); 
+            String formattedDateTime = currentDateTime.format(formatter);
+            String formattedTime = currentDateTime.format(timeFormatter);
+
+            ResultSet rs;
+
+            String getLastUIDQuery = "SELECT u_id FROM u_tbl ORDER BY u_id DESC LIMIT 1";
+            Statement stmt = cn.createStatement();
+            rs = stmt.executeQuery(getLastUIDQuery);
+
+            int lastUID = -1;
+            if (rs.next()) {
+                lastUID = rs.getInt("u_id");
+            }
+
+            tlogs = cn.prepareStatement("INSERT INTO a_logs (u_id, a_actions, a_date, a_hhmmss) VALUES (?, ?, ?, ?)");
+
+            tlogs.setInt(1, lastUID);
+            tlogs.setString(2, "Registered An Account!");
+            tlogs.setString(3, formattedDateTime);
+            tlogs.setString(4, formattedTime);
+
+            tlogs.executeUpdate();
 
             lastname.setText("");
             firstname.setText("");
