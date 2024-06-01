@@ -14,6 +14,7 @@ public class Form_1 extends javax.swing.JPanel {
         initComponents();
         totalDisplay();
         user_logs();
+        newComers();
     }
 
     private void totalDisplay() {
@@ -82,6 +83,24 @@ public class Form_1 extends javax.swing.JPanel {
         }
     }
 
+    private void newComers() {
+        try {
+            ResultSet rs = new DBConnection().getData("SELECT n_comers.u_id, u_tbl.u_lastname, "
+                    + "u_tbl.u_firstname, u_tbl.u_gender, u_tbl.u_type FROM n_comers"
+                    + " INNER JOIN u_tbl ON n_comers.u_id = u_tbl.u_id");
+            newcomers.setModel(DbUtils.resultSetToTableModel(rs));
+
+            ((DefaultTableCellRenderer) newcomers.getTableHeader().getDefaultRenderer())
+                    .setHorizontalAlignment(SwingConstants.CENTER);
+            DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
+            centerRenderer.setHorizontalAlignment(SwingConstants.CENTER);
+            newcomers.setDefaultRenderer(Object.class, centerRenderer);
+
+        } catch (SQLException er) {
+            System.out.println(er.getMessage());
+        }
+    }
+
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -104,6 +123,8 @@ public class Form_1 extends javax.swing.JPanel {
         logs = new javax.swing.JTable();
         jScrollPane2 = new javax.swing.JScrollPane();
         newcomers = new javax.swing.JTable();
+        jLabel1 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
 
         setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
@@ -190,7 +211,7 @@ public class Form_1 extends javax.swing.JPanel {
         ));
         jScrollPane1.setViewportView(logs);
 
-        jPanel8.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 200, 660, 500));
+        jPanel8.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 230, 660, 470));
 
         newcomers.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(153, 153, 153), 1, true));
         newcomers.setModel(new javax.swing.table.DefaultTableModel(
@@ -203,7 +224,15 @@ public class Form_1 extends javax.swing.JPanel {
         ));
         jScrollPane2.setViewportView(newcomers);
 
-        jPanel8.add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(750, 200, 500, 500));
+        jPanel8.add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(750, 230, 500, 470));
+
+        jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 20)); // NOI18N
+        jLabel1.setText("NEW COMERS");
+        jPanel8.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(1115, 190, -1, -1));
+
+        jLabel2.setFont(new java.awt.Font("Segoe UI", 1, 20)); // NOI18N
+        jLabel2.setText("ALL ACCOUNT LOGS");
+        jPanel8.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 190, -1, -1));
 
         add(jPanel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(-16, 0, 1340, 800));
     }// </editor-fold>//GEN-END:initComponents
@@ -213,6 +242,8 @@ public class Form_1 extends javax.swing.JPanel {
     private javaswingdev.card.Card card2;
     private javaswingdev.card.Card card3;
     private javaswingdev.card.Card card4;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;

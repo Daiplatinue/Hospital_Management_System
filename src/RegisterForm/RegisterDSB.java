@@ -518,23 +518,25 @@ public final class RegisterDSB extends javax.swing.JPanel {
 
             Checkers.successFieldChecker("ACCOUNT HAS BEEN CREATED SUCCESSFULLY!");
 
-            PreparedStatement tlogs;
+            PreparedStatement tlogs, acomers;
 
             LocalDateTime currentDateTime = LocalDateTime.now();
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-            DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("hh:mm:ss a"); 
+            DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("hh:mm:ss a");
             String formattedDateTime = currentDateTime.format(formatter);
             String formattedTime = currentDateTime.format(timeFormatter);
 
-            ResultSet rs;
+            ResultSet rs, nc;
 
             String getLastUIDQuery = "SELECT u_id FROM u_tbl ORDER BY u_id DESC LIMIT 1";
             Statement stmt = cn.createStatement();
             rs = stmt.executeQuery(getLastUIDQuery);
 
-            int lastUID = -1;
+            int lastUID = -1, lastCID = -1;
+
             if (rs.next()) {
                 lastUID = rs.getInt("u_id");
+                lastCID = rs.getInt("u_id");
             }
 
             tlogs = cn.prepareStatement("INSERT INTO a_logs (u_id, a_actions, a_date, a_hhmmss) VALUES (?, ?, ?, ?)");
@@ -544,7 +546,11 @@ public final class RegisterDSB extends javax.swing.JPanel {
             tlogs.setString(3, formattedDateTime);
             tlogs.setString(4, formattedTime);
 
+            acomers = cn.prepareStatement("insert into n_comers (u_id) values (?)");
+            acomers.setInt(1, lastCID);
+
             tlogs.executeUpdate();
+            acomers.executeUpdate();
 
             lastname.setText("");
             firstname.setText("");
