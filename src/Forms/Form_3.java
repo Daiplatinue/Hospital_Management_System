@@ -94,7 +94,6 @@ public final class Form_3 extends javax.swing.JPanel {
         remove.setEnabled(false);
         question.setVisible(false);
         answer.setVisible(false);
-        deletephoto.setVisible(false);
 
         type.setRenderer(new DefaultListCellRenderer() {
             @Override
@@ -252,10 +251,6 @@ public final class Form_3 extends javax.swing.JPanel {
         jButton1 = new javax.swing.JButton();
         emailChecker = new javax.swing.JLabel();
         contactChecker = new javax.swing.JLabel();
-        deletephoto = new javax.swing.JButton();
-        jSeparator2 = new javax.swing.JSeparator();
-        jSeparator3 = new javax.swing.JSeparator();
-        jLabel1 = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
         search = new javax.swing.JTextField();
         changeView = new javax.swing.JButton();
@@ -314,10 +309,10 @@ public final class Form_3 extends javax.swing.JPanel {
         );
         jPanel5Layout.setVerticalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 50, Short.MAX_VALUE)
+            .addGap(0, 80, Short.MAX_VALUE)
         );
 
-        jPanel11.add(jPanel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, -40, 1340, 50));
+        jPanel11.add(jPanel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, -40, 1340, 80));
 
         scroll1.setBackground(new java.awt.Color(255, 255, 255));
         scroll1.setFont(new java.awt.Font("Yu Gothic", 0, 11)); // NOI18N
@@ -950,7 +945,7 @@ public final class Form_3 extends javax.swing.JPanel {
                 removeActionPerformed(evt);
             }
         });
-        jPanel4.add(remove, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 430, 180, 30));
+        jPanel4.add(remove, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 430, 180, 30));
 
         type.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
         type.setForeground(new java.awt.Color(153, 153, 153));
@@ -1108,26 +1103,6 @@ public final class Form_3 extends javax.swing.JPanel {
         contactChecker.setForeground(new java.awt.Color(255, 255, 255));
         contactChecker.setText("STRENGTH");
         jPanel4.add(contactChecker, new org.netbeans.lib.awtextra.AbsoluteConstraints(640, 485, 270, -1));
-
-        deletephoto.setBackground(new java.awt.Color(255, 255, 255));
-        deletephoto.setText("Delete");
-        deletephoto.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(153, 153, 153), 1, true));
-        deletephoto.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                deletephotoActionPerformed(evt);
-            }
-        });
-        jPanel4.add(deletephoto, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 500, 180, 30));
-
-        jSeparator2.setForeground(new java.awt.Color(204, 204, 204));
-        jPanel4.add(jSeparator2, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 480, 70, 20));
-
-        jSeparator3.setForeground(new java.awt.Color(204, 204, 204));
-        jPanel4.add(jSeparator3, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 480, 70, 20));
-
-        jLabel1.setForeground(new java.awt.Color(204, 204, 204));
-        jLabel1.setText("OR");
-        jPanel4.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(162, 473, -1, -1));
 
         jScrollPane2.setViewportView(jPanel4);
 
@@ -1728,38 +1703,6 @@ public final class Form_3 extends javax.swing.JPanel {
 
     }//GEN-LAST:event_searchMouseClicked
 
-    private void deletephotoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deletephotoActionPerformed
-        if (selectedFile != null && selectedFile.exists()) {
-            boolean sourceDeleted = selectedFile.delete();
-            boolean destinationDeleted = false;
-
-            File destinationFile = new File(destination);
-            if (destinationFile.exists()) {
-                destinationDeleted = destinationFile.delete();
-            }
-
-            if (sourceDeleted && destinationDeleted) {
-                picture1.setIcon(null);
-                selectedFile = null;
-                path = "";
-                destination = "";
-                remove.setEnabled(false);
-                System.out.println("File deleted successfully from both source and destination.");
-            } else if (sourceDeleted) {
-                picture1.setIcon(null);
-                selectedFile = null;
-                path = "";
-                destination = "";
-                remove.setEnabled(false);
-                System.out.println("File deleted successfully from source, but failed to delete from destination.");
-            } else {
-                System.out.println("Failed to delete the file from source.");
-            }
-        } else {
-            System.out.println("No file selected or file does not exist.");
-        }
-    }//GEN-LAST:event_deletephotoActionPerformed
-
     private void picture1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_picture1MouseClicked
         JnaFileChooser ch = new JnaFileChooser();
         boolean action = ch.showOpenDialog(new NewJFrame());
@@ -1805,25 +1748,28 @@ public final class Form_3 extends javax.swing.JPanel {
     private void displayData() {
         try {
             xternal_db xdb = xternal_db.getInstance();
-            ResultSet rs = new DBConnection().getData("select * from u_tbl where u_status in ('active', 'in-active') and u_id != '" + xdb.getId() + "'");
+            ResultSet rs = new DBConnection().getData("select u_id,u_lastname,u_firstname,u_gender,u_type,u_status from u_tbl where u_status in ('active', 'in-active') and u_id != '" + xdb.getId() + "'");
             ac_db.setModel(DbUtils.resultSetToTableModel(rs));
 
-            TableColumn column0, column1, column2, column3, column4;
+            TableColumn column0, column1, column2, column3, column4, column5;
 
             column0 = ac_db.getColumnModel().getColumn(0);
-            column0.setPreferredWidth(50);
+            column0.setPreferredWidth(10);
 
             column1 = ac_db.getColumnModel().getColumn(1);
-            column1.setPreferredWidth(50);
+            column1.setPreferredWidth(20);
 
             column2 = ac_db.getColumnModel().getColumn(2);
-            column2.setPreferredWidth(50);
+            column2.setPreferredWidth(20);
 
             column3 = ac_db.getColumnModel().getColumn(3);
-            column3.setPreferredWidth(50);
+            column3.setPreferredWidth(20);
 
             column4 = ac_db.getColumnModel().getColumn(4);
-            column4.setPreferredWidth(50);
+            column4.setPreferredWidth(20);
+            
+            column5 = ac_db.getColumnModel().getColumn(5);
+            column5.setPreferredWidth(20);
 
             ((DefaultTableCellRenderer) ac_db.getTableHeader().getDefaultRenderer())
                     .setHorizontalAlignment(SwingConstants.CENTER);
@@ -2207,7 +2153,6 @@ public final class Form_3 extends javax.swing.JPanel {
     private javax.swing.JTextField contact;
     private javax.swing.JLabel contactChecker;
     private javax.swing.JLabel cover;
-    private javax.swing.JButton deletephoto;
     private javax.swing.JLabel doctor;
     private javax.swing.JTextField email;
     private javax.swing.JLabel emailChecker;
@@ -2241,7 +2186,6 @@ public final class Form_3 extends javax.swing.JPanel {
     private Swing.ImageAvatar imageAvatar1;
     private javax.swing.JLabel inactive;
     private javax.swing.JButton jButton1;
-    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel5;
@@ -2258,8 +2202,6 @@ public final class Form_3 extends javax.swing.JPanel {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JSeparator jSeparator1;
-    private javax.swing.JSeparator jSeparator2;
-    private javax.swing.JSeparator jSeparator3;
     private javax.swing.JTextField lastname;
     public javax.swing.JLabel name1;
     public javax.swing.JLabel name10;
