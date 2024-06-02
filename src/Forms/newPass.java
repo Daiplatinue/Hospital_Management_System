@@ -11,8 +11,12 @@ import com.formdev.flatlaf.FlatLightLaf;
 import java.awt.Color;
 import java.awt.geom.RoundRectangle2D;
 import java.security.NoSuchAlgorithmException;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import javax.swing.BorderFactory;
 import javax.swing.JComponent;
 import javax.swing.JFrame;
@@ -235,23 +239,39 @@ public final class newPass extends javax.swing.JFrame {
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         try {
             xternal_db cons = xternal_db.getInstance();
-            ResultSet rs = new DBConnection().getData("select * from ac_table where ac_id = '" + cons.getId() + "'");
+            ResultSet rs = new DBConnection().getData("select * from u_tbl where u_id = '" + cons.getId() + "'");
             if (rs.next()) {
-                String oldPass = rs.getString("ac_password");
+                String oldPass = rs.getString("u_password");
                 String oldHash = Hasher.passwordHasher(oldpass.getText());
 
                 if (oldPass.equals(oldHash)) {
 
                     if (!isStrongPassword(newpass.getText())) {
                         Checkers.unsuccessfullFieldChecker("PASSWORD MUST BE STRONG!");
-                        return;
                     } else if (!cpass.getText().equals(newpass.getText())) {
                         Checkers.unsuccessfullFieldChecker("PASSWORD DO NOT MATCH!");
-                        return;
                     } else {
                         String newPass = Hasher.passwordHasher(newpass.getText());
-                        new DBConnection().updateData("update ac_table set ac_password = '" + newPass + "' where ac_id = '" + cons.getId() + "'");
+                        new DBConnection().updateData("update u_tbl set u_password = '" + newPass + "' where u_id = '" + cons.getId() + "'");
                         Checkers.successFieldChecker("PASSWORD HAS BEEN UPDATED!");
+
+                        Connection cnn = new DBConnection().getConnection();
+                        PreparedStatement tlogs;
+                        LocalDateTime currentDateTime = LocalDateTime.now();
+                        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+                        DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("hh:mm:ss a");
+                        String formattedDateTime = currentDateTime.format(formatter);
+                        String formattedTime = currentDateTime.format(timeFormatter);
+
+                        tlogs = cnn.prepareStatement("INSERT INTO a_logs (u_id, a_actions, a_date, a_hhmmss) VALUES (?, ?, ?, ?)");
+
+                        xternal_db xdb = new xternal_db();
+                        tlogs.setString(1, xdb.getId());
+                        tlogs.setString(2, "Updated Own Account, Account ID = '" + xdb.getId() + "'");
+                        tlogs.setString(3, formattedDateTime);
+                        tlogs.setString(4, formattedTime);
+                        tlogs.executeUpdate();
+
                         new LoginDashboard().setVisible(true);
                         dispose();
                     }

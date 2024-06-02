@@ -33,6 +33,7 @@ public final class Form_9 extends javax.swing.JPanel {
     String coverDestination = "";
 
     private boolean isVisible = false;
+    private newPass newPassFrame;
 
     public Form_9() {
         initComponents();
@@ -110,7 +111,6 @@ public final class Form_9 extends javax.swing.JPanel {
         jButton3 = new javax.swing.JButton();
         question = new javax.swing.JTextField();
         answer = new javax.swing.JTextField();
-        add2 = new javax.swing.JButton();
         update = new javax.swing.JButton();
         id = new javax.swing.JTextField();
         jButton4 = new javax.swing.JButton();
@@ -297,17 +297,6 @@ public final class Form_9 extends javax.swing.JPanel {
         answer.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(153, 153, 153), 1, true));
         jPanel2.add(answer, new org.netbeans.lib.awtextra.AbsoluteConstraints(640, 620, 270, 30));
 
-        add2.setFont(new java.awt.Font("Segoe UI", 0, 11)); // NOI18N
-        add2.setText("Cancel");
-        add2.setBorder(null);
-        add2.setOpaque(false);
-        add2.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                add2ActionPerformed(evt);
-            }
-        });
-        jPanel2.add(add2, new org.netbeans.lib.awtextra.AbsoluteConstraints(1025, 630, 80, 32));
-
         update.setBackground(new java.awt.Color(12, 135, 254));
         update.setFont(new java.awt.Font("Segoe UI", 0, 11)); // NOI18N
         update.setForeground(new java.awt.Color(255, 255, 255));
@@ -406,7 +395,15 @@ public final class Form_9 extends javax.swing.JPanel {
     }//GEN-LAST:event_picture1MouseClicked
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
-        // TODO add your handling code here:
+        if (newPassFrame == null) {
+            newPassFrame = new newPass();
+            newPassFrame.setVisible(true);
+        } else if (newPassFrame.isVisible()) {
+            newPassFrame.toFront();
+            newPassFrame.requestFocus();
+        } else {
+            newPassFrame.setVisible(true);
+        }
     }//GEN-LAST:event_jButton4ActionPerformed
 
     private void idMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_idMouseClicked
@@ -420,10 +417,6 @@ public final class Form_9 extends javax.swing.JPanel {
     private void updateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_updateActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_updateActionPerformed
-
-    private void add2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_add2ActionPerformed
-        jTabbedPane1.setSelectedIndex(0);
-    }//GEN-LAST:event_add2ActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         isVisible = !isVisible;
@@ -579,7 +572,6 @@ public final class Form_9 extends javax.swing.JPanel {
         update.setFocusable(false);
         remove.setFocusable(false);
         type.setFocusable(false);
-        add2.setFocusable(false);
     }
 
     public int FileExistenceChecker(String path) {
@@ -691,7 +683,6 @@ public final class Form_9 extends javax.swing.JPanel {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton add2;
     private javax.swing.JTextField answer;
     private javax.swing.JTextField contact;
     private javax.swing.JLabel contactChecker;

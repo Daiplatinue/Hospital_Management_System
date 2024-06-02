@@ -1609,6 +1609,7 @@ public final class Form_3 extends javax.swing.JPanel {
                     tlogs.setString(2, "Deleted An Account, Account ID = '" + id.getText() + "'");
                     tlogs.setString(3, formattedDateTime);
                     tlogs.setString(4, formattedTime);
+                    tlogs.executeUpdate();
 
                     acquireData();
                     pane.setSelectedIndex(0);
