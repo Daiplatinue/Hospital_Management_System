@@ -3,9 +3,10 @@ package LoginForm;
 import AdminForm.*;
 import Database.DBConnection;
 import Database.xternal_db;
+import DoctorForm.DoctorMain;
+import FrontdeskForm.FrontMain;
 import Functions.Checkers;
 import Functions.Hasher;
-import PatientsForm.PatientDSB;
 import com.formdev.flatlaf.*;
 import java.awt.*;
 import java.awt.event.*;
@@ -13,6 +14,7 @@ import java.io.File;
 import java.security.NoSuchAlgorithmException;
 import java.sql.*;
 import java.util.ArrayList;
+import java.util.prefs.Preferences;
 import javax.swing.*;
 
 public final class LoginDSB extends javax.swing.JPanel {
@@ -23,12 +25,16 @@ public final class LoginDSB extends javax.swing.JPanel {
     String path;
     String oldPath;
     Integer imgIndex = 0;
+    private final Preferences prefs;
 
     public LoginDSB() {
         initComponents();
         focusAndPlaceholderHandlers();
         keyMapping();
         showImage(imgIndex);
+
+        prefs = Preferences.userNodeForPackage(LoginDSB.class);
+        loadCredentials();
     }
 
     @SuppressWarnings("unchecked")
@@ -237,7 +243,6 @@ public final class LoginDSB extends javax.swing.JPanel {
 
     private void loginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_loginActionPerformed
         try {
-
             if (lastname.getText().isEmpty() && password.getText().isEmpty()) {
                 lastname.setBorder(BorderFactory.createLineBorder(new Color(255, 189, 46)));
                 password.setBorder(BorderFactory.createLineBorder(new Color(255, 189, 46)));
@@ -247,6 +252,14 @@ public final class LoginDSB extends javax.swing.JPanel {
 
             String hashedPass = Hasher.passwordHasher(password.getText());
             if (loginDB(lastname.getText(), hashedPass)) {
+                if (remember.isSelected()) {
+                    prefs.put("username", lastname.getText());
+                    prefs.put("password", password.getText());
+                } else {
+                    prefs.remove("username");
+                    prefs.remove("password");
+                }
+
                 switch (xstatus.toLowerCase()) {
                     case "pending":
                         Checkers.unsuccessfullFieldChecker("WAIT FOR ADMIN APPROVAL!");
@@ -403,15 +416,19 @@ public final class LoginDSB extends javax.swing.JPanel {
     }
 
     private void handleUserType(String xtype) {
-        if (xtype.equalsIgnoreCase("patient") || xtype.equalsIgnoreCase("admin")) {
+        if (xtype.equalsIgnoreCase("doctor") || xtype.equalsIgnoreCase("admin") || xtype.equalsIgnoreCase("receptionist")) {
             lastname.setBorder(BorderFactory.createLineBorder(Color.GREEN));
             password.setBorder(BorderFactory.createLineBorder(Color.GREEN));
-            Checkers.successFieldChecker("WELCONE TO AURORA WELLNESS PAVILION!");
-            if (xtype.equalsIgnoreCase("patient")) {
-                new PatientDSB().setVisible(true);
-            } else {
+            Checkers.successFieldChecker("WELCOME TO AURORA WELLNESS PAVILION!");
+
+            if (xtype.equalsIgnoreCase("doctor")) {
+                new DoctorMain().setVisible(true);
+            } else if (xtype.equalsIgnoreCase("admin")) {
                 new AdminForm().setVisible(true);
+            } else if (xtype.equalsIgnoreCase("receptionist")) {
+                new FrontMain().setVisible(true);
             }
+
             dispose();
         } else {
             setErrorState();
@@ -448,6 +465,17 @@ public final class LoginDSB extends javax.swing.JPanel {
     public void showImage(Integer index) {
         Image img = new ImageIcon(getImagesList().get(index)).getImage().getScaledInstance(680, 580, Image.SCALE_SMOOTH);
         images.setIcon(new ImageIcon(img));
+    }
+
+    private void loadCredentials() {
+        String rememberedUsername = prefs.get("username", "");
+        String rememberedPassword = prefs.get("password", "");
+
+        if (!rememberedUsername.isEmpty() && !rememberedPassword.isEmpty()) {
+            lastname.setText(rememberedUsername);
+            password.setText(rememberedPassword);
+            remember.setSelected(true);
+        }
     }
 
 

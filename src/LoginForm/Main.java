@@ -1,34 +1,44 @@
 package LoginForm;
 
+import Database.DBConnection;
 import Functions.SeperatorAnimation;
-import static LoginForm.LoginDashboard.jLabel9;
 import java.awt.Color;
 import java.awt.Desktop;
+import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseMotionAdapter;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URISyntaxException;
 import java.net.URL;
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.swing.JFrame;
+import javax.swing.ImageIcon;
 import javax.swing.JPanel;
+import javax.swing.SwingConstants;
 import javax.swing.Timer;
+import javax.swing.table.DefaultTableCellRenderer;
+import net.proteanit.sql.DbUtils;
 
 public final class Main extends javax.swing.JPanel {
 
     private static final int STEP = 5;
     private final Map<JPanel, Timer> moveTimers = new HashMap<>();
 
+    Integer imgIndex = 0;
+
     public Main() {
         initComponents();
         jScrollPane1.getVerticalScrollBar().setUnitIncrement(20);
+        newComers();
+        showImage(imgIndex);
 
         signIn.addActionListener(e -> {
             SeperatorAnimation animation = new SeperatorAnimation();
@@ -46,8 +56,7 @@ public final class Main extends javax.swing.JPanel {
 
         signUp.setFocusable(false);
         signIn.setFocusable(false);
-        jButton2.setFocusable(false);
-        
+
     }
 
     public void addEventSignUp(ActionListener event) {
@@ -151,11 +160,11 @@ public final class Main extends javax.swing.JPanel {
         jLabel8 = new javax.swing.JLabel();
         jLabel78 = new javax.swing.JLabel();
         jPanel6 = new javax.swing.JPanel();
+        jLabel9 = new javax.swing.JLabel();
         jLabel76 = new javax.swing.JLabel();
         jLabel77 = new javax.swing.JLabel();
         jLabel79 = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
         jLabel59 = new javax.swing.JLabel();
         jLabel80 = new javax.swing.JLabel();
         jLabel81 = new javax.swing.JLabel();
@@ -436,7 +445,7 @@ public final class Main extends javax.swing.JPanel {
         jLabel53.setText("ensuring a brighter and healthier future for our community");
         jPanel2.add(jLabel53, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 2500, -1, -1));
 
-        jTable1.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
+        jTable1.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
@@ -505,7 +514,7 @@ public final class Main extends javax.swing.JPanel {
 
         jLabel66.setFont(new java.awt.Font("Yu Gothic", 1, 30)); // NOI18N
         jLabel66.setText("Let Us Welcome Our Newest Doctors!");
-        jPanel2.add(jLabel66, new org.netbeans.lib.awtextra.AbsoluteConstraints(159, 3660, -1, -1));
+        jPanel2.add(jLabel66, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 3660, -1, -1));
 
         jLabel67.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
         jLabel67.setText("Welcome, new users! Your presence adds tremendous value to our community, and we're delighted ");
@@ -556,6 +565,8 @@ public final class Main extends javax.swing.JPanel {
         jPanel2.add(jLabel78, new org.netbeans.lib.awtextra.AbsoluteConstraints(36, 151, -1, -1));
 
         jPanel6.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+        jPanel6.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 300, 350));
+
         jPanel2.add(jPanel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(790, 3660, 300, 350));
 
         jLabel76.setFont(new java.awt.Font("Yu Gothic", 1, 35)); // NOI18N
@@ -577,15 +588,12 @@ public final class Main extends javax.swing.JPanel {
         jButton1.setText("Next");
         jButton1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 87, 255)));
         jButton1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
         jPanel2.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(990, 4020, 100, 30));
-
-        jButton2.setBackground(new java.awt.Color(255, 255, 255));
-        jButton2.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
-        jButton2.setText("View More");
-        jButton2.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(204, 204, 204)));
-        jButton2.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        jButton2.setOpaque(false);
-        jPanel2.add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(645, 3880, 100, 30));
 
         jLabel59.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
         jLabel59.setText("Hi everyone, don't forget to check out our newly stocked medications; we have a great selection for you.");
@@ -605,6 +613,11 @@ public final class Main extends javax.swing.JPanel {
         jButton3.setText("Back");
         jButton3.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 87, 255)));
         jButton3.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton3ActionPerformed(evt);
+            }
+        });
         jPanel2.add(jButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(790, 4020, 100, 30));
 
         jLabel82.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
@@ -677,6 +690,22 @@ public final class Main extends javax.swing.JPanel {
         }
     }//GEN-LAST:event_jLabel31MouseClicked
 
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+        imgIndex--;
+        if (imgIndex < 0) {
+            imgIndex = 0;
+        }
+        showImage(imgIndex);
+    }//GEN-LAST:event_jButton3ActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        imgIndex++;
+        if (imgIndex >= getImagesList().size()) {
+            imgIndex = getImagesList().size() - 1;
+        }
+        showImage(imgIndex);
+    }//GEN-LAST:event_jButton1ActionPerformed
+
     public void animatePanelHorizontally(JPanel panel, int targetX) {
         if (moveTimers.containsKey(panel) && moveTimers.get(panel).isRunning()) {
             moveTimers.get(panel).stop();
@@ -698,12 +727,63 @@ public final class Main extends javax.swing.JPanel {
         moveTimers.put(panel, timer);
         timer.start();
     }
-    
-   
+
+    private void newComers() {
+        try {
+            ResultSet rs = new DBConnection().getData("SELECT n_comers.u_id, u_tbl.u_lastname, "
+                    + "u_tbl.u_firstname, u_tbl.u_gender, u_tbl.u_type FROM n_comers"
+                    + " INNER JOIN u_tbl ON n_comers.u_id = u_tbl.u_id");
+            jTable1.setModel(DbUtils.resultSetToTableModel(rs));
+
+            ((DefaultTableCellRenderer) jTable1.getTableHeader().getDefaultRenderer())
+                    .setHorizontalAlignment(SwingConstants.CENTER);
+            DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
+            centerRenderer.setHorizontalAlignment(SwingConstants.CENTER);
+            jTable1.setDefaultRenderer(Object.class, centerRenderer);
+
+        } catch (SQLException er) {
+            System.out.println(er.getMessage());
+        }
+    }
+
+    public ArrayList<String> getImagesList() {
+        ArrayList<String> imgList = new ArrayList<>();
+
+        try (Connection connection = new DBConnection().getConnection();
+                Statement statement = connection.createStatement();
+                ResultSet resultSet = statement.executeQuery("SELECT u_profile FROM u_tbl WHERE u_type = 'DOCTOR'")) {
+
+            while (resultSet.next()) {
+                imgList.add(resultSet.getString("u_profile"));
+            }
+
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+
+        return imgList;
+    }
+
+    public void showImage(Integer index) {
+        if (index == null) {
+            System.out.println("Index is null");
+            jLabel9.setIcon(null);
+            return;
+        }
+
+        ArrayList<String> imgList = getImagesList();
+        if (index >= 0 && index < imgList.size()) {
+            Image img = new ImageIcon(imgList.get(index)).getImage().getScaledInstance(300, 350, Image.SCALE_SMOOTH);
+            jLabel9.setIcon(new ImageIcon(img));
+        } else {
+            System.out.println("Index is out of bounds");
+            jLabel9.setIcon(null);
+        }
+    }
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel11;
@@ -784,6 +864,7 @@ public final class Main extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel82;
     private javax.swing.JLabel jLabel83;
     private javax.swing.JLabel jLabel84;
+    private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel10;
     private javax.swing.JPanel jPanel11;

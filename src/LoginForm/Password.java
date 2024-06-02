@@ -1,4 +1,6 @@
-package Forms;
+package LoginForm;
+
+import Forms.*;
 
 public class Password extends javax.swing.JFrame {
 
