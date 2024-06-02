@@ -111,19 +111,19 @@ public final class Appointment extends javax.swing.JPanel {
 
         jLabel6.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
         jLabel6.setText("5.) Maintain Organized Area");
-        jPanel12.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(760, 297, -1, -1));
+        jPanel12.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(750, 297, -1, -1));
 
         jLabel5.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
         jLabel5.setText("3. ) Answer and Direct Phone Calls");
-        jPanel12.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(760, 242, -1, -1));
+        jPanel12.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(750, 242, -1, -1));
 
         jLabel4.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
         jLabel4.setText("2. ) Manage Appointment Schedules");
-        jPanel12.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(760, 215, -1, -1));
+        jPanel12.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(750, 215, -1, -1));
 
         jLabel3.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
         jLabel3.setText("1. ) Greet and Check-In Patients");
-        jPanel12.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(760, 190, -1, -1));
+        jPanel12.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(750, 190, -1, -1));
 
         jLabel1.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
         jLabel1.setText("To - Do List");
@@ -159,7 +159,7 @@ public final class Appointment extends javax.swing.JPanel {
 
         jLabel7.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
         jLabel7.setText("4.) Process Insurance Information");
-        jPanel12.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(760, 270, -1, -1));
+        jPanel12.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(750, 270, -1, -1));
         jPanel12.add(calendarCustom1, new org.netbeans.lib.awtextra.AbsoluteConstraints(710, 20, -1, 320));
 
         firstname.setHorizontalAlignment(javax.swing.JTextField.CENTER);
@@ -415,16 +415,16 @@ public final class Appointment extends javax.swing.JPanel {
     private void appointments() {
         try {
 
-            ResultSet rs = new DBConnection().getData("SELECT d.p_lastname, "
+            ResultSet rs = new DBConnection().getData("SELECT d.a_id,d.p_lastname, "
                     + "d.a_contact, u.u_lastname, d.a_date, d.a_hours,"
                     + "d.a_mins, d.a_time FROM d_appointments d INNER JOIN u_tbl u "
                     + "ON d.u_id = u.u_id; ");
             jTable1.setModel(DbUtils.resultSetToTableModel(rs));
 
-            TableColumn column1, column2, column3, column4, column5, column6, column7;
+            TableColumn column1, column2, column3, column4, column5, column6, column7, column8;
 
             column1 = jTable1.getColumnModel().getColumn(0);
-            column1.setPreferredWidth(50);
+            column1.setPreferredWidth(20);
 
             column2 = jTable1.getColumnModel().getColumn(1);
             column2.setPreferredWidth(50);
@@ -436,13 +436,16 @@ public final class Appointment extends javax.swing.JPanel {
             column4.setPreferredWidth(50);
 
             column5 = jTable1.getColumnModel().getColumn(4);
-            column5.setPreferredWidth(20);
+            column5.setPreferredWidth(50);
 
             column6 = jTable1.getColumnModel().getColumn(5);
             column6.setPreferredWidth(20);
 
             column7 = jTable1.getColumnModel().getColumn(6);
             column7.setPreferredWidth(20);
+            
+            column8 = jTable1.getColumnModel().getColumn(7);
+            column8.setPreferredWidth(20);
 
             ((DefaultTableCellRenderer) jTable1.getTableHeader().getDefaultRenderer())
                     .setHorizontalAlignment(SwingConstants.CENTER);
