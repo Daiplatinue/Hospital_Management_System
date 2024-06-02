@@ -1,21 +1,21 @@
 package FrontdeskForm;
 
-import DoctorForm.*;
-import LoginForm.*;
-import Functions.SeperatorAnimation;
-import java.awt.Color;
-import java.awt.Desktop;
+import Database.DBConnection;
+import com.formdev.flatlaf.FlatClientProperties;
+import java.awt.Component;
 import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.io.IOException;
-import java.net.MalformedURLException;
-import java.net.URISyntaxException;
-import java.net.URL;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import javax.swing.DefaultComboBoxModel;
+import javax.swing.DefaultListCellRenderer;
+import javax.swing.JComponent;
+import javax.swing.JLabel;
+import javax.swing.JList;
 import javax.swing.JPanel;
+import javax.swing.ListCellRenderer;
+import javax.swing.SwingConstants;
 import javax.swing.Timer;
 
 public final class Appointment extends javax.swing.JPanel {
@@ -26,23 +26,42 @@ public final class Appointment extends javax.swing.JPanel {
 
     public Appointment() {
         initComponents();
+        populateDoctorsTab();
 
         lastname.setVisible(false);
         firstname.setVisible(false);
         contact.setVisible(false);
-        month.setVisible(false);
         hours.setVisible(false);
         min.setVisible(false);
         doctors.setVisible(false);
         pm_am.setVisible(false);
         cancel.setVisible(false);
         add.setVisible(false);
+        date.setVisible(false);
+
+        appointmentHandlers();
+
+        ListCellRenderer<Object> renderer = new DefaultListCellRenderer() {
+            @Override
+            public Component getListCellRendererComponent(JList<?> list, Object value, int index, boolean isSelected, boolean cellHasFocus) {
+                JLabel label = (JLabel) super.getListCellRendererComponent(list, value, index, isSelected, cellHasFocus);
+                label.setHorizontalAlignment(SwingConstants.CENTER);
+                return label;
+            }
+        };
+
+        doctors.setRenderer(renderer);
+        hours.setRenderer(renderer);
+        min.setRenderer(renderer);
+        pm_am.setRenderer(renderer);
+
     }
 
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        dateChooser1 = new com.raven.datechooser.DateChooser();
         jPanel12 = new javax.swing.JPanel();
         jLabel6 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
@@ -64,11 +83,15 @@ public final class Appointment extends javax.swing.JPanel {
         jButton5 = new javax.swing.JButton();
         pm_am = new javax.swing.JComboBox<>();
         doctors = new javax.swing.JComboBox<>();
-        month = new javax.swing.JComboBox<>();
         hours = new javax.swing.JComboBox<>();
         min = new javax.swing.JComboBox<>();
         jButton6 = new javax.swing.JButton();
         add = new javax.swing.JButton();
+        date = new javax.swing.JTextField();
+
+        dateChooser1.setForeground(new java.awt.Color(153, 204, 255));
+        dateChooser1.setDateFormat("yyyy-MM-dd");
+        dateChooser1.setTextRefernce(date);
 
         setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
@@ -128,9 +151,11 @@ public final class Appointment extends javax.swing.JPanel {
         jPanel12.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(760, 270, -1, -1));
         jPanel12.add(calendarCustom1, new org.netbeans.lib.awtextra.AbsoluteConstraints(710, 20, -1, 320));
 
+        firstname.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         firstname.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(153, 153, 153), 1, true));
         jPanel12.add(firstname, new org.netbeans.lib.awtextra.AbsoluteConstraints(560, 390, 240, 30));
 
+        lastname.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         lastname.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(153, 153, 153), 1, true));
         lastname.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -139,6 +164,7 @@ public final class Appointment extends javax.swing.JPanel {
         });
         jPanel12.add(lastname, new org.netbeans.lib.awtextra.AbsoluteConstraints(560, 440, 240, 30));
 
+        contact.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         contact.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(153, 153, 153), 1, true));
         contact.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -150,7 +176,7 @@ public final class Appointment extends javax.swing.JPanel {
         jButton2.setBackground(new java.awt.Color(255, 255, 255));
         jButton2.setText("Change");
         jButton2.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(153, 153, 153), 1, true));
-        jPanel12.add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 130, 100, 30));
+        jPanel12.add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 210, 100, 30));
 
         cancel.setBackground(new java.awt.Color(255, 255, 255));
         cancel.setText("Cancel");
@@ -160,7 +186,7 @@ public final class Appointment extends javax.swing.JPanel {
         jButton5.setBackground(new java.awt.Color(255, 255, 255));
         jButton5.setText("Remove");
         jButton5.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(153, 153, 153), 1, true));
-        jPanel12.add(jButton5, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 130, 100, 30));
+        jPanel12.add(jButton5, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 210, 100, 30));
 
         pm_am.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "PM", "AM" }));
         pm_am.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(153, 153, 153), 1, true));
@@ -170,15 +196,11 @@ public final class Appointment extends javax.swing.JPanel {
         doctors.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(153, 153, 153), 1, true));
         jPanel12.add(doctors, new org.netbeans.lib.awtextra.AbsoluteConstraints(560, 540, 240, 30));
 
-        month.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "MONTH" }));
-        month.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(153, 153, 153), 1, true));
-        jPanel12.add(month, new org.netbeans.lib.awtextra.AbsoluteConstraints(870, 390, 240, 30));
-
-        hours.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "HOURS" }));
+        hours.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23", "24" }));
         hours.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(153, 153, 153), 1, true));
         jPanel12.add(hours, new org.netbeans.lib.awtextra.AbsoluteConstraints(870, 440, 240, 30));
 
-        min.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "MIN" }));
+        min.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "00", "01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23", "24", "25", "26", "27", "28", "29", "30", "31", "32", "33", "34", "35", "36", "37", "38", "39", "40", "41", "42", "43", "44", "45", "46", "47", "48", "49", "50", "51", "52", "53", "54", "55", "56", "57", "58", "59", "60" }));
         min.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(153, 153, 153), 1, true));
         jPanel12.add(min, new org.netbeans.lib.awtextra.AbsoluteConstraints(870, 490, 240, 30));
 
@@ -193,9 +215,25 @@ public final class Appointment extends javax.swing.JPanel {
         jPanel12.add(jButton6, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 210, 110, 30));
 
         add.setBackground(new java.awt.Color(255, 255, 255));
+        add.setForeground(new java.awt.Color(12, 135, 254));
         add.setText("Add");
-        add.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(153, 153, 153), 1, true));
+        add.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(12, 135, 254), 1, true));
+        add.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                addActionPerformed(evt);
+            }
+        });
         jPanel12.add(add, new org.netbeans.lib.awtextra.AbsoluteConstraints(1000, 600, 110, 30));
+
+        date.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        date.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(153, 153, 153), 1, true));
+        date.setDisabledTextColor(new java.awt.Color(255, 255, 255));
+        date.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                dateMouseClicked(evt);
+            }
+        });
+        jPanel12.add(date, new org.netbeans.lib.awtextra.AbsoluteConstraints(870, 390, 240, 30));
 
         add(jPanel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1310, 810));
     }// </editor-fold>//GEN-END:initComponents
@@ -214,14 +252,22 @@ public final class Appointment extends javax.swing.JPanel {
         lastname.setVisible(isVisible);
         firstname.setVisible(isVisible);
         contact.setVisible(isVisible);
-        month.setVisible(isVisible);
         hours.setVisible(isVisible);
         min.setVisible(isVisible);
         doctors.setVisible(isVisible);
         pm_am.setVisible(isVisible);
         cancel.setVisible(isVisible);
         add.setVisible(isVisible);
+        date.setVisible(isVisible);
     }//GEN-LAST:event_jButton6ActionPerformed
+
+    private void dateMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_dateMouseClicked
+        dateChooser1.showPopup();
+    }//GEN-LAST:event_dateMouseClicked
+
+    private void addActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_addActionPerformed
 
     public void animatePanelHorizontally(JPanel panel, int targetX) {
         if (moveTimers.containsKey(panel) && moveTimers.get(panel).isRunning()) {
@@ -245,11 +291,46 @@ public final class Appointment extends javax.swing.JPanel {
         timer.start();
     }
 
+    public void appointmentHandlers() {
+        String[] placeholders = {
+            "LAST NAME", "FIRST NAME", "CONTACT"
+        };
+        JComponent[] components = {
+            lastname, firstname, contact
+        };
+
+        for (int i = 0; i < components.length; i++) {
+            components[i].putClientProperty(FlatClientProperties.PLACEHOLDER_TEXT, placeholders[i]);
+            components[i].putClientProperty(FlatClientProperties.TEXT_FIELD_SHOW_CLEAR_BUTTON, true);
+        }
+
+    }
+
+    private void populateDoctorsTab() {
+        try {
+            DefaultComboBoxModel<String> model = new DefaultComboBoxModel<>();
+            ResultSet rs = new DBConnection().getData("SELECT u_id FROM u_tbl WHERE u_type = 'DOCTOR'");
+
+            while (rs.next()) {
+                String lastName = rs.getString("u_id");
+                model.addElement(lastName);
+            }
+
+            doctors.setModel(model);
+
+        } catch (SQLException er) {
+            System.out.println(er.getMessage());
+        }
+    }
+
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton add;
     private main.CalendarCustom calendarCustom1;
     private javax.swing.JButton cancel;
     private javax.swing.JTextField contact;
+    private javax.swing.JTextField date;
+    private com.raven.datechooser.DateChooser dateChooser1;
     private javax.swing.JComboBox<String> doctors;
     private javax.swing.JTextField firstname;
     private javax.swing.JComboBox<String> hours;
@@ -270,7 +351,6 @@ public final class Appointment extends javax.swing.JPanel {
     private javax.swing.JTable jTable1;
     private javax.swing.JTextField lastname;
     private javax.swing.JComboBox<String> min;
-    private javax.swing.JComboBox<String> month;
     private javax.swing.JComboBox<String> pm_am;
     // End of variables declaration//GEN-END:variables
 }

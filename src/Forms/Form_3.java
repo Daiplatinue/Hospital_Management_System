@@ -1913,14 +1913,6 @@ public final class Form_3 extends javax.swing.JPanel {
         form3Handlers();
     }
 
-    private void removePanel(JLabel panel) {
-        if (panel != null) {
-            panel.setIcon(null);
-            panel.setText(null);
-            panel.setVisible(false);
-        }
-    }
-
     public void dispose() {
         JFrame parent = (JFrame) this.getTopLevelAncestor();
         parent.dispose();
