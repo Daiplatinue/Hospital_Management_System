@@ -1,11 +1,17 @@
 package FrontdeskForm;
 
 import Database.DBConnection;
+import Database.xternal_db;
+import Functions.Checkers;
 import com.formdev.flatlaf.FlatClientProperties;
 import java.awt.Component;
 import java.awt.event.ActionEvent;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.HashMap;
 import java.util.Map;
 import javax.swing.DefaultComboBoxModel;
@@ -17,6 +23,11 @@ import javax.swing.JPanel;
 import javax.swing.ListCellRenderer;
 import javax.swing.SwingConstants;
 import javax.swing.Timer;
+import javax.swing.table.DefaultTableCellRenderer;
+import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableColumn;
+import javax.swing.table.TableModel;
+import net.proteanit.sql.DbUtils;
 
 public final class Appointment extends javax.swing.JPanel {
 
@@ -35,9 +46,9 @@ public final class Appointment extends javax.swing.JPanel {
         min.setVisible(false);
         doctors.setVisible(false);
         pm_am.setVisible(false);
-        cancel.setVisible(false);
         add.setVisible(false);
         date.setVisible(false);
+        jButton2.setVisible(false);
 
         appointmentHandlers();
 
@@ -55,6 +66,7 @@ public final class Appointment extends javax.swing.JPanel {
         min.setRenderer(renderer);
         pm_am.setRenderer(renderer);
 
+        appointments();
     }
 
     @SuppressWarnings("unchecked")
@@ -79,7 +91,6 @@ public final class Appointment extends javax.swing.JPanel {
         lastname = new javax.swing.JTextField();
         contact = new javax.swing.JTextField();
         jButton2 = new javax.swing.JButton();
-        cancel = new javax.swing.JButton();
         jButton5 = new javax.swing.JButton();
         pm_am = new javax.swing.JComboBox<>();
         doctors = new javax.swing.JComboBox<>();
@@ -176,17 +187,17 @@ public final class Appointment extends javax.swing.JPanel {
         jButton2.setBackground(new java.awt.Color(255, 255, 255));
         jButton2.setText("Change");
         jButton2.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(153, 153, 153), 1, true));
-        jPanel12.add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 210, 100, 30));
-
-        cancel.setBackground(new java.awt.Color(255, 255, 255));
-        cancel.setText("Cancel");
-        cancel.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(153, 153, 153), 1, true));
-        jPanel12.add(cancel, new org.netbeans.lib.awtextra.AbsoluteConstraints(560, 600, 110, 30));
+        jPanel12.add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(870, 600, 110, 30));
 
         jButton5.setBackground(new java.awt.Color(255, 255, 255));
         jButton5.setText("Remove");
         jButton5.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(153, 153, 153), 1, true));
-        jPanel12.add(jButton5, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 210, 100, 30));
+        jButton5.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton5ActionPerformed(evt);
+            }
+        });
+        jPanel12.add(jButton5, new org.netbeans.lib.awtextra.AbsoluteConstraints(404, 210, 100, 30));
 
         pm_am.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "PM", "AM" }));
         pm_am.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(153, 153, 153), 1, true));
@@ -256,9 +267,9 @@ public final class Appointment extends javax.swing.JPanel {
         min.setVisible(isVisible);
         doctors.setVisible(isVisible);
         pm_am.setVisible(isVisible);
-        cancel.setVisible(isVisible);
         add.setVisible(isVisible);
         date.setVisible(isVisible);
+        jButton2.setVisible(isVisible);
     }//GEN-LAST:event_jButton6ActionPerformed
 
     private void dateMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_dateMouseClicked
@@ -266,8 +277,86 @@ public final class Appointment extends javax.swing.JPanel {
     }//GEN-LAST:event_dateMouseClicked
 
     private void addActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addActionPerformed
-        // TODO add your handling code here:
+        try {
+            new DBConnection().insertData("insert into d_appointments (p_lastname, p_firstname, a_contact,u_id, a_date, a_hours, a_mins, a_time)"
+                    + "values ('" + lastname.getText().trim() + "',"
+                    + "'" + firstname.getText().trim() + "',"
+                    + "'" + contact.getText().trim() + "',"
+                    + "'" + doctors.getSelectedItem() + "',"
+                    + "'" + date.getText().trim() + "',"
+                    + "'" + hours.getSelectedItem() + "',"
+                    + "'" + min.getSelectedItem() + "',"
+                    + "'" + pm_am.getSelectedItem() + "')");
+
+            Checkers.successFieldChecker("APPOINTMENT SUCCESSFULLY ADDED!");
+
+            PreparedStatement logs;
+            Connection cn = new DBConnection().getConnection();
+            LocalDateTime currentDateTime = LocalDateTime.now();
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+            DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("hh:mm:ss a");
+            String formattedDateTime = currentDateTime.format(formatter);
+            String formattedTime = currentDateTime.format(timeFormatter);
+
+            logs = cn.prepareStatement("INSERT INTO a_logs (u_id, a_actions, a_date, a_hhmmss) VALUES (?, ?, ?, ?)");
+            String dcs = (String) doctors.getSelectedItem();
+
+            xternal_db xdb = xternal_db.getInstance();
+
+            logs.setString(1, dcs);
+            logs.setString(2, "Appointment added by: '" + xdb.getLastname() + "', '" + xdb.getFirstname() + "'");
+            logs.setString(3, formattedDateTime);
+            logs.setString(4, formattedTime);
+            logs.executeUpdate();
+
+            lastname.setText("");
+            firstname.setText("");
+            contact.setText("");
+            appointments();
+
+        } catch (SQLException er) {
+            System.out.println(er.getMessage());
+        }
     }//GEN-LAST:event_addActionPerformed
+
+    private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
+        int rowIndex = jTable1.getSelectedRow();
+        if (rowIndex < 0) {
+            Checkers.unsuccessfullFieldChecker("PLEASE SELECT AN INDEX!");
+            return;
+        }
+
+        TableModel tbl = jTable1.getModel();
+        String appointmentId = tbl.getValueAt(rowIndex, 0).toString();
+
+        try (Connection cn = new DBConnection().getConnection();
+                PreparedStatement deleteStatement = cn.prepareStatement("DELETE FROM d_appointments WHERE a_id = ?");
+                PreparedStatement logStatement = cn.prepareStatement("INSERT INTO a_logs (u_id, a_actions, a_date, a_hhmmss) VALUES (?, ?, ?, ?)")) {
+
+            cn.setAutoCommit(false);
+
+            deleteStatement.setString(1, appointmentId);
+            deleteStatement.executeUpdate();
+
+            LocalDateTime currentDateTime = LocalDateTime.now();
+            String formattedDate = currentDateTime.format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+            String formattedTime = currentDateTime.format(DateTimeFormatter.ofPattern("hh:mm:ss a"));
+
+            xternal_db xdb = xternal_db.getInstance();
+            logStatement.setString(1, xdb.getId());
+            logStatement.setString(2, "Deleted An Appointment, Appointment ID = '" + appointmentId + "'");
+            logStatement.setString(3, formattedDate);
+            logStatement.setString(4, formattedTime);
+            logStatement.executeUpdate();
+            cn.commit();
+
+            Checkers.successFieldChecker("APPOINTMENT HAS BEEN DELETED!");
+            appointments();
+
+        } catch (SQLException er) {
+            System.out.println(er.getMessage());
+        }
+    }//GEN-LAST:event_jButton5ActionPerformed
 
     public void animatePanelHorizontally(JPanel panel, int targetX) {
         if (moveTimers.containsKey(panel) && moveTimers.get(panel).isRunning()) {
@@ -323,11 +412,52 @@ public final class Appointment extends javax.swing.JPanel {
         }
     }
 
+    private void appointments() {
+        try {
+
+            ResultSet rs = new DBConnection().getData("SELECT d.p_lastname, "
+                    + "d.a_contact, u.u_lastname, d.a_date, d.a_hours,"
+                    + "d.a_mins, d.a_time FROM d_appointments d INNER JOIN u_tbl u "
+                    + "ON d.u_id = u.u_id; ");
+            jTable1.setModel(DbUtils.resultSetToTableModel(rs));
+
+            TableColumn column1, column2, column3, column4, column5, column6, column7;
+
+            column1 = jTable1.getColumnModel().getColumn(0);
+            column1.setPreferredWidth(50);
+
+            column2 = jTable1.getColumnModel().getColumn(1);
+            column2.setPreferredWidth(50);
+
+            column3 = jTable1.getColumnModel().getColumn(2);
+            column3.setPreferredWidth(50);
+
+            column4 = jTable1.getColumnModel().getColumn(3);
+            column4.setPreferredWidth(50);
+
+            column5 = jTable1.getColumnModel().getColumn(4);
+            column5.setPreferredWidth(20);
+
+            column6 = jTable1.getColumnModel().getColumn(5);
+            column6.setPreferredWidth(20);
+
+            column7 = jTable1.getColumnModel().getColumn(6);
+            column7.setPreferredWidth(20);
+
+            ((DefaultTableCellRenderer) jTable1.getTableHeader().getDefaultRenderer())
+                    .setHorizontalAlignment(SwingConstants.CENTER);
+            DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
+            centerRenderer.setHorizontalAlignment(SwingConstants.CENTER);
+            jTable1.setDefaultRenderer(Object.class, centerRenderer);
+
+        } catch (SQLException er) {
+            System.out.println(er.getMessage());
+        }
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton add;
     private main.CalendarCustom calendarCustom1;
-    private javax.swing.JButton cancel;
     private javax.swing.JTextField contact;
     private javax.swing.JTextField date;
     private com.raven.datechooser.DateChooser dateChooser1;

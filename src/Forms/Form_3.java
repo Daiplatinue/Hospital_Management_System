@@ -1490,11 +1490,12 @@ public final class Form_3 extends javax.swing.JPanel {
 
                         tlogs = cn.prepareStatement("INSERT INTO a_logs (u_id, a_actions, a_date, a_hhmmss) VALUES (?, ?, ?, ?)");
 
-                        xternal_db xdb = new xternal_db();
+                        xternal_db xdb = xternal_db.getInstance();
                         tlogs.setString(1, xdb.getId());
                         tlogs.setString(2, "Updated An Account, Account ID = '" + id.getText() + "'");
                         tlogs.setString(3, formattedDateTime);
                         tlogs.setString(4, formattedTime);
+                        tlogs.executeUpdate();
 
                         pane.setSelectedIndex(0);
                         acquireData();
@@ -1768,7 +1769,7 @@ public final class Form_3 extends javax.swing.JPanel {
 
             column4 = ac_db.getColumnModel().getColumn(4);
             column4.setPreferredWidth(20);
-            
+
             column5 = ac_db.getColumnModel().getColumn(5);
             column5.setPreferredWidth(20);
 

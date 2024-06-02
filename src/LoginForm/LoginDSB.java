@@ -383,6 +383,8 @@ public final class LoginDSB extends javax.swing.JPanel {
             xdb.setStatus(rs.getString("u_status"));
             xdb.setSq(rs.getString("u_question"));
             xdb.setSa(rs.getString("u_answer"));
+            xdb.setLastname(rs.getString("u_lastname"));
+            xdb.setFirstname(rs.getString("u_firstname"));
             return true;
         } else {
             return false;

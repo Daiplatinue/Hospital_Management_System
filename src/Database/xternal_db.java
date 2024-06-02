@@ -3,10 +3,26 @@ package Database;
 public class xternal_db {
 
     private static xternal_db instance;
-    private String id, username, email, password, sq, sa, type, status, contact;
+    private String id, username, email, password, sq, sa, type, status, contact, lastname, firstname;
 
     public xternal_db() {
 
+    }
+
+    public String getLastname() {
+        return lastname;
+    }
+
+    public void setLastname(String lastname) {
+        this.lastname = lastname;
+    }
+
+    public String getFirstname() {
+        return firstname;
+    }
+
+    public void setFirstname(String firstname) {
+        this.firstname = firstname;
     }
 
     public String getSq() {

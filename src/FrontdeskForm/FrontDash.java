@@ -592,6 +592,11 @@ public final class FrontDash extends javax.swing.JPanel {
         account.setForeground(new java.awt.Color(153, 153, 153));
         account.setText("View Account");
         account.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(153, 153, 153), 1, true));
+        account.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                accountActionPerformed(evt);
+            }
+        });
         jPanel2.add(account, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 400, 100, 30));
 
         latestApp.setModel(new javax.swing.table.DefaultTableModel(
@@ -671,6 +676,10 @@ public final class FrontDash extends javax.swing.JPanel {
                     .getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_jLabel31MouseClicked
+
+    private void accountActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_accountActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_accountActionPerformed
 
     public void animatePanelHorizontally(JPanel panel, int targetX) {
         if (moveTimers.containsKey(panel) && moveTimers.get(panel).isRunning()) {
