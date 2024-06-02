@@ -5,6 +5,8 @@ import static Forms.Form_3.ac_db;
 import Functions.Checkers;
 import com.formdev.flatlaf.*;
 import java.sql.*;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import javax.swing.RowFilter;
 import javax.swing.table.*;
 import net.proteanit.sql.*;
@@ -58,7 +60,7 @@ public final class Form_8 extends javax.swing.JPanel {
                 jButton1ActionPerformed(evt);
             }
         });
-        add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(610, 160, 80, 30));
+        add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(610, 80, 80, 30));
 
         jLabel2.setFont(new java.awt.Font("Segoe UI", 1, 35)); // NOI18N
         jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -75,7 +77,7 @@ public final class Form_8 extends javax.swing.JPanel {
                 searchMouseExited(evt);
             }
         });
-        add(search, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 160, 620, 30));
+        add(search, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 80, 620, 30));
 
         ac_archive.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -95,7 +97,7 @@ public final class Form_8 extends javax.swing.JPanel {
         });
         jScrollPane1.setViewportView(ac_archive);
 
-        add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 200, 620, 490));
+        add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 120, 620, 570));
     }// </editor-fold>//GEN-END:initComponents
 
     private void searchMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_searchMouseEntered
@@ -108,18 +110,16 @@ public final class Form_8 extends javax.swing.JPanel {
 
     private void ac_archiveMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ac_archiveMouseReleased
         if (evt.isPopupTrigger()) {
-            // Add an offset to X to make the popup appear to the right of the cursor
-            int xOffset = 10; // Adjust this value as needed
-            int yOffset = 0;  // Adjust this value as needed
+            int xOffset = 10;
+            int yOffset = 0;
             jPopupMenu1.show(evt.getComponent(), evt.getX() + xOffset, evt.getY() + yOffset);
         }
     }//GEN-LAST:event_ac_archiveMouseReleased
 
     private void ac_archiveMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ac_archiveMousePressed
         if (evt.isPopupTrigger()) {
-            // Add an offset to X to make the popup appear to the right of the cursor
-            int xOffset = 10; // Adjust this value as needed
-            int yOffset = 0;  // Adjust this value as needed
+            int xOffset = 10;
+            int yOffset = 0;
             jPopupMenu1.show(evt.getComponent(), evt.getX() + xOffset, evt.getY() + yOffset);
         }
     }//GEN-LAST:event_ac_archiveMousePressed
@@ -129,7 +129,6 @@ public final class Form_8 extends javax.swing.JPanel {
     }//GEN-LAST:event_jMenuItem2ActionPerformed
 
     private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
-        deleteAccount();
     }//GEN-LAST:event_jMenuItem1ActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
@@ -142,7 +141,7 @@ public final class Form_8 extends javax.swing.JPanel {
     private void displayData() {
         try {
             xternal_db xdb = xternal_db.getInstance();
-            ResultSet rs = new DBConnection().getData("SELECT ac_id, ac_email, ac_username, ac_contact, ac_type, ac_status FROM ac_table WHERE ac_status = 'DELETED' AND ac_id != '" + xdb.getId() + "'");
+            ResultSet rs = new DBConnection().getData("SELECT u_id,u_lastname,u_firstname,u_gender,u_type,u_status FROM u_tbl WHERE u_status = 'DELETED' AND u_id != '" + xdb.getId() + "'");
             ac_archive.setModel(DbUtils.resultSetToTableModel(rs));
         } catch (SQLException e) {
             System.err.println("An error occurred while fetching data: " + e.getMessage());
@@ -157,7 +156,7 @@ public final class Form_8 extends javax.swing.JPanel {
             try {
                 TableModel tbl = ac_archive.getModel();
                 String accountId = tbl.getValueAt(rowIndex, 0).toString();
-                String query = "UPDATE ac_table SET ac_status = 'ACTIVE' WHERE ac_id = ?";
+                String query = "UPDATE u_tbl SET u_status = 'ACTIVE' WHERE u_id = ?";
 
                 Connection cn = new DBConnection().getConnection();
                 PreparedStatement ps = cn.prepareStatement(query);
@@ -166,10 +165,20 @@ public final class Form_8 extends javax.swing.JPanel {
 
                 Checkers.successFieldChecker("ACCOUNT RECOVERED SUCCESSFULLY!!");
 
-                xternal_db xdb = xternal_db.getInstance();
-                PreparedStatement logs = cn.prepareStatement("INSERT INTO ac_logs (lg_email,lg_username,lg_actions)"
-                        + " VALUES ('" + xdb.getEmail() + "', '" + xdb.getUsername() + "', 'RECOVERED AN ACCOUNT, ID = " + accountId + "')");
-                logs.execute();
+                PreparedStatement tlogs;
+                LocalDateTime currentDateTime = LocalDateTime.now();
+                DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+                DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("hh:mm:ss a");
+                String formattedDateTime = currentDateTime.format(formatter);
+                String formattedTime = currentDateTime.format(timeFormatter);
+
+                tlogs = cn.prepareStatement("INSERT INTO a_logs (u_id, a_actions, a_date, a_hhmmss) VALUES (?, ?, ?, ?)");
+
+                xternal_db xdb = new xternal_db();
+                tlogs.setString(1, xdb.getId());
+                tlogs.setString(2, "Recovered An Account, Account ID = '" + accountId + "'");
+                tlogs.setString(3, formattedDateTime);
+                tlogs.setString(4, formattedTime);
 
                 displayData();
             } catch (SQLException er) {
@@ -181,35 +190,6 @@ public final class Form_8 extends javax.swing.JPanel {
     public void EmphasizableButtons() {
         search.putClientProperty(FlatClientProperties.TEXT_FIELD_SHOW_CLEAR_BUTTON, true);
         search.putClientProperty(FlatClientProperties.PLACEHOLDER_TEXT, "SEARCH BAR");
-    }
-
-    private void deleteAccount() {
-        int rowIndex = ac_archive.getSelectedRow();
-        if (rowIndex < 0) {
-            Checkers.unsuccessfullFieldChecker("PLEASE SELECT AN INDEX!");
-        } else {
-            try {
-                TableModel tbl = ac_archive.getModel();
-                String accountId = tbl.getValueAt(rowIndex, 0).toString();
-                String query = "UPDATE ac_table SET ac_status = 'PERMANENTLY DELETED' WHERE ac_id = ?";
-
-                Connection cn = new DBConnection().getConnection();
-                PreparedStatement ps = cn.prepareStatement(query);
-                ps.setString(1, accountId);
-                ps.executeUpdate();
-
-                Checkers.successFieldChecker("ACCOUNT HAS BEEN PERMANENTLY DELETED SUCCESSFULLY!!");
-
-                xternal_db xdb = xternal_db.getInstance();
-                PreparedStatement logs = cn.prepareStatement("INSERT INTO ac_logs (lg_email,lg_username,lg_actions)"
-                        + " VALUES ('" + xdb.getEmail() + "', '" + xdb.getUsername() + "', 'RECOVERED AN ACCOUNT, ID = " + accountId + "')");
-                logs.execute();
-
-                displayData();
-            } catch (SQLException er) {
-                System.out.println("ERROR: " + er.getMessage());
-            }
-        }
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
