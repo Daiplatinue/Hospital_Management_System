@@ -2,11 +2,14 @@ package Forms;
 
 import Database.*;
 import Functions.Checkers;
+import Swing.ImageAvatar;
 import com.formdev.flatlaf.*;
 import java.awt.*;
 import java.awt.event.*;
 import java.io.File;
 import java.sql.*;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import javax.swing.*;
@@ -40,8 +43,8 @@ public final class Form_7 extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jPopupMenu1 = new javax.swing.JPopupMenu();
-        jMenuItem1 = new javax.swing.JMenuItem();
+        jPopupMenu3 = new javax.swing.JPopupMenu();
+        jMenuItem2 = new javax.swing.JMenuItem();
         jPanel3 = new javax.swing.JPanel();
         jTabbedPane1 = new javax.swing.JTabbedPane();
         jPanel1 = new javax.swing.JPanel();
@@ -57,16 +60,13 @@ public final class Form_7 extends javax.swing.JPanel {
         jSeparator1 = new javax.swing.JSeparator();
         jPanel2 = new javax.swing.JPanel();
         jPanel4 = new javax.swing.JPanel();
-        emailChecker = new javax.swing.JLabel();
+        picture1 = new Swing.ImageAvatar();
         username = new javax.swing.JTextField();
         email = new javax.swing.JTextField();
-        picture1 = new javax.swing.JLabel();
         type = new javax.swing.JComboBox<>();
         status = new javax.swing.JComboBox<>();
         contact = new javax.swing.JTextField();
         id = new javax.swing.JTextField();
-        update = new javax.swing.JButton();
-        add2 = new javax.swing.JButton();
         cover = new javax.swing.JLabel();
         firstname = new javax.swing.JTextField();
         lastname = new javax.swing.JTextField();
@@ -74,15 +74,18 @@ public final class Form_7 extends javax.swing.JPanel {
         answer = new javax.swing.JTextField();
         question = new javax.swing.JTextField();
         jButton1 = new javax.swing.JButton();
+        emailChecker = new javax.swing.JLabel();
         contactChecker = new javax.swing.JLabel();
+        id1 = new javax.swing.JTextField();
+        add2 = new javax.swing.JButton();
 
-        jMenuItem1.setText("View Account");
-        jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
+        jMenuItem2.setText("View Account");
+        jMenuItem2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem1ActionPerformed(evt);
+                jMenuItem2ActionPerformed(evt);
             }
         });
-        jPopupMenu1.add(jMenuItem1);
+        jPopupMenu3.add(jMenuItem2);
 
         setBackground(new java.awt.Color(250, 250, 250));
         setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -97,10 +100,10 @@ public final class Form_7 extends javax.swing.JPanel {
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 30, Short.MAX_VALUE)
+            .addGap(0, 50, Short.MAX_VALUE)
         );
 
-        add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, -20, 1300, 30));
+        add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, -20, 1300, 50));
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -197,10 +200,12 @@ public final class Form_7 extends javax.swing.JPanel {
         });
         jPanel4.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        emailChecker.setFont(new java.awt.Font("Yu Gothic", 0, 12)); // NOI18N
-        emailChecker.setForeground(new java.awt.Color(255, 255, 255));
-        emailChecker.setText("STRENGTH");
-        jPanel4.add(emailChecker, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 490, 270, -1));
+        picture1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                picture1MouseClicked(evt);
+            }
+        });
+        jPanel4.add(picture1, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 220, 180, 190));
 
         username.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
         username.setForeground(new java.awt.Color(153, 153, 153));
@@ -244,24 +249,17 @@ public final class Form_7 extends javax.swing.JPanel {
         });
         jPanel4.add(email, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 450, 270, 32));
 
-        picture1.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                picture1MouseClicked(evt);
-            }
-        });
-        jPanel4.add(picture1, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 220, 180, 190));
-
         type.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
         type.setForeground(new java.awt.Color(153, 153, 153));
         type.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "PATIENT", "DOCTOR", "ADMIN", "RECEPTIONIST" }));
         type.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(153, 153, 153), 1, true));
-        jPanel4.add(type, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 520, 275, 30));
+        jPanel4.add(type, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 520, 270, 30));
 
         status.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
         status.setForeground(new java.awt.Color(153, 153, 153));
         status.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "PENDING", "ACTIVE", "IN-ACTIVE", "DELETED" }));
         status.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(153, 153, 153), 1, true));
-        jPanel4.add(status, new org.netbeans.lib.awtextra.AbsoluteConstraints(640, 520, 275, 30));
+        jPanel4.add(status, new org.netbeans.lib.awtextra.AbsoluteConstraints(640, 520, 270, 30));
 
         contact.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
         contact.setForeground(new java.awt.Color(153, 153, 153));
@@ -296,34 +294,13 @@ public final class Form_7 extends javax.swing.JPanel {
         });
         jPanel4.add(id, new org.netbeans.lib.awtextra.AbsoluteConstraints(1200, 20, 90, 32));
 
-        update.setBackground(new java.awt.Color(12, 135, 254));
-        update.setFont(new java.awt.Font("Segoe UI", 0, 11)); // NOI18N
-        update.setForeground(new java.awt.Color(255, 255, 255));
-        update.setText("Save Changes");
-        update.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(153, 153, 153), 1, true));
-        update.setEnabled(false);
-        update.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                updateActionPerformed(evt);
-            }
-        });
-        jPanel4.add(update, new org.netbeans.lib.awtextra.AbsoluteConstraints(1112, 630, 130, 32));
-
-        add2.setFont(new java.awt.Font("Segoe UI", 0, 11)); // NOI18N
-        add2.setText("Cancel");
-        add2.setBorder(null);
-        add2.setOpaque(false);
-        add2.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                add2ActionPerformed(evt);
-            }
-        });
-        jPanel4.add(add2, new org.netbeans.lib.awtextra.AbsoluteConstraints(1025, 630, 80, 32));
-
         cover.setOpaque(true);
         cover.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 coverMouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                coverMouseEntered(evt);
             }
         });
         jPanel4.add(cover, new org.netbeans.lib.awtextra.AbsoluteConstraints(-30, 0, 1330, 310));
@@ -377,13 +354,13 @@ public final class Form_7 extends javax.swing.JPanel {
         answer.setForeground(new java.awt.Color(153, 153, 153));
         answer.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         answer.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(153, 153, 153), 1, true));
-        jPanel4.add(answer, new org.netbeans.lib.awtextra.AbsoluteConstraints(640, 620, 275, 30));
+        jPanel4.add(answer, new org.netbeans.lib.awtextra.AbsoluteConstraints(640, 620, 270, 30));
 
         question.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
         question.setForeground(new java.awt.Color(153, 153, 153));
         question.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         question.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(153, 153, 153), 1, true));
-        jPanel4.add(question, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 620, 275, 30));
+        jPanel4.add(question, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 620, 270, 30));
 
         jButton1.setBackground(new java.awt.Color(255, 255, 255));
         jButton1.setText("Change Question & Answer");
@@ -393,12 +370,46 @@ public final class Form_7 extends javax.swing.JPanel {
                 jButton1ActionPerformed(evt);
             }
         });
-        jPanel4.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 570, 275, 30));
+        jPanel4.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 570, 270, 30));
+
+        emailChecker.setBackground(new java.awt.Color(255, 255, 255));
+        emailChecker.setFont(new java.awt.Font("Yu Gothic", 0, 12)); // NOI18N
+        emailChecker.setForeground(new java.awt.Color(255, 255, 255));
+        emailChecker.setText("STRENGTH");
+        jPanel4.add(emailChecker, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 485, 270, -1));
 
         contactChecker.setFont(new java.awt.Font("Yu Gothic", 0, 12)); // NOI18N
         contactChecker.setForeground(new java.awt.Color(255, 255, 255));
         contactChecker.setText("STRENGTH");
-        jPanel4.add(contactChecker, new org.netbeans.lib.awtextra.AbsoluteConstraints(640, 490, 270, -1));
+        jPanel4.add(contactChecker, new org.netbeans.lib.awtextra.AbsoluteConstraints(640, 485, 270, -1));
+
+        id1.setEditable(false);
+        id1.setForeground(new java.awt.Color(153, 153, 153));
+        id1.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        id1.setBorder(null);
+        id1.setOpaque(false);
+        id1.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                id1FocusGained(evt);
+            }
+        });
+        id1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                id1MouseClicked(evt);
+            }
+        });
+        jPanel4.add(id1, new org.netbeans.lib.awtextra.AbsoluteConstraints(1200, 20, 90, 32));
+
+        add2.setFont(new java.awt.Font("Segoe UI", 0, 11)); // NOI18N
+        add2.setText("Back");
+        add2.setBorder(null);
+        add2.setOpaque(false);
+        add2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                add2ActionPerformed(evt);
+            }
+        });
+        jPanel4.add(add2, new org.netbeans.lib.awtextra.AbsoluteConstraints(1160, 620, 80, 32));
 
         jPanel2.add(jPanel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
 
@@ -418,75 +429,27 @@ public final class Form_7 extends javax.swing.JPanel {
     Border activeBorder = BorderFactory.createLineBorder(Color.GREEN, 2);
     Border inactiveBorder = BorderFactory.createLineBorder(Color.RED, 2);
 
-    private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
-        int rowIndex = ac_pending.getSelectedRow();
-        if (rowIndex < 0) {
-            UIManager.put("OptionPane.background", Color.white);
-            UIManager.put("Panel.background", Color.white);
-            Icon customIcon = new javax.swing.ImageIcon(getClass().getResource("/Images/alert.gif"));
-            JOptionPane.showMessageDialog(null, "PLEASE CHOOSE AN INDEX!", "WARNING", JOptionPane.WARNING_MESSAGE, customIcon);
-        } else {
-            jTabbedPane1.setSelectedIndex(1);
-            try {
-                TableModel tbl = ac_pending.getModel();
-                ResultSet rs = new DBConnection().getData("select * from ac_table where ac_id = '" + tbl.getValueAt(rowIndex, 0) + "'");
-                if (rs.next()) {
-                    id.setText(String.valueOf(rs.getInt("ac_id")));
-                    email.setText(rs.getString("ac_email"));
-                    username.setText(rs.getString("ac_username"));
-                    contact.setText(rs.getString("ac_contact"));
-                    type.setSelectedItem(rs.getString("ac_type"));
-                    status.setSelectedItem(rs.getString("ac_status"));
-                    lastname.setText(rs.getString("ac_lastname"));
-                    firstname.setText(rs.getString("ac_firstname"));
-                    question.setText(rs.getString("ac_sq"));
-                    answer.setText(rs.getString("ac_sa"));
-
-                    if (rs.getString("ac_status").equalsIgnoreCase("active")) {
-                        picture1.setBorder(activeBorder);
-                    } else {
-                        picture1.setBorder(inactiveBorder);
-                    }
-
-                    String img = rs.getString("ac_images");
-                    setScaledImage(img, picture1, 180, 190);
-                    destination = rs.getString("ac_images");
-                    path = rs.getString("ac_images");
-                    oldpath = rs.getString("ac_images");
-
-                    String coverImg = rs.getString("ac_coverphoto");
-                    setScaledImage(coverImg, cover, 1330, 310);
-                    pathCover = rs.getString("ac_coverphoto");
-                    oldpathCover = rs.getString("ac_coverphoto");
-                    coverDestination = rs.getString("ac_coverphoto");
-
-                    selectedFile = new File(img);
-                    coverSelection = new File(coverImg);
-
-                }
-            } catch (SQLException er) {
-                System.out.println("ERROR: " + er.getMessage());
-            }
-        }
-    }//GEN-LAST:event_jMenuItem1ActionPerformed
-
     private void ac_pendingMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ac_pendingMouseReleased
         if (evt.isPopupTrigger()) {
-            // Add an offset to X to make the popup appear to the right of the cursor
-            int xOffset = 10; // Adjust this value as needed
-            int yOffset = 0;  // Adjust this value as needed
-            jPopupMenu1.show(evt.getComponent(), evt.getX() + xOffset, evt.getY() + yOffset);
+            int xOffset = 10;
+            int yOffset = 0;
+            jPopupMenu3.show(evt.getComponent(), evt.getX() + xOffset, evt.getY() + yOffset);
         }
     }//GEN-LAST:event_ac_pendingMouseReleased
 
     private void ac_pendingMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ac_pendingMousePressed
         if (evt.isPopupTrigger()) {
-            // Add an offset to X to make the popup appear to the right of the cursor
-            int xOffset = 10; // Adjust this value as needed
-            int yOffset = 0;  // Adjust this value as needed
-            jPopupMenu1.show(evt.getComponent(), evt.getX() + xOffset, evt.getY() + yOffset);
+            int xOffset = 10;
+            int yOffset = 0;
+            jPopupMenu3.show(evt.getComponent(), evt.getX() + xOffset, evt.getY() + yOffset);
         }
     }//GEN-LAST:event_ac_pendingMousePressed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+    }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void picture1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_picture1MouseClicked
+    }//GEN-LAST:event_picture1MouseClicked
 
     private void usernameFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_usernameFocusGained
 
@@ -512,9 +475,6 @@ public final class Form_7 extends javax.swing.JPanel {
         // TODO add your handling code here:
     }//GEN-LAST:event_emailActionPerformed
 
-    private void picture1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_picture1MouseClicked
-    }//GEN-LAST:event_picture1MouseClicked
-
     private void contactFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_contactFocusGained
 
     }//GEN-LAST:event_contactFocusGained
@@ -531,15 +491,16 @@ public final class Form_7 extends javax.swing.JPanel {
 
     }//GEN-LAST:event_idMouseClicked
 
-    private void updateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_updateActionPerformed
-    }//GEN-LAST:event_updateActionPerformed
-
     private void add2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_add2ActionPerformed
         jTabbedPane1.setSelectedIndex(0);
     }//GEN-LAST:event_add2ActionPerformed
 
     private void coverMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_coverMouseClicked
     }//GEN-LAST:event_coverMouseClicked
+
+    private void coverMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_coverMouseEntered
+        // TODO add your handling code here:
+    }//GEN-LAST:event_coverMouseEntered
 
     private void firstnameFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_firstnameFocusGained
         // TODO add your handling code here:
@@ -569,10 +530,84 @@ public final class Form_7 extends javax.swing.JPanel {
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jPanel4MouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel4MouseReleased
+        if (evt.isPopupTrigger()) {
+            jPopupMenu3.show(this, evt.getX(), evt.getY());
+        }
     }//GEN-LAST:event_jPanel4MouseReleased
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-    }//GEN-LAST:event_jButton2ActionPerformed
+    private void id1FocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_id1FocusGained
+
+    }//GEN-LAST:event_id1FocusGained
+
+    private void id1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_id1MouseClicked
+
+    }//GEN-LAST:event_id1MouseClicked
+
+    private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
+        int rowIndex = ac_pending.getSelectedRow();
+        if (rowIndex < 0) {
+            Checkers.unsuccessfullFieldChecker("PLEASE SELECT AN INDEX!");
+        } else {
+            try {
+                TableModel tbl = ac_pending.getModel();
+
+                ResultSet rs = new DBConnection().getData("select * from u_tbl where u_id = '" + tbl.getValueAt(rowIndex, 0) + "'");
+                if (rs.next()) {
+                    id.setText(String.valueOf(rs.getInt("u_id")));
+                    email.setText(rs.getString("u_email"));
+                    username.setText(rs.getString("u_username"));
+                    contact.setText(rs.getString("u_contact"));
+                    type.setSelectedItem(rs.getString("u_type"));
+                    status.setSelectedItem(rs.getString("u_status"));
+                    lastname.setText(rs.getString("u_lastname"));
+                    firstname.setText(rs.getString("u_firstname"));
+                    question.setText(rs.getString("u_question"));
+                    answer.setText(rs.getString("u_answer"));
+
+                    String img = rs.getString("u_profile");
+                    setScaledImagePP(img, picture1, 180, 190);
+                    destination = rs.getString("u_profile");
+                    path = rs.getString("u_profile");
+                    oldpath = rs.getString("u_profile");
+
+                    String coverImg = rs.getString("u_cover");
+                    setScaledImageCover(coverImg, cover, 1330, 310);
+                    pathCover = rs.getString("u_cover");
+                    oldpathCover = rs.getString("u_cover");
+                    coverDestination = rs.getString("u_cover");
+
+                    selectedFile = new File(img);
+                    coverSelection = new File(coverImg);
+                    
+                    jTabbedPane1.setSelectedIndex(1);
+                }
+            } catch (SQLException er) {
+                System.out.println("ERROR: " + er.getMessage());
+            }
+        }
+    }//GEN-LAST:event_jMenuItem2ActionPerformed
+
+    private void setScaledImagePP(String imgPath, ImageAvatar avatar, int width, int height) {
+        if (imgPath != null && !imgPath.isEmpty()) {
+            ImageIcon imageIcon = new ImageIcon(imgPath);
+            Image image = imageIcon.getImage();
+            Image scaledImage = image.getScaledInstance(width, height, Image.SCALE_SMOOTH);
+            avatar.setIcon(new ImageIcon(scaledImage));
+        } else {
+            avatar.setIcon(null);
+        }
+    }
+
+    private void setScaledImageCover(String imgPath, JLabel label, int width, int height) {
+        if (imgPath != null && !imgPath.isEmpty()) {
+            ImageIcon imageIcon = new ImageIcon(imgPath);
+            Image image = imageIcon.getImage();
+            Image scaledImage = image.getScaledInstance(width, height, Image.SCALE_SMOOTH);
+            label.setIcon(new ImageIcon(scaledImage));
+        } else {
+            label.setIcon(null);
+        }
+    }
 
     private void setScaledImage(String imgPath, JLabel label, int width, int height) {
         if (imgPath != null && !imgPath.isEmpty()) {
@@ -605,11 +640,10 @@ public final class Form_7 extends javax.swing.JPanel {
 
     private void displayData() {
         try {
-            ResultSet rs = new DBConnection().getData("select ac_id,ac_email,ac_username,ac_type from ac_table where ac_status = 'PENDING'");
+            ResultSet rs = new DBConnection().getData("select u_id,u_lastname,u_firstname,u_gender,u_type,u_status from u_tbl where u_status = 'Pending'");
             ac_pending.setModel(DbUtils.resultSetToTableModel(rs));
 
-            // Counting total pending accounts
-            ResultSet pendingCountRS = new DBConnection().getData("select count(*) as pending_count from ac_table where ac_status = 'PENDING'");
+            ResultSet pendingCountRS = new DBConnection().getData("select count(*) as pending_count from u_tbl where u_status = 'Pending'");
             if (pendingCountRS.next()) {
                 int pendingCount = pendingCountRS.getInt("pending_count");
                 pending.setText(String.valueOf(pendingCount));
@@ -628,7 +662,7 @@ public final class Form_7 extends javax.swing.JPanel {
             try {
                 TableModel tbl = ac_pending.getModel();
                 String accountId = tbl.getValueAt(rowIndex, 0).toString();
-                String query = "UPDATE ac_table SET ac_status = 'ACTIVE' WHERE ac_id = ?";
+                String query = "UPDATE u_tbl SET u_status = 'ACTIVE' WHERE u_id = ?";
 
                 Connection cn = new DBConnection().getConnection();
                 PreparedStatement ps = cn.prepareStatement(query);
@@ -637,10 +671,20 @@ public final class Form_7 extends javax.swing.JPanel {
 
                 Checkers.successFieldChecker("ACCOUNTS HAS BEEN APPROVED SUCCESSFULLY!");
 
-                xternal_db xdb = xternal_db.getInstance();
-                PreparedStatement logs = cn.prepareStatement("INSERT INTO ac_logs (lg_email,lg_username,lg_actions)"
-                        + " VALUES ('" + xdb.getEmail() + "', '" + xdb.getUsername() + "', 'APPROVED AN ACCOUNT, ID = " + accountId + "')");
-                logs.execute();
+                PreparedStatement tlogs;
+                LocalDateTime currentDateTime = LocalDateTime.now();
+                DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+                DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("hh:mm:ss a");
+                String formattedDateTime = currentDateTime.format(formatter);
+                String formattedTime = currentDateTime.format(timeFormatter);
+
+                tlogs = cn.prepareStatement("INSERT INTO a_logs (u_id, a_actions, a_date, a_hhmmss) VALUES (?, ?, ?, ?)");
+
+                xternal_db xdb = new xternal_db();
+                tlogs.setString(1, xdb.getId());
+                tlogs.setString(2, "Approved An Account, Account ID = '" + accountId + "'");
+                tlogs.setString(3, formattedDateTime);
+                tlogs.setString(4, formattedTime);
 
                 displayData();
             } catch (SQLException er) {
@@ -659,7 +703,7 @@ public final class Form_7 extends javax.swing.JPanel {
                 Connection cn = new DBConnection().getConnection();
                 TableModel tbl = ac_pending.getModel();
                 String accountId = tbl.getValueAt(rowIndex, 0).toString();
-                String query = "UPDATE ac_table SET ac_status = 'DECLINED' WHERE ac_id = ?";
+                String query = "UPDATE u_tbl SET u_status = 'DECLINED' WHERE u_id = ?";
 
                 PreparedStatement ps = cn.prepareStatement(query);
                 ps.setString(1, accountId);
@@ -667,24 +711,26 @@ public final class Form_7 extends javax.swing.JPanel {
 
                 Checkers.successFieldChecker("ACCOUNTS HAS BEEN DISAPPROVED!");
 
-                xternal_db xdb = xternal_db.getInstance();
-                PreparedStatement logs = cn.prepareStatement("INSERT INTO ac_logs (lg_email,lg_username,lg_actions)"
-                        + " VALUES ('" + xdb.getEmail() + "', '" + xdb.getUsername() + "', 'DISAPPROVED AN ACCOUNT, ID = " + accountId + "')");
-                logs.execute();
+                PreparedStatement tlogs;
+                LocalDateTime currentDateTime = LocalDateTime.now();
+                DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+                DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("hh:mm:ss a");
+                String formattedDateTime = currentDateTime.format(formatter);
+                String formattedTime = currentDateTime.format(timeFormatter);
+
+                tlogs = cn.prepareStatement("INSERT INTO a_logs (u_id, a_actions, a_date, a_hhmmss) VALUES (?, ?, ?, ?)");
+
+                xternal_db xdb = new xternal_db();
+                tlogs.setString(1, xdb.getId());
+                tlogs.setString(2, "Disapproved An Account, Account ID = '" + accountId + "'");
+                tlogs.setString(3, formattedDateTime);
+                tlogs.setString(4, formattedTime);
 
                 displayData();
             } catch (SQLException er) {
                 System.out.println("ERROR: " + er.getMessage());
             }
         }
-    }
-
-    public ImageIcon ResizeImage(String imagePath) {
-        ImageIcon MyImage = new ImageIcon(imagePath);
-        Image img = MyImage.getImage();
-        Image newImg = img.getScaledInstance(picture1.getHeight(), picture1.getHeight(), Image.SCALE_SMOOTH);
-        ImageIcon image = new ImageIcon(newImg);
-        return image;
     }
 
     public void Highlightable() {
@@ -770,27 +816,27 @@ public final class Form_7 extends javax.swing.JPanel {
     private javax.swing.JTextField firstname;
     private javax.swing.JComboBox<String> gender;
     private javax.swing.JTextField id;
+    private javax.swing.JTextField id1;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel8;
-    private javax.swing.JMenuItem jMenuItem1;
+    private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
-    private javax.swing.JPopupMenu jPopupMenu1;
+    private javax.swing.JPopupMenu jPopupMenu3;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JTextField lastname;
     private javax.swing.JLabel pending;
-    public javax.swing.JLabel picture1;
+    private Swing.ImageAvatar picture1;
     private javax.swing.JTextField question;
     private javax.swing.JTextField search;
     private javax.swing.JComboBox<String> status;
     private javax.swing.JComboBox<String> type;
-    private javax.swing.JButton update;
     private javax.swing.JTextField username;
     // End of variables declaration//GEN-END:variables
 }
