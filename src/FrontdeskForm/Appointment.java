@@ -14,6 +14,8 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.DefaultListCellRenderer;
 import javax.swing.JComponent;
@@ -30,15 +32,15 @@ import javax.swing.table.TableModel;
 import net.proteanit.sql.DbUtils;
 
 public final class Appointment extends javax.swing.JPanel {
-
+    
     private static final int STEP = 5;
     private final Map<JPanel, Timer> moveTimers = new HashMap<>();
     boolean isVisible = false;
-
+    
     public Appointment() {
         initComponents();
         populateDoctorsTab();
-
+        
         lastname.setVisible(false);
         firstname.setVisible(false);
         contact.setVisible(false);
@@ -48,10 +50,11 @@ public final class Appointment extends javax.swing.JPanel {
         pm_am.setVisible(false);
         add.setVisible(false);
         date.setVisible(false);
-        jButton2.setVisible(false);
-
+        update.setVisible(false);
+        jButton1.setVisible(false);
+        
         appointmentHandlers();
-
+        
         ListCellRenderer<Object> renderer = new DefaultListCellRenderer() {
             @Override
             public Component getListCellRendererComponent(JList<?> list, Object value, int index, boolean isSelected, boolean cellHasFocus) {
@@ -60,15 +63,15 @@ public final class Appointment extends javax.swing.JPanel {
                 return label;
             }
         };
-
+        
         doctors.setRenderer(renderer);
         hours.setRenderer(renderer);
         min.setRenderer(renderer);
         pm_am.setRenderer(renderer);
-
+        
         appointments();
     }
-
+    
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -90,7 +93,7 @@ public final class Appointment extends javax.swing.JPanel {
         firstname = new javax.swing.JTextField();
         lastname = new javax.swing.JTextField();
         contact = new javax.swing.JTextField();
-        jButton2 = new javax.swing.JButton();
+        update = new javax.swing.JButton();
         jButton5 = new javax.swing.JButton();
         pm_am = new javax.swing.JComboBox<>();
         doctors = new javax.swing.JComboBox<>();
@@ -99,6 +102,7 @@ public final class Appointment extends javax.swing.JPanel {
         jButton6 = new javax.swing.JButton();
         add = new javax.swing.JButton();
         date = new javax.swing.JTextField();
+        jButton1 = new javax.swing.JButton();
 
         dateChooser1.setForeground(new java.awt.Color(153, 204, 255));
         dateChooser1.setDateFormat("yyyy-MM-dd");
@@ -138,6 +142,11 @@ public final class Appointment extends javax.swing.JPanel {
 
             }
         ));
+        jTable1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jTable1MouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(jTable1);
 
         jPanel12.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 250, -1, -1));
@@ -184,10 +193,15 @@ public final class Appointment extends javax.swing.JPanel {
         });
         jPanel12.add(contact, new org.netbeans.lib.awtextra.AbsoluteConstraints(560, 490, 240, 30));
 
-        jButton2.setBackground(new java.awt.Color(255, 255, 255));
-        jButton2.setText("Change");
-        jButton2.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(153, 153, 153), 1, true));
-        jPanel12.add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(870, 600, 110, 30));
+        update.setBackground(new java.awt.Color(255, 255, 255));
+        update.setText("Change");
+        update.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(153, 153, 153), 1, true));
+        update.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                updateActionPerformed(evt);
+            }
+        });
+        jPanel12.add(update, new org.netbeans.lib.awtextra.AbsoluteConstraints(870, 600, 110, 30));
 
         jButton5.setBackground(new java.awt.Color(255, 255, 255));
         jButton5.setText("Remove");
@@ -207,7 +221,7 @@ public final class Appointment extends javax.swing.JPanel {
         doctors.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(153, 153, 153), 1, true));
         jPanel12.add(doctors, new org.netbeans.lib.awtextra.AbsoluteConstraints(560, 540, 240, 30));
 
-        hours.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23", "24" }));
+        hours.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11", "12" }));
         hours.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(153, 153, 153), 1, true));
         jPanel12.add(hours, new org.netbeans.lib.awtextra.AbsoluteConstraints(870, 440, 240, 30));
 
@@ -246,6 +260,16 @@ public final class Appointment extends javax.swing.JPanel {
         });
         jPanel12.add(date, new org.netbeans.lib.awtextra.AbsoluteConstraints(870, 390, 240, 30));
 
+        jButton1.setBackground(new java.awt.Color(255, 255, 255));
+        jButton1.setText("Clear");
+        jButton1.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(153, 153, 153), 1, true));
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+        jPanel12.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(560, 600, 110, 30));
+
         add(jPanel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1310, 810));
     }// </editor-fold>//GEN-END:initComponents
 
@@ -259,7 +283,7 @@ public final class Appointment extends javax.swing.JPanel {
 
     private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
         isVisible = !isVisible;
-
+        
         lastname.setVisible(isVisible);
         firstname.setVisible(isVisible);
         contact.setVisible(isVisible);
@@ -269,7 +293,8 @@ public final class Appointment extends javax.swing.JPanel {
         pm_am.setVisible(isVisible);
         add.setVisible(isVisible);
         date.setVisible(isVisible);
-        jButton2.setVisible(isVisible);
+        update.setVisible(isVisible);
+        jButton1.setVisible(isVisible);
     }//GEN-LAST:event_jButton6ActionPerformed
 
     private void dateMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_dateMouseClicked
@@ -278,7 +303,7 @@ public final class Appointment extends javax.swing.JPanel {
 
     private void addActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addActionPerformed
         try {
-            new DBConnection().insertData("insert into d_appointments (p_lastname, p_firstname, a_contact,u_id, a_date, a_hours, a_mins, a_time)"
+            new DBConnection().insertData("insert into d_appointments (p_lastname, p_firstname, a_contact,u_id, a_date, a_hours, a_mins, a_time, a_status)"
                     + "values ('" + lastname.getText().trim() + "',"
                     + "'" + firstname.getText().trim() + "',"
                     + "'" + contact.getText().trim() + "',"
@@ -286,10 +311,10 @@ public final class Appointment extends javax.swing.JPanel {
                     + "'" + date.getText().trim() + "',"
                     + "'" + hours.getSelectedItem() + "',"
                     + "'" + min.getSelectedItem() + "',"
-                    + "'" + pm_am.getSelectedItem() + "')");
-
+                    + "'" + pm_am.getSelectedItem() + "', 'Pending')");
+            
             Checkers.successFieldChecker("APPOINTMENT SUCCESSFULLY ADDED!");
-
+            
             PreparedStatement logs;
             Connection cn = new DBConnection().getConnection();
             LocalDateTime currentDateTime = LocalDateTime.now();
@@ -297,23 +322,23 @@ public final class Appointment extends javax.swing.JPanel {
             DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("hh:mm:ss a");
             String formattedDateTime = currentDateTime.format(formatter);
             String formattedTime = currentDateTime.format(timeFormatter);
-
+            
             logs = cn.prepareStatement("INSERT INTO a_logs (u_id, a_actions, a_date, a_hhmmss) VALUES (?, ?, ?, ?)");
             String dcs = (String) doctors.getSelectedItem();
-
+            
             xternal_db xdb = xternal_db.getInstance();
-
+            
             logs.setString(1, dcs);
             logs.setString(2, "Appointment added by: '" + xdb.getLastname() + "', '" + xdb.getFirstname() + "'");
             logs.setString(3, formattedDateTime);
             logs.setString(4, formattedTime);
             logs.executeUpdate();
-
+            
             lastname.setText("");
             firstname.setText("");
             contact.setText("");
             appointments();
-
+            
         } catch (SQLException er) {
             System.out.println(er.getMessage());
         }
@@ -325,23 +350,23 @@ public final class Appointment extends javax.swing.JPanel {
             Checkers.unsuccessfullFieldChecker("PLEASE SELECT AN INDEX!");
             return;
         }
-
+        
         TableModel tbl = jTable1.getModel();
         String appointmentId = tbl.getValueAt(rowIndex, 0).toString();
-
+        
         try (Connection cn = new DBConnection().getConnection();
                 PreparedStatement deleteStatement = cn.prepareStatement("DELETE FROM d_appointments WHERE a_id = ?");
                 PreparedStatement logStatement = cn.prepareStatement("INSERT INTO a_logs (u_id, a_actions, a_date, a_hhmmss) VALUES (?, ?, ?, ?)")) {
-
+            
             cn.setAutoCommit(false);
-
+            
             deleteStatement.setString(1, appointmentId);
             deleteStatement.executeUpdate();
-
+            
             LocalDateTime currentDateTime = LocalDateTime.now();
             String formattedDate = currentDateTime.format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
             String formattedTime = currentDateTime.format(DateTimeFormatter.ofPattern("hh:mm:ss a"));
-
+            
             xternal_db xdb = xternal_db.getInstance();
             logStatement.setString(1, xdb.getId());
             logStatement.setString(2, "Deleted An Appointment, Appointment ID = '" + appointmentId + "'");
@@ -349,20 +374,112 @@ public final class Appointment extends javax.swing.JPanel {
             logStatement.setString(4, formattedTime);
             logStatement.executeUpdate();
             cn.commit();
-
+            
             Checkers.successFieldChecker("APPOINTMENT HAS BEEN DELETED!");
             appointments();
-
+            
         } catch (SQLException er) {
             System.out.println(er.getMessage());
         }
     }//GEN-LAST:event_jButton5ActionPerformed
 
+    private void updateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_updateActionPerformed
+        int rowIndex = jTable1.getSelectedRow();
+        if (rowIndex < 0) {
+            Checkers.unsuccessfullFieldChecker("PLEASE SELECT AN INDEX!");
+        }
+        
+        TableModel tbl = jTable1.getModel();
+        String appointmentId = tbl.getValueAt(rowIndex, 0).toString();
+        String Doctors = (String) doctors.getSelectedItem();
+        String Hours = (String) hours.getSelectedItem();
+        String Mins = (String) min.getSelectedItem();
+        String Time = (String) pm_am.getSelectedItem();
+        
+        try (Connection cn = new DBConnection().getConnection();
+                PreparedStatement updateStatement = cn.prepareStatement("UPDATE d_appointments SET p_lastname = ?, p_firstname = ?, a_contact = ? , u_id = ?, a_date = ?, "
+                        + "a_hours = ?, a_mins = ?, a_time = ? WHERE a_id = ?");
+                PreparedStatement logStatement = cn.prepareStatement("INSERT INTO a_logs (u_id, a_actions, a_date, a_hhmmss) VALUES (?, ?, ?, ?)")) {
+            
+            cn.setAutoCommit(false);
+            
+            updateStatement.setString(1, lastname.getText().trim());
+            updateStatement.setString(2, firstname.getText().trim());
+            updateStatement.setString(3, contact.getText().trim());
+            updateStatement.setString(4, Doctors);
+            updateStatement.setString(5, date.getText().trim());
+            updateStatement.setString(6, Hours);
+            updateStatement.setString(7, Mins);
+            updateStatement.setString(8, Time);
+            updateStatement.setString(9, appointmentId);
+            updateStatement.executeUpdate();
+            
+            LocalDateTime currentDateTime = LocalDateTime.now();
+            String formattedDate = currentDateTime.format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+            String formattedTime = currentDateTime.format(DateTimeFormatter.ofPattern("hh:mm:ss a"));
+            
+            xternal_db xdb = xternal_db.getInstance();
+            logStatement.setString(1, xdb.getId());
+            logStatement.setString(2, "Updated an Appointment, Appointment ID = '" + appointmentId + "'");
+            logStatement.setString(3, formattedDate);
+            logStatement.setString(4, formattedTime);
+            logStatement.executeUpdate();
+            cn.commit();
+            
+            Checkers.successFieldChecker("APPOINTMENT HAS BEEN UPDATED!");
+            appointments();
+            
+        } catch (SQLException er) {
+            System.out.println(er.getMessage());
+        }
+    }//GEN-LAST:event_updateActionPerformed
+
+    private void jTable1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable1MouseClicked
+        int rowIndex = jTable1.getSelectedRow();
+        
+        if (rowIndex < 0) {
+            Checkers.unsuccessfullFieldChecker("PLEASE SELECT AN INDEX!");
+        } else {
+            try {
+                TableModel tbl = jTable1.getModel();
+                ResultSet rs = new DBConnection().getData("select * from d_appointments where a_id = '" + tbl.getValueAt(rowIndex, 0) + "'");
+                if (rs.next()) {
+                    firstname.setText(rs.getString("p_firstname"));
+                    lastname.setText(rs.getString("p_lastname"));
+                    contact.setText(rs.getString("a_contact"));
+                    doctors.setSelectedItem(rs.getString("u_id"));
+                    date.setText(rs.getString("a_date"));
+                    hours.setSelectedItem(rs.getString("a_hours"));
+                    min.setSelectedItem(rs.getString("a_mins"));
+                    pm_am.setSelectedItem(rs.getString("a_time"));
+                    add.setEnabled(false);
+                    update.setEnabled(true);
+                }
+            } catch (SQLException ex) {
+                Logger.getLogger(Appointment.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+    }//GEN-LAST:event_jTable1MouseClicked
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        firstname.setText("");
+        lastname.setText("");
+        contact.setText("");
+        doctors.setSelectedItem("");
+        date.setText("");
+        hours.setSelectedItem("");
+        min.setSelectedItem("");
+        pm_am.setSelectedItem("");
+        add.setEnabled(true);
+        update.setEnabled(false);
+        jTable1.clearSelection();
+    }//GEN-LAST:event_jButton1ActionPerformed
+    
     public void animatePanelHorizontally(JPanel panel, int targetX) {
         if (moveTimers.containsKey(panel) && moveTimers.get(panel).isRunning()) {
             moveTimers.get(panel).stop();
         }
-
+        
         Timer timer = new Timer(10, (ActionEvent e) -> {
             int currentX = panel.getX();
             if (currentX < targetX) {
@@ -370,16 +487,16 @@ public final class Appointment extends javax.swing.JPanel {
             } else if (currentX > targetX) {
                 panel.setLocation(Math.max(currentX - STEP, targetX), panel.getY());
             }
-
+            
             if (currentX == targetX) {
                 ((Timer) e.getSource()).stop();
             }
         });
-
+        
         moveTimers.put(panel, timer);
         timer.start();
     }
-
+    
     public void appointmentHandlers() {
         String[] placeholders = {
             "LAST NAME", "FIRST NAME", "CONTACT"
@@ -387,72 +504,72 @@ public final class Appointment extends javax.swing.JPanel {
         JComponent[] components = {
             lastname, firstname, contact
         };
-
+        
         for (int i = 0; i < components.length; i++) {
             components[i].putClientProperty(FlatClientProperties.PLACEHOLDER_TEXT, placeholders[i]);
             components[i].putClientProperty(FlatClientProperties.TEXT_FIELD_SHOW_CLEAR_BUTTON, true);
         }
-
+        
     }
-
+    
     private void populateDoctorsTab() {
         try {
             DefaultComboBoxModel<String> model = new DefaultComboBoxModel<>();
             ResultSet rs = new DBConnection().getData("SELECT u_id FROM u_tbl WHERE u_type = 'DOCTOR'");
-
+            
             while (rs.next()) {
                 String lastName = rs.getString("u_id");
                 model.addElement(lastName);
             }
-
+            
             doctors.setModel(model);
-
+            
         } catch (SQLException er) {
             System.out.println(er.getMessage());
         }
     }
-
+    
     private void appointments() {
         try {
-
+            
             ResultSet rs = new DBConnection().getData("SELECT d.a_id,d.p_lastname, "
                     + "d.a_contact, u.u_lastname, d.a_date, d.a_hours,"
                     + "d.a_mins, d.a_time FROM d_appointments d INNER JOIN u_tbl u "
                     + "ON d.u_id = u.u_id; ");
             jTable1.setModel(DbUtils.resultSetToTableModel(rs));
-
+            
             TableColumn column1, column2, column3, column4, column5, column6, column7, column8;
-
+            
             column1 = jTable1.getColumnModel().getColumn(0);
             column1.setPreferredWidth(20);
-
+            
             column2 = jTable1.getColumnModel().getColumn(1);
             column2.setPreferredWidth(50);
-
+            
             column3 = jTable1.getColumnModel().getColumn(2);
             column3.setPreferredWidth(50);
-
+            
             column4 = jTable1.getColumnModel().getColumn(3);
             column4.setPreferredWidth(50);
-
+            
             column5 = jTable1.getColumnModel().getColumn(4);
             column5.setPreferredWidth(50);
-
+            
             column6 = jTable1.getColumnModel().getColumn(5);
             column6.setPreferredWidth(20);
-
+            
             column7 = jTable1.getColumnModel().getColumn(6);
             column7.setPreferredWidth(20);
             
             column8 = jTable1.getColumnModel().getColumn(7);
             column8.setPreferredWidth(20);
-
+            
             ((DefaultTableCellRenderer) jTable1.getTableHeader().getDefaultRenderer())
                     .setHorizontalAlignment(SwingConstants.CENTER);
             DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
             centerRenderer.setHorizontalAlignment(SwingConstants.CENTER);
             jTable1.setDefaultRenderer(Object.class, centerRenderer);
-
+            
         } catch (SQLException er) {
             System.out.println(er.getMessage());
         }
@@ -467,7 +584,7 @@ public final class Appointment extends javax.swing.JPanel {
     private javax.swing.JComboBox<String> doctors;
     private javax.swing.JTextField firstname;
     private javax.swing.JComboBox<String> hours;
-    private javax.swing.JButton jButton2;
+    private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton5;
     private javax.swing.JButton jButton6;
     private javax.swing.JLabel jLabel1;
@@ -485,5 +602,6 @@ public final class Appointment extends javax.swing.JPanel {
     private javax.swing.JTextField lastname;
     private javax.swing.JComboBox<String> min;
     private javax.swing.JComboBox<String> pm_am;
+    private javax.swing.JButton update;
     // End of variables declaration//GEN-END:variables
 }
