@@ -2,8 +2,6 @@ package DoctorForm;
 
 import LoginForm.*;
 import Functions.SeperatorAnimation;
-import static LoginForm.LoginDashboard.slide;
-import RegisterForm.*;
 import com.formdev.flatlaf.*;
 import java.awt.Color;
 import java.awt.event.*;

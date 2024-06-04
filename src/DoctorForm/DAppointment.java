@@ -34,8 +34,6 @@ public final class DAppointment extends javax.swing.JPanel {
         firstname.setVisible(false);
         contact.setVisible(false);
         diagnostic.setVisible(false);
-        jButton1.setVisible(false);
-        jButton3.setVisible(false);
         description.setVisible(false);
         jScrollPane2.setVisible(false);
     }
@@ -61,14 +59,12 @@ public final class DAppointment extends javax.swing.JPanel {
         contact = new javax.swing.JTextField();
         lastname = new javax.swing.JTextField();
         firstname = new javax.swing.JTextField();
+        diagnostic = new javax.swing.JTextField();
         jScrollPane2 = new javax.swing.JScrollPane();
         description = new javax.swing.JTextArea();
         jButton2 = new javax.swing.JButton();
         jButton3 = new javax.swing.JButton();
         jButton4 = new javax.swing.JButton();
-        jButton5 = new javax.swing.JButton();
-        jButton6 = new javax.swing.JButton();
-        jLabel8 = new javax.swing.JLabel();
 
         setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
@@ -114,7 +110,7 @@ public final class DAppointment extends javax.swing.JPanel {
         });
         jScrollPane1.setViewportView(jTable1);
 
-        jPanel12.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 180, 670, -1));
+        jPanel12.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 250, 670, -1));
 
         jLabel24.setFont(new java.awt.Font("Yu Gothic", 1, 35)); // NOI18N
         jLabel24.setForeground(new java.awt.Color(5, 142, 230));
@@ -126,9 +122,10 @@ public final class DAppointment extends javax.swing.JPanel {
         jLabel25.setText("Latest Appointments");
         jPanel12.add(jLabel25, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 1720, -1, -1));
 
-        jLabel2.setFont(new java.awt.Font("Yu Gothic", 1, 25)); // NOI18N
-        jLabel2.setText("PENDING");
-        jPanel12.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(305, 620, -1, -1));
+        jLabel2.setFont(new java.awt.Font("Yu Gothic", 1, 40)); // NOI18N
+        jLabel2.setForeground(new java.awt.Color(5, 142, 230));
+        jLabel2.setText("Appointments");
+        jPanel12.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 50, -1, -1));
 
         jLabel7.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
         jLabel7.setText("4.) Collaborate with Medical Team");
@@ -144,7 +141,7 @@ public final class DAppointment extends javax.swing.JPanel {
                 jButton1ActionPerformed(evt);
             }
         });
-        jPanel12.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 140, 210, 30));
+        jPanel12.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 210, 210, 30));
 
         contact.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         contact.addActionListener(new java.awt.event.ActionListener() {
@@ -191,7 +188,7 @@ public final class DAppointment extends javax.swing.JPanel {
                 jButton2ActionPerformed(evt);
             }
         });
-        jPanel12.add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(610, 140, 100, 30));
+        jPanel12.add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(620, 210, 100, 30));
 
         jButton3.setBackground(new java.awt.Color(255, 255, 255));
         jButton3.setForeground(new java.awt.Color(204, 0, 0));
@@ -202,7 +199,7 @@ public final class DAppointment extends javax.swing.JPanel {
                 jButton3ActionPerformed(evt);
             }
         });
-        jPanel12.add(jButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 140, 210, 30));
+        jPanel12.add(jButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 210, 210, 30));
 
         jButton4.setBackground(new java.awt.Color(255, 255, 255));
         jButton4.setText("Examine");
@@ -212,22 +209,7 @@ public final class DAppointment extends javax.swing.JPanel {
                 jButton4ActionPerformed(evt);
             }
         });
-        jPanel12.add(jButton4, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 140, 100, 30));
-
-        jButton5.setBackground(new java.awt.Color(255, 255, 255));
-        jButton5.setText("BACK");
-        jButton5.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(153, 153, 153), 1, true));
-        jPanel12.add(jButton5, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 620, 100, 30));
-
-        jButton6.setBackground(new java.awt.Color(255, 255, 255));
-        jButton6.setText("NEXT");
-        jButton6.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(153, 153, 153), 1, true));
-        jPanel12.add(jButton6, new org.netbeans.lib.awtextra.AbsoluteConstraints(610, 620, 100, 30));
-
-        jLabel8.setFont(new java.awt.Font("Yu Gothic", 1, 40)); // NOI18N
-        jLabel8.setForeground(new java.awt.Color(5, 142, 230));
-        jLabel8.setText("Appointments");
-        jPanel12.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 50, -1, -1));
+        jPanel12.add(jButton4, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 210, 100, 30));
 
         add(jPanel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1310, 810));
     }// </editor-fold>//GEN-END:initComponents
@@ -239,6 +221,10 @@ public final class DAppointment extends javax.swing.JPanel {
     private void firstnameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_firstnameActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_firstnameActionPerformed
+
+    private void lastnameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_lastnameActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_lastnameActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         jTable1.clearSelection();
@@ -252,89 +238,7 @@ public final class DAppointment extends javax.swing.JPanel {
         jScrollPane2.setVisible(false);
     }//GEN-LAST:event_jButton2ActionPerformed
 
-    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
-        int rowIndex = jTable1.getSelectedRow();
-        if (rowIndex < 0) {
-            Checkers.unsuccessfullFieldChecker("SELECT AN INDEX FIRST TO EXAMINE!");
-        } else {
-            lastname.setVisible(true);
-            firstname.setVisible(true);
-            contact.setVisible(true);
-            diagnostic.setVisible(true);
-            jButton1.setVisible(true);
-            jButton3.setVisible(true);
-            description.setVisible(true);
-            jScrollPane2.setVisible(true);
-        }
-    }//GEN-LAST:event_jButton4ActionPerformed
-
-    private void lastnameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_lastnameActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_lastnameActionPerformed
-
-    private void jTable1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable1MouseClicked
-        int rowIndex = jTable1.getSelectedRow();
-        if (rowIndex < 0) {
-            Checkers.unsuccessfullFieldChecker("SELECT AN INDEX TO EXAMINE!");
-        } else {
-            try {
-                TableModel tbl = jTable1.getModel();
-                ResultSet rs = new DBConnection().getData("select * from d_appointments where a_id = '" + tbl.getValueAt(rowIndex, 0) + "'");
-                while (rs.next()) {
-                    lastname.setText(rs.getString("p_lastname"));
-                    firstname.setText(rs.getString("p_firstname"));
-                    contact.setText(rs.getString("a_contact"));
-                }
-            } catch (SQLException er) {
-                System.out.println(er.getMessage());
-            }
-        }
-    }//GEN-LAST:event_jTable1MouseClicked
-
-    private void jTable1MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable1MouseEntered
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jTable1MouseEntered
-
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        int rowIndex = jTable1.getSelectedRow();
-        if (rowIndex < 0) {
-            Checkers.unsuccessfullFieldChecker("PLEASE SELECT AN INDEX!");
-        } else {
-            try {
-                TableModel tbl = jTable1.getModel();
-                String accountId = tbl.getValueAt(rowIndex, 0).toString();
-                String query = "UPDATE d_appointments SET a_status = 'INPATIENT' WHERE a_id = ?";
-
-                Connection cn = new DBConnection().getConnection();
-                PreparedStatement ps = cn.prepareStatement(query);
-                ps.setString(1, accountId);
-                ps.executeUpdate();
-
-                Checkers.successFieldChecker("ACCOUNT:'" + accountId + "' HAS BEEN MARKED AS INPATIENT!");
-
-                PreparedStatement tlogs;
-                LocalDateTime currentDateTime = LocalDateTime.now();
-                DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-                DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("hh:mm:ss a");
-                String formattedDateTime = currentDateTime.format(formatter);
-                String formattedTime = currentDateTime.format(timeFormatter);
-
-                tlogs = cn.prepareStatement("INSERT INTO a_logs (u_id, a_actions, a_date, a_hhmmss) VALUES (?, ?, ?, ?)");
-
-                xternal_db xdb = new xternal_db();
-                tlogs.setString(1, xdb.getId());
-                tlogs.setString(2, "Added An Inpatient, Account ID = '" + accountId + "'");
-                tlogs.setString(3, formattedDateTime);
-                tlogs.setString(4, formattedTime);
-
-                displayAppointments();
-            } catch (SQLException er) {
-                System.out.println("ERROR: " + er.getMessage());
-            }
-        }
-    }//GEN-LAST:event_jButton1ActionPerformed
-
-    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         int rowIndex = jTable1.getSelectedRow();
         if (rowIndex < 0) {
             Checkers.unsuccessfullFieldChecker("PLEASE SELECT AN INDEX!");
@@ -371,7 +275,85 @@ public final class DAppointment extends javax.swing.JPanel {
                 System.out.println("ERROR: " + er.getMessage());
             }
         }
+    }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+        int rowIndex = jTable1.getSelectedRow();
+        if (rowIndex < 0) {
+            Checkers.unsuccessfullFieldChecker("PLEASE SELECT AN INDEX!");
+        } else {
+            try {
+                TableModel tbl = jTable1.getModel();
+                String accountId = tbl.getValueAt(rowIndex, 0).toString();
+                String query = "UPDATE d_appointments SET a_status = 'INPATIENT' WHERE a_id = ?";
+
+                Connection cn = new DBConnection().getConnection();
+                PreparedStatement ps = cn.prepareStatement(query);
+                ps.setString(1, accountId);
+                ps.executeUpdate();
+
+                Checkers.successFieldChecker("ACCOUNT:'" + accountId + "' HAS BEEN MARKED AS INPATIENT!");
+
+                PreparedStatement tlogs;
+                LocalDateTime currentDateTime = LocalDateTime.now();
+                DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+                DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("hh:mm:ss a");
+                String formattedDateTime = currentDateTime.format(formatter);
+                String formattedTime = currentDateTime.format(timeFormatter);
+
+                tlogs = cn.prepareStatement("INSERT INTO a_logs (u_id, a_actions, a_date, a_hhmmss) VALUES (?, ?, ?, ?)");
+
+                xternal_db xdb = new xternal_db();
+                tlogs.setString(1, xdb.getId());
+                tlogs.setString(2, "Added An Inpatient, Account ID = '" + accountId + "'");
+                tlogs.setString(3, formattedDateTime);
+                tlogs.setString(4, formattedTime);
+
+                displayAppointments();
+            } catch (SQLException er) {
+                System.out.println("ERROR: " + er.getMessage());
+            }
+        }
     }//GEN-LAST:event_jButton3ActionPerformed
+
+    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+        int rowIndex = jTable1.getSelectedRow();
+        if (rowIndex < 0) {
+            Checkers.unsuccessfullFieldChecker("SELECT AN INDEX FIRST TO EXAMINE!");
+        } else {
+            lastname.setVisible(true);
+            firstname.setVisible(true);
+            contact.setVisible(true);
+            diagnostic.setVisible(true);
+            jButton1.setVisible(true);
+            jButton3.setVisible(true);
+            description.setVisible(true);
+            jScrollPane2.setVisible(true);
+        }
+    }//GEN-LAST:event_jButton4ActionPerformed
+
+    private void jTable1MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable1MouseEntered
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTable1MouseEntered
+
+    private void jTable1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable1MouseClicked
+        int rowIndex = jTable1.getSelectedRow();
+        if (rowIndex < 0) {
+            Checkers.unsuccessfullFieldChecker("SELECT AN INDEX TO EXAMINE!");
+        } else {
+            try {
+                TableModel tbl = jTable1.getModel();
+                ResultSet rs = new DBConnection().getData("select * from d_appointments where a_id = '" + tbl.getValueAt(rowIndex, 0) + "'");
+                while (rs.next()) {
+                    lastname.setText(rs.getString("p_lastname"));
+                    firstname.setText(rs.getString("p_firstname"));
+                    contact.setText(rs.getString("a_contact"));
+                }
+            } catch (SQLException er) {
+                System.out.println(er.getMessage());
+            }
+        }
+    }//GEN-LAST:event_jTable1MouseClicked
 
     public void animatePanelHorizontally(JPanel panel, int targetX) {
         if (moveTimers.containsKey(panel) && moveTimers.get(panel).isRunning()) {
@@ -441,18 +423,17 @@ public final class DAppointment extends javax.swing.JPanel {
         }
     }
 
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private main.CalendarCustom calendarCustom1;
-    public static javax.swing.JTextField contact;
+    private javax.swing.JTextField contact;
     private javax.swing.JTextArea description;
-    public final javax.swing.JTextField diagnostic = new javax.swing.JTextField();
-    public static javax.swing.JTextField firstname;
+    private javax.swing.JTextField diagnostic;
+    private javax.swing.JTextField firstname;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
-    private javax.swing.JButton jButton5;
-    private javax.swing.JButton jButton6;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel24;
@@ -462,11 +443,10 @@ public final class DAppointment extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
-    private javax.swing.JLabel jLabel8;
     private javax.swing.JPanel jPanel12;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTable jTable1;
-    public static javax.swing.JTextField lastname;
+    private javax.swing.JTextField lastname;
     // End of variables declaration//GEN-END:variables
 }
