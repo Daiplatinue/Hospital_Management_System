@@ -1,31 +1,49 @@
 package DoctorForm;
 
+import Database.DBConnection;
+import Database.xternal_db;
 import LoginForm.*;
 import Functions.SeperatorAnimation;
 import static LoginForm.LoginDashboard.jLabel9;
 import java.awt.Color;
 import java.awt.Desktop;
+import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URISyntaxException;
 import java.net.URL;
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.ImageIcon;
 import javax.swing.JPanel;
+import javax.swing.SwingConstants;
 import javax.swing.Timer;
+import javax.swing.table.DefaultTableCellRenderer;
+import javax.swing.table.TableColumn;
+import net.proteanit.sql.DbUtils;
 
 public final class DoctorsDash extends javax.swing.JPanel {
 
     private static final int STEP = 5;
     private final Map<JPanel, Timer> moveTimers = new HashMap<>();
+    Integer imgIndex = 0;
 
     public DoctorsDash() {
         initComponents();
         jScrollPane1.getVerticalScrollBar().setUnitIncrement(20);
+        newComers();
+        showImage(imgIndex);
+        showCredentials();
+        displayAppointments();
     }
 
     @SuppressWarnings("unchecked")
@@ -112,6 +130,7 @@ public final class DoctorsDash extends javax.swing.JPanel {
         jLabel8 = new javax.swing.JLabel();
         jLabel78 = new javax.swing.JLabel();
         jPanel6 = new javax.swing.JPanel();
+        jLabel42 = new javax.swing.JLabel();
         jLabel76 = new javax.swing.JLabel();
         jLabel77 = new javax.swing.JLabel();
         jLabel79 = new javax.swing.JLabel();
@@ -370,7 +389,7 @@ public final class DoctorsDash extends javax.swing.JPanel {
         jLabel53.setText("ensuring a brighter and healthier future for our community");
         jPanel2.add(jLabel53, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 2500, -1, -1));
 
-        jTable1.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
+        jTable1.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
@@ -486,6 +505,8 @@ public final class DoctorsDash extends javax.swing.JPanel {
         jPanel2.add(jLabel78, new org.netbeans.lib.awtextra.AbsoluteConstraints(36, 151, -1, -1));
 
         jPanel6.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+        jPanel6.add(jLabel42, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 300, 350));
+
         jPanel2.add(jPanel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(790, 3660, 300, 350));
 
         jLabel76.setFont(new java.awt.Font("Yu Gothic", 1, 35)); // NOI18N
@@ -685,6 +706,118 @@ public final class DoctorsDash extends javax.swing.JPanel {
         more.addActionListener(event);
     }
 
+    private void newComers() {
+        try {
+            ResultSet rs = new DBConnection().getData("SELECT n_comers.u_id, u_tbl.u_lastname, "
+                    + "u_tbl.u_firstname, u_tbl.u_gender, u_tbl.u_type FROM n_comers"
+                    + " INNER JOIN u_tbl ON n_comers.u_id = u_tbl.u_id");
+            jTable1.setModel(DbUtils.resultSetToTableModel(rs));
+
+            ((DefaultTableCellRenderer) jTable1.getTableHeader().getDefaultRenderer())
+                    .setHorizontalAlignment(SwingConstants.CENTER);
+            DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
+            centerRenderer.setHorizontalAlignment(SwingConstants.CENTER);
+            jTable1.setDefaultRenderer(Object.class, centerRenderer);
+
+        } catch (SQLException er) {
+            System.out.println(er.getMessage());
+        }
+    }
+
+    public ArrayList<String> getImagesList() {
+        ArrayList<String> imgList = new ArrayList<>();
+
+        try (Connection connection = new DBConnection().getConnection();
+                Statement statement = connection.createStatement();
+                ResultSet resultSet = statement.executeQuery("SELECT u_profile FROM u_tbl WHERE u_type = 'DOCTOR'")) {
+
+            while (resultSet.next()) {
+                imgList.add(resultSet.getString("u_profile"));
+            }
+
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+
+        return imgList;
+    }
+
+    public void showImage(Integer index) {
+        if (index == null) {
+            System.out.println("Index is null");
+            jLabel42.setIcon(null);
+            return;
+        }
+
+        ArrayList<String> imgList = getImagesList();
+        if (index >= 0 && index < imgList.size()) {
+            Image img = new ImageIcon(imgList.get(index)).getImage().getScaledInstance(300, 350, Image.SCALE_SMOOTH);
+            jLabel42.setIcon(new ImageIcon(img));
+        } else {
+            System.out.println("Index is out of bounds");
+            jLabel42.setIcon(null);
+        }
+    }
+
+    private void showCredentials() {
+        try (Connection conn = new DBConnection().getConnection();
+                Statement stmt = conn.createStatement();
+                ResultSet rs = stmt.executeQuery("SELECT u_lastname, u_firstname FROM u_tbl WHERE u_id = '" + xternal_db.getInstance().getId() + "'")) {
+
+            if (rs.next()) {
+                jLabel50.setText(rs.getString("u_lastname"));
+                jLabel22.setText(rs.getString("u_firstname"));
+                System.out.println("Last Name: " + rs.getString("u_lastname"));
+                System.out.println("First Name: " + rs.getString("u_firstname"));
+
+            }
+        } catch (SQLException er) {
+            System.out.println(er.getMessage());
+        }
+    }
+
+    private void displayAppointments() {
+        try {
+            xternal_db xdb = xternal_db.getInstance();
+            ResultSet rs = new DBConnection().getData("select * from d_appointments where u_id = '" + xdb.getId() + "'");
+            latestApp.setModel(DbUtils.resultSetToTableModel(rs));
+
+            TableColumn column1, column2, column3, column4, column5, column6, column7, column8;
+
+            column1 = latestApp.getColumnModel().getColumn(0);
+            column1.setPreferredWidth(20);
+
+            column2 = latestApp.getColumnModel().getColumn(1);
+            column2.setPreferredWidth(50);
+
+            column3 = latestApp.getColumnModel().getColumn(2);
+            column3.setPreferredWidth(50);
+
+            column4 = latestApp.getColumnModel().getColumn(3);
+            column4.setPreferredWidth(50);
+
+            column5 = latestApp.getColumnModel().getColumn(4);
+            column5.setPreferredWidth(50);
+
+            column6 = latestApp.getColumnModel().getColumn(5);
+            column6.setPreferredWidth(20);
+
+            column7 = latestApp.getColumnModel().getColumn(6);
+            column7.setPreferredWidth(20);
+
+            column8 = latestApp.getColumnModel().getColumn(7);
+            column8.setPreferredWidth(20);
+
+            ((DefaultTableCellRenderer) latestApp.getTableHeader().getDefaultRenderer())
+                    .setHorizontalAlignment(SwingConstants.CENTER);
+            DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
+            centerRenderer.setHorizontalAlignment(SwingConstants.CENTER);
+            latestApp.setDefaultRenderer(Object.class, centerRenderer);
+        } catch (SQLException er) {
+            System.out.println(er.getMessage());
+        }
+    }
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton account;
     private javax.swing.JButton jButton1;
@@ -726,6 +859,7 @@ public final class DoctorsDash extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel40;
     private javax.swing.JLabel jLabel41;
+    private javax.swing.JLabel jLabel42;
     private javax.swing.JLabel jLabel43;
     private javax.swing.JLabel jLabel44;
     private javax.swing.JLabel jLabel45;

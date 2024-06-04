@@ -26,7 +26,6 @@ import javax.swing.ListCellRenderer;
 import javax.swing.SwingConstants;
 import javax.swing.Timer;
 import javax.swing.table.DefaultTableCellRenderer;
-import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumn;
 import javax.swing.table.TableModel;
 import net.proteanit.sql.DbUtils;

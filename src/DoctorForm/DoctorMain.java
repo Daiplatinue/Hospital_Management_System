@@ -18,7 +18,7 @@ public class DoctorMain extends javax.swing.JFrame {
         setLocationRelativeTo(null);
         setShape(new RoundRectangle2D.Double(0, 0, getWidth(), getHeight(), 20, 20));
 
-        Appointment app = new Appointment();
+        DAppointment app = new DAppointment();
         DoctorsDash mn = new DoctorsDash();
         My_Account ma = new My_Account();
         slide.setAnimate(20);

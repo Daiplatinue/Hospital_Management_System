@@ -24,6 +24,7 @@ import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 import javax.swing.Timer;
 import javax.swing.table.DefaultTableCellRenderer;
+import javax.swing.table.TableColumn;
 import net.proteanit.sql.DbUtils;
 
 public final class FrontDash extends javax.swing.JPanel {
@@ -39,7 +40,7 @@ public final class FrontDash extends javax.swing.JPanel {
         newComers();
         showImage(imgIndex);
         showCredentials();
-
+        appointments();
     }
 
     @SuppressWarnings("unchecked")
@@ -776,6 +777,52 @@ public final class FrontDash extends javax.swing.JPanel {
                 System.out.println("First Name: " + rs.getString("u_firstname"));
 
             }
+        } catch (SQLException er) {
+            System.out.println(er.getMessage());
+        }
+    }
+    
+    private void appointments() {
+        try {
+            
+            ResultSet rs = new DBConnection().getData("SELECT d.a_id,d.p_lastname, "
+                    + "d.a_contact, u.u_lastname, d.a_date, d.a_hours,"
+                    + "d.a_mins, d.a_time FROM d_appointments d INNER JOIN u_tbl u "
+                    + "ON d.u_id = u.u_id; ");
+            latestApp.setModel(DbUtils.resultSetToTableModel(rs));
+            
+            TableColumn column1, column2, column3, column4, column5, column6, column7, column8;
+            
+            column1 = latestApp.getColumnModel().getColumn(0);
+            column1.setPreferredWidth(20);
+            
+            column2 = latestApp.getColumnModel().getColumn(1);
+            column2.setPreferredWidth(50);
+            
+            column3 = latestApp.getColumnModel().getColumn(2);
+            column3.setPreferredWidth(50);
+            
+            column4 = latestApp.getColumnModel().getColumn(3);
+            column4.setPreferredWidth(50);
+            
+            column5 = latestApp.getColumnModel().getColumn(4);
+            column5.setPreferredWidth(50);
+            
+            column6 = latestApp.getColumnModel().getColumn(5);
+            column6.setPreferredWidth(20);
+            
+            column7 = latestApp.getColumnModel().getColumn(6);
+            column7.setPreferredWidth(20);
+            
+            column8 = latestApp.getColumnModel().getColumn(7);
+            column8.setPreferredWidth(20);
+            
+            ((DefaultTableCellRenderer) latestApp.getTableHeader().getDefaultRenderer())
+                    .setHorizontalAlignment(SwingConstants.CENTER);
+            DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
+            centerRenderer.setHorizontalAlignment(SwingConstants.CENTER);
+            latestApp.setDefaultRenderer(Object.class, centerRenderer);
+            
         } catch (SQLException er) {
             System.out.println(er.getMessage());
         }
