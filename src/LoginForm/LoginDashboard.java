@@ -38,7 +38,7 @@ public class LoginDashboard extends javax.swing.JFrame {
             jButton1.setEnabled(false);
         }
         jLabel9.setForeground(Color.BLACK);
-        
+
     }
 
     @SuppressWarnings("unchecked")
@@ -107,8 +107,8 @@ public class LoginDashboard extends javax.swing.JFrame {
 
         jLabel3.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
         jLabel3.setForeground(new java.awt.Color(102, 102, 102));
-        jLabel3.setText("Sign In");
-        jPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(1130, 23, -1, -1));
+        jLabel3.setText("No Account");
+        jPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(1100, 23, -1, -1));
 
         selection.setBackground(new java.awt.Color(0, 87, 255));
 
@@ -135,9 +135,14 @@ public class LoginDashboard extends javax.swing.JFrame {
         });
         jPanel1.add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(580, 20, -1, -1));
 
-        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/cart-minus (1).png"))); // NOI18N
+        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/refer-arrow (1).png"))); // NOI18N
         jButton1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(153, 153, 153)));
         jButton1.setOpaque(false);
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
         jPanel1.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(1200, 15, 50, 40));
 
         jLabel4.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
@@ -204,6 +209,10 @@ public class LoginDashboard extends javax.swing.JFrame {
             slide.show(3);
         }
     }//GEN-LAST:event_jLabel4MouseClicked
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        slide.show(1);
+    }//GEN-LAST:event_jButton1ActionPerformed
     public static void main(String args[]) {
         FlatLightLaf.setup();
         java.awt.EventQueue.invokeLater(new Runnable() {
