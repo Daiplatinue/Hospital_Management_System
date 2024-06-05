@@ -1,22 +1,13 @@
 package LoginForm;
 
-import Functions.SeperatorAnimation;
+import Database.DBConnection;
+import Functions.Checkers;
 import com.formdev.flatlaf.FlatClientProperties;
-import java.awt.BorderLayout;
-import java.awt.Color;
-import java.awt.Component;
 import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.geom.RoundRectangle2D;
+import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.Map;
-import javax.swing.DefaultListCellRenderer;
-import javax.swing.JComponent;
-import javax.swing.JLabel;
-import javax.swing.JList;
 import javax.swing.JPanel;
-import javax.swing.ListCellRenderer;
-import javax.swing.SwingConstants;
 import javax.swing.Timer;
 
 public final class Donation extends javax.swing.JPanel {
@@ -27,19 +18,8 @@ public final class Donation extends javax.swing.JPanel {
     public Donation() {
         initComponents();
 
-        value.putClientProperty(FlatClientProperties.PLACEHOLDER_TEXT, "VALUE IN PHP");
+        value.putClientProperty(FlatClientProperties.PLACEHOLDER_TEXT, "VALUE");
         sender.putClientProperty(FlatClientProperties.PLACEHOLDER_TEXT, "SENDER NAME");
-
-        ListCellRenderer<Object> renderer = new DefaultListCellRenderer() {
-            @Override
-            public Component getListCellRendererComponent(JList<?> list, Object value, int index, boolean isSelected, boolean cellHasFocus) {
-                JLabel label = (JLabel) super.getListCellRendererComponent(list, value, index, isSelected, cellHasFocus);
-                label.setHorizontalAlignment(SwingConstants.CENTER);
-                return label;
-            }
-        };
-
-        jComboBox1.setRenderer(renderer);
 
     }
 
@@ -48,53 +28,68 @@ public final class Donation extends javax.swing.JPanel {
     private void initComponents() {
 
         jPanel1 = new javax.swing.JPanel();
+        jLabel5 = new javax.swing.JLabel();
+        jLabel4 = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
-        jComboBox1 = new javax.swing.JComboBox<>();
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
         jButton3 = new javax.swing.JButton();
         jButton4 = new javax.swing.JButton();
         value = new javax.swing.JTextField();
-        jLabel6 = new javax.swing.JLabel();
-        jLabel7 = new javax.swing.JLabel();
-        jLabel4 = new javax.swing.JLabel();
-        jLabel5 = new javax.swing.JLabel();
         jButton5 = new javax.swing.JButton();
-        panelRound1 = new test.PanelRound();
-        panelRound2 = new test.PanelRound();
+        mop = new javax.swing.JLabel();
+        sender = new javax.swing.JTextField();
+        jLabel13 = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
-        jLabel9 = new javax.swing.JLabel();
-        jSeparator1 = new javax.swing.JSeparator();
-        jLabel11 = new javax.swing.JLabel();
-        jLabel12 = new javax.swing.JLabel();
-        jLabel14 = new javax.swing.JLabel();
+        jPanel5 = new javax.swing.JPanel();
         jLabel15 = new javax.swing.JLabel();
         jLabel16 = new javax.swing.JLabel();
-        jLabel17 = new javax.swing.JLabel();
+        jPanel6 = new javax.swing.JPanel();
         jLabel18 = new javax.swing.JLabel();
         jLabel19 = new javax.swing.JLabel();
         jLabel20 = new javax.swing.JLabel();
+        jPanel7 = new javax.swing.JPanel();
         jLabel21 = new javax.swing.JLabel();
         jLabel22 = new javax.swing.JLabel();
-        jLabel23 = new javax.swing.JLabel();
-        mop = new javax.swing.JLabel();
-        sender = new javax.swing.JTextField();
+        jPanel4 = new javax.swing.JPanel();
+        jLabel11 = new javax.swing.JLabel();
+        jLabel12 = new javax.swing.JLabel();
+        jLabel14 = new javax.swing.JLabel();
+        jPanel3 = new javax.swing.JPanel();
+        jLabel8 = new javax.swing.JLabel();
+        jLabel9 = new javax.swing.JLabel();
         jLabel10 = new javax.swing.JLabel();
-        jLabel13 = new javax.swing.JLabel();
+        jPanel2 = new javax.swing.JPanel();
+        jLabel6 = new javax.swing.JLabel();
+        jLabel7 = new javax.swing.JLabel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        jTextArea1 = new javax.swing.JTextArea();
+        jButton6 = new javax.swing.JButton();
+        jButton7 = new javax.swing.JButton();
+        jButton8 = new javax.swing.JButton();
+        jButton9 = new javax.swing.JButton();
+        jButton10 = new javax.swing.JButton();
+        jButton11 = new javax.swing.JButton();
 
         setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
+        jLabel5.setFont(new java.awt.Font("Yu Gothic", 1, 30)); // NOI18N
+        jLabel5.setForeground(new java.awt.Color(12, 135, 254));
+        jLabel5.setText("YOUR DONATION");
+        jPanel1.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 97, -1, -1));
+
+        jLabel4.setFont(new java.awt.Font("Yu Gothic", 1, 30)); // NOI18N
+        jLabel4.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel4.setText("                              CAN PROVIDE...");
+        jPanel1.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 97, -1, -1));
+
         jLabel1.setFont(new java.awt.Font("Yu Gothic", 1, 20)); // NOI18N
         jLabel1.setText("Mode Of Payment");
-        jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 140, -1, -1));
-
-        jComboBox1.setFont(new java.awt.Font("Segoe UI", 0, 11)); // NOI18N
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Afghanistan", "Albania", "Algeria", "Andorra", "Angola", "Antigua and Barbuda", "Argentina", "Armenia", "Australia", "Austria", "Azerbaijan", "Bahamas", "Bahrain", "Bangladesh", "Barbados", "Belarus", "Belgium", "Belize", "Benin", "Bhutan", "Bolivia", "Bosnia and Herzegovina", "Botswana", "Brazil", "Brunei", "Bulgaria", "Burkina Faso", "Burundi", "Cabo Verde", "Cambodia", "Cameroon", "Canada", "Central African Republic", "Chad", "Chile", "China", "Colombia", "Comoros", "Congo, Democratic Republic of the", "Congo, Republic of the", "Costa Rica", "Croatia", "Cuba", "Cyprus", "Czech Republic", "Denmark", "Djibouti", "Dominica", "Dominican Republic", "East Timor (Timor-Leste)", "Ecuador", "Egypt", "El Salvador", "Equatorial Guinea", "Eritrea", "Estonia", "Eswatini (Swaziland)", "Ethiopia", "Fiji", "Finland", "France", "Gabon", "Gambia", "Georgia", "Germany", "Ghana", "Greece", "Grenada", "Guatemala", "Guinea", "Guinea-Bissau", "Guyana", "Haiti", "Honduras", "Hungary", "Iceland", "India", "Indonesia", "Iran", "Iraq", "Ireland", "Israel", "Italy", "Jamaica", "Japan", "Jordan", "Kazakhstan", "Kenya", "Kiribati", "Korea, North", "Korea, South", "Kosovo", "Kuwait", "Kyrgyzstan", "Laos", "Latvia", "Lebanon", "Lesotho", "Liberia", "Libya", "Liechtenstein", "Lithuania", "Luxembourg", "Madagascar", "Malawi", "Malaysia", "Maldives", "Mali", "Malta", "Marshall Islands", "Mauritania", "Mauritius", "Mexico", "Micronesia", "Moldova", "Monaco", "Mongolia", "Montenegro", "Morocco", "Mozambique", "Myanmar (Burma)", "Namibia", "Nauru", "Nepal", "Netherlands", "New Zealand", "Nicaragua", "Niger", "Nigeria", "North Macedonia (Macedonia)", "Norway", "Oman", "Pakistan", "Palau", "Panama", "Papua New Guinea", "Paraguay", "Peru", "Philippines", "Poland", "Portugal", "Qatar", "Romania", "Russia", "Rwanda", "Saint Kitts and Nevis", "Saint Lucia", "Saint Vincent and the Grenadines", "Samoa", "San Marino", "Sao Tome and Principe", "Saudi Arabia", "Senegal", "Serbia", "Seychelles", "Sierra Leone", "Singapore", "Slovakia", "Slovenia", "Solomon Islands", "Somalia", "South Africa", "South Sudan", "Spain", "Sri Lanka", "Sudan", "Suriname", "Sweden", "Switzerland", "Syria", "Taiwan", "Tajikistan", "Tanzania", "Thailand", "Togo", "Tonga", "Trinidad and Tobago", "Tunisia", "Turkey", "Turkmenistan", "Tuvalu", "Uganda", "Ukraine", "United Arab Emirates", "United Kingdom", "United States", "Uruguay", "Uzbekistan", "Vanuatu", "Vatican City", "Venezuela", "Vietnam", "Yemen", "Zambia", "Zimbabwe" }));
-        jComboBox1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        jPanel1.add(jComboBox1, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 80, 300, 30));
+        jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 300, -1, -1));
 
         jButton1.setBackground(new java.awt.Color(255, 255, 255));
         jButton1.setText("Paymaya");
@@ -105,7 +100,7 @@ public final class Donation extends javax.swing.JPanel {
                 jButton1ActionPerformed(evt);
             }
         });
-        jPanel1.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 180, 140, 40));
+        jPanel1.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 340, 140, 40));
 
         jButton2.setBackground(new java.awt.Color(255, 255, 255));
         jButton2.setText("Gcash");
@@ -116,7 +111,7 @@ public final class Donation extends javax.swing.JPanel {
                 jButton2ActionPerformed(evt);
             }
         });
-        jPanel1.add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 180, 140, 40));
+        jPanel1.add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 340, 140, 40));
 
         jButton3.setBackground(new java.awt.Color(255, 255, 255));
         jButton3.setText("PayPal");
@@ -127,7 +122,7 @@ public final class Donation extends javax.swing.JPanel {
                 jButton3ActionPerformed(evt);
             }
         });
-        jPanel1.add(jButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 240, 140, 40));
+        jPanel1.add(jButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 400, 140, 40));
 
         jButton4.setBackground(new java.awt.Color(255, 255, 255));
         jButton4.setText("Bank Transfer");
@@ -138,127 +133,199 @@ public final class Donation extends javax.swing.JPanel {
                 jButton4ActionPerformed(evt);
             }
         });
-        jPanel1.add(jButton4, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 240, 140, 40));
+        jPanel1.add(jButton4, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 400, 140, 40));
 
         value.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         value.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(153, 153, 153), 1, true));
-        jPanel1.add(value, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 300, 300, 30));
-
-        jLabel6.setFont(new java.awt.Font("Yu Gothic", 1, 30)); // NOI18N
-        jLabel6.setForeground(new java.awt.Color(0, 87, 255));
-        jLabel6.setText(" Generous Donation");
-        jPanel1.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(860, 20, -1, -1));
-
-        jLabel7.setFont(new java.awt.Font("Yu Gothic", 1, 30)); // NOI18N
-        jLabel7.setText("We Deeply Appreciate Your ");
-        jPanel1.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 20, -1, -1));
-
-        jLabel4.setFont(new java.awt.Font("Segoe UI", 0, 20)); // NOI18N
-        jLabel4.setText("Every Contribution, No Matter The Size, Can Save Lives. Thank You For Your Support");
-        jPanel1.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 70, -1, -1));
-
-        jLabel5.setFont(new java.awt.Font("Segoe UI", 0, 20)); // NOI18N
-        jLabel5.setText("Here is the Layout of your Receipt");
-        jPanel1.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 110, -1, -1));
+        jPanel1.add(value, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 460, 300, 30));
 
         jButton5.setText("Donate");
         jButton5.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(204, 204, 204)));
         jButton5.setOpaque(false);
-        jPanel1.add(jButton5, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 450, 300, 30));
-
-        panelRound1.setBackground(new java.awt.Color(0, 0, 0));
-        panelRound1.setRoundBottomLeft(50);
-        panelRound1.setRoundBottomRight(50);
-        panelRound1.setRoundTopLeft(50);
-        panelRound1.setRoundTopRight(50);
-        panelRound1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-
-        panelRound2.setBackground(new java.awt.Color(255, 255, 255));
-        panelRound2.setRoundBottomLeft(50);
-        panelRound2.setRoundBottomRight(50);
-        panelRound2.setRoundTopLeft(50);
-        panelRound2.setRoundTopRight(50);
-        panelRound2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-
-        jLabel2.setFont(new java.awt.Font("Yu Gothic", 0, 20)); // NOI18N
-        jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/reciept (1).png"))); // NOI18N
-        panelRound2.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(138, 22, 50, -1));
-
-        jLabel9.setFont(new java.awt.Font("Yu Gothic", 0, 15)); // NOI18N
-        jLabel9.setText("Your payment has been successfully done. ");
-        panelRound2.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(21, 110, -1, -1));
-
-        jSeparator1.setForeground(new java.awt.Color(204, 204, 204));
-        panelRound2.add(jSeparator1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 150, 298, 20));
-
-        jLabel11.setFont(new java.awt.Font("Yu Gothic", 0, 30)); // NOI18N
-        jLabel11.setText("₱ 100000000");
-        panelRound2.add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(75, 200, -1, -1));
-
-        jLabel12.setFont(new java.awt.Font("Yu Gothic", 0, 20)); // NOI18N
-        jLabel12.setText("Payment Success!");
-        panelRound2.add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(82, 80, -1, -1));
-
-        jLabel14.setFont(new java.awt.Font("Yu Gothic", 0, 16)); // NOI18N
-        jLabel14.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/dl.png"))); // NOI18N
-        jLabel14.setText("Get PDF Receipt");
-        panelRound2.add(jLabel14, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 500, -1, -1));
-
-        jLabel15.setFont(new java.awt.Font("Yu Gothic", 0, 15)); // NOI18N
-        jLabel15.setText("000085752257");
-        panelRound2.add(jLabel15, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 290, -1, -1));
-
-        jLabel16.setFont(new java.awt.Font("Yu Gothic", 0, 15)); // NOI18N
-        jLabel16.setText("Payment Time");
-        panelRound2.add(jLabel16, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 330, -1, -1));
-
-        jLabel17.setFont(new java.awt.Font("Yu Gothic", 0, 15)); // NOI18N
-        jLabel17.setText("Payment Method");
-        panelRound2.add(jLabel17, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 370, -1, -1));
-
-        jLabel18.setFont(new java.awt.Font("Yu Gothic", 0, 15)); // NOI18N
-        jLabel18.setText("Sender Name");
-        panelRound2.add(jLabel18, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 410, -1, -1));
-
-        jLabel19.setFont(new java.awt.Font("Yu Gothic", 0, 18)); // NOI18N
-        jLabel19.setText("Total Payment");
-        panelRound2.add(jLabel19, new org.netbeans.lib.awtextra.AbsoluteConstraints(108, 170, -1, -1));
-
-        jLabel20.setFont(new java.awt.Font("Yu Gothic", 0, 15)); // NOI18N
-        jLabel20.setText("Ref Number");
-        panelRound2.add(jLabel20, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 290, -1, -1));
-
-        jLabel21.setFont(new java.awt.Font("Yu Gothic", 0, 15)); // NOI18N
-        jLabel21.setText("25 Feb 2023, 13:22");
-        panelRound2.add(jLabel21, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 330, -1, -1));
-
-        jLabel22.setFont(new java.awt.Font("Yu Gothic", 0, 15)); // NOI18N
-        jLabel22.setText("Bank Transfer");
-        panelRound2.add(jLabel22, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 370, -1, -1));
-
-        jLabel23.setFont(new java.awt.Font("Yu Gothic", 0, 15)); // NOI18N
-        jLabel23.setText("Anonymous Sender");
-        panelRound2.add(jLabel23, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 410, -1, -1));
-
-        panelRound1.add(panelRound2, new org.netbeans.lib.awtextra.AbsoluteConstraints(2, 2, 336, 546));
-
-        jPanel1.add(panelRound1, new org.netbeans.lib.awtextra.AbsoluteConstraints(660, 160, 340, 550));
+        jButton5.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton5ActionPerformed(evt);
+            }
+        });
+        jPanel1.add(jButton5, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 670, 300, 30));
 
         mop.setFont(new java.awt.Font("Yu Gothic", 1, 20)); // NOI18N
         mop.setText("GCASH");
-        jPanel1.add(mop, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 410, -1, -1));
+        jPanel1.add(mop, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 570, -1, -1));
 
         sender.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         sender.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(153, 153, 153), 1, true));
-        jPanel1.add(sender, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 340, 300, 30));
-
-        jLabel10.setFont(new java.awt.Font("Yu Gothic", 1, 20)); // NOI18N
-        jLabel10.setText("Country");
-        jPanel1.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 40, -1, -1));
+        jPanel1.add(sender, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 500, 300, 30));
 
         jLabel13.setFont(new java.awt.Font("Yu Gothic", 0, 15)); // NOI18N
         jLabel13.setText("MODE OF PAYMENT");
-        jPanel1.add(jLabel13, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 380, -1, -1));
+        jPanel1.add(jLabel13, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 540, -1, -1));
+
+        jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/yawa (1) (1).png"))); // NOI18N
+        jPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1300, 230));
+
+        jLabel2.setFont(new java.awt.Font("Yu Gothic", 1, 20)); // NOI18N
+        jLabel2.setText("Mode Of Payment");
+        jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 30, -1, -1));
+
+        jPanel5.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jLabel15.setFont(new java.awt.Font("Yu Gothic", 1, 40)); // NOI18N
+        jLabel15.setText("₱150,000");
+        jPanel5.add(jLabel15, new org.netbeans.lib.awtextra.AbsoluteConstraints(48, 25, -1, -1));
+
+        jLabel16.setFont(new java.awt.Font("Segoe UI", 0, 17)); // NOI18N
+        jLabel16.setForeground(new java.awt.Color(51, 51, 51));
+        jLabel16.setText("Could support staff training");
+        jPanel5.add(jLabel16, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 100, -1, -1));
+
+        jPanel1.add(jPanel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 450, 270, 160));
+
+        jPanel6.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jLabel18.setFont(new java.awt.Font("Yu Gothic", 1, 40)); // NOI18N
+        jLabel18.setText("₱500,000");
+        jPanel6.add(jLabel18, new org.netbeans.lib.awtextra.AbsoluteConstraints(48, 25, -1, -1));
+
+        jLabel19.setFont(new java.awt.Font("Segoe UI", 0, 17)); // NOI18N
+        jLabel19.setForeground(new java.awt.Color(51, 51, 51));
+        jLabel19.setText("Could build an entire room");
+        jPanel6.add(jLabel19, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 90, -1, -1));
+
+        jLabel20.setFont(new java.awt.Font("Segoe UI", 0, 17)); // NOI18N
+        jLabel20.setForeground(new java.awt.Color(51, 51, 51));
+        jLabel20.setText("for our fellow doctors");
+        jPanel6.add(jLabel20, new org.netbeans.lib.awtextra.AbsoluteConstraints(57, 120, -1, -1));
+
+        jPanel1.add(jPanel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(680, 450, 270, 160));
+
+        jPanel7.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jLabel21.setFont(new java.awt.Font("Yu Gothic", 1, 40)); // NOI18N
+        jLabel21.setText("₱1,200,000");
+        jPanel7.add(jLabel21, new org.netbeans.lib.awtextra.AbsoluteConstraints(28, 25, -1, -1));
+
+        jLabel22.setFont(new java.awt.Font("Segoe UI", 0, 17)); // NOI18N
+        jLabel22.setForeground(new java.awt.Color(51, 51, 51));
+        jLabel22.setText("Could fund an entire hospital");
+        jPanel7.add(jLabel22, new org.netbeans.lib.awtextra.AbsoluteConstraints(25, 100, -1, -1));
+
+        jPanel1.add(jPanel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(990, 450, 270, 160));
+
+        jPanel4.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jLabel11.setFont(new java.awt.Font("Yu Gothic", 1, 40)); // NOI18N
+        jLabel11.setText("₱26,000");
+        jPanel4.add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(58, 25, -1, -1));
+
+        jLabel12.setFont(new java.awt.Font("Segoe UI", 0, 17)); // NOI18N
+        jLabel12.setForeground(new java.awt.Color(51, 51, 51));
+        jLabel12.setText("enhance lab equipment");
+        jPanel4.add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 120, -1, -1));
+
+        jLabel14.setFont(new java.awt.Font("Segoe UI", 0, 17)); // NOI18N
+        jLabel14.setForeground(new java.awt.Color(51, 51, 51));
+        jLabel14.setText("Would make it possible to");
+        jPanel4.add(jLabel14, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 90, -1, -1));
+
+        jPanel1.add(jPanel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(990, 270, 270, 160));
+
+        jPanel3.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jLabel8.setFont(new java.awt.Font("Yu Gothic", 1, 40)); // NOI18N
+        jLabel8.setText("₱13,000");
+        jPanel3.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(58, 25, -1, -1));
+
+        jLabel9.setFont(new java.awt.Font("Segoe UI", 0, 17)); // NOI18N
+        jLabel9.setForeground(new java.awt.Color(51, 51, 51));
+        jLabel9.setText("equipment");
+        jPanel3.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(93, 120, -1, -1));
+
+        jLabel10.setFont(new java.awt.Font("Segoe UI", 0, 17)); // NOI18N
+        jLabel10.setForeground(new java.awt.Color(51, 51, 51));
+        jLabel10.setText("Could purchase one laboratory");
+        jPanel3.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(17, 90, -1, -1));
+
+        jPanel1.add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(680, 270, 270, 160));
+
+        jPanel2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jLabel6.setFont(new java.awt.Font("Segoe UI", 0, 17)); // NOI18N
+        jLabel6.setForeground(new java.awt.Color(51, 51, 51));
+        jLabel6.setText("Could buy a set of paracetamol");
+        jPanel2.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(16, 110, -1, -1));
+
+        jLabel7.setFont(new java.awt.Font("Yu Gothic", 1, 40)); // NOI18N
+        jLabel7.setText("₱1,500");
+        jPanel2.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(68, 25, -1, -1));
+
+        jPanel1.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 270, 270, 160));
+
+        jTextArea1.setColumns(20);
+        jTextArea1.setRows(5);
+        jScrollPane1.setViewportView(jTextArea1);
+
+        jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 610, 300, 50));
+
+        jButton6.setBackground(new java.awt.Color(255, 255, 255));
+        jButton6.setText("1,200,000");
+        jButton6.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(153, 153, 153), 1, true));
+        jButton6.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton6ActionPerformed(evt);
+            }
+        });
+        jPanel1.add(jButton6, new org.netbeans.lib.awtextra.AbsoluteConstraints(1140, 630, 120, 30));
+
+        jButton7.setBackground(new java.awt.Color(255, 255, 255));
+        jButton7.setText("1,500");
+        jButton7.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(153, 153, 153), 1, true));
+        jButton7.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton7ActionPerformed(evt);
+            }
+        });
+        jPanel1.add(jButton7, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 630, 120, 30));
+
+        jButton8.setBackground(new java.awt.Color(255, 255, 255));
+        jButton8.setText("13,000");
+        jButton8.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(153, 153, 153), 1, true));
+        jButton8.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton8ActionPerformed(evt);
+            }
+        });
+        jPanel1.add(jButton8, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 630, 120, 30));
+
+        jButton9.setBackground(new java.awt.Color(255, 255, 255));
+        jButton9.setText("26,000");
+        jButton9.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(153, 153, 153), 1, true));
+        jButton9.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton9ActionPerformed(evt);
+            }
+        });
+        jPanel1.add(jButton9, new org.netbeans.lib.awtextra.AbsoluteConstraints(675, 630, 120, 30));
+
+        jButton10.setBackground(new java.awt.Color(255, 255, 255));
+        jButton10.setText("150,000");
+        jButton10.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(153, 153, 153), 1, true));
+        jButton10.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton10ActionPerformed(evt);
+            }
+        });
+        jPanel1.add(jButton10, new org.netbeans.lib.awtextra.AbsoluteConstraints(830, 630, 120, 30));
+
+        jButton11.setBackground(new java.awt.Color(255, 255, 255));
+        jButton11.setText("500,000");
+        jButton11.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(153, 153, 153), 1, true));
+        jButton11.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton11ActionPerformed(evt);
+            }
+        });
+        jPanel1.add(jButton11, new org.netbeans.lib.awtextra.AbsoluteConstraints(990, 630, 120, 30));
 
         add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1310, 810));
     }// </editor-fold>//GEN-END:initComponents
@@ -278,6 +345,49 @@ public final class Donation extends javax.swing.JPanel {
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
         mop.setText("BANK TRANSFER");
     }//GEN-LAST:event_jButton4ActionPerformed
+
+    private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
+        try {
+
+            new DBConnection().insertData("insert into donations (ds_mop, ds_value, ds_sender, ds_description)"
+                    + "values ('" + mop.getText() + "', '" + value.getText().trim() + "', '" + sender.getText().trim() + "',"
+                    + "'" + jTextArea1.getText() + "')");
+
+            Checkers.successFieldChecker("THANKYOU FOR YOUR KINDFULL HEART!");
+
+            mop.setText("GCASH");
+            value.setText("");
+            sender.setText("");
+            jTextArea1.setText("");
+
+        } catch (SQLException er) {
+            System.out.println(er.getMessage());
+        }
+    }//GEN-LAST:event_jButton5ActionPerformed
+
+    private void jButton11ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton11ActionPerformed
+        value.setText("500000");
+    }//GEN-LAST:event_jButton11ActionPerformed
+
+    private void jButton10ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton10ActionPerformed
+        value.setText("150000");
+    }//GEN-LAST:event_jButton10ActionPerformed
+
+    private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
+        value.setText("1500");
+    }//GEN-LAST:event_jButton7ActionPerformed
+
+    private void jButton8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton8ActionPerformed
+        value.setText("13000");
+    }//GEN-LAST:event_jButton8ActionPerformed
+
+    private void jButton9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton9ActionPerformed
+        value.setText("26000");
+    }//GEN-LAST:event_jButton9ActionPerformed
+
+    private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
+        value.setText("1200000");
+    }//GEN-LAST:event_jButton6ActionPerformed
 
     public void animatePanelHorizontally(JPanel panel, int targetX) {
         if (moveTimers.containsKey(panel) && moveTimers.get(panel).isRunning()) {
@@ -303,11 +413,16 @@ public final class Donation extends javax.swing.JPanel {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton10;
+    private javax.swing.JButton jButton11;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
     private javax.swing.JButton jButton5;
-    private javax.swing.JComboBox<String> jComboBox1;
+    private javax.swing.JButton jButton6;
+    private javax.swing.JButton jButton7;
+    private javax.swing.JButton jButton8;
+    private javax.swing.JButton jButton9;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
@@ -316,24 +431,29 @@ public final class Donation extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel15;
     private javax.swing.JLabel jLabel16;
-    private javax.swing.JLabel jLabel17;
     private javax.swing.JLabel jLabel18;
     private javax.swing.JLabel jLabel19;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel20;
     private javax.swing.JLabel jLabel21;
     private javax.swing.JLabel jLabel22;
-    private javax.swing.JLabel jLabel23;
+    private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JSeparator jSeparator1;
+    private javax.swing.JPanel jPanel2;
+    private javax.swing.JPanel jPanel3;
+    private javax.swing.JPanel jPanel4;
+    private javax.swing.JPanel jPanel5;
+    private javax.swing.JPanel jPanel6;
+    private javax.swing.JPanel jPanel7;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JTextArea jTextArea1;
     private javax.swing.JLabel mop;
-    private test.PanelRound panelRound1;
-    private test.PanelRound panelRound2;
     private javax.swing.JTextField sender;
     private javax.swing.JTextField value;
     // End of variables declaration//GEN-END:variables
