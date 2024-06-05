@@ -35,13 +35,11 @@ public final class DoctorsDash extends javax.swing.JPanel {
 
     private static final int STEP = 5;
     private final Map<JPanel, Timer> moveTimers = new HashMap<>();
-    Integer imgIndex = 0;
 
     public DoctorsDash() {
         initComponents();
         jScrollPane1.getVerticalScrollBar().setUnitIncrement(20);
         newComers();
-        showImage(imgIndex);
         showCredentials();
         displayAppointments();
     }
@@ -115,7 +113,6 @@ public final class DoctorsDash extends javax.swing.JPanel {
         jLabel64 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jLabel65 = new javax.swing.JLabel();
-        jLabel66 = new javax.swing.JLabel();
         jLabel67 = new javax.swing.JLabel();
         jLabel68 = new javax.swing.JLabel();
         jLabel69 = new javax.swing.JLabel();
@@ -129,20 +126,9 @@ public final class DoctorsDash extends javax.swing.JPanel {
         jLabel75 = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
         jLabel78 = new javax.swing.JLabel();
-        jPanel6 = new javax.swing.JPanel();
-        jLabel42 = new javax.swing.JLabel();
         jLabel76 = new javax.swing.JLabel();
         jLabel77 = new javax.swing.JLabel();
-        jLabel79 = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
-        jLabel59 = new javax.swing.JLabel();
-        jLabel80 = new javax.swing.JLabel();
-        jLabel81 = new javax.swing.JLabel();
-        jButton3 = new javax.swing.JButton();
-        jLabel82 = new javax.swing.JLabel();
         jLabel83 = new javax.swing.JLabel();
-        jLabel84 = new javax.swing.JLabel();
         jPanel11 = new javax.swing.JPanel();
         jLabel9 = new javax.swing.JLabel();
         jLabel10 = new javax.swing.JLabel();
@@ -155,6 +141,12 @@ public final class DoctorsDash extends javax.swing.JPanel {
         jLabel86 = new javax.swing.JLabel();
         jLabel87 = new javax.swing.JLabel();
         more = new javax.swing.JButton();
+        jScrollPane4 = new javax.swing.JScrollPane();
+        outpatient = new javax.swing.JTable();
+        jScrollPane5 = new javax.swing.JScrollPane();
+        inpatient = new javax.swing.JTable();
+        jLabel79 = new javax.swing.JLabel();
+        jLabel80 = new javax.swing.JLabel();
 
         setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
@@ -452,10 +444,6 @@ public final class DoctorsDash extends javax.swing.JPanel {
         jLabel65.setText(": Acknowledging Our Top Contributors");
         jPanel2.add(jLabel65, new org.netbeans.lib.awtextra.AbsoluteConstraints(442, 2400, -1, -1));
 
-        jLabel66.setFont(new java.awt.Font("Yu Gothic", 1, 30)); // NOI18N
-        jLabel66.setText("Welcome Our Newest Doctors!");
-        jPanel2.add(jLabel66, new org.netbeans.lib.awtextra.AbsoluteConstraints(159, 3660, -1, -1));
-
         jLabel67.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
         jLabel67.setText("Welcome, new users! Your presence adds tremendous value to our community, and we're delighted ");
         jPanel2.add(jLabel67, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 3290, -1, -1));
@@ -504,73 +492,18 @@ public final class DoctorsDash extends javax.swing.JPanel {
         jLabel78.setText("SERENITY WELLNESS HOSPITAL");
         jPanel2.add(jLabel78, new org.netbeans.lib.awtextra.AbsoluteConstraints(36, 151, -1, -1));
 
-        jPanel6.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-        jPanel6.add(jLabel42, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 300, 350));
-
-        jPanel2.add(jPanel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(790, 3660, 300, 350));
-
         jLabel76.setFont(new java.awt.Font("Yu Gothic", 1, 35)); // NOI18N
-        jLabel76.setText(": Thank You for Your Everlasting Commitment");
-        jPanel2.add(jLabel76, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 4230, -1, -1));
+        jLabel76.setText("OUTPATIENT");
+        jPanel2.add(jLabel76, new org.netbeans.lib.awtextra.AbsoluteConstraints(990, 3640, 250, -1));
 
         jLabel77.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
         jLabel77.setText("forward to seeing all that you'll accomplish here!");
         jPanel2.add(jLabel77, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 3440, -1, -1));
 
-        jLabel79.setFont(new java.awt.Font("Segoe UI", 0, 13)); // NOI18N
-        jLabel79.setForeground(new java.awt.Color(70, 133, 255));
-        jLabel79.setText("October 9, 2024");
-        jPanel2.add(jLabel79, new org.netbeans.lib.awtextra.AbsoluteConstraints(650, 3850, -1, -1));
-
-        jButton1.setBackground(new java.awt.Color(0, 87, 255));
-        jButton1.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
-        jButton1.setForeground(new java.awt.Color(255, 255, 255));
-        jButton1.setText("Next");
-        jButton1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 87, 255)));
-        jButton1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        jPanel2.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(990, 4020, 100, 30));
-
-        jButton2.setBackground(new java.awt.Color(255, 255, 255));
-        jButton2.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
-        jButton2.setText("View More");
-        jButton2.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(204, 204, 204)));
-        jButton2.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        jButton2.setOpaque(false);
-        jPanel2.add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(645, 3880, 100, 30));
-
-        jLabel59.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
-        jLabel59.setText("Hi everyone, don't forget to check out our newly stocked medications; we have a great selection for you.");
-        jPanel2.add(jLabel59, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 3710, -1, -1));
-
-        jLabel80.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
-        jLabel80.setText("We've recently updated our inventory, so be sure to explore the exciting new options available. Make sure");
-        jPanel2.add(jLabel80, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 3740, -1, -1));
-
-        jLabel81.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
-        jLabel81.setText(" to take a moment to discover our latest additions for all your health and wellness needs. We're confident");
-        jPanel2.add(jLabel81, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 3770, -1, -1));
-
-        jButton3.setBackground(new java.awt.Color(0, 87, 255));
-        jButton3.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
-        jButton3.setForeground(new java.awt.Color(255, 255, 255));
-        jButton3.setText("Back");
-        jButton3.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 87, 255)));
-        jButton3.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        jPanel2.add(jButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(790, 4020, 100, 30));
-
-        jLabel82.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
-        jLabel82.setText(" you'll find the perfect solution among our newly stocked medications. Stop by today and see what's new!");
-        jPanel2.add(jLabel82, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 3800, -1, -1));
-
         jLabel83.setFont(new java.awt.Font("Segoe UI", 0, 13)); // NOI18N
         jLabel83.setForeground(new java.awt.Color(70, 133, 255));
         jLabel83.setText("AS OF YEAR 2024");
         jPanel2.add(jLabel83, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 3222, -1, -1));
-
-        jLabel84.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
-        jLabel84.setForeground(new java.awt.Color(102, 102, 102));
-        jLabel84.setText("Released ");
-        jPanel2.add(jLabel84, new org.netbeans.lib.awtextra.AbsoluteConstraints(580, 3847, -1, -1));
 
         jPanel11.setBackground(new java.awt.Color(255, 255, 255));
         jPanel2.add(jPanel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 5790, 1220, 130));
@@ -608,7 +541,7 @@ public final class DoctorsDash extends javax.swing.JPanel {
         ));
         jScrollPane3.setViewportView(latestApp);
 
-        jPanel2.add(jScrollPane3, new org.netbeans.lib.awtextra.AbsoluteConstraints(730, 1740, -1, 510));
+        jPanel2.add(jScrollPane3, new org.netbeans.lib.awtextra.AbsoluteConstraints(684, 1740, 500, 510));
 
         jLabel85.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
         jLabel85.setText("These contributors have not only saved our hospital but also propelled our medical technology to new heights,");
@@ -626,6 +559,38 @@ public final class DoctorsDash extends javax.swing.JPanel {
         more.setText("View More");
         more.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(153, 153, 153), 1, true));
         jPanel2.add(more, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 1890, 120, 30));
+
+        outpatient.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+
+            }
+        ));
+        jScrollPane4.setViewportView(outpatient);
+
+        jPanel2.add(jScrollPane4, new org.netbeans.lib.awtextra.AbsoluteConstraints(670, 3700, 550, -1));
+
+        inpatient.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+
+            }
+        ));
+        jScrollPane5.setViewportView(inpatient);
+
+        jPanel2.add(jScrollPane5, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 3700, 560, -1));
+
+        jLabel79.setFont(new java.awt.Font("Yu Gothic", 1, 35)); // NOI18N
+        jLabel79.setText(": Thank You for Your Everlasting Commitment");
+        jPanel2.add(jLabel79, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 4230, -1, -1));
+
+        jLabel80.setFont(new java.awt.Font("Yu Gothic", 1, 35)); // NOI18N
+        jLabel80.setText("INPATIENT");
+        jPanel2.add(jLabel80, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 3640, 200, -1));
 
         jScrollPane1.setViewportView(jPanel2);
 
@@ -742,23 +707,6 @@ public final class DoctorsDash extends javax.swing.JPanel {
         return imgList;
     }
 
-    public void showImage(Integer index) {
-        if (index == null) {
-            System.out.println("Index is null");
-            jLabel42.setIcon(null);
-            return;
-        }
-
-        ArrayList<String> imgList = getImagesList();
-        if (index >= 0 && index < imgList.size()) {
-            Image img = new ImageIcon(imgList.get(index)).getImage().getScaledInstance(300, 350, Image.SCALE_SMOOTH);
-            jLabel42.setIcon(new ImageIcon(img));
-        } else {
-            System.out.println("Index is out of bounds");
-            jLabel42.setIcon(null);
-        }
-    }
-
     private void showCredentials() {
         try (Connection conn = new DBConnection().getConnection();
                 Statement stmt = conn.createStatement();
@@ -820,9 +768,7 @@ public final class DoctorsDash extends javax.swing.JPanel {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton account;
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
+    private javax.swing.JTable inpatient;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
@@ -859,7 +805,6 @@ public final class DoctorsDash extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel40;
     private javax.swing.JLabel jLabel41;
-    private javax.swing.JLabel jLabel42;
     private javax.swing.JLabel jLabel43;
     private javax.swing.JLabel jLabel44;
     private javax.swing.JLabel jLabel45;
@@ -874,7 +819,6 @@ public final class DoctorsDash extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel56;
     private javax.swing.JLabel jLabel57;
     private javax.swing.JLabel jLabel58;
-    private javax.swing.JLabel jLabel59;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel60;
     private javax.swing.JLabel jLabel61;
@@ -882,7 +826,6 @@ public final class DoctorsDash extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel63;
     private javax.swing.JLabel jLabel64;
     private javax.swing.JLabel jLabel65;
-    private javax.swing.JLabel jLabel66;
     private javax.swing.JLabel jLabel67;
     private javax.swing.JLabel jLabel68;
     private javax.swing.JLabel jLabel69;
@@ -899,10 +842,7 @@ public final class DoctorsDash extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel79;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel80;
-    private javax.swing.JLabel jLabel81;
-    private javax.swing.JLabel jLabel82;
     private javax.swing.JLabel jLabel83;
-    private javax.swing.JLabel jLabel84;
     private javax.swing.JLabel jLabel85;
     private javax.swing.JLabel jLabel86;
     private javax.swing.JLabel jLabel87;
@@ -910,13 +850,14 @@ public final class DoctorsDash extends javax.swing.JPanel {
     private javax.swing.JPanel jPanel10;
     private javax.swing.JPanel jPanel11;
     private javax.swing.JPanel jPanel2;
-    private javax.swing.JPanel jPanel6;
     private javax.swing.JPanel jPanel7;
     private javax.swing.JPanel jPanel8;
     private javax.swing.JPanel jPanel9;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
+    private javax.swing.JScrollPane jScrollPane4;
+    private javax.swing.JScrollPane jScrollPane5;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator2;
     private javax.swing.JSeparator jSeparator3;
@@ -924,5 +865,6 @@ public final class DoctorsDash extends javax.swing.JPanel {
     private javax.swing.JTable jTable1;
     private javax.swing.JTable latestApp;
     private javax.swing.JButton more;
+    private javax.swing.JTable outpatient;
     // End of variables declaration//GEN-END:variables
 }

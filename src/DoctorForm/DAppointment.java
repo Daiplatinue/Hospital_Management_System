@@ -15,6 +15,8 @@ import java.util.Map;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 import javax.swing.Timer;
+import javax.swing.event.DocumentEvent;
+import javax.swing.event.DocumentListener;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.TableColumn;
 import javax.swing.table.TableModel;
@@ -36,6 +38,39 @@ public final class DAppointment extends javax.swing.JPanel {
         diagnostic.setVisible(false);
         description.setVisible(false);
         jScrollPane2.setVisible(false);
+        jButton1.setVisible(false);
+        jButton3.setVisible(false);
+
+        DocumentListener documentListener = new DocumentListener() {
+            @Override
+            public void insertUpdate(DocumentEvent e) {
+                updateButtons();
+            }
+
+            @Override
+            public void removeUpdate(DocumentEvent e) {
+                updateButtons();
+            }
+
+            @Override
+            public void changedUpdate(DocumentEvent e) {
+                updateButtons();
+            }
+
+            private void updateButtons() {
+                if (diagnostic.getText().trim().isEmpty() || description.getText().trim().isEmpty()) {
+                    jButton1.setEnabled(false);
+                    jButton3.setEnabled(false);
+                } else {
+                    jButton1.setEnabled(true);
+                    jButton3.setEnabled(true);
+                }
+            }
+
+        };
+
+        diagnostic.getDocument().addDocumentListener(documentListener);
+        description.getDocument().addDocumentListener(documentListener);
     }
 
     @SuppressWarnings("unchecked")
@@ -253,7 +288,8 @@ public final class DAppointment extends javax.swing.JPanel {
                 ps.setString(1, accountId);
                 ps.executeUpdate();
 
-                Checkers.successFieldChecker("ACCOUNT:'" + accountId + "' HAS BEEN MARKED AS OUTPATIENT!");
+                new DBConnection().insertData("insert into diagnostics (a_id, d_diagnosis, d_description, d_status) "
+                        + "values ('" + accountId + "', '" + diagnostic.getText().trim() + "', '" + description.getText().trim() + "', 'OUTPATIENT')");
 
                 PreparedStatement tlogs;
                 LocalDateTime currentDateTime = LocalDateTime.now();
@@ -270,7 +306,19 @@ public final class DAppointment extends javax.swing.JPanel {
                 tlogs.setString(3, formattedDateTime);
                 tlogs.setString(4, formattedTime);
 
+                Checkers.successFieldChecker("ACCOUNT:'" + accountId + "' HAS BEEN MARKED AS OUTPATIENT!");
+
                 displayAppointments();
+
+                jTable1.clearSelection();
+                lastname.setVisible(false);
+                firstname.setVisible(false);
+                contact.setVisible(false);
+                diagnostic.setVisible(false);
+                jButton1.setVisible(false);
+                jButton3.setVisible(false);
+                description.setVisible(false);
+                jScrollPane2.setVisible(false);
             } catch (SQLException er) {
                 System.out.println("ERROR: " + er.getMessage());
             }
@@ -292,7 +340,8 @@ public final class DAppointment extends javax.swing.JPanel {
                 ps.setString(1, accountId);
                 ps.executeUpdate();
 
-                Checkers.successFieldChecker("ACCOUNT:'" + accountId + "' HAS BEEN MARKED AS INPATIENT!");
+                new DBConnection().insertData("insert into diagnostics (a_id, d_diagnosis, d_description, d_status) "
+                        + "values ('" + accountId + "', '" + diagnostic.getText().trim() + "', '" + description.getText().trim() + "', 'INPATIENT')");
 
                 PreparedStatement tlogs;
                 LocalDateTime currentDateTime = LocalDateTime.now();
@@ -309,7 +358,19 @@ public final class DAppointment extends javax.swing.JPanel {
                 tlogs.setString(3, formattedDateTime);
                 tlogs.setString(4, formattedTime);
 
+                Checkers.successFieldChecker("ACCOUNT:'" + accountId + "' HAS BEEN MARKED AS INPATIENT!");
+
                 displayAppointments();
+
+                jTable1.clearSelection();
+                lastname.setVisible(false);
+                firstname.setVisible(false);
+                contact.setVisible(false);
+                diagnostic.setVisible(false);
+                jButton1.setVisible(false);
+                jButton3.setVisible(false);
+                description.setVisible(false);
+                jScrollPane2.setVisible(false);
             } catch (SQLException er) {
                 System.out.println("ERROR: " + er.getMessage());
             }
@@ -327,6 +388,8 @@ public final class DAppointment extends javax.swing.JPanel {
             diagnostic.setVisible(true);
             jButton1.setVisible(true);
             jButton3.setVisible(true);
+            jButton1.setEnabled(false);
+            jButton3.setEnabled(false);
             description.setVisible(true);
             jScrollPane2.setVisible(true);
         }
