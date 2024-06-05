@@ -25,6 +25,7 @@ import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 import javax.swing.Timer;
 import javax.swing.table.DefaultTableCellRenderer;
+import javax.swing.table.TableColumn;
 import net.proteanit.sql.DbUtils;
 
 public final class Main extends javax.swing.JPanel {
@@ -59,6 +60,10 @@ public final class Main extends javax.swing.JPanel {
         signUp.setFocusable(false);
         signIn.setFocusable(false);
 
+        //table for contrivuters
+        contibuters.setFocusable(false);
+        contibuters.getTableHeader().setReorderingAllowed(false);
+        jScrollPane3.setViewportView(contibuters);
     }
 
     public void addEventSignUp(ActionListener event) {
@@ -442,6 +447,7 @@ public final class Main extends javax.swing.JPanel {
 
             }
         ));
+        jTable1.setEnabled(false);
         jScrollPane2.setViewportView(jTable1);
 
         jPanel2.add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 3160, 400, 350));
@@ -625,6 +631,7 @@ public final class Main extends javax.swing.JPanel {
         jPanel11.setBackground(new java.awt.Color(255, 255, 255));
         jPanel2.add(jPanel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 5790, 1220, 130));
 
+        contibuters.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
         contibuters.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
@@ -633,6 +640,10 @@ public final class Main extends javax.swing.JPanel {
 
             }
         ));
+        contibuters.setToolTipText("");
+        contibuters.setEnabled(false);
+        contibuters.getTableHeader().setResizingAllowed(false);
+        contibuters.getTableHeader().setReorderingAllowed(false);
         jScrollPane3.setViewportView(contibuters);
 
         jPanel2.add(jScrollPane3, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 2550, 1150, 460));
@@ -730,9 +741,8 @@ public final class Main extends javax.swing.JPanel {
 
     private void newComers() {
         try {
-            ResultSet rs = new DBConnection().getData("SELECT n_comers.u_id, u_tbl.u_lastname, "
-                    + "u_tbl.u_firstname, u_tbl.u_gender, u_tbl.u_type FROM n_comers"
-                    + " INNER JOIN u_tbl ON n_comers.u_id = u_tbl.u_id");
+            ResultSet rs = new DBConnection().getData("SELECT u.u_lastname AS 'Last Name', u.u_firstname AS 'First Name', "
+                    + "u.u_gender AS 'Gender', u.u_type AS 'Type' FROM n_comers n INNER JOIN u_tbl u ON n.u_id = u.u_id");
             jTable1.setModel(DbUtils.resultSetToTableModel(rs));
 
             ((DefaultTableCellRenderer) jTable1.getTableHeader().getDefaultRenderer())
@@ -748,9 +758,21 @@ public final class Main extends javax.swing.JPanel {
 
     private void topConttributers() {
         try {
-            ResultSet rs = new DBConnection().getData("SELECT ds_sender, ds_value, "
-                    + "ds_description FROM donations ORDER BY ds_value DESC");
+            ResultSet rs = new DBConnection().getData("SELECT ds_sender AS 'Sender Name', "
+                    + "CONCAT('₱', FORMAT(ds_value, 2)) AS 'Amount', ds_description AS 'Description' "
+                    + "FROM donations ORDER BY ds_value DESC");
             contibuters.setModel(DbUtils.resultSetToTableModel(rs));
+
+            TableColumn column1, column2, column3;
+
+            column1 = contibuters.getColumnModel().getColumn(0);
+            column1.setPreferredWidth(100);
+
+            column2 = contibuters.getColumnModel().getColumn(1);
+            column2.setPreferredWidth(100);
+
+            column3 = contibuters.getColumnModel().getColumn(2);
+            column3.setPreferredWidth(500);
 
             ((DefaultTableCellRenderer) contibuters.getTableHeader().getDefaultRenderer())
                     .setHorizontalAlignment(SwingConstants.CENTER);

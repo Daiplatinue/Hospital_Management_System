@@ -38,6 +38,7 @@ public final class DoctorsDash extends javax.swing.JPanel {
         displayInpatients();
         displayOutpatients();
         displayAppointments();
+        topConttributers();
     }
 
     @SuppressWarnings("unchecked")
@@ -84,10 +85,6 @@ public final class DoctorsDash extends javax.swing.JPanel {
         jLabel39 = new javax.swing.JLabel();
         jLabel40 = new javax.swing.JLabel();
         jLabel41 = new javax.swing.JLabel();
-        jPanel9 = new javax.swing.JPanel();
-        jPanel10 = new javax.swing.JPanel();
-        jPanel8 = new javax.swing.JPanel();
-        jPanel7 = new javax.swing.JPanel();
         jLabel43 = new javax.swing.JLabel();
         jLabel44 = new javax.swing.JLabel();
         jLabel45 = new javax.swing.JLabel();
@@ -143,6 +140,8 @@ public final class DoctorsDash extends javax.swing.JPanel {
         inpatient = new javax.swing.JTable();
         jLabel79 = new javax.swing.JLabel();
         jLabel80 = new javax.swing.JLabel();
+        jScrollPane6 = new javax.swing.JScrollPane();
+        contibuters = new javax.swing.JTable();
 
         setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
@@ -315,18 +314,6 @@ public final class DoctorsDash extends javax.swing.JPanel {
         jLabel41.setText("Breaking Barriers: Over 5000 Doctors Join Our Hospital Network");
         jPanel2.add(jLabel41, new org.netbeans.lib.awtextra.AbsoluteConstraints(36, 1080, -1, -1));
 
-        jPanel9.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-        jPanel2.add(jPanel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(980, 2570, 260, 340));
-
-        jPanel10.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-        jPanel2.add(jPanel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 2570, 260, 340));
-
-        jPanel8.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-        jPanel2.add(jPanel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(680, 2570, 260, 340));
-
-        jPanel7.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-        jPanel2.add(jPanel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 2570, 260, 340));
-
         jLabel43.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
         jLabel43.setText("© 2024 SWH, ALL RIGHTS RESERVED");
         jPanel2.add(jLabel43, new org.netbeans.lib.awtextra.AbsoluteConstraints(1080, 5760, -1, -1));
@@ -386,6 +373,7 @@ public final class DoctorsDash extends javax.swing.JPanel {
 
             }
         ));
+        jTable1.setEnabled(false);
         jScrollPane2.setViewportView(jTable1);
 
         jPanel2.add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 3160, 400, 350));
@@ -532,6 +520,7 @@ public final class DoctorsDash extends javax.swing.JPanel {
         });
         jPanel2.add(account, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 400, 100, 30));
 
+        latestApp.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
         latestApp.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
@@ -540,6 +529,7 @@ public final class DoctorsDash extends javax.swing.JPanel {
 
             }
         ));
+        latestApp.setEnabled(false);
         jScrollPane3.setViewportView(latestApp);
 
         jPanel2.add(jScrollPane3, new org.netbeans.lib.awtextra.AbsoluteConstraints(684, 1740, 500, 510));
@@ -561,6 +551,7 @@ public final class DoctorsDash extends javax.swing.JPanel {
         more.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(153, 153, 153), 1, true));
         jPanel2.add(more, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 1890, 120, 30));
 
+        outpatient.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
         outpatient.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
@@ -569,10 +560,12 @@ public final class DoctorsDash extends javax.swing.JPanel {
 
             }
         ));
+        outpatient.setEnabled(false);
         jScrollPane4.setViewportView(outpatient);
 
         jPanel2.add(jScrollPane4, new org.netbeans.lib.awtextra.AbsoluteConstraints(670, 3680, 550, -1));
 
+        inpatient.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
         inpatient.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
@@ -581,6 +574,7 @@ public final class DoctorsDash extends javax.swing.JPanel {
 
             }
         ));
+        inpatient.setEnabled(false);
         jScrollPane5.setViewportView(inpatient);
 
         jPanel2.add(jScrollPane5, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 3680, 560, -1));
@@ -592,6 +586,20 @@ public final class DoctorsDash extends javax.swing.JPanel {
         jLabel80.setFont(new java.awt.Font("Yu Gothic", 1, 35)); // NOI18N
         jLabel80.setText("INPATIENT");
         jPanel2.add(jLabel80, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 3620, 200, -1));
+
+        contibuters.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
+        contibuters.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+
+            }
+        ));
+        contibuters.setEnabled(false);
+        jScrollPane6.setViewportView(contibuters);
+
+        jPanel2.add(jScrollPane6, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 2550, 1150, 460));
 
         jScrollPane1.setViewportView(jPanel2);
 
@@ -678,9 +686,8 @@ public final class DoctorsDash extends javax.swing.JPanel {
 
     private void newComers() {
         try {
-            ResultSet rs = new DBConnection().getData("SELECT u_tbl.u_lastname, "
-                    + "u_tbl.u_firstname, u_tbl.u_gender, u_tbl.u_type FROM n_comers"
-                    + " INNER JOIN u_tbl ON n_comers.u_id = u_tbl.u_id");
+            ResultSet rs = new DBConnection().getData("SELECT u.u_lastname AS 'Last Name', u.u_firstname AS 'First Name', "
+                    + "u.u_gender AS 'Gender', u.u_type AS 'Type' FROM n_comers n INNER JOIN u_tbl u ON n.u_id = u.u_id");
             jTable1.setModel(DbUtils.resultSetToTableModel(rs));
 
             ((DefaultTableCellRenderer) jTable1.getTableHeader().getDefaultRenderer())
@@ -731,11 +738,10 @@ public final class DoctorsDash extends javax.swing.JPanel {
 
     private void displayInpatients() {
         try {
-            ResultSet rs = new DBConnection().getData("SELECT a.p_lastname, "
-                    + "a.p_firstname, a.a_contact, d.d_diagnosis, "
-                    + "d.d_description FROM diagnostics d "
-                    + "INNER JOIN d_appointments a ON d.a_id = a.a_id"
-                    + " WHERE d.d_status = 'INPATIENT'");
+            ResultSet rs = new DBConnection().getData("SELECT a.p_lastname AS 'Last Name',"
+                    + " a.p_firstname AS 'First Name', a.a_contact AS 'Contact', d.d_diagnosis AS 'Diagnosis',"
+                    + " d.d_description AS 'Description' FROM diagnostics d INNER JOIN d_appointments a ON d.a_id = a.a_id "
+                    + "WHERE d.d_status = 'INPATIENT'");
             inpatient.setModel(DbUtils.resultSetToTableModel(rs));
 
             TableColumn column1, column2, column3, column4, column5;
@@ -767,11 +773,10 @@ public final class DoctorsDash extends javax.swing.JPanel {
 
     private void displayOutpatients() {
         try {
-            ResultSet rs = new DBConnection().getData("SELECT a.p_lastname, "
-                    + "a.p_firstname, a.a_contact, d.d_diagnosis, "
-                    + "d.d_description FROM diagnostics d "
-                    + "INNER JOIN d_appointments a ON d.a_id = a.a_id"
-                    + " WHERE d.d_status = 'OUTPATIENT'");
+            ResultSet rs = new DBConnection().getData("SELECT a.p_lastname AS 'Last Name',"
+                    + " a.p_firstname AS 'First Name', a.a_contact AS 'Contact', d.d_diagnosis AS 'Diagnosis',"
+                    + " d.d_description AS 'Description' FROM diagnostics d INNER JOIN d_appointments a ON d.a_id = a.a_id "
+                    + "WHERE d.d_status = 'OUTPATIENT'");
             outpatient.setModel(DbUtils.resultSetToTableModel(rs));
 
             TableColumn column1, column2, column3, column4, column5;
@@ -844,8 +849,38 @@ public final class DoctorsDash extends javax.swing.JPanel {
         }
     }
 
+    private void topConttributers() {
+        try {
+            ResultSet rs = new DBConnection().getData("SELECT ds_sender AS 'Sender Name', "
+                    + "CONCAT('₱', FORMAT(ds_value, 2)) AS 'Amount', ds_description AS 'Description' "
+                    + "FROM donations ORDER BY ds_value DESC");
+            contibuters.setModel(DbUtils.resultSetToTableModel(rs));
+
+            TableColumn column1, column2, column3;
+
+            column1 = contibuters.getColumnModel().getColumn(0);
+            column1.setPreferredWidth(100);
+
+            column2 = contibuters.getColumnModel().getColumn(1);
+            column2.setPreferredWidth(100);
+
+            column3 = contibuters.getColumnModel().getColumn(2);
+            column3.setPreferredWidth(500);
+
+            ((DefaultTableCellRenderer) contibuters.getTableHeader().getDefaultRenderer())
+                    .setHorizontalAlignment(SwingConstants.CENTER);
+            DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
+            centerRenderer.setHorizontalAlignment(SwingConstants.CENTER);
+            contibuters.setDefaultRenderer(Object.class, centerRenderer);
+
+        } catch (SQLException er) {
+            System.out.println(er.getMessage());
+        }
+    }
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton account;
+    private javax.swing.JTable contibuters;
     private javax.swing.JTable inpatient;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
@@ -925,17 +960,14 @@ public final class DoctorsDash extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel86;
     private javax.swing.JLabel jLabel87;
     private javax.swing.JLabel jLabel9;
-    private javax.swing.JPanel jPanel10;
     private javax.swing.JPanel jPanel11;
     private javax.swing.JPanel jPanel2;
-    private javax.swing.JPanel jPanel7;
-    private javax.swing.JPanel jPanel8;
-    private javax.swing.JPanel jPanel9;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JScrollPane jScrollPane5;
+    private javax.swing.JScrollPane jScrollPane6;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator2;
     private javax.swing.JSeparator jSeparator3;
