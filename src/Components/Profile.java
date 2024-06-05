@@ -19,21 +19,19 @@ public class Profile extends javax.swing.JPanel {
 
         jLabel2.setBackground(new java.awt.Color(255, 255, 255));
         jLabel2.setFont(new java.awt.Font("Segoe UI", 0, 11)); // NOI18N
-        jLabel2.setForeground(new java.awt.Color(255, 255, 255));
         jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel2.setText("VERSION 0.1");
+        jLabel2.setText("VERSION 82.0.0.1");
         add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 170, 230, -1));
 
         jLabel3.setBackground(new java.awt.Color(255, 255, 255));
         jLabel3.setFont(new java.awt.Font("Segoe UI", 0, 13)); // NOI18N
-        jLabel3.setForeground(new java.awt.Color(255, 255, 255));
         jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel3.setText("AURORA WELLNESS PAVILION");
+        jLabel3.setText("SERENITY WELLNESS HOSPITAL");
         add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 150, 230, -1));
 
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/asd2.png"))); // NOI18N
-        add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 30, 230, -1));
+        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/Logowd (2).png"))); // NOI18N
+        add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 20, 230, 140));
     }// </editor-fold>//GEN-END:initComponents
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

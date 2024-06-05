@@ -15,6 +15,7 @@ public class MenuItem extends javax.swing.JPanel {
     public MenuItem(Model_Menu data) {
         initComponents();
         setOpaque(false);
+        lbName.setForeground(Color.BLACK);
         if (data.getType() == Model_Menu.MenuType.MENU) {
             lbIcon.setIcon(data.toIcon());
             lbName.setText(data.getName());

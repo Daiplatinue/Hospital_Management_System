@@ -16,6 +16,7 @@ public final class Form_4 extends javax.swing.JPanel {
 
     public Form_4() {
         initComponents();
+        displayAppointments();
         print2.setFocusable(false);
         print3.setFocusable(false);
         print6.setFocusable(false);
@@ -238,11 +239,11 @@ public final class Form_4 extends javax.swing.JPanel {
     }//GEN-LAST:event_print3ActionPerformed
 
     private void print6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_print6ActionPerformed
-        jTabbedPane1.setSelectedIndex(1);
+        jTabbedPane1.setSelectedIndex(0);
     }//GEN-LAST:event_print6ActionPerformed
 
     private void print4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_print4ActionPerformed
-        jTabbedPane1.setSelectedIndex(2);
+        jTabbedPane1.setSelectedIndex(1);
     }//GEN-LAST:event_print4ActionPerformed
 
     private void search1MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_search1MouseEntered
@@ -269,26 +270,28 @@ public final class Form_4 extends javax.swing.JPanel {
         // TODO add your handling code here:
     }//GEN-LAST:event_jButton3ActionPerformed
 
-//    private void displayUserlogs() {
-//        try {
-//            ResultSet rs = new DBConnection().getData("SELECT * FROM ac_logs");
-//            userlogs.setModel(DbUtils.resultSetToTableModel(rs));
-//
-//            TableColumn column;
-//            column = userlogs.getColumnModel().getColumn(3);
-//
-//            column.setPreferredWidth(500);
-//
-//            ((DefaultTableCellRenderer) userlogs.getTableHeader().getDefaultRenderer())
-//                    .setHorizontalAlignment(SwingConstants.CENTER);
-//            DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
-//            centerRenderer.setHorizontalAlignment(SwingConstants.CENTER);
-//            userlogs.setDefaultRenderer(Object.class, centerRenderer);
-//
-//        } catch (SQLException e) {
-//            System.err.println("An error occurred while fetching data: " + e.getMessage());
-//        }
-//    }
+    private void displayAppointments() {
+        try {
+            ResultSet rs = new DBConnection().getData("SELECT u.u_lastname AS 'Last Name', u.u_firstname AS 'First Name',"
+                    + " a_actions AS 'Actions',a_date AS 'Date',a_hhmmss AS 'Time' FROM a_logs a INNER JOIN u_tbl u ON a.u_id = u.u_id "
+                    + "WHERE a_actions LIKE '%Appointment added by%'");
+            applogs.setModel(DbUtils.resultSetToTableModel(rs));
+
+            TableColumn column1, column2, column3, column4, column5;
+
+            column1 = applogs.getColumnModel().getColumn(2);
+            column1.setPreferredWidth(300);
+
+            ((DefaultTableCellRenderer) applogs.getTableHeader().getDefaultRenderer())
+                    .setHorizontalAlignment(SwingConstants.CENTER);
+            DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
+            centerRenderer.setHorizontalAlignment(SwingConstants.CENTER);
+            applogs.setDefaultRenderer(Object.class, centerRenderer);
+
+        } catch (SQLException e) {
+            System.err.println("An error occurred while fetching data: " + e.getMessage());
+        }
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTable applogs;

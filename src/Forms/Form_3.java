@@ -309,10 +309,10 @@ public final class Form_3 extends javax.swing.JPanel {
         );
         jPanel5Layout.setVerticalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 80, Short.MAX_VALUE)
+            .addGap(0, 50, Short.MAX_VALUE)
         );
 
-        jPanel11.add(jPanel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, -40, 1340, 80));
+        jPanel11.add(jPanel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, -40, 1340, 50));
 
         scroll1.setBackground(new java.awt.Color(255, 255, 255));
         scroll1.setFont(new java.awt.Font("Yu Gothic", 0, 11)); // NOI18N
@@ -1585,9 +1585,11 @@ public final class Form_3 extends javax.swing.JPanel {
 
     private void Delete_AccountActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Delete_AccountActionPerformed
         try {
-            String idText = id.getText().trim();
+            String idText = id.getText();
+            System.out.println(idText);
             if (idText.isEmpty()) {
                 System.out.println("Error ID omg");
+                System.out.println(idText);
             } else {
                 Connection cn = new DBConnection().getConnection();
                 PreparedStatement pst = cn.prepareStatement("UPDATE u_tbl SET u_status = 'DELETED' WHERE u_id = ?");
@@ -1605,8 +1607,7 @@ public final class Form_3 extends javax.swing.JPanel {
 
                     tlogs = cn.prepareStatement("INSERT INTO a_logs (u_id, a_actions, a_date, a_hhmmss) VALUES (?, ?, ?, ?)");
 
-                    xternal_db xdb = new xternal_db();
-                    tlogs.setString(1, xdb.getId());
+                    tlogs.setString(1, xternal_db.getInstance().getId());
                     tlogs.setString(2, "Deleted An Account, Account ID = '" + id.getText() + "'");
                     tlogs.setString(3, formattedDateTime);
                     tlogs.setString(4, formattedTime);
@@ -1992,7 +1993,7 @@ public final class Form_3 extends javax.swing.JPanel {
             try {
                 ResultSet rs = new DBConnection().getData("select * from u_tbl where u_id = '" + idLabel.getText() + "'");
                 if (rs.next()) {
-                    id.setText(String.valueOf(rs.getInt("u_id")));
+                    id.setText(rs.getString("u_id"));
                     email.setText(rs.getString("u_email"));
                     username.setText(rs.getString("u_username"));
                     contact.setText(rs.getString("u_contact"));
