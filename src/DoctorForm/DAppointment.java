@@ -448,11 +448,9 @@ public final class DAppointment extends javax.swing.JPanel {
 
     private void displayAppointments() {
         try {
-            xternal_db xdb = xternal_db.getInstance();
-            ResultSet rs = new DBConnection().getData("SELECT d.a_id, d.p_lastname,"
-                    + " d.p_firstname, d.a_contact,  d.a_date, "
-                    + "d.a_hours, d.a_mins, d.a_time, d.a_status FROM d_appointments d "
-                    + "INNER JOIN u_tbl u ON d.u_id = u.u_id WHERE d.a_status = 'PENDING' AND u.u_id = '" + xdb.getId() + "'");
+            ResultSet rs = new DBConnection().getData("SELECT d.a_id AS 'ID', d.p_lastname AS 'Last Name',d.p_firstname AS 'First Name', d.a_contact AS 'Contact',"
+                    + " d.a_date AS 'Date', d.a_hours AS 'Hours', d.a_mins AS 'Minutes', d.a_time AS 'Time', "
+                    + "d.a_status AS 'Status' FROM d_appointments d INNER JOIN u_tbl u ON d.u_id = u.u_id WHERE d.a_status = 'PENDING' AND u.u_id = '" + xternal_db.getInstance().getId() + "'");
             jTable1.setModel(DbUtils.resultSetToTableModel(rs));
 
             TableColumn column1, column2, column3, column4, column5, column6, column7, column8;
