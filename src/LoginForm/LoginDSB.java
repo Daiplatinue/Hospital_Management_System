@@ -4,6 +4,7 @@ import AdminForm.*;
 import Database.DBConnection;
 import Database.xternal_db;
 import DoctorForm.DoctorMain;
+import Forms.newPass;
 import FrontdeskForm.FrontMain;
 import Functions.Checkers;
 import Functions.Hasher;
@@ -26,6 +27,7 @@ public final class LoginDSB extends javax.swing.JPanel {
     String oldPath;
     Integer imgIndex = 0;
     private final Preferences prefs;
+    private Password forgotPassword;
 
     public LoginDSB() {
         initComponents();
@@ -175,12 +177,16 @@ public final class LoginDSB extends javax.swing.JPanel {
         remember.setBackground(new java.awt.Color(255, 255, 255));
         remember.setFont(new java.awt.Font("Yu Gothic", 0, 11)); // NOI18N
         remember.setText("REMEMBER ME");
+        remember.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jPanel1.add(remember, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 510, -1, -1));
 
         fpass3.setFont(new java.awt.Font("Yu Gothic", 0, 11)); // NOI18N
         fpass3.setText("FORGOT PASSWORD");
         fpass3.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         fpass3.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                fpass3MouseClicked(evt);
+            }
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 fpass3MouseEntered(evt);
             }
@@ -364,6 +370,18 @@ public final class LoginDSB extends javax.swing.JPanel {
         }
         showImage(imgIndex);
     }//GEN-LAST:event_jLabel6MouseClicked
+
+    private void fpass3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_fpass3MouseClicked
+        if (forgotPassword == null) {
+            forgotPassword = new Password();
+            forgotPassword.setVisible(true);
+        } else if (forgotPassword.isVisible()) {
+            forgotPassword.toFront();
+            forgotPassword.requestFocus();
+        } else {
+            forgotPassword.setVisible(true);
+        }
+    }//GEN-LAST:event_fpass3MouseClicked
 
     private static String xstatus, xtype;
 

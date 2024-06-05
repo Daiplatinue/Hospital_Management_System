@@ -373,6 +373,7 @@ public final class RegisterDSB extends javax.swing.JPanel {
         panelRound1.add(emailChecker, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 210, 480, -1));
 
         contactChecker.setFont(new java.awt.Font("Yu Gothic", 0, 12)); // NOI18N
+        contactChecker.setForeground(new java.awt.Color(255, 255, 255));
         contactChecker.setText("STRENGTH");
         panelRound1.add(contactChecker, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 340, 480, -1));
 
