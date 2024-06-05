@@ -1,9 +1,7 @@
 package FrontdeskForm;
 
-import DoctorForm.*;
 import Forms.*;
 import Database.*;
-import Functions.BorderColorManager;
 import Functions.Checkers;
 import LoginForm.*;
 import com.formdev.flatlaf.*;
@@ -17,11 +15,12 @@ import java.nio.file.StandardCopyOption;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.*;
 import javax.swing.border.Border;
-import javax.swing.table.TableModel;
 import jnafilechooser.api.*;
 
 public final class My_Account extends javax.swing.JPanel {
@@ -44,6 +43,22 @@ public final class My_Account extends javax.swing.JPanel {
         initComponents();
         MyInfo();
         customizeFormFields();
+
+        question.setVisible(false);
+        answer.setVisible(false);
+
+        ListCellRenderer<Object> renderer = new DefaultListCellRenderer() {
+            @Override
+            public Component getListCellRendererComponent(JList<?> list, Object value, int index, boolean isSelected, boolean cellHasFocus) {
+                JLabel label = (JLabel) super.getListCellRendererComponent(list, value, index, isSelected, cellHasFocus);
+                label.setHorizontalAlignment(SwingConstants.CENTER);
+                return label;
+            }
+        };
+
+        type.setRenderer(renderer);
+        status.setRenderer(renderer);
+        gender.setRenderer(renderer);
     }
 
     @SuppressWarnings("unchecked")
@@ -317,6 +332,11 @@ public final class My_Account extends javax.swing.JPanel {
         jPanel2.add(picture2, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 220, 180, 190));
 
         cover.setBackground(new java.awt.Color(204, 204, 204));
+        cover.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                coverMouseClicked(evt);
+            }
+        });
         jPanel2.add(cover, new org.netbeans.lib.awtextra.AbsoluteConstraints(-32, 0, 1320, 330));
 
         add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
@@ -328,9 +348,9 @@ public final class My_Account extends javax.swing.JPanel {
         if (action) {
             selectedFile = ch.getSelectedFile();
             path = selectedFile.getAbsolutePath();
-            destination = "src/All_Images/" + selectedFile.getName();
+            destination = "src/profile_db/" + selectedFile.getName();
 
-            if (FileExistenceChecker(path) == 1) {
+            if (FileExistenceCheckerProfile(path) == 1) {
                 Checkers.unsuccessfullFieldChecker("FILE ALREADY EXIST!");
                 destination = "";
                 path = "";
@@ -416,7 +436,93 @@ public final class My_Account extends javax.swing.JPanel {
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void updateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_updateActionPerformed
-        // TODO add your handling code here:
+        try {
+            String photoPath = (destination != null) ? destination.trim() : "";
+
+            boolean fieldsEmpty = username.getText().trim().isEmpty() || email.getText().trim().isEmpty()
+                    || contact.getText().trim().isEmpty() || id.getText().trim().isEmpty()
+                    || lastname.getText().trim().isEmpty() || firstname.getText().trim().isEmpty();
+
+            if (fieldsEmpty || photoPath.isEmpty() || coverSelection == null) {
+                UIManager.put("OptionPane.background", Color.white);
+                UIManager.put("Panel.background", Color.white);
+                Icon customIcon = new javax.swing.ImageIcon(getClass().getResource("/Images/alert.gif"));
+                JOptionPane.showMessageDialog(null, "PLEASE FILL ALL FIELDS AND INSERT AN IMAGE!", "WARNING", JOptionPane.WARNING_MESSAGE, customIcon);
+
+                if (photoPath.isEmpty()) {
+                    System.out.println("IMAGE FILE PATH IS EMPTY!");
+                } else {
+                    File photoFile = new File(photoPath);
+                    if (!photoFile.exists() || !photoFile.isFile()) {
+                        System.out.println("Image file not found or invalid: " + photoPath);
+                        UIManager.put("OptionPane.background", Color.white);
+                        UIManager.put("Panel.background", Color.white);
+                        JOptionPane.showMessageDialog(null, "IMAGE FILE NOT FOUND OR INVALID!", "WARNING", JOptionPane.WARNING_MESSAGE, customIcon);
+                    }
+                }
+            } else {
+                try (Connection connection = new DBConnection().getConnection()) {
+                    String updateQuery = "UPDATE u_tbl SET u_username = ?, u_email = ?, u_type = ?, u_status = ?, "
+                            + "u_contact = ?, u_lastname = ?, u_firstname = ?, u_gender = ?, u_profile = ?, u_cover = ?, u_question = ?, u_answer = ? "
+                            + "WHERE u_id = ?";
+                    try (PreparedStatement pstmt = connection.prepareStatement(updateQuery)) {
+                        pstmt.setString(1, username.getText());
+                        pstmt.setString(2, email.getText());
+                        pstmt.setString(3, (String) type.getSelectedItem());
+                        pstmt.setString(4, (String) status.getSelectedItem());
+                        pstmt.setString(5, contact.getText());
+                        pstmt.setString(6, lastname.getText());
+                        pstmt.setString(7, firstname.getText());
+                        pstmt.setString(8, (String) gender.getSelectedItem());
+                        pstmt.setString(9, destination);
+                        pstmt.setString(10, coverDestination);
+                        pstmt.setString(11, question.getText());
+                        pstmt.setString(12, answer.getText());
+                        pstmt.setString(13, id.getText());
+
+                        pstmt.executeUpdate();
+                    }
+
+                    System.out.println(coverSelection);
+                    System.out.println(destination);
+
+                    if (destination == null || coverSelection == null) {
+                        Checkers.unsuccessfullFieldChecker("PLEASE INSERT AN IMAGE");
+                    } else {
+                        Files.copy(selectedFile.toPath(), new File(destination).toPath(), StandardCopyOption.REPLACE_EXISTING);
+                        Files.copy(coverSelection.toPath(), new File(coverDestination).toPath(), StandardCopyOption.REPLACE_EXISTING);
+
+                        JOptionPane.showMessageDialog(null, "ACCOUNT SUCCESSFULLY UPDATED!", "SUCCESS", JOptionPane.INFORMATION_MESSAGE);
+
+                        PreparedStatement logs;
+                        java.sql.Connection cn = new DBConnection().getConnection();
+                        LocalDateTime currentDateTime = LocalDateTime.now();
+                        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+                        DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("hh:mm:ss a");
+                        String formattedDateTime = currentDateTime.format(formatter);
+                        String formattedTime = currentDateTime.format(timeFormatter);
+
+                        logs = cn.prepareStatement("INSERT INTO a_logs (u_id, a_actions, a_date, a_hhmmss) VALUES (?, ?, ?, ?)");
+
+                        logs.setString(1, xternal_db.getInstance().getId());
+                        logs.setString(2, "'" + xternal_db.getInstance().getLastname() + "', Updated his/her account");
+                        logs.setString(3, formattedDateTime);
+                        logs.setString(4, formattedTime);
+                        logs.executeUpdate();
+
+                        new LoginDashboard().setVisible(true);
+                        dispose();
+                    }
+
+                } catch (SQLException ex) {
+                    System.out.println("Error: " + ex.getMessage());
+                } catch (IOException ex) {
+                    Logger.getLogger(DoctorForm.My_Account.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+        } catch (HeadlessException ex) {
+            System.out.println("Unexpected Error: " + ex.getMessage());
+        }
     }//GEN-LAST:event_updateActionPerformed
 
     private void id1FocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_id1FocusGained
@@ -450,6 +556,28 @@ public final class My_Account extends javax.swing.JPanel {
     private void jPanel2formMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel2formMouseReleased
         // TODO add your handling code here:
     }//GEN-LAST:event_jPanel2formMouseReleased
+
+    private void coverMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_coverMouseClicked
+        JnaFileChooser ch = new JnaFileChooser();
+        boolean action = ch.showOpenDialog(new NewJFrame());
+        if (action) {
+            coverSelection = ch.getSelectedFile();
+            pathCover = coverSelection.getAbsolutePath();
+            coverDestination = "src/cover_db/" + coverSelection.getName();
+
+            if (FileExistenceCheckerCover(pathCover) == 1) {
+                Checkers.unsuccessfullFieldChecker("FILE ALREADY EXIST!");
+                coverDestination = "";
+                pathCover = "";
+            } else {
+                cover.setIcon(ResizeImageCover(pathCover));
+                remove.setEnabled(true);
+            }
+
+        } else {
+            System.out.println("nabanhaw ng image wama kiti");
+        }
+    }//GEN-LAST:event_coverMouseClicked
 
     private void deleteAccount() {
         try {
@@ -486,31 +614,25 @@ public final class My_Account extends javax.swing.JPanel {
 
     private void MyInfo() {
         try {
-            xternal_db xdb = xternal_db.getInstance();
-            ResultSet rs = new DBConnection().getData("select * from ac_table where ac_id = '" + xdb.getId() + "'");
+            ResultSet rs = new DBConnection().getData("select * from u_tbl where u_id = '" + xternal_db.getInstance().getId() + "'");
             if (rs.next()) {
-                id.setText(String.valueOf(rs.getInt("ac_id")));
-                email.setText(rs.getString("ac_email"));
-                username.setText(rs.getString("ac_username"));
-                contact.setText(rs.getString("ac_contact"));
-                type.setSelectedItem(rs.getString("ac_type"));
-                status.setSelectedItem(rs.getString("ac_status"));
-                lastname.setText(rs.getString("ac_lastname"));
-                firstname.setText(rs.getString("ac_firstname"));
-                question.setText(rs.getString("ac_sq"));
-                answer.setText(rs.getString("ac_sa"));
+                id.setText(String.valueOf(rs.getInt("u_id")));
+                email.setText(rs.getString("u_email"));
+                username.setText(rs.getString("u_username"));
+                contact.setText(rs.getString("u_contact"));
+                type.setSelectedItem(rs.getString("u_type"));
+                status.setSelectedItem(rs.getString("u_status"));
+                lastname.setText(rs.getString("u_lastname"));
+                firstname.setText(rs.getString("u_firstname"));
+                question.setText(rs.getString("u_question"));
+                answer.setText(rs.getString("u_answer"));
+                gender.setSelectedItem(rs.getString("u_gender"));
 
-                if (rs.getString("ac_status").equalsIgnoreCase("active")) {
-                    picture1.setBorder(activeBorder);
-                } else {
-                    picture1.setBorder(inactiveBorder);
-                }
-
-                String img = rs.getString("ac_images");
+                String img = rs.getString("u_profile");
                 setScaledImage(img, picture1, 180, 190);
-                destination = rs.getString("ac_images");
-                path = rs.getString("ac_images");
-                oldpath = rs.getString("ac_images");
+                destination = rs.getString("u_profile");
+                path = rs.getString("u_profile");
+                oldpath = rs.getString("u_profile");
 
                 if (picture1.getIcon() == null) {
                     remove.setEnabled(false);
@@ -518,11 +640,11 @@ public final class My_Account extends javax.swing.JPanel {
                     remove.setEnabled(true);
                 }
 
-                String coverImg = rs.getString("ac_coverphoto");
+                String coverImg = rs.getString("u_cover");
                 setScaledImage(coverImg, cover, 1330, 310);
-                pathCover = rs.getString("ac_coverphoto");
-                oldpathCover = rs.getString("ac_coverphoto");
-                coverDestination = rs.getString("ac_coverphoto");
+                pathCover = rs.getString("u_cover");
+                oldpathCover = rs.getString("u_cover");
+                coverDestination = rs.getString("u_cover");
 
                 selectedFile = new File(img);
                 coverSelection = new File(coverImg);
@@ -589,6 +711,36 @@ public final class My_Account extends javax.swing.JPanel {
         Image newImg = img.getScaledInstance(1340, 310, Image.SCALE_SMOOTH);
         ImageIcon image = new ImageIcon(newImg);
         return image;
+    }
+
+    public int FileExistenceCheckerProfile(String path) {
+        File file = new File(path);
+        String fileName = file.getName();
+
+        Path filePath = Paths.get("src/profile_db", fileName);
+        boolean fileExists = Files.exists(filePath);
+
+        if (fileExists) {
+            return 1;
+        } else {
+            return 0;
+        }
+
+    }
+
+    public int FileExistenceCheckerCover(String path) {
+        File file = new File(path);
+        String fileName = file.getName();
+
+        Path filePath = Paths.get("src/cover_db", fileName);
+        boolean fileExists = Files.exists(filePath);
+
+        if (fileExists) {
+            return 1;
+        } else {
+            return 0;
+        }
+
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
