@@ -2,12 +2,7 @@ package DoctorForm;
 
 import Database.DBConnection;
 import Database.xternal_db;
-import LoginForm.*;
-import Functions.SeperatorAnimation;
-import static LoginForm.LoginDashboard.jLabel9;
-import java.awt.Color;
 import java.awt.Desktop;
-import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
@@ -23,7 +18,6 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.swing.ImageIcon;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 import javax.swing.Timer;
@@ -41,6 +35,8 @@ public final class DoctorsDash extends javax.swing.JPanel {
         jScrollPane1.getVerticalScrollBar().setUnitIncrement(20);
         newComers();
         showCredentials();
+        displayInpatients();
+        displayOutpatients();
         displayAppointments();
     }
 
@@ -494,7 +490,7 @@ public final class DoctorsDash extends javax.swing.JPanel {
 
         jLabel76.setFont(new java.awt.Font("Yu Gothic", 1, 35)); // NOI18N
         jLabel76.setText("OUTPATIENT");
-        jPanel2.add(jLabel76, new org.netbeans.lib.awtextra.AbsoluteConstraints(990, 3640, 250, -1));
+        jPanel2.add(jLabel76, new org.netbeans.lib.awtextra.AbsoluteConstraints(990, 3620, 250, -1));
 
         jLabel77.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
         jLabel77.setText("forward to seeing all that you'll accomplish here!");
@@ -529,6 +525,11 @@ public final class DoctorsDash extends javax.swing.JPanel {
         account.setForeground(new java.awt.Color(153, 153, 153));
         account.setText("View Account");
         account.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(153, 153, 153), 1, true));
+        account.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                accountActionPerformed(evt);
+            }
+        });
         jPanel2.add(account, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 400, 100, 30));
 
         latestApp.setModel(new javax.swing.table.DefaultTableModel(
@@ -570,7 +571,7 @@ public final class DoctorsDash extends javax.swing.JPanel {
         ));
         jScrollPane4.setViewportView(outpatient);
 
-        jPanel2.add(jScrollPane4, new org.netbeans.lib.awtextra.AbsoluteConstraints(670, 3700, 550, -1));
+        jPanel2.add(jScrollPane4, new org.netbeans.lib.awtextra.AbsoluteConstraints(670, 3680, 550, -1));
 
         inpatient.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -582,7 +583,7 @@ public final class DoctorsDash extends javax.swing.JPanel {
         ));
         jScrollPane5.setViewportView(inpatient);
 
-        jPanel2.add(jScrollPane5, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 3700, 560, -1));
+        jPanel2.add(jScrollPane5, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 3680, 560, -1));
 
         jLabel79.setFont(new java.awt.Font("Yu Gothic", 1, 35)); // NOI18N
         jLabel79.setText(": Thank You for Your Everlasting Commitment");
@@ -590,7 +591,7 @@ public final class DoctorsDash extends javax.swing.JPanel {
 
         jLabel80.setFont(new java.awt.Font("Yu Gothic", 1, 35)); // NOI18N
         jLabel80.setText("INPATIENT");
-        jPanel2.add(jLabel80, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 3640, 200, -1));
+        jPanel2.add(jLabel80, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 3620, 200, -1));
 
         jScrollPane1.setViewportView(jPanel2);
 
@@ -641,6 +642,10 @@ public final class DoctorsDash extends javax.swing.JPanel {
         }
     }//GEN-LAST:event_jLabel31MouseClicked
 
+    private void accountActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_accountActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_accountActionPerformed
+
     public void animatePanelHorizontally(JPanel panel, int targetX) {
         if (moveTimers.containsKey(panel) && moveTimers.get(panel).isRunning()) {
             moveTimers.get(panel).stop();
@@ -673,7 +678,7 @@ public final class DoctorsDash extends javax.swing.JPanel {
 
     private void newComers() {
         try {
-            ResultSet rs = new DBConnection().getData("SELECT n_comers.u_id, u_tbl.u_lastname, "
+            ResultSet rs = new DBConnection().getData("SELECT u_tbl.u_lastname, "
                     + "u_tbl.u_firstname, u_tbl.u_gender, u_tbl.u_type FROM n_comers"
                     + " INNER JOIN u_tbl ON n_comers.u_id = u_tbl.u_id");
             jTable1.setModel(DbUtils.resultSetToTableModel(rs));
@@ -724,16 +729,92 @@ public final class DoctorsDash extends javax.swing.JPanel {
         }
     }
 
+    private void displayInpatients() {
+        try {
+            ResultSet rs = new DBConnection().getData("SELECT a.p_lastname, "
+                    + "a.p_firstname, a.a_contact, d.d_diagnosis, "
+                    + "d.d_description FROM diagnostics d "
+                    + "INNER JOIN d_appointments a ON d.a_id = a.a_id"
+                    + " WHERE d.d_status = 'INPATIENT'");
+            inpatient.setModel(DbUtils.resultSetToTableModel(rs));
+
+            TableColumn column1, column2, column3, column4, column5;
+
+            column1 = inpatient.getColumnModel().getColumn(0);
+            column1.setPreferredWidth(30);
+
+            column2 = inpatient.getColumnModel().getColumn(1);
+            column2.setPreferredWidth(30);
+
+            column3 = inpatient.getColumnModel().getColumn(2);
+            column3.setPreferredWidth(30);
+
+            column4 = inpatient.getColumnModel().getColumn(3);
+            column4.setPreferredWidth(50);
+
+            column5 = inpatient.getColumnModel().getColumn(4);
+            column5.setPreferredWidth(200);
+
+            ((DefaultTableCellRenderer) inpatient.getTableHeader().getDefaultRenderer())
+                    .setHorizontalAlignment(SwingConstants.CENTER);
+            DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
+            centerRenderer.setHorizontalAlignment(SwingConstants.CENTER);
+            inpatient.setDefaultRenderer(Object.class, centerRenderer);
+        } catch (SQLException er) {
+            System.out.println(er.getMessage());
+        }
+    }
+
+    private void displayOutpatients() {
+        try {
+            ResultSet rs = new DBConnection().getData("SELECT a.p_lastname, "
+                    + "a.p_firstname, a.a_contact, d.d_diagnosis, "
+                    + "d.d_description FROM diagnostics d "
+                    + "INNER JOIN d_appointments a ON d.a_id = a.a_id"
+                    + " WHERE d.d_status = 'OUTPATIENT'");
+            outpatient.setModel(DbUtils.resultSetToTableModel(rs));
+
+            TableColumn column1, column2, column3, column4, column5;
+
+            column1 = outpatient.getColumnModel().getColumn(0);
+            column1.setPreferredWidth(30);
+
+            column2 = outpatient.getColumnModel().getColumn(1);
+            column2.setPreferredWidth(30);
+
+            column3 = outpatient.getColumnModel().getColumn(2);
+            column3.setPreferredWidth(30);
+
+            column4 = outpatient.getColumnModel().getColumn(3);
+            column4.setPreferredWidth(50);
+
+            column5 = outpatient.getColumnModel().getColumn(4);
+            column5.setPreferredWidth(200);
+
+            ((DefaultTableCellRenderer) outpatient.getTableHeader().getDefaultRenderer())
+                    .setHorizontalAlignment(SwingConstants.CENTER);
+            DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
+            centerRenderer.setHorizontalAlignment(SwingConstants.CENTER);
+            outpatient.setDefaultRenderer(Object.class, centerRenderer);
+        } catch (SQLException er) {
+            System.out.println(er.getMessage());
+        }
+    }
+
     private void displayAppointments() {
         try {
             xternal_db xdb = xternal_db.getInstance();
-            ResultSet rs = new DBConnection().getData("select * from d_appointments where u_id = '" + xdb.getId() + "'");
+            ResultSet rs = new DBConnection().getData("SELECT d.p_lastname,"
+                    + "d.p_firstname, d.a_contact, d.a_date, d.a_hours,"
+                    + " d.a_mins, d.a_time FROM d_appointments d "
+                    + "INNER JOIN u_tbl u ON d.u_id = u.u_id "
+                    + "WHERE d.u_id = '" + xdb.getId() + "'");
             latestApp.setModel(DbUtils.resultSetToTableModel(rs));
 
             TableColumn column1, column2, column3, column4, column5, column6, column7, column8;
 
             column1 = latestApp.getColumnModel().getColumn(0);
-            column1.setPreferredWidth(20);
+            column1.setPreferredWidth(50);
 
             column2 = latestApp.getColumnModel().getColumn(1);
             column2.setPreferredWidth(50);
@@ -745,16 +826,13 @@ public final class DoctorsDash extends javax.swing.JPanel {
             column4.setPreferredWidth(50);
 
             column5 = latestApp.getColumnModel().getColumn(4);
-            column5.setPreferredWidth(50);
+            column5.setPreferredWidth(20);
 
             column6 = latestApp.getColumnModel().getColumn(5);
             column6.setPreferredWidth(20);
 
             column7 = latestApp.getColumnModel().getColumn(6);
             column7.setPreferredWidth(20);
-
-            column8 = latestApp.getColumnModel().getColumn(7);
-            column8.setPreferredWidth(20);
 
             ((DefaultTableCellRenderer) latestApp.getTableHeader().getDefaultRenderer())
                     .setHorizontalAlignment(SwingConstants.CENTER);
