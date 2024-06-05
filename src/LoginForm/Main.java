@@ -36,6 +36,8 @@ public final class Main extends javax.swing.JPanel {
 
     public Main() {
         initComponents();
+        topConttributers();
+
         jScrollPane1.getVerticalScrollBar().setUnitIncrement(20);
         newComers();
         showImage(imgIndex);
@@ -116,10 +118,6 @@ public final class Main extends javax.swing.JPanel {
         jPanel5 = new javax.swing.JPanel();
         jPanel4 = new javax.swing.JPanel();
         jPanel3 = new javax.swing.JPanel();
-        jPanel9 = new javax.swing.JPanel();
-        jPanel10 = new javax.swing.JPanel();
-        jPanel8 = new javax.swing.JPanel();
-        jPanel7 = new javax.swing.JPanel();
         jPanel1 = new javax.swing.JPanel();
         jLabel42 = new javax.swing.JLabel();
         jLabel43 = new javax.swing.JLabel();
@@ -173,6 +171,8 @@ public final class Main extends javax.swing.JPanel {
         jLabel83 = new javax.swing.JLabel();
         jLabel84 = new javax.swing.JLabel();
         jPanel11 = new javax.swing.JPanel();
+        jScrollPane3 = new javax.swing.JScrollPane();
+        contibuters = new javax.swing.JTable();
 
         setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
@@ -371,18 +371,6 @@ public final class Main extends javax.swing.JPanel {
 
         jPanel3.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
         jPanel2.add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 1880, 260, 340));
-
-        jPanel9.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-        jPanel2.add(jPanel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(980, 2570, 260, 340));
-
-        jPanel10.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-        jPanel2.add(jPanel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 2570, 260, 340));
-
-        jPanel8.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-        jPanel2.add(jPanel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(680, 2570, 260, 340));
-
-        jPanel7.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-        jPanel2.add(jPanel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 2570, 260, 340));
 
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
         jPanel2.add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 1880, 260, 340));
@@ -637,6 +625,18 @@ public final class Main extends javax.swing.JPanel {
         jPanel11.setBackground(new java.awt.Color(255, 255, 255));
         jPanel2.add(jPanel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 5790, 1220, 130));
 
+        contibuters.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+
+            }
+        ));
+        jScrollPane3.setViewportView(contibuters);
+
+        jPanel2.add(jScrollPane3, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 2550, 1150, 460));
+
         jScrollPane1.setViewportView(jPanel2);
 
         add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1310, 740));
@@ -746,6 +746,23 @@ public final class Main extends javax.swing.JPanel {
         }
     }
 
+    private void topConttributers() {
+        try {
+            ResultSet rs = new DBConnection().getData("SELECT ds_sender, ds_value, "
+                    + "ds_description FROM donations ORDER BY ds_value DESC");
+            contibuters.setModel(DbUtils.resultSetToTableModel(rs));
+
+            ((DefaultTableCellRenderer) contibuters.getTableHeader().getDefaultRenderer())
+                    .setHorizontalAlignment(SwingConstants.CENTER);
+            DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
+            centerRenderer.setHorizontalAlignment(SwingConstants.CENTER);
+            contibuters.setDefaultRenderer(Object.class, centerRenderer);
+
+        } catch (SQLException er) {
+            System.out.println(er.getMessage());
+        }
+    }
+
     public ArrayList<String> getImagesList() {
         ArrayList<String> imgList = new ArrayList<>();
 
@@ -783,6 +800,7 @@ public final class Main extends javax.swing.JPanel {
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JTable contibuters;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton3;
     private javax.swing.JLabel jLabel1;
@@ -866,18 +884,15 @@ public final class Main extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel84;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JPanel jPanel10;
     private javax.swing.JPanel jPanel11;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
     private javax.swing.JPanel jPanel6;
-    private javax.swing.JPanel jPanel7;
-    private javax.swing.JPanel jPanel8;
-    private javax.swing.JPanel jPanel9;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator2;
     private javax.swing.JSeparator jSeparator3;
