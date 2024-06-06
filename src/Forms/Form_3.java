@@ -336,29 +336,22 @@ public final class Form_3 extends javax.swing.JPanel {
 
         id4.setFont(new java.awt.Font("Segoe UI", 0, 20)); // NOI18N
         id4.setForeground(new java.awt.Color(0, 87, 255));
-        id4.setText("lastname");
         panel4.add(id4, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 190, 260, 20));
 
         type4.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
         type4.setForeground(new java.awt.Color(102, 102, 102));
-        type4.setText("Type");
         panel4.add(type4, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 295, 260, 20));
 
         name4.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
         name4.setForeground(new java.awt.Color(70, 133, 255));
-        name4.setText("Email");
         panel4.add(name4, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 220, 260, 20));
 
         status4.setFont(new java.awt.Font("Yu Gothic", 0, 12)); // NOI18N
-        status4.setText("Status");
         panel4.add(status4, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 260, 260, 20));
-
-        icon4.setText("ICON");
         panel4.add(icon4, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 240, 160));
 
         uid4.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
         uid4.setForeground(new java.awt.Color(102, 102, 102));
-        uid4.setText("id");
         panel4.add(uid4, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 295, 50, 20));
 
         scrols.add(panel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(960, 110, 260, 330));
@@ -375,33 +368,26 @@ public final class Form_3 extends javax.swing.JPanel {
             }
         });
         panel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-
-        icon1.setText("ICON");
         panel1.add(icon1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 240, 160));
 
         status1.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
-        status1.setText("Status");
         panel1.add(status1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 260, 250, 20));
 
         name1.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
         name1.setForeground(new java.awt.Color(70, 133, 255));
-        name1.setText("Email");
         panel1.add(name1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 220, 250, 20));
 
         type1.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
         type1.setForeground(new java.awt.Color(102, 102, 102));
-        type1.setText("type");
         panel1.add(type1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 295, 140, 20));
 
         id1.setFont(new java.awt.Font("Segoe UI", 0, 20)); // NOI18N
         id1.setForeground(new java.awt.Color(0, 87, 255));
-        id1.setText("lastname");
         panel1.add(id1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 190, 250, 20));
         panel1.add(imageAvatar1, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 50, 60, 60));
 
         uid1.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
         uid1.setForeground(new java.awt.Color(102, 102, 102));
-        uid1.setText("id");
         panel1.add(uid1, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 295, 50, 20));
 
         scrols.add(panel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 110, 260, 330));
@@ -418,32 +404,25 @@ public final class Form_3 extends javax.swing.JPanel {
             }
         });
         panel2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-
-        icon2.setText("ICON");
         panel2.add(icon2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 240, 160));
 
         id2.setFont(new java.awt.Font("Segoe UI", 0, 20)); // NOI18N
         id2.setForeground(new java.awt.Color(0, 87, 255));
-        id2.setText("lastname");
         panel2.add(id2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 190, 260, 20));
 
         type2.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
         type2.setForeground(new java.awt.Color(102, 102, 102));
-        type2.setText("Type");
         panel2.add(type2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 295, 200, 20));
 
         name2.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
         name2.setForeground(new java.awt.Color(70, 133, 255));
-        name2.setText("Email");
         panel2.add(name2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 220, 260, 20));
 
         status2.setFont(new java.awt.Font("Yu Gothic", 0, 12)); // NOI18N
-        status2.setText("Status");
         panel2.add(status2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 260, 260, 20));
 
         uid2.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
         uid2.setForeground(new java.awt.Color(102, 102, 102));
-        uid2.setText("id");
         panel2.add(uid2, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 295, 50, 20));
 
         scrols.add(panel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 110, 260, 330));
@@ -463,29 +442,22 @@ public final class Form_3 extends javax.swing.JPanel {
 
         id3.setFont(new java.awt.Font("Segoe UI", 0, 20)); // NOI18N
         id3.setForeground(new java.awt.Color(0, 87, 255));
-        id3.setText("lastname");
         panel3.add(id3, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 190, 260, 20));
-
-        icon3.setText("ICON");
         panel3.add(icon3, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 240, 160));
 
         type3.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
         type3.setForeground(new java.awt.Color(102, 102, 102));
-        type3.setText("Type");
-        panel3.add(type3, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 295, 260, 20));
+        panel3.add(type3, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 295, 200, 20));
 
         name3.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
         name3.setForeground(new java.awt.Color(70, 133, 255));
-        name3.setText("Email");
         panel3.add(name3, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 220, 260, 20));
 
         status3.setFont(new java.awt.Font("Yu Gothic", 0, 12)); // NOI18N
-        status3.setText("Status");
         panel3.add(status3, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 260, 260, 20));
 
         uid3.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
         uid3.setForeground(new java.awt.Color(102, 102, 102));
-        uid3.setText("id");
         panel3.add(uid3, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 295, 50, 20));
 
         scrols.add(panel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(660, 110, 260, 330));
@@ -504,30 +476,23 @@ public final class Form_3 extends javax.swing.JPanel {
         panel7.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         status7.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
-        status7.setText("Status");
         panel7.add(status7, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 260, 260, 20));
 
         type7.setFont(new java.awt.Font("Yu Gothic", 0, 15)); // NOI18N
         type7.setForeground(new java.awt.Color(102, 102, 102));
-        type7.setText("Type");
-        panel7.add(type7, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 295, 260, 20));
+        panel7.add(type7, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 295, 190, 20));
 
         name7.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
         name7.setForeground(new java.awt.Color(70, 133, 255));
-        name7.setText("Email");
         panel7.add(name7, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 220, 260, 20));
 
         id7.setFont(new java.awt.Font("Segoe UI", 0, 20)); // NOI18N
         id7.setForeground(new java.awt.Color(0, 87, 255));
-        id7.setText("lastname");
         panel7.add(id7, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 190, 260, 20));
-
-        icon7.setText("ICON");
         panel7.add(icon7, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 240, 160));
 
         uid7.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
         uid7.setForeground(new java.awt.Color(102, 102, 102));
-        uid7.setText("id");
         panel7.add(uid7, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 295, 50, 20));
 
         scrols.add(panel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(660, 530, 260, 330));
@@ -546,30 +511,23 @@ public final class Form_3 extends javax.swing.JPanel {
         panel6.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         status6.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
-        status6.setText("Status");
         panel6.add(status6, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 260, 260, 20));
 
         type6.setFont(new java.awt.Font("Yu Gothic", 0, 15)); // NOI18N
         type6.setForeground(new java.awt.Color(102, 102, 102));
-        type6.setText("Type");
-        panel6.add(type6, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 295, 260, 20));
+        panel6.add(type6, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 295, 190, 20));
 
         name6.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
         name6.setForeground(new java.awt.Color(70, 133, 255));
-        name6.setText("Email");
         panel6.add(name6, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 220, 260, 20));
 
         id6.setFont(new java.awt.Font("Segoe UI", 0, 20)); // NOI18N
         id6.setForeground(new java.awt.Color(0, 87, 255));
-        id6.setText("lastname");
         panel6.add(id6, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 190, 260, 20));
-
-        icon6.setText("ICON");
         panel6.add(icon6, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 240, 160));
 
         uid6.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
         uid6.setForeground(new java.awt.Color(102, 102, 102));
-        uid6.setText("id");
         panel6.add(uid6, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 295, 50, 20));
 
         scrols.add(panel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 530, 260, 330));
@@ -588,30 +546,23 @@ public final class Form_3 extends javax.swing.JPanel {
         panel5.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         status5.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
-        status5.setText("Status");
         panel5.add(status5, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 260, 260, 20));
 
         type5.setFont(new java.awt.Font("Yu Gothic", 0, 15)); // NOI18N
         type5.setForeground(new java.awt.Color(102, 102, 102));
-        type5.setText("Type");
-        panel5.add(type5, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 295, 260, 20));
+        panel5.add(type5, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 295, 190, 20));
 
         name5.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
         name5.setForeground(new java.awt.Color(70, 133, 255));
-        name5.setText("Email");
         panel5.add(name5, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 220, 260, 20));
 
         id5.setFont(new java.awt.Font("Segoe UI", 0, 20)); // NOI18N
         id5.setForeground(new java.awt.Color(0, 87, 255));
-        id5.setText("lastname");
         panel5.add(id5, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 190, 260, 20));
-
-        icon5.setText("ICON");
         panel5.add(icon5, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 240, 160));
 
         uid5.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
         uid5.setForeground(new java.awt.Color(102, 102, 102));
-        uid5.setText("id");
         panel5.add(uid5, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 295, 50, 20));
 
         scrols.add(panel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 530, 260, 330));
@@ -630,30 +581,23 @@ public final class Form_3 extends javax.swing.JPanel {
         panel8.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         status8.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
-        status8.setText("Status");
         panel8.add(status8, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 260, 260, 20));
 
         type8.setFont(new java.awt.Font("Yu Gothic", 0, 15)); // NOI18N
         type8.setForeground(new java.awt.Color(102, 102, 102));
-        type8.setText("Type");
-        panel8.add(type8, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 295, 260, 20));
+        panel8.add(type8, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 295, 200, 20));
 
         name8.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
         name8.setForeground(new java.awt.Color(70, 133, 255));
-        name8.setText("Email");
         panel8.add(name8, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 220, 260, 20));
 
         id8.setFont(new java.awt.Font("Segoe UI", 0, 20)); // NOI18N
         id8.setForeground(new java.awt.Color(0, 87, 255));
-        id8.setText("lastname");
         panel8.add(id8, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 190, 260, 20));
-
-        icon8.setText("ICON");
         panel8.add(icon8, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 240, 160));
 
         uid8.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
         uid8.setForeground(new java.awt.Color(102, 102, 102));
-        uid8.setText("id");
         panel8.add(uid8, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 295, 50, 20));
 
         scrols.add(panel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(960, 530, 260, 330));
@@ -672,30 +616,23 @@ public final class Form_3 extends javax.swing.JPanel {
         panel11.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         status11.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
-        status11.setText("Status");
         panel11.add(status11, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 260, 260, 20));
 
         type11.setFont(new java.awt.Font("Yu Gothic", 0, 15)); // NOI18N
         type11.setForeground(new java.awt.Color(102, 102, 102));
-        type11.setText("Type");
-        panel11.add(type11, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 295, 260, 20));
+        panel11.add(type11, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 295, 170, 20));
 
         name11.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
         name11.setForeground(new java.awt.Color(70, 133, 255));
-        name11.setText("Email");
         panel11.add(name11, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 220, 260, 20));
 
         id11.setFont(new java.awt.Font("Segoe UI", 0, 20)); // NOI18N
         id11.setForeground(new java.awt.Color(0, 87, 255));
-        id11.setText("lastname");
         panel11.add(id11, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 190, 260, 20));
-
-        icon11.setText("ICON");
         panel11.add(icon11, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 240, 160));
 
         uid11.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
         uid11.setForeground(new java.awt.Color(102, 102, 102));
-        uid11.setText("id");
         panel11.add(uid11, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 295, 50, 20));
 
         scrols.add(panel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(660, 960, 260, 330));
@@ -714,30 +651,23 @@ public final class Form_3 extends javax.swing.JPanel {
         panel10.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         status10.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
-        status10.setText("Status");
         panel10.add(status10, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 260, 260, 20));
 
         type10.setFont(new java.awt.Font("Yu Gothic", 0, 15)); // NOI18N
         type10.setForeground(new java.awt.Color(102, 102, 102));
-        type10.setText("Type");
-        panel10.add(type10, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 295, 260, 20));
+        panel10.add(type10, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 295, 170, 20));
 
         name10.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
         name10.setForeground(new java.awt.Color(70, 133, 255));
-        name10.setText("Email");
         panel10.add(name10, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 220, 260, 20));
 
         id10.setFont(new java.awt.Font("Segoe UI", 0, 20)); // NOI18N
         id10.setForeground(new java.awt.Color(0, 87, 255));
-        id10.setText("lastname");
         panel10.add(id10, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 190, 260, 20));
-
-        icon10.setText("ICON");
         panel10.add(icon10, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 240, 160));
 
         uid10.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
         uid10.setForeground(new java.awt.Color(102, 102, 102));
-        uid10.setText("id");
         panel10.add(uid10, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 295, 50, 20));
 
         scrols.add(panel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 960, 260, 330));
@@ -756,30 +686,23 @@ public final class Form_3 extends javax.swing.JPanel {
         panel9.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         status9.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
-        status9.setText("Status");
         panel9.add(status9, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 260, 260, 20));
 
         type9.setFont(new java.awt.Font("Yu Gothic", 0, 15)); // NOI18N
         type9.setForeground(new java.awt.Color(102, 102, 102));
-        type9.setText("Type");
-        panel9.add(type9, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 295, 260, 20));
+        panel9.add(type9, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 295, 190, 20));
 
         name9.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
         name9.setForeground(new java.awt.Color(70, 133, 255));
-        name9.setText("Email");
         panel9.add(name9, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 220, 260, 20));
 
         id9.setFont(new java.awt.Font("Segoe UI", 0, 20)); // NOI18N
         id9.setForeground(new java.awt.Color(0, 87, 255));
-        id9.setText("lastname");
         panel9.add(id9, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 190, 260, 20));
-
-        icon9.setText("ICON");
         panel9.add(icon9, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 240, 160));
 
         uid9.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
         uid9.setForeground(new java.awt.Color(102, 102, 102));
-        uid9.setText("id");
         panel9.add(uid9, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 295, 50, 20));
 
         scrols.add(panel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 960, 260, 330));
@@ -796,32 +719,25 @@ public final class Form_3 extends javax.swing.JPanel {
             }
         });
         panel12.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-
-        icon12.setText("ICON");
         panel12.add(icon12, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 240, 160));
 
         id12.setFont(new java.awt.Font("Segoe UI", 0, 20)); // NOI18N
         id12.setForeground(new java.awt.Color(0, 87, 255));
-        id12.setText("lastname");
         panel12.add(id12, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 190, 260, 20));
 
         status12.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
-        status12.setText("Status");
         panel12.add(status12, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 260, 260, 20));
 
         type12.setFont(new java.awt.Font("Yu Gothic", 0, 15)); // NOI18N
         type12.setForeground(new java.awt.Color(102, 102, 102));
-        type12.setText("Type");
         panel12.add(type12, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 295, 200, 20));
 
         name12.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
         name12.setForeground(new java.awt.Color(70, 133, 255));
-        name12.setText("Email");
         panel12.add(name12, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 220, 260, 20));
 
         uid12.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
         uid12.setForeground(new java.awt.Color(102, 102, 102));
-        uid12.setText("id");
         panel12.add(uid12, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 295, 50, 20));
 
         scrols.add(panel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(960, 960, 260, 330));
@@ -1964,7 +1880,7 @@ public final class Form_3 extends javax.swing.JPanel {
     public void form3Handlers() {
         String[] placeholders = {
             "SEARCH BAR", "ID", "USERNAME", "EMAIL",
-            "SECRET ANSWER", "SECRET QUESTION", "CONTACT", "SEARCH BAR"
+            "CONTACT", "SEARCH BAR"
         };
         JComponent[] components = {
             searchBar, id, username, email, contact, search

@@ -106,6 +106,7 @@ public final class Form_9 extends javax.swing.JPanel {
 
         jPopupMenu1 = new javax.swing.JPopupMenu();
         jMenuItem1 = new javax.swing.JMenuItem();
+        jPanel1 = new javax.swing.JPanel();
         jTabbedPane1 = new javax.swing.JTabbedPane();
         jPanel2 = new javax.swing.JPanel();
         remove = new javax.swing.JButton();
@@ -146,6 +147,9 @@ public final class Form_9 extends javax.swing.JPanel {
             }
         });
         setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jPanel1.setBackground(new java.awt.Color(255, 255, 255));
+        add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, -20, 1340, 60));
 
         jPanel2.setBackground(new java.awt.Color(250, 250, 250));
         jPanel2.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -866,6 +870,7 @@ public final class Form_9 extends javax.swing.JPanel {
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
     private javax.swing.JMenuItem jMenuItem1;
+    private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPopupMenu jPopupMenu1;
     private javax.swing.JTabbedPane jTabbedPane1;
