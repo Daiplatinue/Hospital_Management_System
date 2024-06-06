@@ -309,10 +309,10 @@ public final class Form_3 extends javax.swing.JPanel {
         );
         jPanel5Layout.setVerticalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 50, Short.MAX_VALUE)
+            .addGap(0, 80, Short.MAX_VALUE)
         );
 
-        jPanel11.add(jPanel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, -40, 1340, 50));
+        jPanel11.add(jPanel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, -40, 1340, 80));
 
         scroll1.setBackground(new java.awt.Color(255, 255, 255));
         scroll1.setFont(new java.awt.Font("Yu Gothic", 0, 11)); // NOI18N

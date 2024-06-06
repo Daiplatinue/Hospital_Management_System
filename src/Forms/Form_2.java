@@ -9,6 +9,8 @@ import java.awt.event.*;
 import java.io.*;
 import java.security.*;
 import java.sql.*;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import javax.swing.*;
@@ -22,6 +24,7 @@ public final class Form_2 extends javax.swing.JPanel {
     String oldPath;
     String destination = "src/MyImages/default.png";
     File selectedFile;
+    String default_cover_destination = "src/com/imported/cover/images/defaultCover.png";
 
     public Form_2() {
         initComponents();
@@ -578,9 +581,9 @@ public final class Form_2 extends javax.swing.JPanel {
             }
 
             Connection cn = new DBConnection().getConnection();
-            PreparedStatement pst = cn.prepareStatement("insert into ac_table (ac_username, ac_email, ac_password, ac_sq, ac_sa, "
-                    + "ac_type, ac_status, ac_contact, ac_lastname, ac_firstname, ac_gender,ac_images) "
-                    + "values (?,?,?,?,?,?,?,?,?,?,?,?)");
+            PreparedStatement pst = cn.prepareStatement("INSERT INTO u_tbl (u_username, u_email, u_password, u_question, u_answer, "
+                    + "u_type, u_status, u_contact, u_lastname, u_firstname, u_gender, u_profile, u_cover) "
+                    + "VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?)");
 
             pst.setString(1, user);
             pst.setString(2, emails);
@@ -594,9 +597,44 @@ public final class Form_2 extends javax.swing.JPanel {
             pst.setString(10, fn);
             pst.setString(11, xgender);
             pst.setString(12, destination);
+            pst.setString(13, default_cover_destination);
             pst.execute();
 
             Checkers.successFieldChecker("ACCOUNT HAS BEEN CREATED SUCCESSFULLY!");
+
+            PreparedStatement tlogs, acomers;
+
+            LocalDateTime currentDateTime = LocalDateTime.now();
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+            DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("hh:mm:ss a");
+            String formattedDateTime = currentDateTime.format(formatter);
+            String formattedTime = currentDateTime.format(timeFormatter);
+
+            ResultSet rs, nc;
+
+            String getLastUIDQuery = "SELECT u_id FROM u_tbl ORDER BY u_id DESC LIMIT 1";
+            Statement stmt = cn.createStatement();
+            rs = stmt.executeQuery(getLastUIDQuery);
+
+            int lastUID = -1, lastCID = -1;
+
+            if (rs.next()) {
+                lastUID = rs.getInt("u_id");
+                lastCID = rs.getInt("u_id");
+            }
+
+            tlogs = cn.prepareStatement("INSERT INTO a_logs (u_id, a_actions, a_date, a_hhmmss) VALUES (?, ?, ?, ?)");
+
+            tlogs.setInt(1, lastUID);
+            tlogs.setString(2, "Registered An Account!");
+            tlogs.setString(3, formattedDateTime);
+            tlogs.setString(4, formattedTime);
+
+            acomers = cn.prepareStatement("insert into n_comers (u_id) values (?)");
+            acomers.setInt(1, lastCID);
+
+            tlogs.executeUpdate();
+            acomers.executeUpdate();
 
             lastname.setText("");
             firstname.setText("");
@@ -606,8 +644,6 @@ public final class Form_2 extends javax.swing.JPanel {
             secret.setText("");
             answer.setText("");
             contact.setText("");
-            lastname.setText("");
-            firstname.setText("");
             jProgressBar1.setValue(0);
 
             JTextField[] components = {lastname, firstname, username, email, password, secret, answer, contact};
