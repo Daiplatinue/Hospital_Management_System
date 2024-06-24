@@ -81,22 +81,21 @@ public final class Form_2 extends javax.swing.JPanel {
             }
         });
 
-        type.addActionListener(e -> {
-            String selectedItem = (String) type.getSelectedItem();
-            System.out.println("Selected item: " + selectedItem);
-
-            if ("PATIENT".equals(selectedItem) || "DOCTOR".equals(selectedItem)) {
-                username.setVisible(false);
-                jPanel4.setVisible(false);
-                username.setEnabled(false);
-            } else if ("ADMIN".equals(selectedItem)) {
-                username.setVisible(true);
-                jPanel4.setVisible(true);
-                username.setEnabled(true);
+        type.addItemListener(new ItemListener() {
+            @Override
+            public void itemStateChanged(ItemEvent e) {
+                if (e.getStateChange() == ItemEvent.SELECTED) {
+                    if (type.getSelectedItem().equals("DOCTOR")) {
+                        username.setVisible(false);
+                        jLabel5.setVisible(false);
+                        username.setText("N/A");
+                    } else {
+                        username.setVisible(true);
+                        jLabel5.setVisible(true);
+                        username.setText("");
+                    }
+                }
             }
-
-            jPanel4.getParent().revalidate();
-            jPanel4.getParent().repaint();
         });
 
     }
@@ -115,8 +114,6 @@ public final class Form_2 extends javax.swing.JPanel {
         jLabel9 = new javax.swing.JLabel();
         jPanel7 = new javax.swing.JPanel();
         jLabel8 = new javax.swing.JLabel();
-        jPanel6 = new javax.swing.JPanel();
-        jLabel7 = new javax.swing.JLabel();
         jPanel5 = new javax.swing.JPanel();
         jLabel6 = new javax.swing.JLabel();
         jPanel4 = new javax.swing.JPanel();
@@ -131,7 +128,6 @@ public final class Form_2 extends javax.swing.JPanel {
         strength = new javax.swing.JLabel();
         type = new javax.swing.JComboBox<>();
         type1 = new javax.swing.JComboBox<>();
-        secret = new javax.swing.JTextField();
         answer = new javax.swing.JTextField();
         contact = new javax.swing.JTextField();
         create = new javax.swing.JButton();
@@ -142,6 +138,7 @@ public final class Form_2 extends javax.swing.JPanel {
         jLabel15 = new javax.swing.JLabel();
         emailChecker = new javax.swing.JLabel();
         contactChecker = new javax.swing.JLabel();
+        secret = new javax.swing.JComboBox<>();
         jLabel3 = new javax.swing.JLabel();
         jLabel14 = new javax.swing.JLabel();
         jLabel18 = new javax.swing.JLabel();
@@ -218,14 +215,6 @@ public final class Form_2 extends javax.swing.JPanel {
         jPanel7.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 0, 20, 28));
 
         panelRound1.add(jPanel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(302, 252, 40, 28));
-
-        jPanel6.setBackground(new java.awt.Color(255, 255, 255));
-        jPanel6.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-
-        jLabel7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/question (1).png"))); // NOI18N
-        jPanel6.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 0, 20, 28));
-
-        panelRound1.add(jPanel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(52, 252, 40, 28));
 
         jPanel5.setBackground(new java.awt.Color(255, 255, 255));
         jPanel5.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -315,19 +304,6 @@ public final class Form_2 extends javax.swing.JPanel {
         type1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "MALE", "FEMALE", "OTHERS" }));
         panelRound1.add(type1, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 450, 240, 30));
 
-        secret.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        secret.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusGained(java.awt.event.FocusEvent evt) {
-                secretFocusGained(evt);
-            }
-        });
-        secret.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                secretMouseClicked(evt);
-            }
-        });
-        panelRound1.add(secret, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 250, 230, 32));
-
         answer.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         answer.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
@@ -395,6 +371,11 @@ public final class Form_2 extends javax.swing.JPanel {
         contactChecker.setForeground(new java.awt.Color(255, 255, 255));
         contactChecker.setText("STRENGTH");
         panelRound1.add(contactChecker, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 340, 480, -1));
+
+        secret.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
+        secret.setForeground(new java.awt.Color(51, 51, 51));
+        secret.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "What was the name of your first pet?", "What is your mother's maiden name?", "In what city were you born?", "What was the name of your elementary school?", "What is your favorite movie?", "What is your favorite food?", "What was your childhood nickname?", "What was your dream job as a child?", "What is the name of your favorite childhood friend?", "What is your favorite book?" }));
+        panelRound1.add(secret, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 250, 240, 30));
 
         jPanel1.add(panelRound1, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 10, 570, 680));
 
@@ -531,14 +512,6 @@ public final class Form_2 extends javax.swing.JPanel {
 
     }//GEN-LAST:event_passwordKeyTyped
 
-    private void secretFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_secretFocusGained
-
-    }//GEN-LAST:event_secretFocusGained
-
-    private void secretMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_secretMouseClicked
-
-    }//GEN-LAST:event_secretMouseClicked
-
     private void answerFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_answerFocusGained
 
     }//GEN-LAST:event_answerFocusGained
@@ -562,7 +535,7 @@ public final class Form_2 extends javax.swing.JPanel {
             String user = username.getText().trim();
             String emails = email.getText().trim();
             String hashedPass = Hasher.passwordHasher(this.password.getText());
-            String secretQuestion = secret.getText();
+            String secretQuestion = (String) secret.getSelectedItem();
             String secretAnswer = answer.getText();
             String status = "Pending";
             String contacts = contact.getText();
@@ -641,12 +614,11 @@ public final class Form_2 extends javax.swing.JPanel {
             username.setText("");
             email.setText("");
             password.setText("");
-            secret.setText("");
             answer.setText("");
             contact.setText("");
             jProgressBar1.setValue(0);
 
-            JTextField[] components = {lastname, firstname, username, email, password, secret, answer, contact};
+            JTextField[] components = {lastname, firstname, username, email, password, answer, contact};
             BorderColorManager borderFieldReset = new BorderColorManager(components);
             borderFieldReset.resetBorderColor();
 
@@ -679,7 +651,7 @@ public final class Form_2 extends javax.swing.JPanel {
     public int calculateProgress() {
         int progress = 0;
 
-        JTextField[] fields = {lastname, firstname, username, email, password, secret, answer, contact};
+        JTextField[] fields = {lastname, firstname, username, email, password, answer, contact};
         int[] scores = {5, 5, 5, 10, 5, 7, 7, 5};
         Color[] colors = {Color.RED, Color.GREEN};
 
@@ -722,7 +694,6 @@ public final class Form_2 extends javax.swing.JPanel {
         animator.setUsername(username);
         animator.setEmail(email);
         animator.setPassword(password);
-        animator.setSecret(secret);
         animator.setAnswer(answer);
         animator.setContact(contact);
         animator.setType(type);
@@ -736,7 +707,6 @@ public final class Form_2 extends javax.swing.JPanel {
         username.getDocument().addDocumentListener(documentListener);
         email.getDocument().addDocumentListener(documentListener);
         password.getDocument().addDocumentListener(documentListener);
-        secret.getDocument().addDocumentListener(documentListener);
         answer.getDocument().addDocumentListener(documentListener);
         contact.getDocument().addDocumentListener(documentListener);
 
@@ -1004,7 +974,6 @@ public final class Form_2 extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel36;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
-    private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
@@ -1013,7 +982,6 @@ public final class Form_2 extends javax.swing.JPanel {
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
-    private javax.swing.JPanel jPanel6;
     private javax.swing.JPanel jPanel7;
     private javax.swing.JPanel jPanel8;
     private javax.swing.JPanel jPanel9;
@@ -1021,7 +989,7 @@ public final class Form_2 extends javax.swing.JPanel {
     private javax.swing.JTextField lastname;
     private test.PanelRound panelRound1;
     private javax.swing.JPasswordField password;
-    private javax.swing.JTextField secret;
+    private javax.swing.JComboBox<String> secret;
     private javax.swing.JLabel strength;
     private javax.swing.JComboBox<String> type;
     private javax.swing.JComboBox<String> type1;
