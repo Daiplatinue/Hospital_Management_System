@@ -1,31 +1,17 @@
 package FrontdeskForm;
 
-import Database.DBConnection;
-import Database.xternal_db;
-import java.awt.Desktop;
-import java.awt.Image;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.io.IOException;
-import java.net.MalformedURLException;
-import java.net.URISyntaxException;
-import java.net.URL;
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import javax.swing.ImageIcon;
-import javax.swing.JPanel;
-import javax.swing.SwingConstants;
+import Database.*;
+import java.awt.*;
+import java.awt.event.*;
+import java.io.*;
+import java.net.*;
+import java.sql.*;
+import java.util.*;
+import java.util.logging.*;
+import javax.swing.*;
 import javax.swing.Timer;
-import javax.swing.table.DefaultTableCellRenderer;
-import javax.swing.table.TableColumn;
-import net.proteanit.sql.DbUtils;
+import javax.swing.table.*;
+import net.proteanit.sql.*;
 
 public final class FrontDash extends javax.swing.JPanel {
 
@@ -88,7 +74,6 @@ public final class FrontDash extends javax.swing.JPanel {
         jLabel39 = new javax.swing.JLabel();
         jLabel40 = new javax.swing.JLabel();
         jLabel41 = new javax.swing.JLabel();
-        jLabel43 = new javax.swing.JLabel();
         jLabel44 = new javax.swing.JLabel();
         jLabel45 = new javax.swing.JLabel();
         jLabel46 = new javax.swing.JLabel();
@@ -134,7 +119,6 @@ public final class FrontDash extends javax.swing.JPanel {
         jLabel80 = new javax.swing.JLabel();
         jLabel81 = new javax.swing.JLabel();
         jButton3 = new javax.swing.JButton();
-        jLabel82 = new javax.swing.JLabel();
         jLabel83 = new javax.swing.JLabel();
         jLabel84 = new javax.swing.JLabel();
         jPanel11 = new javax.swing.JPanel();
@@ -151,6 +135,9 @@ public final class FrontDash extends javax.swing.JPanel {
         more = new javax.swing.JButton();
         jScrollPane6 = new javax.swing.JScrollPane();
         contibuters = new javax.swing.JTable();
+        jLabel48 = new javax.swing.JLabel();
+        jLabel51 = new javax.swing.JLabel();
+        jLabel52 = new javax.swing.JLabel();
 
         setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
@@ -276,6 +263,7 @@ public final class FrontDash extends javax.swing.JPanel {
         jLabel31.setForeground(new java.awt.Color(102, 102, 102));
         jLabel31.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/ins.png"))); // NOI18N
         jLabel31.setText("INSTAGRAM");
+        jLabel31.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jLabel31.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jLabel31MouseClicked(evt);
@@ -323,14 +311,11 @@ public final class FrontDash extends javax.swing.JPanel {
         jLabel41.setText("Breaking Barriers: Over 5000 Doctors Join Our Hospital Network");
         jPanel2.add(jLabel41, new org.netbeans.lib.awtextra.AbsoluteConstraints(36, 1080, -1, -1));
 
-        jLabel43.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
-        jLabel43.setText("© 2024 SWH, ALL RIGHTS RESERVED");
-        jPanel2.add(jLabel43, new org.netbeans.lib.awtextra.AbsoluteConstraints(1080, 5760, -1, -1));
-
         jLabel44.setFont(new java.awt.Font("Segoe UI", 0, 13)); // NOI18N
         jLabel44.setForeground(new java.awt.Color(102, 102, 102));
         jLabel44.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/pesbok.png"))); // NOI18N
         jLabel44.setText("FACEBOOK");
+        jLabel44.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jLabel44.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jLabel44MouseClicked(evt);
@@ -342,6 +327,7 @@ public final class FrontDash extends javax.swing.JPanel {
         jLabel45.setForeground(new java.awt.Color(102, 102, 102));
         jLabel45.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/yt.png"))); // NOI18N
         jLabel45.setText("YOUTUBE");
+        jLabel45.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jLabel45.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jLabel45MouseClicked(evt);
@@ -353,6 +339,7 @@ public final class FrontDash extends javax.swing.JPanel {
         jLabel46.setForeground(new java.awt.Color(102, 102, 102));
         jLabel46.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/twitah.png"))); // NOI18N
         jLabel46.setText("TWITTER");
+        jLabel46.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jLabel46.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jLabel46MouseClicked(evt);
@@ -439,7 +426,7 @@ public final class FrontDash extends javax.swing.JPanel {
 
         jLabel66.setFont(new java.awt.Font("Yu Gothic", 1, 30)); // NOI18N
         jLabel66.setText("Welcome Our Newest Doctors!");
-        jPanel2.add(jLabel66, new org.netbeans.lib.awtextra.AbsoluteConstraints(159, 3660, -1, -1));
+        jPanel2.add(jLabel66, new org.netbeans.lib.awtextra.AbsoluteConstraints(325, 3660, -1, -1));
 
         jLabel67.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
         jLabel67.setText("Welcome, new users! Your presence adds tremendous value to our community, and we're delighted ");
@@ -505,7 +492,7 @@ public final class FrontDash extends javax.swing.JPanel {
         jLabel79.setFont(new java.awt.Font("Segoe UI", 0, 13)); // NOI18N
         jLabel79.setForeground(new java.awt.Color(70, 133, 255));
         jLabel79.setText("October 9, 2024");
-        jPanel2.add(jLabel79, new org.netbeans.lib.awtextra.AbsoluteConstraints(650, 3850, -1, -1));
+        jPanel2.add(jLabel79, new org.netbeans.lib.awtextra.AbsoluteConstraints(675, 3850, -1, -1));
 
         jButton1.setBackground(new java.awt.Color(0, 87, 255));
         jButton1.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
@@ -517,23 +504,28 @@ public final class FrontDash extends javax.swing.JPanel {
 
         jButton2.setBackground(new java.awt.Color(255, 255, 255));
         jButton2.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
-        jButton2.setText("View More");
+        jButton2.setText("Go To Header");
         jButton2.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(204, 204, 204)));
         jButton2.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jButton2.setOpaque(false);
-        jPanel2.add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(645, 3880, 100, 30));
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
+        jPanel2.add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(670, 3880, 100, 30));
 
         jLabel59.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
-        jLabel59.setText("Hi everyone, don't forget to check out our newly stocked medications; we have a great selection for you.");
-        jPanel2.add(jLabel59, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 3710, -1, -1));
+        jLabel59.setText("Please join us in extending a warm welcome to our newest doctor! We're thrilled to have their ");
+        jPanel2.add(jLabel59, new org.netbeans.lib.awtextra.AbsoluteConstraints(155, 3710, -1, -1));
 
         jLabel80.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
-        jLabel80.setText("We've recently updated our inventory, so be sure to explore the exciting new options available. Make sure");
-        jPanel2.add(jLabel80, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 3740, -1, -1));
+        jLabel80.setText("expertise and dedication join our team, and we look forward to the valuable contributions they will ");
+        jPanel2.add(jLabel80, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 3740, -1, -1));
 
         jLabel81.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
-        jLabel81.setText(" to take a moment to discover our latest additions for all your health and wellness needs. We're confident");
-        jPanel2.add(jLabel81, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 3770, -1, -1));
+        jLabel81.setText("bring to our practice.");
+        jPanel2.add(jLabel81, new org.netbeans.lib.awtextra.AbsoluteConstraints(635, 3770, -1, -1));
 
         jButton3.setBackground(new java.awt.Color(0, 87, 255));
         jButton3.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
@@ -543,10 +535,6 @@ public final class FrontDash extends javax.swing.JPanel {
         jButton3.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jPanel2.add(jButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(790, 4020, 100, 30));
 
-        jLabel82.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
-        jLabel82.setText(" you'll find the perfect solution among our newly stocked medications. Stop by today and see what's new!");
-        jPanel2.add(jLabel82, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 3800, -1, -1));
-
         jLabel83.setFont(new java.awt.Font("Segoe UI", 0, 13)); // NOI18N
         jLabel83.setForeground(new java.awt.Color(70, 133, 255));
         jLabel83.setText("AS OF YEAR 2024");
@@ -555,7 +543,7 @@ public final class FrontDash extends javax.swing.JPanel {
         jLabel84.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
         jLabel84.setForeground(new java.awt.Color(102, 102, 102));
         jLabel84.setText("Released ");
-        jPanel2.add(jLabel84, new org.netbeans.lib.awtextra.AbsoluteConstraints(580, 3847, -1, -1));
+        jPanel2.add(jLabel84, new org.netbeans.lib.awtextra.AbsoluteConstraints(600, 3847, -1, -1));
 
         jPanel11.setBackground(new java.awt.Color(255, 255, 255));
         jPanel2.add(jPanel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 5790, 1220, 130));
@@ -581,6 +569,8 @@ public final class FrontDash extends javax.swing.JPanel {
         account.setForeground(new java.awt.Color(153, 153, 153));
         account.setText("View Account");
         account.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(153, 153, 153), 1, true));
+        account.setContentAreaFilled(false);
+        account.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         account.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 accountActionPerformed(evt);
@@ -600,7 +590,7 @@ public final class FrontDash extends javax.swing.JPanel {
         latestApp.setEnabled(false);
         jScrollPane3.setViewportView(latestApp);
 
-        jPanel2.add(jScrollPane3, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 1940, -1, 320));
+        jPanel2.add(jScrollPane3, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 1940, 630, 320));
 
         jLabel85.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
         jLabel85.setText("These contributors have not only saved our hospital but also propelled our medical technology to new heights,");
@@ -617,6 +607,7 @@ public final class FrontDash extends javax.swing.JPanel {
         more.setBackground(new java.awt.Color(255, 255, 255));
         more.setText("Manage Appointment");
         more.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(153, 153, 153), 1, true));
+        more.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jPanel2.add(more, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 1890, 130, 30));
 
         contibuters.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
@@ -632,6 +623,30 @@ public final class FrontDash extends javax.swing.JPanel {
         jScrollPane6.setViewportView(contibuters);
 
         jPanel2.add(jScrollPane6, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 2550, 1150, 460));
+
+        jLabel48.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
+        jLabel48.setText("© 2024 SWH, ALL RIGHTS RESERVED");
+        jPanel2.add(jLabel48, new org.netbeans.lib.awtextra.AbsoluteConstraints(1080, 5760, -1, -1));
+
+        jLabel51.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
+        jLabel51.setText("NAVIGATE HEADER");
+        jLabel51.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jLabel51.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel51MouseClicked(evt);
+            }
+        });
+        jPanel2.add(jLabel51, new org.netbeans.lib.awtextra.AbsoluteConstraints(590, 5530, -1, -1));
+
+        jLabel52.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
+        jLabel52.setText("NAVIGATE FOOTER");
+        jLabel52.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jLabel52.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel52MouseClicked(evt);
+            }
+        });
+        jPanel2.add(jLabel52, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 405, -1, -1));
 
         jScrollPane1.setViewportView(jPanel2);
 
@@ -685,6 +700,21 @@ public final class FrontDash extends javax.swing.JPanel {
     private void accountActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_accountActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_accountActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        JScrollBar verticalScrollBar = jScrollPane1.getVerticalScrollBar();
+        verticalScrollBar.setValue(verticalScrollBar.getMinimum());
+    }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void jLabel51MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel51MouseClicked
+        JScrollBar verticalScrollBar = jScrollPane1.getVerticalScrollBar();
+        verticalScrollBar.setValue(verticalScrollBar.getMinimum());
+    }//GEN-LAST:event_jLabel51MouseClicked
+
+    private void jLabel52MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel52MouseClicked
+        JScrollBar verticalScrollBar = jScrollPane1.getVerticalScrollBar();
+        verticalScrollBar.setValue(verticalScrollBar.getMaximum());
+    }//GEN-LAST:event_jLabel52MouseClicked
 
     public void animatePanelHorizontally(JPanel panel, int targetX) {
         if (moveTimers.containsKey(panel) && moveTimers.get(panel).isRunning()) {
@@ -788,9 +818,9 @@ public final class FrontDash extends javax.swing.JPanel {
     private void appointments() {
         try {
 
-            ResultSet rs = new DBConnection().getData("SELECT d.a_id,d.p_lastname, "
-                    + "d.a_contact, u.u_lastname, d.a_date, d.a_hours,"
-                    + "d.a_mins, d.a_time FROM d_appointments d INNER JOIN u_tbl u "
+            ResultSet rs = new DBConnection().getData("SELECT d.a_id AS 'ID',d.p_lastname AS 'LN', "
+                    + "d.a_contact AS 'C#', u.u_lastname AS 'DLN', d.a_date AS 'DATE', d.a_hours AS 'HR',"
+                    + "d.a_mins AS 'MN', d.a_time AS 'TZ' FROM d_appointments d INNER JOIN u_tbl u "
                     + "ON d.u_id = u.u_id; ");
             latestApp.setModel(DbUtils.resultSetToTableModel(rs));
 
@@ -902,14 +932,16 @@ public final class FrontDash extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel40;
     private javax.swing.JLabel jLabel41;
     private javax.swing.JLabel jLabel42;
-    private javax.swing.JLabel jLabel43;
     private javax.swing.JLabel jLabel44;
     private javax.swing.JLabel jLabel45;
     private javax.swing.JLabel jLabel46;
     private javax.swing.JLabel jLabel47;
+    private javax.swing.JLabel jLabel48;
     private javax.swing.JLabel jLabel49;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel50;
+    private javax.swing.JLabel jLabel51;
+    private javax.swing.JLabel jLabel52;
     private javax.swing.JLabel jLabel53;
     private javax.swing.JLabel jLabel54;
     private javax.swing.JLabel jLabel55;
@@ -942,7 +974,6 @@ public final class FrontDash extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel80;
     private javax.swing.JLabel jLabel81;
-    private javax.swing.JLabel jLabel82;
     private javax.swing.JLabel jLabel83;
     private javax.swing.JLabel jLabel84;
     private javax.swing.JLabel jLabel85;

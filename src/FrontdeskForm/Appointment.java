@@ -9,7 +9,6 @@ import java.sql.*;
 import java.time.*;
 import java.time.format.*;
 import java.util.*;
-import java.util.logging.*;
 import javax.swing.*;
 import javax.swing.Timer;
 import javax.swing.table.*;
@@ -290,7 +289,6 @@ public final class Appointment extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void idMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_idMouseClicked
-        // TODO add your handling code here:
     }//GEN-LAST:event_idMouseClicked
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
@@ -417,7 +415,6 @@ public final class Appointment extends javax.swing.JPanel {
     }//GEN-LAST:event_jTable1MouseClicked
 
     private void dateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_dateActionPerformed
-        // TODO add your handling code here:
     }//GEN-LAST:event_dateActionPerformed
 
     private void dateMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_dateMouseClicked
