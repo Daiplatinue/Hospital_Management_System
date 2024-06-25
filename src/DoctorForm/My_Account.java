@@ -233,8 +233,13 @@ public final class My_Account extends javax.swing.JPanel {
 
         type.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
         type.setForeground(new java.awt.Color(153, 153, 153));
-        type.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "PATIENT", "DOCTOR", "ADMIN", "RECEPTIONIST" }));
+        type.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "DOCTOR", "ADMIN", "RECEPTIONIST" }));
         type.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(153, 153, 153), 1, true));
+        type.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                typeActionPerformed(evt);
+            }
+        });
         add(type, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 520, 275, 30));
 
         status.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
@@ -520,6 +525,10 @@ public final class My_Account extends javax.swing.JPanel {
             jPopupMenu1.show(evt.getComponent(), evt.getX() + xOffset, evt.getY() + yOffset);
         }
     }//GEN-LAST:event_formMouseReleased
+
+    private void typeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_typeActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_typeActionPerformed
 
     private void disableAccount() {
         try {

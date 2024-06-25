@@ -1,26 +1,17 @@
 package DoctorForm;
 
-import Database.DBConnection;
-import Database.xternal_db;
-import Functions.Checkers;
-import java.awt.event.ActionEvent;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
-import java.util.HashMap;
-import java.util.Map;
-import javax.swing.JPanel;
-import javax.swing.SwingConstants;
+import Database.*;
+import Functions.*;
+import java.awt.event.*;
+import java.sql.*;
+import java.time.*;
+import java.time.format.*;
+import java.util.*;
+import javax.swing.*;
 import javax.swing.Timer;
-import javax.swing.event.DocumentEvent;
-import javax.swing.event.DocumentListener;
-import javax.swing.table.DefaultTableCellRenderer;
-import javax.swing.table.TableColumn;
-import javax.swing.table.TableModel;
-import net.proteanit.sql.DbUtils;
+import javax.swing.event.*;
+import javax.swing.table.*;
+import net.proteanit.sql.*;
 
 public final class DAppointment extends javax.swing.JPanel {
 

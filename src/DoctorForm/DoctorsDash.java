@@ -1,29 +1,17 @@
 package DoctorForm;
 
-import Database.DBConnection;
-import Database.xternal_db;
-import java.awt.Desktop;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.io.IOException;
-import java.net.MalformedURLException;
-import java.net.URISyntaxException;
-import java.net.URL;
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import javax.swing.JPanel;
-import javax.swing.SwingConstants;
+import Database.*;
+import java.awt.*;
+import java.awt.event.*;
+import java.io.*;
+import java.net.*;
+import java.sql.*;
+import java.util.*;
+import java.util.logging.*;
+import javax.swing.*;
 import javax.swing.Timer;
-import javax.swing.table.DefaultTableCellRenderer;
-import javax.swing.table.TableColumn;
-import net.proteanit.sql.DbUtils;
+import javax.swing.table.*;
+import net.proteanit.sql.*;
 
 public final class DoctorsDash extends javax.swing.JPanel {
 
@@ -142,6 +130,8 @@ public final class DoctorsDash extends javax.swing.JPanel {
         jLabel80 = new javax.swing.JLabel();
         jScrollPane6 = new javax.swing.JScrollPane();
         contibuters = new javax.swing.JTable();
+        jLabel52 = new javax.swing.JLabel();
+        jLabel51 = new javax.swing.JLabel();
 
         setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
@@ -267,6 +257,7 @@ public final class DoctorsDash extends javax.swing.JPanel {
         jLabel31.setForeground(new java.awt.Color(102, 102, 102));
         jLabel31.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/ins.png"))); // NOI18N
         jLabel31.setText("INSTAGRAM");
+        jLabel31.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jLabel31.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jLabel31MouseClicked(evt);
@@ -322,6 +313,7 @@ public final class DoctorsDash extends javax.swing.JPanel {
         jLabel44.setForeground(new java.awt.Color(102, 102, 102));
         jLabel44.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/pesbok.png"))); // NOI18N
         jLabel44.setText("FACEBOOK");
+        jLabel44.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jLabel44.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jLabel44MouseClicked(evt);
@@ -333,6 +325,7 @@ public final class DoctorsDash extends javax.swing.JPanel {
         jLabel45.setForeground(new java.awt.Color(102, 102, 102));
         jLabel45.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/yt.png"))); // NOI18N
         jLabel45.setText("YOUTUBE");
+        jLabel45.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jLabel45.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jLabel45MouseClicked(evt);
@@ -344,6 +337,7 @@ public final class DoctorsDash extends javax.swing.JPanel {
         jLabel46.setForeground(new java.awt.Color(102, 102, 102));
         jLabel46.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/twitah.png"))); // NOI18N
         jLabel46.setText("TWITTER");
+        jLabel46.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jLabel46.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jLabel46MouseClicked(evt);
@@ -513,6 +507,8 @@ public final class DoctorsDash extends javax.swing.JPanel {
         account.setForeground(new java.awt.Color(153, 153, 153));
         account.setText("View Account");
         account.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(153, 153, 153), 1, true));
+        account.setContentAreaFilled(false);
+        account.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         account.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 accountActionPerformed(evt);
@@ -549,6 +545,7 @@ public final class DoctorsDash extends javax.swing.JPanel {
         more.setBackground(new java.awt.Color(255, 255, 255));
         more.setText("View More");
         more.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(153, 153, 153), 1, true));
+        more.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jPanel2.add(more, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 1890, 120, 30));
 
         outpatient.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
@@ -600,6 +597,26 @@ public final class DoctorsDash extends javax.swing.JPanel {
         jScrollPane6.setViewportView(contibuters);
 
         jPanel2.add(jScrollPane6, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 2550, 1150, 460));
+
+        jLabel52.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
+        jLabel52.setText("NAVIGATE FOOTER");
+        jLabel52.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jLabel52.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel52MouseClicked(evt);
+            }
+        });
+        jPanel2.add(jLabel52, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 405, -1, -1));
+
+        jLabel51.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
+        jLabel51.setText("NAVIGATE HEADER");
+        jLabel51.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jLabel51.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel51MouseClicked(evt);
+            }
+        });
+        jPanel2.add(jLabel51, new org.netbeans.lib.awtextra.AbsoluteConstraints(590, 5530, -1, -1));
 
         jScrollPane1.setViewportView(jPanel2);
 
@@ -653,6 +670,16 @@ public final class DoctorsDash extends javax.swing.JPanel {
     private void accountActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_accountActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_accountActionPerformed
+
+    private void jLabel52MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel52MouseClicked
+        JScrollBar verticalScrollBar = jScrollPane1.getVerticalScrollBar();
+        verticalScrollBar.setValue(verticalScrollBar.getMaximum());
+    }//GEN-LAST:event_jLabel52MouseClicked
+
+    private void jLabel51MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel51MouseClicked
+        JScrollBar verticalScrollBar = jScrollPane1.getVerticalScrollBar();
+        verticalScrollBar.setValue(verticalScrollBar.getMinimum());
+    }//GEN-LAST:event_jLabel51MouseClicked
 
     public void animatePanelHorizontally(JPanel panel, int targetX) {
         if (moveTimers.containsKey(panel) && moveTimers.get(panel).isRunning()) {
@@ -924,6 +951,8 @@ public final class DoctorsDash extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel49;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel50;
+    private javax.swing.JLabel jLabel51;
+    private javax.swing.JLabel jLabel52;
     private javax.swing.JLabel jLabel53;
     private javax.swing.JLabel jLabel54;
     private javax.swing.JLabel jLabel55;

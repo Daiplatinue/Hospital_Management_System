@@ -1,10 +1,7 @@
 package FrontdeskForm;
 
-import DoctorForm.*;
 import LoginForm.*;
-import Functions.SeperatorAnimation;
-import static LoginForm.LoginDashboard.slide;
-import RegisterForm.*;
+import Functions.*;
 import com.formdev.flatlaf.*;
 import java.awt.Color;
 import java.awt.event.*;
@@ -15,7 +12,6 @@ public class FrontMain extends javax.swing.JFrame {
     public FrontMain() {
         initComponents();
 
-//      setOpacity(0.7f);
         setLocationRelativeTo(null);
         setShape(new RoundRectangle2D.Double(0, 0, getWidth(), getHeight(), 20, 20));
 
