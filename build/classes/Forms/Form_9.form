@@ -302,11 +302,10 @@
                   <Color blue="99" green="99" red="99" type="rgb"/>
                 </Property>
                 <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-                  <StringArray count="4">
-                    <StringItem index="0" value="PATIENT"/>
-                    <StringItem index="1" value="DOCTOR"/>
-                    <StringItem index="2" value="ADMIN"/>
-                    <StringItem index="3" value="RECEPTIONIST"/>
+                  <StringArray count="3">
+                    <StringItem index="0" value="DOCTOR"/>
+                    <StringItem index="1" value="ADMIN"/>
+                    <StringItem index="2" value="RECEPTIONIST"/>
                   </StringArray>
                 </Property>
                 <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">

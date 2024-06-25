@@ -1,6 +1,7 @@
 package Forms;
 
 import Database.*;
+import static Forms.Form_3.ac_db;
 import Functions.Checkers;
 import Swing.ImageAvatar;
 import com.formdev.flatlaf.*;
@@ -37,6 +38,36 @@ public final class Form_7 extends javax.swing.JPanel {
 
         question.setVisible(false);
         answer.setVisible(false);
+
+        type.setRenderer(new DefaultListCellRenderer() {
+            @Override
+            public Component getListCellRendererComponent(JList<?> list, Object value, int index,
+                    boolean isSelected, boolean cellHasFocus) {
+                JLabel renderer = (JLabel) super.getListCellRendererComponent(list, value, index, isSelected, cellHasFocus);
+                renderer.setHorizontalAlignment(SwingConstants.CENTER);
+                return renderer;
+            }
+        });
+
+        status.setRenderer(new DefaultListCellRenderer() {
+            @Override
+            public Component getListCellRendererComponent(JList<?> list, Object value, int index,
+                    boolean isSelected, boolean cellHasFocus) {
+                JLabel renderer = (JLabel) super.getListCellRendererComponent(list, value, index, isSelected, cellHasFocus);
+                renderer.setHorizontalAlignment(SwingConstants.CENTER);
+                return renderer;
+            }
+        });
+
+        gender.setRenderer(new DefaultListCellRenderer() {
+            @Override
+            public Component getListCellRendererComponent(JList<?> list, Object value, int index,
+                    boolean isSelected, boolean cellHasFocus) {
+                JLabel renderer = (JLabel) super.getListCellRendererComponent(list, value, index, isSelected, cellHasFocus);
+                renderer.setHorizontalAlignment(SwingConstants.CENTER);
+                return renderer;
+            }
+        });
     }
 
     @SuppressWarnings("unchecked")
@@ -251,7 +282,7 @@ public final class Form_7 extends javax.swing.JPanel {
 
         type.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
         type.setForeground(new java.awt.Color(153, 153, 153));
-        type.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "PATIENT", "DOCTOR", "ADMIN", "RECEPTIONIST" }));
+        type.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "DOCTOR", "ADMIN", "RECEPTIONIST" }));
         type.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(153, 153, 153), 1, true));
         jPanel4.add(type, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 520, 270, 30));
 
@@ -446,6 +477,10 @@ public final class Form_7 extends javax.swing.JPanel {
     }//GEN-LAST:event_ac_pendingMousePressed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        DefaultTableModel tbl = (DefaultTableModel) ac_pending.getModel();
+        TableRowSorter<DefaultTableModel> obj = new TableRowSorter<>(tbl);
+        ac_pending.setRowSorter(obj);
+        obj.setRowFilter(RowFilter.regexFilter(search.getText()));
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void picture1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_picture1MouseClicked
@@ -578,7 +613,7 @@ public final class Form_7 extends javax.swing.JPanel {
 
                     selectedFile = new File(img);
                     coverSelection = new File(coverImg);
-                    
+
                     jTabbedPane1.setSelectedIndex(1);
                 }
             } catch (SQLException er) {
@@ -609,17 +644,6 @@ public final class Form_7 extends javax.swing.JPanel {
         }
     }
 
-    private void setScaledImage(String imgPath, JLabel label, int width, int height) {
-        if (imgPath != null && !imgPath.isEmpty()) {
-            ImageIcon imageIcon = new ImageIcon(imgPath);
-            Image image = imageIcon.getImage();
-            Image scaledImage = image.getScaledInstance(width, height, Image.SCALE_SMOOTH);
-            label.setIcon(new ImageIcon(scaledImage));
-        } else {
-            label.setIcon(null);
-        }
-    }
-
     public void mouseEntered(MouseEvent me) {
         int x = getWidth() - 30;
         if (new Rectangle(x, 0, 30, 30).contains(me.getPoint())) {
@@ -640,7 +664,7 @@ public final class Form_7 extends javax.swing.JPanel {
 
     private void displayData() {
         try {
-            ResultSet rs = new DBConnection().getData("select u_id,u_lastname,u_firstname,u_gender,u_type,u_status from u_tbl where u_status = 'Pending'");
+            ResultSet rs = new DBConnection().getData("select u_id AS 'ID',u_lastname AS 'LN',u_firstname AS 'FN',u_gender AS 'GN',u_type AS 'TP',u_status AS 'STS' from u_tbl where u_status = 'Pending'");
             ac_pending.setModel(DbUtils.resultSetToTableModel(rs));
 
             ResultSet pendingCountRS = new DBConnection().getData("select count(*) as pending_count from u_tbl where u_status = 'Pending'");
@@ -739,68 +763,6 @@ public final class Form_7 extends javax.swing.JPanel {
         search.putClientProperty(FlatClientProperties.PLACEHOLDER_TEXT, "SEARCH BAR");
     }
 
-    private boolean isValidEmail() {
-        String xemailChecker = email.getText().trim();
-
-        if (xemailChecker.isEmpty()) {
-            emailChecker.setText("");
-            emailChecker.setForeground(Color.WHITE);
-            return false;
-        }
-
-        boolean isValid = isValidEmails(xemailChecker);
-
-        if (isValid) {
-            emailChecker.setText("Email is valid");
-            emailChecker.setForeground(Color.GREEN);
-            email.setBorder(BorderFactory.createLineBorder(Color.GREEN));
-        } else {
-            emailChecker.setText("Only gmail, yahoo, hotmail domains!");
-            emailChecker.setForeground(Color.RED);
-            email.setBorder(BorderFactory.createLineBorder(Color.RED));
-        }
-
-        return isValid;
-    }
-
-    private boolean isValidEmails(String email) {
-        String regex = "^[a-zA-Z0-9_+&*-]+(?:\\.[a-zA-Z0-9_+&*-]+)*@(?:gmail\\.com|yahoo\\.com|hotmail\\.com)$";
-
-        Pattern pattern = Pattern.compile(regex);
-
-        Matcher matcher = pattern.matcher(email);
-
-        return matcher.matches();
-    }
-
-    private boolean isContactValid(String contacts) {
-        if (contacts == null || contacts.isEmpty()) {
-            contactChecker.setText("");
-            contactChecker.setForeground(Color.WHITE);
-            return false;
-        }
-
-        String digitsOnly = contacts.replaceAll("\\D", "");
-
-        if (digitsOnly.length() != 11) {
-            contactChecker.setText("Contact must be exactly 11 digits!");
-            contactChecker.setForeground(Color.RED);
-            contact.setBorder(BorderFactory.createLineBorder(Color.RED));
-            return false;
-        }
-
-        if (!contacts.startsWith("63") && !contacts.startsWith("09")) {
-            contactChecker.setText("Contact must start with '63' or '09'!");
-            contactChecker.setForeground(Color.RED);
-            contact.setBorder(BorderFactory.createLineBorder(Color.RED));
-            return false;
-        }
-
-        contactChecker.setText("Contact is valid!");
-        contactChecker.setForeground(Color.GREEN);
-        contact.setBorder(BorderFactory.createLineBorder(Color.GREEN));
-        return true;
-    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTable ac_pending;

@@ -1,12 +1,10 @@
 package Forms;
 
-import Database.DBConnection;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import javax.swing.SwingConstants;
-import javax.swing.table.DefaultTableCellRenderer;
-import javax.swing.table.TableColumn;
-import net.proteanit.sql.DbUtils;
+import Database.*;
+import java.sql.*;
+import javax.swing.*;
+import javax.swing.table.*;
+import net.proteanit.sql.*;
 
 public class Form_1 extends javax.swing.JPanel {
 
@@ -48,9 +46,9 @@ public class Form_1 extends javax.swing.JPanel {
     private void user_logs() {
         try {
 
-            ResultSet rs = new DBConnection().getData("SELECT a_logs.a_id, "
-                    + "u_tbl.u_lastname, u_tbl.u_firstname, a_logs.a_actions,a_logs.a_date, "
-                    + "a_logs.a_hhmmss FROM a_logs INNER JOIN u_tbl ON a_logs.u_id=u_tbl.u_id;");
+            ResultSet rs = new DBConnection().getData("SELECT a_logs.a_id AS 'ID', "
+                    + "u_tbl.u_lastname AS 'LN', u_tbl.u_firstname AS 'FN', a_logs.a_actions 'ACT',a_logs.a_date AS 'DATE', "
+                    + "a_logs.a_hhmmss AS 'TZ' FROM a_logs INNER JOIN u_tbl ON a_logs.u_id=u_tbl.u_id;");
             logs.setModel(DbUtils.resultSetToTableModel(rs));
 
             TableColumn column1, column2, column3, column4, column5, column6;
@@ -85,9 +83,8 @@ public class Form_1 extends javax.swing.JPanel {
 
     private void newComers() {
         try {
-            ResultSet rs = new DBConnection().getData("SELECT n_comers.u_id, u_tbl.u_lastname, "
-                    + "u_tbl.u_firstname, u_tbl.u_gender, u_tbl.u_type FROM n_comers"
-                    + " INNER JOIN u_tbl ON n_comers.u_id = u_tbl.u_id");
+            ResultSet rs = new DBConnection().getData("SELECT u.u_lastname AS 'Last Name', u.u_firstname AS 'First Name', "
+                    + "u.u_gender AS 'Gender', u.u_type AS 'Type' FROM n_comers n INNER JOIN u_tbl u ON n.u_id = u.u_id");
             newcomers.setModel(DbUtils.resultSetToTableModel(rs));
 
             ((DefaultTableCellRenderer) newcomers.getTableHeader().getDefaultRenderer())

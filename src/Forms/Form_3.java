@@ -228,6 +228,7 @@ public final class Form_3 extends javax.swing.JPanel {
         jPanel3 = new javax.swing.JPanel();
         searchBar = new javax.swing.JTextField();
         changeView1 = new javax.swing.JButton();
+        jLabel1 = new javax.swing.JLabel();
         scroll = new javax.swing.JScrollPane();
         jPanel1 = new javax.swing.JPanel();
         jScrollPane2 = new javax.swing.JScrollPane();
@@ -783,6 +784,12 @@ public final class Form_3 extends javax.swing.JPanel {
         });
         scrols.add(changeView1, new org.netbeans.lib.awtextra.AbsoluteConstraints(1090, 20, 140, 30));
 
+        jLabel1.setBackground(new java.awt.Color(204, 204, 204));
+        jLabel1.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
+        jLabel1.setForeground(new java.awt.Color(153, 153, 153));
+        jLabel1.setText("Viewing all accounts provides a comprehensive overview of the hospital's financial and operational status");
+        scrols.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(95, 26, -1, -1));
+
         scroll1.setViewportView(scrols);
 
         pane.addTab("tab3", scroll1);
@@ -865,7 +872,7 @@ public final class Form_3 extends javax.swing.JPanel {
 
         type.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
         type.setForeground(new java.awt.Color(153, 153, 153));
-        type.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "PATIENT", "DOCTOR", "ADMIN", "RECEPTIONIST" }));
+        type.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "DOCTOR", "ADMIN", "RECEPTIONIST" }));
         type.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(153, 153, 153), 1, true));
         jPanel4.add(type, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 520, 270, 30));
 
@@ -1667,7 +1674,7 @@ public final class Form_3 extends javax.swing.JPanel {
     private void displayData() {
         try {
             xternal_db xdb = xternal_db.getInstance();
-            ResultSet rs = new DBConnection().getData("select u_id,u_lastname,u_firstname,u_gender,u_type,u_status from u_tbl where u_status in ('active', 'in-active') and u_id != '" + xdb.getId() + "'");
+            ResultSet rs = new DBConnection().getData("select u_id AS 'ID',u_lastname AS 'LN',u_firstname AS 'FN',u_gender AS 'GN',u_type AS 'TP',u_status AS 'STS' from u_tbl where u_status in ('active', 'in-active') and u_id != '" + xdb.getId() + "'");
             ac_db.setModel(DbUtils.resultSetToTableModel(rs));
 
             TableColumn column0, column1, column2, column3, column4, column5;
@@ -2097,6 +2104,7 @@ public final class Form_3 extends javax.swing.JPanel {
     private Swing.ImageAvatar imageAvatar1;
     private javax.swing.JLabel inactive;
     private javax.swing.JButton jButton1;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel5;

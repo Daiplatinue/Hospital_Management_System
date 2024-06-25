@@ -354,7 +354,6 @@ public final class Donation extends javax.swing.JPanel {
                     + "'" + jTextArea1.getText() + "')");
 
             Checkers.successFieldChecker("THANKYOU FOR YOUR KINDFULL HEART!");
-
             mop.setText("GCASH");
             value.setText("");
             sender.setText("");

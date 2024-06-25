@@ -1,32 +1,18 @@
 package LoginForm;
 
-import Database.DBConnection;
-import Functions.SeperatorAnimation;
-import java.awt.Color;
-import java.awt.Desktop;
-import java.awt.Image;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.io.IOException;
-import java.net.MalformedURLException;
-import java.net.URISyntaxException;
-import java.net.URL;
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import javax.swing.ImageIcon;
-import javax.swing.JPanel;
-import javax.swing.SwingConstants;
+import Database.*;
+import Functions.*;
+import java.awt.*;
+import java.awt.event.*;
+import java.io.*;
+import java.net.*;
+import java.sql.*;
+import java.util.*;
+import java.util.logging.*;
+import javax.swing.*;
 import javax.swing.Timer;
-import javax.swing.table.DefaultTableCellRenderer;
-import javax.swing.table.TableColumn;
-import net.proteanit.sql.DbUtils;
+import javax.swing.table.*;
+import net.proteanit.sql.*;
 
 public final class Main extends javax.swing.JPanel {
 
@@ -172,12 +158,16 @@ public final class Main extends javax.swing.JPanel {
         jLabel80 = new javax.swing.JLabel();
         jLabel81 = new javax.swing.JLabel();
         jButton3 = new javax.swing.JButton();
-        jLabel82 = new javax.swing.JLabel();
         jLabel83 = new javax.swing.JLabel();
         jLabel84 = new javax.swing.JLabel();
         jPanel11 = new javax.swing.JPanel();
         jScrollPane3 = new javax.swing.JScrollPane();
         contibuters = new javax.swing.JTable();
+        jLabel52 = new javax.swing.JLabel();
+        jLabel50 = new javax.swing.JLabel();
+        jLabel85 = new javax.swing.JLabel();
+        jButton2 = new javax.swing.JButton();
+        jButton4 = new javax.swing.JButton();
 
         setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
@@ -321,6 +311,7 @@ public final class Main extends javax.swing.JPanel {
         jLabel31.setForeground(new java.awt.Color(102, 102, 102));
         jLabel31.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/ins.png"))); // NOI18N
         jLabel31.setText("INSTAGRAM");
+        jLabel31.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jLabel31.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jLabel31MouseClicked(evt);
@@ -392,6 +383,7 @@ public final class Main extends javax.swing.JPanel {
         jLabel44.setForeground(new java.awt.Color(102, 102, 102));
         jLabel44.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/pesbok.png"))); // NOI18N
         jLabel44.setText("FACEBOOK");
+        jLabel44.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jLabel44.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jLabel44MouseClicked(evt);
@@ -403,6 +395,7 @@ public final class Main extends javax.swing.JPanel {
         jLabel45.setForeground(new java.awt.Color(102, 102, 102));
         jLabel45.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/yt.png"))); // NOI18N
         jLabel45.setText("YOUTUBE");
+        jLabel45.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jLabel45.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jLabel45MouseClicked(evt);
@@ -414,6 +407,7 @@ public final class Main extends javax.swing.JPanel {
         jLabel46.setForeground(new java.awt.Color(102, 102, 102));
         jLabel46.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/twitah.png"))); // NOI18N
         jLabel46.setText("TWITTER");
+        jLabel46.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jLabel46.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jLabel46MouseClicked(evt);
@@ -427,8 +421,8 @@ public final class Main extends javax.swing.JPanel {
         jPanel2.add(jLabel47, new org.netbeans.lib.awtextra.AbsoluteConstraints(545, 5090, -1, -1));
 
         jLabel48.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
-        jLabel48.setText("ensuring that each one stands out in their field through excellence and dedication");
-        jPanel2.add(jLabel48, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 1810, -1, -1));
+        jLabel48.setText("This is still under development , can't finish this one due to time limitation. I have only 0.1% progression per day, more on debugging and experimentation :D ");
+        jPanel2.add(jLabel48, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 2240, -1, -1));
 
         jLabel49.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
         jLabel49.setText("healthier and brighter future for all.");
@@ -574,7 +568,7 @@ public final class Main extends javax.swing.JPanel {
         jLabel79.setFont(new java.awt.Font("Segoe UI", 0, 13)); // NOI18N
         jLabel79.setForeground(new java.awt.Color(70, 133, 255));
         jLabel79.setText("October 9, 2024");
-        jPanel2.add(jLabel79, new org.netbeans.lib.awtextra.AbsoluteConstraints(650, 3850, -1, -1));
+        jPanel2.add(jLabel79, new org.netbeans.lib.awtextra.AbsoluteConstraints(675, 3850, -1, -1));
 
         jButton1.setBackground(new java.awt.Color(0, 87, 255));
         jButton1.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
@@ -590,16 +584,16 @@ public final class Main extends javax.swing.JPanel {
         jPanel2.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(990, 4020, 100, 30));
 
         jLabel59.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
-        jLabel59.setText("Hi everyone, don't forget to check out our newly stocked medications; we have a great selection for you.");
-        jPanel2.add(jLabel59, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 3710, -1, -1));
+        jLabel59.setText("Please join us in extending a warm welcome to our newest doctor! We're thrilled to have their ");
+        jPanel2.add(jLabel59, new org.netbeans.lib.awtextra.AbsoluteConstraints(155, 3710, -1, -1));
 
         jLabel80.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
-        jLabel80.setText("We've recently updated our inventory, so be sure to explore the exciting new options available. Make sure");
-        jPanel2.add(jLabel80, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 3740, -1, -1));
+        jLabel80.setText("expertise and dedication join our team, and we look forward to the valuable contributions they will ");
+        jPanel2.add(jLabel80, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 3740, -1, -1));
 
         jLabel81.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
-        jLabel81.setText(" to take a moment to discover our latest additions for all your health and wellness needs. We're confident");
-        jPanel2.add(jLabel81, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 3770, -1, -1));
+        jLabel81.setText("bring to our practice.");
+        jPanel2.add(jLabel81, new org.netbeans.lib.awtextra.AbsoluteConstraints(635, 3770, -1, -1));
 
         jButton3.setBackground(new java.awt.Color(0, 87, 255));
         jButton3.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
@@ -614,10 +608,6 @@ public final class Main extends javax.swing.JPanel {
         });
         jPanel2.add(jButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(790, 4020, 100, 30));
 
-        jLabel82.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
-        jLabel82.setText(" you'll find the perfect solution among our newly stocked medications. Stop by today and see what's new!");
-        jPanel2.add(jLabel82, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 3800, -1, -1));
-
         jLabel83.setFont(new java.awt.Font("Segoe UI", 0, 13)); // NOI18N
         jLabel83.setForeground(new java.awt.Color(70, 133, 255));
         jLabel83.setText("AS OF YEAR 2024");
@@ -626,7 +616,7 @@ public final class Main extends javax.swing.JPanel {
         jLabel84.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
         jLabel84.setForeground(new java.awt.Color(102, 102, 102));
         jLabel84.setText("Released ");
-        jPanel2.add(jLabel84, new org.netbeans.lib.awtextra.AbsoluteConstraints(580, 3847, -1, -1));
+        jPanel2.add(jLabel84, new org.netbeans.lib.awtextra.AbsoluteConstraints(600, 3847, -1, -1));
 
         jPanel11.setBackground(new java.awt.Color(255, 255, 255));
         jPanel2.add(jPanel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 5790, 1220, 130));
@@ -647,6 +637,54 @@ public final class Main extends javax.swing.JPanel {
         jScrollPane3.setViewportView(contibuters);
 
         jPanel2.add(jScrollPane3, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 2550, 1150, 460));
+
+        jLabel52.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
+        jLabel52.setText("NAVIGATE FOOTER");
+        jLabel52.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jLabel52.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel52MouseClicked(evt);
+            }
+        });
+        jPanel2.add(jLabel52, new org.netbeans.lib.awtextra.AbsoluteConstraints(265, 317, -1, -1));
+
+        jLabel50.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
+        jLabel50.setText("ensuring that each one stands out in their field through excellence and dedication");
+        jPanel2.add(jLabel50, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 1810, -1, -1));
+
+        jLabel85.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
+        jLabel85.setText("NAVIGATE HEADER");
+        jLabel85.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jLabel85.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel85MouseClicked(evt);
+            }
+        });
+        jPanel2.add(jLabel85, new org.netbeans.lib.awtextra.AbsoluteConstraints(590, 5530, -1, -1));
+
+        jButton2.setBackground(new java.awt.Color(255, 255, 255));
+        jButton2.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
+        jButton2.setText("Go To Header");
+        jButton2.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(204, 204, 204)));
+        jButton2.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jButton2.setOpaque(false);
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
+        jPanel2.add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(670, 3880, 100, 30));
+
+        jButton4.setBackground(new java.awt.Color(255, 255, 255));
+        jButton4.setForeground(new java.awt.Color(45, 117, 255));
+        jButton4.setText("Refresh");
+        jButton4.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(45, 117, 255), 1, true));
+        jButton4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton4ActionPerformed(evt);
+            }
+        });
+        jPanel2.add(jButton4, new org.netbeans.lib.awtextra.AbsoluteConstraints(1140, 2510, 80, 30));
 
         jScrollPane1.setViewportView(jPanel2);
 
@@ -717,6 +755,25 @@ public final class Main extends javax.swing.JPanel {
         showImage(imgIndex);
     }//GEN-LAST:event_jButton1ActionPerformed
 
+    private void jLabel52MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel52MouseClicked
+        JScrollBar verticalScrollBar = jScrollPane1.getVerticalScrollBar();
+        verticalScrollBar.setValue(verticalScrollBar.getMaximum());
+    }//GEN-LAST:event_jLabel52MouseClicked
+
+    private void jLabel85MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel85MouseClicked
+        JScrollBar verticalScrollBar = jScrollPane1.getVerticalScrollBar();
+        verticalScrollBar.setValue(verticalScrollBar.getMinimum());
+    }//GEN-LAST:event_jLabel85MouseClicked
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        JScrollBar verticalScrollBar = jScrollPane1.getVerticalScrollBar();
+        verticalScrollBar.setValue(verticalScrollBar.getMinimum());
+    }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+        topConttributers();
+    }//GEN-LAST:event_jButton4ActionPerformed
+
     public void animatePanelHorizontally(JPanel panel, int targetX) {
         if (moveTimers.containsKey(panel) && moveTimers.get(panel).isRunning()) {
             moveTimers.get(panel).stop();
@@ -756,7 +813,7 @@ public final class Main extends javax.swing.JPanel {
         }
     }
 
-    private void topConttributers() {
+    public void topConttributers() {
         try {
             ResultSet rs = new DBConnection().getData("SELECT ds_sender AS 'Sender Name', "
                     + "CONCAT('₱', FORMAT(ds_value, 2)) AS 'Amount', ds_description AS 'Description' "
@@ -824,7 +881,9 @@ public final class Main extends javax.swing.JPanel {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTable contibuters;
     private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
+    private javax.swing.JButton jButton4;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
@@ -868,7 +927,9 @@ public final class Main extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel48;
     private javax.swing.JLabel jLabel49;
     private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel50;
     private javax.swing.JLabel jLabel51;
+    private javax.swing.JLabel jLabel52;
     private javax.swing.JLabel jLabel53;
     private javax.swing.JLabel jLabel54;
     private javax.swing.JLabel jLabel55;
@@ -901,9 +962,9 @@ public final class Main extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel80;
     private javax.swing.JLabel jLabel81;
-    private javax.swing.JLabel jLabel82;
     private javax.swing.JLabel jLabel83;
     private javax.swing.JLabel jLabel84;
+    private javax.swing.JLabel jLabel85;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel11;

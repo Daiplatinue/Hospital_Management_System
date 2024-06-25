@@ -168,7 +168,10 @@ public final class Form_4 extends javax.swing.JPanel {
     }//GEN-LAST:event_search1MouseExited
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        // TODO add your handling code here:
+        DefaultTableModel tbl = (DefaultTableModel) applogs.getModel();
+        TableRowSorter<DefaultTableModel> obj = new TableRowSorter<>(tbl);
+        applogs.setRowSorter(obj);
+        obj.setRowFilter(RowFilter.regexFilter(search1.getText()));
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void search1KeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_search1KeyReleased

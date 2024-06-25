@@ -74,6 +74,46 @@ public final class Appointment extends javax.swing.JPanel {
             }
         });
 
+        doctors.setRenderer(new DefaultListCellRenderer() {
+            @Override
+            public Component getListCellRendererComponent(JList<?> list, Object value, int index,
+                    boolean isSelected, boolean cellHasFocus) {
+                JLabel renderer = (JLabel) super.getListCellRendererComponent(list, value, index, isSelected, cellHasFocus);
+                renderer.setHorizontalAlignment(SwingConstants.CENTER);
+                return renderer;
+            }
+        });
+
+        hours.setRenderer(new DefaultListCellRenderer() {
+            @Override
+            public Component getListCellRendererComponent(JList<?> list, Object value, int index,
+                    boolean isSelected, boolean cellHasFocus) {
+                JLabel renderer = (JLabel) super.getListCellRendererComponent(list, value, index, isSelected, cellHasFocus);
+                renderer.setHorizontalAlignment(SwingConstants.CENTER);
+                return renderer;
+            }
+        });
+
+        min.setRenderer(new DefaultListCellRenderer() {
+            @Override
+            public Component getListCellRendererComponent(JList<?> list, Object value, int index,
+                    boolean isSelected, boolean cellHasFocus) {
+                JLabel renderer = (JLabel) super.getListCellRendererComponent(list, value, index, isSelected, cellHasFocus);
+                renderer.setHorizontalAlignment(SwingConstants.CENTER);
+                return renderer;
+            }
+        });
+
+        pm_am.setRenderer(new DefaultListCellRenderer() {
+            @Override
+            public Component getListCellRendererComponent(JList<?> list, Object value, int index,
+                    boolean isSelected, boolean cellHasFocus) {
+                JLabel renderer = (JLabel) super.getListCellRendererComponent(list, value, index, isSelected, cellHasFocus);
+                renderer.setHorizontalAlignment(SwingConstants.CENTER);
+                return renderer;
+            }
+        });
+
     }
 
     @SuppressWarnings("unchecked")
