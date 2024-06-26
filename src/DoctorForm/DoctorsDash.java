@@ -132,6 +132,7 @@ public final class DoctorsDash extends javax.swing.JPanel {
         contibuters = new javax.swing.JTable();
         jLabel52 = new javax.swing.JLabel();
         jLabel51 = new javax.swing.JLabel();
+        jButton2 = new javax.swing.JButton();
 
         setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
@@ -618,6 +619,17 @@ public final class DoctorsDash extends javax.swing.JPanel {
         });
         jPanel2.add(jLabel51, new org.netbeans.lib.awtextra.AbsoluteConstraints(590, 5530, -1, -1));
 
+        jButton2.setBackground(new java.awt.Color(255, 255, 255));
+        jButton2.setForeground(new java.awt.Color(153, 153, 153));
+        jButton2.setText("Refresh");
+        jButton2.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(153, 153, 153), 1, true));
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
+        jPanel2.add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 3590, 110, 30));
+
         jScrollPane1.setViewportView(jPanel2);
 
         add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1310, 740));
@@ -680,6 +692,11 @@ public final class DoctorsDash extends javax.swing.JPanel {
         JScrollBar verticalScrollBar = jScrollPane1.getVerticalScrollBar();
         verticalScrollBar.setValue(verticalScrollBar.getMinimum());
     }//GEN-LAST:event_jLabel51MouseClicked
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        displayOutpatients();
+        displayInpatients();
+    }//GEN-LAST:event_jButton2ActionPerformed
 
     public void animatePanelHorizontally(JPanel panel, int targetX) {
         if (moveTimers.containsKey(panel) && moveTimers.get(panel).isRunning()) {
@@ -907,6 +924,7 @@ public final class DoctorsDash extends javax.swing.JPanel {
     private javax.swing.JButton account;
     private javax.swing.JTable contibuters;
     private javax.swing.JTable inpatient;
+    private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;

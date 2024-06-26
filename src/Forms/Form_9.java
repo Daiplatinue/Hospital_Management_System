@@ -151,7 +151,7 @@ public final class Form_9 extends javax.swing.JPanel {
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
         add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, -20, 1340, 60));
 
-        jPanel2.setBackground(new java.awt.Color(250, 250, 250));
+        jPanel2.setBackground(new java.awt.Color(255, 255, 255));
         jPanel2.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
                 jPanel2formMousePressed(evt);

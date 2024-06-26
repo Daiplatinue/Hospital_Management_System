@@ -1,13 +1,13 @@
 package Forms;
 
 import Database.*;
-import static Forms.Form_3.ac_db;
 import Functions.Checkers;
 import com.formdev.flatlaf.*;
 import java.sql.*;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import javax.swing.RowFilter;
+import javax.swing.SwingConstants;
 import javax.swing.table.*;
 import net.proteanit.sql.*;
 
@@ -25,7 +25,6 @@ public final class Form_8 extends javax.swing.JPanel {
 
         jPopupMenu1 = new javax.swing.JPopupMenu();
         jMenuItem2 = new javax.swing.JMenuItem();
-        jMenuItem1 = new javax.swing.JMenuItem();
         jButton1 = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
         search = new javax.swing.JTextField();
@@ -40,15 +39,7 @@ public final class Form_8 extends javax.swing.JPanel {
         });
         jPopupMenu1.add(jMenuItem2);
 
-        jMenuItem1.setText("Delete Permanently");
-        jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem1ActionPerformed(evt);
-            }
-        });
-        jPopupMenu1.add(jMenuItem1);
-
-        setBackground(new java.awt.Color(250, 250, 250));
+        setBackground(new java.awt.Color(255, 255, 255));
         setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jButton1.setBackground(new java.awt.Color(255, 255, 255));
@@ -128,9 +119,6 @@ public final class Form_8 extends javax.swing.JPanel {
         recoverAccount();
     }//GEN-LAST:event_jMenuItem2ActionPerformed
 
-    private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
-    }//GEN-LAST:event_jMenuItem1ActionPerformed
-
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         DefaultTableModel tbl = (DefaultTableModel) ac_archive.getModel();
         TableRowSorter<DefaultTableModel> obj = new TableRowSorter<>(tbl);
@@ -141,8 +129,15 @@ public final class Form_8 extends javax.swing.JPanel {
     private void displayData() {
         try {
             xternal_db xdb = xternal_db.getInstance();
-            ResultSet rs = new DBConnection().getData("SELECT u_id,u_lastname,u_firstname,u_gender,u_type,u_status FROM u_tbl WHERE u_status = 'DELETED' AND u_id != '" + xdb.getId() + "'");
+            ResultSet rs = new DBConnection().getData("SELECT u_id AS 'ID',u_lastname AS 'LN',u_firstname AS 'FN',u_gender AS 'GN',u_type AS 'TP',u_status AS 'STS'"
+                    + "FROM u_tbl WHERE u_status = 'DELETED' AND u_id != '" + xdb.getId() + "'");
             ac_archive.setModel(DbUtils.resultSetToTableModel(rs));
+
+            ((DefaultTableCellRenderer) ac_archive.getTableHeader().getDefaultRenderer())
+                    .setHorizontalAlignment(SwingConstants.CENTER);
+            DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
+            centerRenderer.setHorizontalAlignment(SwingConstants.CENTER);
+            ac_archive.setDefaultRenderer(Object.class, centerRenderer);
         } catch (SQLException e) {
             System.err.println("An error occurred while fetching data: " + e.getMessage());
         }
@@ -155,30 +150,18 @@ public final class Form_8 extends javax.swing.JPanel {
         } else {
             try {
                 TableModel tbl = ac_archive.getModel();
-                String accountId = tbl.getValueAt(rowIndex, 0).toString();
-                String query = "UPDATE u_tbl SET u_status = 'ACTIVE' WHERE u_id = ?";
 
-                Connection cn = new DBConnection().getConnection();
-                PreparedStatement ps = cn.prepareStatement(query);
-                ps.setString(1, accountId);
-                ps.executeUpdate();
-
+                new DBConnection().updateData("update u_tbl SET u_status = 'ACTIVE' where u_id = '" + tbl.getValueAt(rowIndex, 0) + "'");
                 Checkers.successFieldChecker("ACCOUNT RECOVERED SUCCESSFULLY!!");
 
-                PreparedStatement tlogs;
                 LocalDateTime currentDateTime = LocalDateTime.now();
                 DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
                 DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("hh:mm:ss a");
                 String formattedDateTime = currentDateTime.format(formatter);
                 String formattedTime = currentDateTime.format(timeFormatter);
 
-                tlogs = cn.prepareStatement("INSERT INTO a_logs (u_id, a_actions, a_date, a_hhmmss) VALUES (?, ?, ?, ?)");
-
-                xternal_db xdb = new xternal_db();
-                tlogs.setString(1, xdb.getId());
-                tlogs.setString(2, "Recovered An Account, Account ID = '" + accountId + "'");
-                tlogs.setString(3, formattedDateTime);
-                tlogs.setString(4, formattedTime);
+                new DBConnection().insertData("insert into a_logs (u_id, a_actions, a_date, a_hhmmss) values ('" + xternal_db.getInstance().getId() + "', "
+                        + "'Recovered An Account', '" + formattedDateTime + "', '" + formattedTime + "')");
 
                 displayData();
             } catch (SQLException er) {
@@ -196,7 +179,6 @@ public final class Form_8 extends javax.swing.JPanel {
     private javax.swing.JTable ac_archive;
     private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JPopupMenu jPopupMenu1;
     private javax.swing.JScrollPane jScrollPane1;

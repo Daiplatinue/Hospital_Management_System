@@ -185,7 +185,7 @@ public final class Form_4 extends javax.swing.JPanel {
                     + "WHERE a_actions LIKE '%Appointment added by%'");
             applogs.setModel(DbUtils.resultSetToTableModel(rs));
 
-            TableColumn column1, column2, column3, column4, column5;
+            TableColumn column1;
 
             column1 = applogs.getColumnModel().getColumn(2);
             column1.setPreferredWidth(300);

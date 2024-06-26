@@ -59,9 +59,7 @@ public final class Appointment extends javax.swing.JPanel {
             public void itemStateChanged(ItemEvent e) {
                 if (e.getStateChange() == ItemEvent.SELECTED) {
                     try {
-                        String selectedDoctor = doctors.getSelectedItem().toString();
-                        ResultSet rs = new DBConnection().getData("SELECT * FROM u_tbl WHERE u_lastname = '" + selectedDoctor + "'");
-
+                        ResultSet rs = new DBConnection().getData("SELECT * FROM u_tbl WHERE u_lastname = '" + doctors.getSelectedItem() + "'");
                         if (rs.next()) {
                             id.setText(rs.getString("u_id"));
                         } else {
@@ -113,6 +111,17 @@ public final class Appointment extends javax.swing.JPanel {
                 return renderer;
             }
         });
+
+        try {
+            ResultSet rs = new DBConnection().getData("SELECT * FROM u_tbl WHERE u_lastname = '" + doctors.getSelectedItem() + "'");
+            if (rs.next()) {
+                id.setText(rs.getString("u_id"));
+            } else {
+                id.setText("");
+            }
+        } catch (SQLException er) {
+            System.out.println(er.getMessage());
+        }
 
     }
 

@@ -1,7 +1,6 @@
 package Forms;
 
 import Database.*;
-import static Forms.Form_3.ac_db;
 import Functions.Checkers;
 import Swing.ImageAvatar;
 import com.formdev.flatlaf.*;
@@ -11,8 +10,6 @@ import java.io.File;
 import java.sql.*;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 import javax.swing.*;
 import javax.swing.border.Border;
 import javax.swing.table.*;
@@ -666,6 +663,12 @@ public final class Form_7 extends javax.swing.JPanel {
         try {
             ResultSet rs = new DBConnection().getData("select u_id AS 'ID',u_lastname AS 'LN',u_firstname AS 'FN',u_gender AS 'GN',u_type AS 'TP',u_status AS 'STS' from u_tbl where u_status = 'Pending'");
             ac_pending.setModel(DbUtils.resultSetToTableModel(rs));
+
+            ((DefaultTableCellRenderer) ac_pending.getTableHeader().getDefaultRenderer())
+                    .setHorizontalAlignment(SwingConstants.CENTER);
+            DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
+            centerRenderer.setHorizontalAlignment(SwingConstants.CENTER);
+            ac_pending.setDefaultRenderer(Object.class, centerRenderer);
 
             ResultSet pendingCountRS = new DBConnection().getData("select count(*) as pending_count from u_tbl where u_status = 'Pending'");
             if (pendingCountRS.next()) {

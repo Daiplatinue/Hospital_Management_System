@@ -1,7 +1,11 @@
 package Functions;
 
+import Database.DBConnection;
+import LoginForm.LoginDashboard;
 import java.awt.*;
 import java.net.URL;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import javax.swing.*;
 
 public class Checkers {

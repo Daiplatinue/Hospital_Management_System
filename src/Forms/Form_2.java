@@ -551,6 +551,8 @@ public final class Form_2 extends javax.swing.JPanel {
             } else if (!isValidEmail()) {
                 Checkers.unsuccessfullFieldChecker("EMAIL MUST BE VALID!");
                 return;
+            } else if (!isEmailDuplicated()) {
+                return;
             }
 
             Connection cn = new DBConnection().getConnection();
@@ -935,6 +937,38 @@ public final class Form_2 extends javax.swing.JPanel {
 
         contactChecker.setText("Contact is valid!");
         contactChecker.setForeground(Color.GREEN);
+        return true;
+    }
+
+    private boolean isEmailDuplicated() {
+        try {
+            ResultSet rs = new DBConnection().getData("select * from u_tbl where u_email = '" + email.getText().trim() + "' or u_firstname = '" + firstname.getText().trim() + "'");
+            if (rs.next()) {
+                String xemail = rs.getString("u_email");
+                if (xemail.equals(email.getText().trim())) {
+                    int option = JOptionPane.showConfirmDialog(this, "EMAIL HAS BEEN USED!, DO YOU WANT TO LOG IN INSTEAD?", "DUPLICATION ERROR!", JOptionPane.YES_NO_OPTION, JOptionPane.ERROR_MESSAGE);
+                    if (option == JOptionPane.YES_OPTION) {
+                        new LoginDashboard().setVisible(true);
+                        dispose();
+                    }
+                    return false;
+                }
+
+                String xusername = rs.getString("u_firstname");
+                if (xusername.equals(firstname.getText().trim())) {
+                    int option = JOptionPane.showConfirmDialog(this, "FIRSTNAME HAS BEEN USED!, DO YOU WANT TO LOG IN INSTEAD?", "DUPLICATION ERROR!", JOptionPane.YES_NO_OPTION, JOptionPane.ERROR_MESSAGE);
+                    if (option == JOptionPane.YES_OPTION) {
+                        new LoginDashboard().setVisible(true);
+                        dispose();
+                    }
+                    return false;
+                }
+            }
+
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(this, "ERROR CHECKING FOR DUPLICATES!");
+            System.out.println(ex.getMessage());
+        }
         return true;
     }
 
